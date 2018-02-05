@@ -1,0 +1,4 @@
+INDEX VERSION 1.130+C:\Users\A985609\Documents\UADE 2017\Aplicaciones Distribuidas -  LV\2018\.metadata\.plugins\org.eclipse.jdt.core
+3098162499.index
+1659865709.index
+3176485872.index

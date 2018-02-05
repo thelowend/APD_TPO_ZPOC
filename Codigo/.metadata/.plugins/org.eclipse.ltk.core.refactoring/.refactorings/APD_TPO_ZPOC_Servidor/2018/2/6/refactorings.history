@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;edu.uade.apdzpoc.rmi&apos; to &apos;edu.uade.apdzpoc.remoto&apos;&#x0D;&#x0A;- Original project: &apos;APD_TPO_ZPOC_Servidor&apos;&#x0D;&#x0A;- Original element: &apos;APD_TPO_ZPOC_Servidor/src/edu.uade.apdzpoc.rmi&apos;&#x0D;&#x0A;- Renamed element: &apos;APD_TPO_ZPOC_Servidor/src/edu.uade.apdzpoc.remoto&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;edu.uade.apdzpoc.rmi&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;edu.uade.apdzpoc.rmi" name="edu.uade.apdzpoc.remoto" qualified="false" references="true" stamp="1517802986062" textual="false" version="1.0"/>
+</session>

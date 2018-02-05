@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+C:\Users\A985609\Documents\UADE 2017\Aplicaciones Distribuidas -  LV\2018\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1320051204.index
+1659865709.index
+589635769.index
+3293365133.index
+3714990539.index
+4137000014.index
