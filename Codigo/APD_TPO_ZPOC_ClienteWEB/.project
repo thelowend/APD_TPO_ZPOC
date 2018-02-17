@@ -3,6 +3,7 @@
 	<name>APD_TPO_ZPOC_ClienteWEB</name>
 	<comment></comment>
 	<projects>
+		<project>APD_TPO_ZPOC_Repositorio</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
