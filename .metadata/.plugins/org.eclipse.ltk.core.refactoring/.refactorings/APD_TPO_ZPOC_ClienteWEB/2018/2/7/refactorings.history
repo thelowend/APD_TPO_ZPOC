@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;edu.uade.apdzpoc.servlets.pruebServlet&apos; to &apos;PruebaServlet&apos;&#x0D;&#x0A;- Original project: &apos;APD_TPO_ZPOC_ClienteWEB&apos;&#x0D;&#x0A;- Original element: &apos;edu.uade.apdzpoc.servlets.pruebServlet&apos;&#x0D;&#x0A;- Renamed element: &apos;edu.uade.apdzpoc.servlets.PruebaServlet&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;pruebServlet&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;edu.uade.apdzpoc.servlets{pruebServlet.java[pruebServlet" matchStrategy="1" name="PruebaServlet" qualified="false" references="true" similarDeclarations="false" stamp="1518886399559" textual="false" version="1.0"/>
+</session>
