@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+<<<<<<< HEAD
+	<classpathentry excluding="/" kind="src" path="src"/>
+	<classpathentry excluding="src/" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+=======
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
@@ -16,5 +21,6 @@
 	<classpathentry kind="lib" path="C:/Users/A985609/Documents/UADE 2017/Aplicaciones Distribuidas -  LV/examenes/Ejecicios completos/Tema02_Noche_127304-RMI-SERVER/lib/jtds-1.2.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/A985609/Documents/UADE 2017/Aplicaciones Distribuidas -  LV/examenes/Ejecicios completos/Tema02_Noche_127304-RMI-SERVER/lib/slf4j-api-1.5.6.jar"/>
 	<classpathentry kind="lib" path="C:/Users/A985609/Documents/UADE 2017/Aplicaciones Distribuidas -  LV/examenes/Ejecicios completos/Tema02_Noche_127304-RMI-SERVER/lib/slf4j-simple-1.5.6.jar"/>
+>>>>>>> 7845f12eb623a049595ed007dd5423ba7f0cf66b
 	<classpathentry kind="output" path="bin"/>
 </classpath>
