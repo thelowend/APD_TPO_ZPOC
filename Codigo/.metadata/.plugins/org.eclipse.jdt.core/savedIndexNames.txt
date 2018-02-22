@@ -16,7 +16,6 @@ INDEX VERSION 1.127+C:\Users\barba\Documents\GitHub\TPO_LV\APD_TPO_ZPOC\Codigo\.
 2899712255.index
 251173121.index
 3305426765.index
-3176485872.index
 3348931302.index
 3234117647.index
 2324149168.index

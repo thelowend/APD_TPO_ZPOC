@@ -28,5 +28,78 @@ public class OrdenCompra {
 	private PedidoWeb pedidoW;
 	private Date fecha;
 	
+	public OrdenCompra(Proveedor proveedor, int cantidad, Articulo articulo, Lote lote, PedidoWeb pedidoW) {
+		super();
+		this.proveedor = proveedor;
+		this.cantidad = cantidad;
+		this.articulo = articulo;
+		this.lote = lote;
+		this.pedidoW = pedidoW;
+	}
+
+	public int getIdOC() {
+		return idOC;
+	}
+
+	public void setIdOC(int idOC) {
+		this.idOC = idOC;
+	}
+
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public Articulo getArticulo() {
+		return articulo;
+	}
+
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
+
+	public Lote getLote() {
+		return lote;
+	}
+
+	public void setLote(Lote lote) {
+		this.lote = lote;
+	}
+
+	public PedidoWeb getPedidoW() {
+		return pedidoW;
+	}
+
+	public void setPedidoW(PedidoWeb pedidoW) {
+		this.pedidoW = pedidoW;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	
 	
 }

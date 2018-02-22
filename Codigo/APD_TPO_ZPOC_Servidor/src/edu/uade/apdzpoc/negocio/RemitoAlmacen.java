@@ -22,5 +22,28 @@ public class RemitoAlmacen {
 	private int idRemito;
 	private int estado;
 	private List <ItemRemitoAlmacen> itemsRemito;
-	
+	public RemitoAlmacen(int estado, List<ItemRemitoAlmacen> itemsRemito) {
+		super();
+		this.estado = estado;
+		this.itemsRemito = itemsRemito;
+	}
+	public int getIdRemito() {
+		return idRemito;
+	}
+	public void setIdRemito(int idRemito) {
+		this.idRemito = idRemito;
+	}
+	public int getEstado() {
+		return estado;
+	}
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+	public List<ItemRemitoAlmacen> getItemsRemito() {
+		return itemsRemito;
+	}
+	public void setItemsRemito(List<ItemRemitoAlmacen> itemsRemito) {
+		this.itemsRemito = itemsRemito;
+	}
+
 }
