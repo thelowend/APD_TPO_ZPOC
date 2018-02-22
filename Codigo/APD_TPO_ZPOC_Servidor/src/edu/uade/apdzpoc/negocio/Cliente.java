@@ -25,6 +25,58 @@ public class Cliente {
 	private boolean responsableInscripto;
 	private boolean ivaInscripto;
 	private float descuento;
+	public Cliente(String nombre, int documento, String domicilioFacturacion, boolean responsableInscripto,
+			boolean ivaInscripto, float descuento) {
+		super();
+		this.nombre = nombre;
+		this.documento = documento;
+		this.domicilioFacturacion = domicilioFacturacion;
+		this.responsableInscripto = responsableInscripto;
+		this.ivaInscripto = ivaInscripto;
+		this.descuento = descuento;
+	}
+	public int getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public int getDocumento() {
+		return documento;
+	}
+	public void setDocumento(int documento) {
+		this.documento = documento;
+	}
+	public String getDomicilioFacturacion() {
+		return domicilioFacturacion;
+	}
+	public void setDomicilioFacturacion(String domicilioFacturacion) {
+		this.domicilioFacturacion = domicilioFacturacion;
+	}
+	public boolean isResponsableInscripto() {
+		return responsableInscripto;
+	}
+	public void setResponsableInscripto(boolean responsableInscripto) {
+		this.responsableInscripto = responsableInscripto;
+	}
+	public boolean isIvaInscripto() {
+		return ivaInscripto;
+	}
+	public void setIvaInscripto(boolean ivaInscripto) {
+		this.ivaInscripto = ivaInscripto;
+	}
+	public float getDescuento() {
+		return descuento;
+	}
+	public void setDescuento(float descuento) {
+		this.descuento = descuento;
+	}
 	
 	
 }

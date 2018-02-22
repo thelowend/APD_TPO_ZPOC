@@ -24,6 +24,37 @@ public class Lote {
 	private Date vencimiento;
 	private Articulo articulo;
 	private List<Ubicacion> ubicaciones;
+	public Lote(int nroLote, Date vencimiento, Articulo articulo, List<Ubicacion> ubicaciones) {
+		super();
+		this.nroLote = nroLote;
+		this.vencimiento = vencimiento;
+		this.articulo = articulo;
+		this.ubicaciones = ubicaciones;
+	}
+	public int getNroLote() {
+		return nroLote;
+	}
+	public void setNroLote(int nroLote) {
+		this.nroLote = nroLote;
+	}
+	public Date getVencimiento() {
+		return vencimiento;
+	}
+	public void setVencimiento(Date vencimiento) {
+		this.vencimiento = vencimiento;
+	}
+	public Articulo getArticulo() {
+		return articulo;
+	}
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
+	public List<Ubicacion> getUbicaciones() {
+		return ubicaciones;
+	}
+	public void setUbicaciones(List<Ubicacion> ubicaciones) {
+		this.ubicaciones = ubicaciones;
+	}
 	
 	
 	

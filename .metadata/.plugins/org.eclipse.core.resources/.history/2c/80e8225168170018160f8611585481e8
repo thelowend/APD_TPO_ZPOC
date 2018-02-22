@@ -15,8 +15,18 @@
  
 package edu.uade.apdzpoc.negocio;
 
-public class Almacen {
+import java.util.Date;
 
+public abstract class Movimiento {
+	
+	protected int idMovimiento;
+	protected Date fecha;
+	protected Articulo articulo;
+	protected int cantidad;
+	protected String estado;
+	protected String tipo;
+	
+	public abstract void actualizarNovedadStock(Articulo art);
 	
 	
 	

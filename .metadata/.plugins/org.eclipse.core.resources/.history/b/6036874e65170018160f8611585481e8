@@ -15,9 +15,11 @@
  
 package edu.uade.apdzpoc.negocio;
 
-public class Almacen {
+public class ArticuloProveedor {
 
-	
+	private Articulo articulo;
+	private Proveedor proveedor;
+	private float precio;
 	
 	
 }

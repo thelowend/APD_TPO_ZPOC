@@ -36,14 +36,6 @@ public class MovimientoCompra extends Movimiento {
 	
 	
 	
-	public MovimientoCompra(Date fecha, Articulo articulo, int cantidad, String estado, String tipo) {
-		super(fecha, articulo, cantidad, estado, tipo);
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-
 	public OrdenCompra getOc() {
 		return oc;
 	}

@@ -20,5 +20,29 @@ public class CuentaCorriente {
 	private int idCtaCorriente;
 	private float saldo;
 	private float limMax;
+	public CuentaCorriente(float limMax) {
+		super();
+		this.limMax = limMax;
+	}
+	public int getIdCtaCorriente() {
+		return idCtaCorriente;
+	}
+	public void setIdCtaCorriente(int idCtaCorriente) {
+		this.idCtaCorriente = idCtaCorriente;
+	}
+	public float getSaldo() {
+		return saldo;
+	}
+	public void setSaldo(float saldo) {
+		this.saldo = saldo;
+	}
+	public float getLimMax() {
+		return limMax;
+	}
+	public void setLimMax(float limMax) {
+		this.limMax = limMax;
+	}
+	
+	
 	
 }

@@ -15,8 +15,15 @@
  
 package edu.uade.apdzpoc.negocio;
 
-public class Almacen {
 
+public class ItemPedido {
+	
+	private Articulo articulo;
+	private int cantidad;
+	private int estado;
+
+	
+	
 	
 	
 	

@@ -21,5 +21,31 @@ public class ItemPedido {
 	private Articulo articulo;
 	private int cantidad;
 	private int estado;
-
+	public ItemPedido(Articulo articulo, int cantidad, int estado) {
+		super();
+		this.articulo = articulo;
+		this.cantidad = cantidad;
+		this.estado = estado;
+	}
+	public Articulo getArticulo() {
+		return articulo;
+	}
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+	public int getEstado() {
+		return estado;
+	}
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+	
+	
+		
 }

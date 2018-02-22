@@ -27,6 +27,159 @@ public class Factura {
 	private List<ItemFactura> itemsFactura;
 	private float totalFactura;
 	
+	
+	
+	
+	
+	public Factura(Date fechaEmision, Date fechaVencimiento, String tipoFactura) {
+		super();
+		this.fechaEmision = fechaEmision;
+		this.fechaVencimiento = fechaVencimiento;
+		this.tipoFactura = tipoFactura;
+	}
+
+	
+	
+
+
+
+
+	public Factura(Date fechaEmision, Date fechaVencimiento, String tipoFactura, List<ItemFactura> itemsFactura,
+			float totalFactura) {
+		super();
+		this.fechaEmision = fechaEmision;
+		this.fechaVencimiento = fechaVencimiento;
+		this.tipoFactura = tipoFactura;
+		this.itemsFactura = itemsFactura;
+		this.totalFactura = totalFactura;
+	}
+
+
+
+
+
+
+
+	public int getIdFactura() {
+		return idFactura;
+	}
+
+
+
+
+
+
+
+	public void setIdFactura(int idFactura) {
+		this.idFactura = idFactura;
+	}
+
+
+
+
+
+
+
+	public Date getFechaEmision() {
+		return fechaEmision;
+	}
+
+
+
+
+
+
+
+	public void setFechaEmision(Date fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+
+
+
+
+
+
+
+	public Date getFechaVencimiento() {
+		return fechaVencimiento;
+	}
+
+
+
+
+
+
+
+	public void setFechaVencimiento(Date fechaVencimiento) {
+		this.fechaVencimiento = fechaVencimiento;
+	}
+
+
+
+
+
+
+
+	public String getTipoFactura() {
+		return tipoFactura;
+	}
+
+
+
+
+
+
+
+	public void setTipoFactura(String tipoFactura) {
+		this.tipoFactura = tipoFactura;
+	}
+
+
+
+
+
+
+
+	public List<ItemFactura> getItemsFactura() {
+		return itemsFactura;
+	}
+
+
+
+
+
+
+
+	public void setItemsFactura(List<ItemFactura> itemsFactura) {
+		this.itemsFactura = itemsFactura;
+	}
+
+
+
+
+
+
+
+	public float getTotalFactura() {
+		return totalFactura;
+	}
+
+
+
+
+
+
+
+	public void setTotalFactura(float totalFactura) {
+		this.totalFactura = totalFactura;
+	}
+
+
+
+
+
+
+
 	public float calcularMontoTotal(PedidoWeb pw){
 		return 0f;
 	}

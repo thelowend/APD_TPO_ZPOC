@@ -15,8 +15,15 @@
  
 package edu.uade.apdzpoc.negocio;
 
-public class Almacen {
+import java.util.Date;
+import java.util.List;
 
+public class Lote {
+
+	private int nroLote;
+	private Date vencimiento;
+	private Articulo articulo;
+	private List<Ubicacion> ubicaciones;
 	
 	
 	

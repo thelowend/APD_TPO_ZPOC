@@ -15,9 +15,16 @@
  
 package edu.uade.apdzpoc.negocio;
 
-public class Almacen {
 
-	
+public class Cliente {
+
+	private int idCliente;
+	private String nombre;
+	private int documento;
+	private String domicilioFacturacion;
+	private boolean responsableInscripto;
+	private boolean ivaInscripto;
+	private float descuento;
 	
 	
 }

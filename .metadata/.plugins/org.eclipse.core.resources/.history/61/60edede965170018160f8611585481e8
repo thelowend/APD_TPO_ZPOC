@@ -15,9 +15,10 @@
  
 package edu.uade.apdzpoc.negocio;
 
-public class Almacen {
+public class CuentaCorriente {
 
-	
-	
+	private int idCtaCorriente;
+	private float saldo;
+	private float limMax;
 	
 }
