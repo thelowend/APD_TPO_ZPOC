@@ -25,6 +25,81 @@ public class Ubicacion {
 	private int posicion;
 	private String estado;
 	private int capacidad;
+
+	public Ubicacion(String calle, int bloque, int estante, int bandeja, int posicion, String estado, int capacidad) {
+		super();
+		this.calle = calle;
+		this.bloque = bloque;
+		this.estante = estante;
+		this.bandeja = bandeja;
+		this.posicion = posicion;
+		this.estado = estado;
+		this.capacidad = capacidad;
+	}
+
+	public String getIdUbicacion() {
+		return idUbicacion;
+	}
+
+	public void setIdUbicacion(String idUbicacion) {
+		this.idUbicacion = idUbicacion;
+	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public int getBloque() {
+		return bloque;
+	}
+
+	public void setBloque(int bloque) {
+		this.bloque = bloque;
+	}
+
+	public int getEstante() {
+		return estante;
+	}
+
+	public void setEstante(int estante) {
+		this.estante = estante;
+	}
+
+	public int getBandeja() {
+		return bandeja;
+	}
+
+	public void setBandeja(int bandeja) {
+		this.bandeja = bandeja;
+	}
+
+	public int getPosicion() {
+		return posicion;
+	}
+
+	public void setPosicion(int posicion) {
+		this.posicion = posicion;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public int getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
+	}
 	
 	
 }
