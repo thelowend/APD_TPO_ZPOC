@@ -1,0 +1,45 @@
+package edu.uade.apdzpoc.entidades;
+
+import javax.persistence.*;
+
+@Entity
+@Table (name"Articulo")
+public class ArticuloEntity {
+	@Id
+	@Column(name="Codigo_Barra")
+	private int codigoBarra;
+	
+	@Column (name="Nombre_Articulo")
+	private String nombreArticulo;
+	
+	@Column (name="Descripcion")
+	private String descripcion;
+	
+	@Column (name="Precio_Venta")
+	private float precioVenta;
+	
+	@Column (name="Cantidad_OC")
+	private int cantidadCompra;
+	
+	@Column (name="Presentacion")
+	private String presentacion;
+	
+	@Column (name="Tamano")
+	private String tamanio;
+	
+	@Column (name="Cantidad_Fisica")
+	private int stockFisico;
+	
+	@Column (name="Cantidad_Virtual")
+	private int stockVirtual;
+	
+	@Column (name="Cantidad_Disponible")
+	private int stockDisponible;
+
+	@Column (name="Cantidad_AEntregar")
+	private int stockPendienteEntrega;
+	
+	public ArticuloEntity(){}
+	
+	
+}
