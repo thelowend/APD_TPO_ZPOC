@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=APD_TPO_ZPOC_Repositorio/C:\/Program Files\/Java\/jre1.8.0_161\/lib\/rt.jar&lt;java.lang(Exception.class[Exception" modifiers="33" timestamp="1516410796804"/>
-<typeInfo handle="=APD_TPO_ZPOC_Repositorio/C:\/Program Files\/Java\/jre1.8.0_161\/lib\/rt.jar&lt;javax.management.remote.rmi(RMIConnector$RemoteMBeanServerConnection.class[RemoteMBeanServerConnection" modifiers="2" timestamp="1516410796804"/>
-<typeInfo handle="=APD_TPO_ZPOC_Repositorio/C:\/Program Files\/Java\/jre1.8.0_161\/lib\/rt.jar&lt;java.rmi.server(RemoteObject.class[RemoteObject" modifiers="1057" timestamp="1516410796804"/>
-<typeInfo handle="=APD_TPO_ZPOC_Repositorio/C:\/Program Files\/Java\/jre1.8.0_161\/lib\/rt.jar&lt;java.rmi(Remote.class[Remote" modifiers="1537" timestamp="1516410796804"/>
 <typeInfo handle="=APD_TPO_ZPOC_Servidor/C:\/Program Files\/Java\/jre1.8.0_161\/lib\/rt.jar&lt;java.rmi.server(UnicastRemoteObject.class[UnicastRemoteObject" modifiers="33" timestamp="1516410796804"/>
-<typeInfo handle="=APD_TPO_ZPOC_Repositorio/src&lt;edu.uade.apdzpoc.interfaces{InterfazRemota.java[InterfazRemota" modifiers="513" timestamp="1518886233135"/>
+<typeInfo handle="=APD_TPO_ZPOC_Repositorio/src&lt;edu.uade.apdzpoc.interfaces{InterfazRemota.java[InterfazRemota" modifiers="513" timestamp="1519165964631"/>
 <typeInfo handle="=APD_TPO_ZPOC_Servidor/C:\/Program Files\/Java\/jre1.8.0_161\/lib\/rt.jar&lt;org.omg.PortableInterceptor(Interceptor.class[Interceptor" modifiers="1537" timestamp="1516410796804"/>
 </typeInfoHistroy>

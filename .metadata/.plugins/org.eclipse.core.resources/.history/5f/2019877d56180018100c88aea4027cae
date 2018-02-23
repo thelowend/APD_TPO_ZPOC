@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.entidades;
+
+public class PedidoWebEntity {
+
+	public PedidoWebEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

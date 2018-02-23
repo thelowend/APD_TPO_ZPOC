@@ -15,6 +15,6 @@ package edu.uade.apdzpoc.controlador;
  */
 
 
-public class Contolador {
+public class Controlador {
 
 }

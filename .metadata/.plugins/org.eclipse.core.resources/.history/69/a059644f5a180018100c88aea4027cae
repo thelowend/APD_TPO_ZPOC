@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.entidades;
+
+public class ItemRemitoAlmacenEntity {
+
+	public ItemRemitoAlmacenEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

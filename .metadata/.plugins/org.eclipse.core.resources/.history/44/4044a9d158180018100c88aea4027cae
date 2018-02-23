@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.entidades;
+
+public class LoteEntity {
+
+	public LoteEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

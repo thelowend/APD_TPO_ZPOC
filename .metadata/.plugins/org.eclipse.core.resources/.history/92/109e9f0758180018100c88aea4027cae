@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.entidades;
+
+public class OrdenCompraEntity {
+
+	public OrdenCompraEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
