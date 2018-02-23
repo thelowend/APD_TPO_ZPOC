@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.entidades;
+
+public class FacturaEntity {
+
+	public FacturaEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -2,6 +2,8 @@ package edu.uade.apdzpoc.entidades;
 
 import javax.persistence.*;
 
+import edu.uade.apdzpoc.negocio.CuentaCorriente;
+
 
 /**
  * 
@@ -20,29 +22,30 @@ import javax.persistence.*;
 @Table(name = "Cliente")
 public class ClienteEntity {
 	@Id
-	//Si no voy a persistir el cliente, esto, va??)
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name="IdCliente")
-	private int idCliente;
+	private Integer idCliente;
 	
 	@Column (name="Nombre")
 	private String nombre;
 	
 	@Column (name="Documento")
-	private int documento;
+	private Integer documento;
 	
 	@Column (name="Domicilio_Facturacion")
 	private String domicilioFacturacion;
 	
 	@Column (name="Responsable_Inscripto")
-	private boolean responsableInscripto;
+	private Boolean responsableInscripto;
 	
 	@Column(name="IVA_Inscripto")
-	private boolean ivaInscripto;
+	private Boolean ivaInscripto;
 
 	@Column (name="Descuento")
-	private float descuento;
-//este siempre tiene que estar, no?
+	private Float descuento;
+
+	@OneToOne
+	@JoinColumn(name="IdCliente")
+	private CuentaCorriente cuentaCorriente;
 	
 	public ClienteEntity(){}
 

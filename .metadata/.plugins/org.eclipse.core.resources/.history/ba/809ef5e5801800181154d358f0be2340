@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.entidades;
+
+public class ArticuloEntity {
+
+	public ArticuloEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
