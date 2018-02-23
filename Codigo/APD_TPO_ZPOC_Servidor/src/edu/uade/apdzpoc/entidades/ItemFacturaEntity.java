@@ -2,15 +2,13 @@ package edu.uade.apdzpoc.entidades;
 
 import javax.persistence.*;
 
+
 @Entity
-@Table(name="Item_Pedido")
-
-public class ItemPedidoEntity {
-
-	
+@Table(name="Item_Factura")
+public class ItemFacturaEntity {
 	@Id
-	@Column(name="Id_ItemPedido")
-	private Integer idItemPedido;
+	@Column(name="Id_ItemFactura")
+	private Integer idItemFactura;
 	
 	@OneToOne
 	@JoinColumn(name="Codigo_Barra")
@@ -19,21 +17,22 @@ public class ItemPedidoEntity {
 	@Column(name="Cantidad")
 	private Integer cantidad;
 	
-	@Column(name="Estado")
-	private Integer estado;
+	@Column(name="Precio")
+	private Float precio;
 	
 	
-	public ItemPedidoEntity() {
+	public ItemFacturaEntity() {
+		
 	}
 
 
-	public Integer getIdItemPedido() {
-		return idItemPedido;
+	public Integer getIdItemFactura() {
+		return idItemFactura;
 	}
 
 
-	public void setIdItemPedido(Integer idItemPedido) {
-		this.idItemPedido = idItemPedido;
+	public void setIdItemFactura(Integer idItemFactura) {
+		this.idItemFactura = idItemFactura;
 	}
 
 
@@ -57,15 +56,17 @@ public class ItemPedidoEntity {
 	}
 
 
-	public Integer getEstado() {
-		return estado;
+	public Float getPrecio() {
+		return precio;
 	}
 
 
-	public void setEstado(Integer estado) {
-		this.estado = estado;
+	public void setPrecio(Float precio) {
+		this.precio = precio;
 	}
 
+	
+	
 	
 	
 }

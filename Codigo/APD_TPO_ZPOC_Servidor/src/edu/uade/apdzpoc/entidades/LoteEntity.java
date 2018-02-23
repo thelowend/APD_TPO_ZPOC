@@ -21,7 +21,7 @@ public class LoteEntity {
 	
 	
 	@OneToMany
-	@JoinColum(name="Id_Ubicacion")
+	@JoinColumn(name="Id_Ubicacion")
 	private List<UbicacionEntity> ubicaciones;
 	
 	
