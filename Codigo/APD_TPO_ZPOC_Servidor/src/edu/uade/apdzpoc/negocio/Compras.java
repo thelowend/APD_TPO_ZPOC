@@ -20,6 +20,7 @@ import java.util.List;
 import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
 import edu.uade.apdzpoc.enums.EstadoOC;
+import edu.uade.apdzpoc.enums.EstadoRemito;
 
 public class Compras {
 private static Compras instancia;
@@ -43,7 +44,6 @@ private static Compras instancia;
 			{
 					//Recupero el Articulo para saber que cantidad tenemos que pedir
 					Articulo a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(ip.getArticulo().getCodigoBarra());
-					
 					//Selecciono el mejor proveedor, el que tenga el precio mas bajo. El dao me va a devolver el que tenga el menor precio.
 					Proveedor p= this.seleccionarProveedor(a);
 					OrdenCompra oc= new OrdenCompra(p, a.getCantidadCompra(), a, pw);
@@ -61,6 +61,16 @@ private static Compras instancia;
 			Proveedor p = null;
 			
 			return p;
+		}
+		
+		
+		public void aceptarOC (OrdenCompra oc){
+			oc.setEstado(EstadoOC.Aceptada);
+			
+			RemitoAlmacen ra= new RemitoAlmacen(EstadoRemito.Pendiente, itemsRemito, tipoDocumento, nroDocumento)
+			
+			
+			
 		}
 		
 	/*		
