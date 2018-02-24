@@ -15,13 +15,14 @@
  
 package edu.uade.apdzpoc.negocio;
 
+import edu.uade.apdzpoc.enums.EstadoItemPedido;
 
 public class ItemPedido {
 	
 	private Articulo articulo;
 	private int cantidad;
-	private int estado;
-	public ItemPedido(Articulo articulo, int cantidad, int estado) {
+	private EstadoItemPedido estado;
+	public ItemPedido(Articulo articulo, int cantidad, EstadoItemPedido estado) {
 		super();
 		this.articulo = articulo;
 		this.cantidad = cantidad;
@@ -39,10 +40,10 @@ public class ItemPedido {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public int getEstado() {
+	public EstadoItemPedido getEstado() {
 		return estado;
 	}
-	public void setEstado(int estado) {
+	public void setEstado(EstadoItemPedido estado) {
 		this.estado = estado;
 	}
 	

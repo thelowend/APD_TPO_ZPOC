@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import edu.uade.apdzpoc.enums.EstadoPedido;
+
 
 @Entity
 @Table(name="Pedido_WEB")
@@ -26,8 +28,9 @@ public class PedidoWebEntity {
 	@Column(name="Fecha_Entrega")
 	private Date fechaDeEntrega;
 	
-	@Column(name="Id_EstadoPedido")
-	private Integer estadoPedido;
+	@Column(name="EstadoPedido")
+	@Enumerated(EnumType.STRING)
+	private EstadoPedido estadoPedido;
 	
 	@Column(name="DireccionEnvio")
 	private String direccionPedido;
@@ -104,13 +107,13 @@ public class PedidoWebEntity {
 
 
 
-	public Integer getEstadoPedido() {
+	public EstadoPedido getEstadoPedido() {
 		return estadoPedido;
 	}
 
 
 
-	public void setEstadoPedido(Integer estadoPedido) {
+	public void setEstadoPedido(EstadoPedido estadoPedido) {
 		this.estadoPedido = estadoPedido;
 	}
 

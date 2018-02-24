@@ -17,6 +17,8 @@ package edu.uade.apdzpoc.entidades;
 
 import javax.persistence.*;
 
+import edu.uade.apdzpoc.enums.EstadoUbicacion;
+
 @Entity
 @Table(name="")
 public class UbicacionEntity {
@@ -44,10 +46,11 @@ public class UbicacionEntity {
 	private int posicion;
 	
 	@Column (name="Estado")	
-	private String estado;
+	@Enumerated(EnumType.STRING)
+	private EstadoUbicacion estado;
 	
-	@Column
-	private Integer capacidad;
+	@Column(name="Capacidad")
+	private Integer Capacidad;
 	
 	
 	
@@ -129,26 +132,26 @@ public class UbicacionEntity {
 
 
 
-	public String getEstado() {
+	public EstadoUbicacion getEstado() {
 		return estado;
 	}
 
 
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoUbicacion estado) {
 		this.estado = estado;
 	}
 
 
 
 	public Integer getCapacidad() {
-		return capacidad;
+		return Capacidad;
 	}
 
 
 
 	public void setCapacidad(Integer capacidad) {
-		this.capacidad = capacidad;
+		this.Capacidad = capacidad;
 	}
 
 	

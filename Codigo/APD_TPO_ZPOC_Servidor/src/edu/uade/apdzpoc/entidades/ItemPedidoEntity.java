@@ -2,6 +2,8 @@ package edu.uade.apdzpoc.entidades;
 
 import javax.persistence.*;
 
+import edu.uade.apdzpoc.enums.EstadoItemPedido;
+
 @Entity
 @Table(name="Item_Pedido")
 
@@ -20,7 +22,8 @@ public class ItemPedidoEntity {
 	private Integer cantidad;
 	
 	@Column(name="Estado")
-	private Integer estado;
+	@Enumerated(EnumType.STRING)
+	private EstadoItemPedido estado;
 	
 	
 	public ItemPedidoEntity() {
@@ -57,12 +60,12 @@ public class ItemPedidoEntity {
 	}
 
 
-	public Integer getEstado() {
+	public EstadoItemPedido getEstado() {
 		return estado;
 	}
 
 
-	public void setEstado(Integer estado) {
+	public void setEstado(EstadoItemPedido estado) {
 		this.estado = estado;
 	}
 

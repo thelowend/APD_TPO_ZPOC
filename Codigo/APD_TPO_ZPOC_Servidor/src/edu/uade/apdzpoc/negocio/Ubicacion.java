@@ -15,6 +15,8 @@
  
 package edu.uade.apdzpoc.negocio;
 
+import edu.uade.apdzpoc.enums.EstadoUbicacion;
+
 public class Ubicacion {
 
 	private String idUbicacion;
@@ -23,10 +25,10 @@ public class Ubicacion {
 	private int estante;
 	private int bandeja;
 	private int posicion;
-	private String estado;
+	private EstadoUbicacion estado;
 	private int capacidad;
 
-	public Ubicacion(String calle, int bloque, int estante, int bandeja, int posicion, String estado, int capacidad) {
+	public Ubicacion(String calle, int bloque, int estante, int bandeja, int posicion, EstadoUbicacion estado, int capacidad) {
 		super();
 		this.calle = calle;
 		this.bloque = bloque;
@@ -85,11 +87,11 @@ public class Ubicacion {
 		this.posicion = posicion;
 	}
 
-	public String getEstado() {
+	public EstadoUbicacion getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoUbicacion estado) {
 		this.estado = estado;
 	}
 

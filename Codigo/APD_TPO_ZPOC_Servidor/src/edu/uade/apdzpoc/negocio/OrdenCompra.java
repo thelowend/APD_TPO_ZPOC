@@ -17,12 +17,14 @@ package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
 
+import edu.uade.apdzpoc.enums.EstadoOC;
+
 public class OrdenCompra {
 
 	private int idOC;
 	private Proveedor proveedor;
 	private int cantidad;
-	private int estado;
+	private EstadoOC estado;
 	private Articulo articulo;
 	private Lote lote;
 	private PedidoWeb pedidoW;
@@ -61,11 +63,11 @@ public class OrdenCompra {
 		this.cantidad = cantidad;
 	}
 
-	public int getEstado() {
+	public EstadoOC getEstado() {
 		return estado;
 	}
 
-	public void setEstado(int estado) {
+	public void setEstado(EstadoOC estado) {
 		this.estado = estado;
 	}
 

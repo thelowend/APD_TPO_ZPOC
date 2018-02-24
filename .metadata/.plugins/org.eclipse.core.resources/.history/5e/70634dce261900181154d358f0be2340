@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.negocio;
+
+public class PagoCliente {
+
+	public PagoCliente() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

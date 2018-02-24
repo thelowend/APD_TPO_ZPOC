@@ -21,6 +21,7 @@ import java.util.List;
 public class Factura {
 	
 	private int idFactura;
+	private Cliente cliente;
 	private Date fechaEmision;
 	private Date fechaVencimiento;
 	private String tipoFactura;
@@ -31,8 +32,9 @@ public class Factura {
 	
 	
 	
-	public Factura(Date fechaEmision, Date fechaVencimiento, String tipoFactura) {
+	public Factura(Cliente cliente, Date fechaEmision, Date fechaVencimiento, String tipoFactura) {
 		super();
+		this.setCliente(cliente);
 		this.fechaEmision = fechaEmision;
 		this.fechaVencimiento = fechaVencimiento;
 		this.tipoFactura = tipoFactura;
@@ -182,6 +184,26 @@ public class Factura {
 
 	public float calcularMontoTotal(PedidoWeb pw){
 		return 0f;
+	}
+
+
+
+
+
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+
+
+
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	

@@ -45,7 +45,7 @@ public class ClienteEntity {
 
 	@OneToOne
 	@JoinColumn(name="IdCliente")
-	private CuentaCorriente cuentaCorriente;
+	private CuentaCorrienteEntity cuentaCorriente;
 	
 	public ClienteEntity(){}
 

@@ -13,7 +13,7 @@ public class ItemRemitoAlmacenEntity {
 	@JoinColumn(name="Codigo_Barra")
 	private ArticuloEntity articulo;
 	
-	@Column
+	@Column(name="Cantidad")
 	private Integer cantidad;
 	
 	@OneToOne

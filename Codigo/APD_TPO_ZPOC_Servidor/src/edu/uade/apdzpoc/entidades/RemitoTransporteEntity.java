@@ -1,6 +1,5 @@
 package edu.uade.apdzpoc.entidades;
 
-import edu.uade.apdzpoc.negocio.PedidoWeb;
 import javax.persistence.*;
 
 @Entity

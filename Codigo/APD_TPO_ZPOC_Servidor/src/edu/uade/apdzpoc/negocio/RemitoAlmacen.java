@@ -17,15 +17,27 @@ package edu.uade.apdzpoc.negocio;
 
 import java.util.List;
 
+import edu.uade.apdzpoc.enums.EstadoRemito;
+
 public class RemitoAlmacen {
 
 	private int idRemito;
-	private int estado;
+	private EstadoRemito estado;
 	private List <ItemRemitoAlmacen> itemsRemito;
-	public RemitoAlmacen(int estado, List<ItemRemitoAlmacen> itemsRemito) {
+	private String tipoDocumento;
+	private int nroDocumento;
+
+
+	
+	
+	public RemitoAlmacen(int idRemito, EstadoRemito estado, List<ItemRemitoAlmacen> itemsRemito, String tipoDocumento,
+			int nroDocumento) {
 		super();
+		this.idRemito = idRemito;
 		this.estado = estado;
 		this.itemsRemito = itemsRemito;
+		this.setTipoDocumento(tipoDocumento);
+		this.setNroDocumento(nroDocumento);
 	}
 	public int getIdRemito() {
 		return idRemito;
@@ -33,10 +45,10 @@ public class RemitoAlmacen {
 	public void setIdRemito(int idRemito) {
 		this.idRemito = idRemito;
 	}
-	public int getEstado() {
+	public EstadoRemito getEstado() {
 		return estado;
 	}
-	public void setEstado(int estado) {
+	public void setEstado(EstadoRemito estado) {
 		this.estado = estado;
 	}
 	public List<ItemRemitoAlmacen> getItemsRemito() {
@@ -44,6 +56,18 @@ public class RemitoAlmacen {
 	}
 	public void setItemsRemito(List<ItemRemitoAlmacen> itemsRemito) {
 		this.itemsRemito = itemsRemito;
+	}
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+	public int getNroDocumento() {
+		return nroDocumento;
+	}
+	public void setNroDocumento(int nroDocumento) {
+		this.nroDocumento = nroDocumento;
 	}
 
 }

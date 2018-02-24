@@ -12,6 +12,10 @@ public class FacturaEntity {
 	@Column(name="Nro_Factura")
 	private int idFactura;
 	
+	@ManyToOne
+	@JoinColumn(name="IdCliente")
+	private ClienteEntity cliente;
+	
 	@Column(name="Fecha_Emision")
 	private Date fechaEmision;
 	

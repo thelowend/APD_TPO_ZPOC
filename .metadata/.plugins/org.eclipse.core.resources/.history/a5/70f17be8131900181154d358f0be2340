@@ -1,0 +1,14 @@
+package edu.uade.apdzpoc.entidades;
+
+public class MovimientoPedidoEntity {
+
+	
+	
+	
+	
+	
+	public MovimientoPedidoEntity() {
+		
+	}
+
+}
