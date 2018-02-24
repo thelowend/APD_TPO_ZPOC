@@ -10,7 +10,6 @@ Create table Cliente
 
 GO
 
-
 create table Factura
 (	Nro_Factura			smallint not null identity,
 	Fecha_Emision		date,
@@ -94,8 +93,11 @@ Create table Ubicacion
 	Posicion smallint,
 	Capacidad smallint,
 	Estado varchar(30),
-	Primary Key (Id_Ubicacion))
-
+	Primary Key (Id_Ubicacion),
+	Constraint CK_Calle CHECK (Calle like '[A-G]'),
+	Constraint CK_Bloque CHECK (Bloque like '[1-5]'),
+	Constraint CK_Estante CHECK (Estante like '[1-6]'),
+	Constraint CK_Posicion CHECK (Posicion like '[1-21]'))
 GO
 
 create table Lote
@@ -104,13 +106,16 @@ create table Lote
 	Codigo_Barra int not null,
 	Primary Key (Nro_Lote),
 	Constraint  FKCodigo_Barra4 Foreign Key (Codigo_Barra ) references Articulo(Codigo_Barra))
+
 GO
 
 create table Ubicacion_Lote
 (	Nro_Lote Char(10) not null,
+	Codigo_Barra int not null,
 	Id_Ubicacion Char(7),
-	Primary Key (Nro_Lote,Id_Ubicacion),
+	Primary Key (Nro_Lote,Codigo_Barra),
 	Constraint  FKId_Ubicacion2 Foreign Key (Id_Ubicacion) references Ubicacion(Id_Ubicacion),
+	Constraint  FKCodigo_Barra2 Foreign Key (Codigo_Barra) references Articulo(Codigo_Barra),
 	Constraint  FKLote  Foreign Key (Nro_Lote) references Lote(Nro_Lote)
 	)
 

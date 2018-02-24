@@ -22,12 +22,9 @@ public class RemitoAlmacenEntity {
 	@JoinColumn(name="Id_ItemRemitoAlmacen")
 	private List <ItemRemitoAlmacenEntity> itemsRemito;
 	
-	@Column(name="Tipo_Documento")
-	private String tipoDocumento;
-	
-	@Column(name="Nro_Documento")
-	private Integer nroDocumento;
-	
+	@Column(name="Tipo_Remito")
+	private String tipo;
+
 	public RemitoAlmacenEntity() {
 		
 	}
