@@ -17,6 +17,8 @@ package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
 
+import edu.uade.apdzpoc.enums.DestinoArticulos;
+
 public class MovimientoAjuste extends Movimiento {
 
 
@@ -25,17 +27,19 @@ public class MovimientoAjuste extends Movimiento {
 	 */
 	private int legajoOperador;
 	private int legajoAutorizante;
-	private int destino;
+	private DestinoArticulos destino;
+	private String subtipo;
 	private Lote lote;
 	
 	
 	
 	public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad, String estado, String tipo, int legajoOperador,
-			int legajoAutorizante, int destino, Lote lote) {
+			int legajoAutorizante, DestinoArticulos destino, String subtipo, Lote lote) {
 		super(fecha, articulo, cantidad, estado, tipo);
 		this.legajoOperador = legajoOperador;
 		this.legajoAutorizante = legajoAutorizante;
 		this.destino = destino;
+		this.setSubtipo(subtipo);
 		this.lote = lote;
 	}
 
@@ -70,14 +74,14 @@ public class MovimientoAjuste extends Movimiento {
 
 
 
-	public int getDestino() {
+	public DestinoArticulos getDestino() {
 		return destino;
 	}
 
 
 
 
-	public void setDestino(int destino) {
+	public void setDestino(DestinoArticulos destino) {
 		this.destino = destino;
 	}
 
@@ -109,6 +113,20 @@ public class MovimientoAjuste extends Movimiento {
 	@Override
 	public void actualizarNovedadStock(Articulo art) {
 		
+	}
+
+
+
+
+	public String getSubtipo() {
+		return subtipo;
+	}
+
+
+
+
+	public void setSubtipo(String subtipo) {
+		this.subtipo = subtipo;
 	}
 
 }

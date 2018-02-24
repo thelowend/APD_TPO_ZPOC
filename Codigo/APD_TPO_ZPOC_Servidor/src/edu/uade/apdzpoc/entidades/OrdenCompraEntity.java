@@ -3,6 +3,8 @@ package edu.uade.apdzpoc.entidades;
 import java.util.Date;
 import javax.persistence.*;
 
+import edu.uade.apdzpoc.enums.EstadoOC;
+
 
 @Entity
 @Table(name="Orden_Compra")
@@ -16,11 +18,12 @@ public class OrdenCompraEntity {
 	@JoinColumn(name="Id_Proveedor")
 	private ProveedorEntity proveedor;
 	
-	@Column
+	@Column (name="Cantidad")
 	private Integer cantidad;
 	
-	@Column(name="IdEstadoOC")
-	private Integer estado;
+	@Column(name="EstadoOC")
+	@Enumerated(EnumType.STRING)
+	private EstadoOC estado;
 	
 	@OneToOne
 	@JoinColumn(name="Codigo_Barra")
@@ -34,8 +37,7 @@ public class OrdenCompraEntity {
 	@JoinColumn(name="Id_Pedido")
 	private PedidoWebEntity pedidoW;
 	
-	@OneToOne
-	@JoinColumn
+	@Column(name="Fecha")
 	private Date fecha;
 	
 	
@@ -74,12 +76,12 @@ public class OrdenCompraEntity {
 	}
 
 
-	public Integer getEstado() {
+	public EstadoOC getEstado() {
 		return estado;
 	}
 
 
-	public void setEstado(Integer estado) {
+	public void setEstado(EstadoOC estado) {
 		this.estado = estado;
 	}
 

@@ -18,6 +18,8 @@ package edu.uade.apdzpoc.negocio;
 import java.util.Date;
 import java.util.List;
 
+import edu.uade.apdzpoc.enums.EstadoPedido;
+
 
 public class PedidoWeb {
 
@@ -26,12 +28,12 @@ public class PedidoWeb {
 	private Date fechaGeneracion;
 	private Date fechaDespacho;
 	private Date fechaDeEntrega;
-	private String estadoPedido;
+	private EstadoPedido estadoPedido;
 	private String direccionPedido;
 	private List<ItemPedido> items;
 	
 	
-	public PedidoWeb(Cliente cliente, String estadoPedido, String direccionPedido, List<ItemPedido> items) {
+	public PedidoWeb(Cliente cliente, EstadoPedido estadoPedido, String direccionPedido, List<ItemPedido> items) {
 		super();
 		this.cliente = cliente;
 		this.estadoPedido = estadoPedido;
@@ -90,12 +92,12 @@ public class PedidoWeb {
 	}
 
 
-	public String getEstadoPedido() {
+	public EstadoPedido getEstadoPedido() {
 		return estadoPedido;
 	}
 
 
-	public void setEstadoPedido(String estadoPedido) {
+	public void setEstadoPedido(EstadoPedido estadoPedido) {
 		this.estadoPedido = estadoPedido;
 	}
 

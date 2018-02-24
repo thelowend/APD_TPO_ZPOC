@@ -11,7 +11,7 @@ public class CuentaCorrienteEntity {
 	
 	
 	@OneToOne
-	@JoinColumn(name="IdCtaCte")
+	@JoinColumn(name="IdCliente")
 	private ClienteEntity cliente;
 	
 	@Column(name="SaldoTotal")

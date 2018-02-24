@@ -1,6 +1,10 @@
 package edu.uade.apdzpoc.test;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import edu.uade.apdzpoc.controlador.Controlador;
+import edu.uade.apdzpoc.hbt.HibernateUtil;
 
 public class Prueba_hbt {
 
@@ -8,12 +12,8 @@ public class Prueba_hbt {
 		
 
 		// Aca es para poner las llamadas al Controlador
-		Controlador c = new Controlador();
-		
-		System.out.println("\nObtener articulos \n");
-		
-		
-		System.out.println("\nObtener ubicaciones \n");
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
 		
 		
 	}
