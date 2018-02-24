@@ -45,6 +45,9 @@ public class Articulo {
 		this.tamanio = tamanio;
 	}
 
+	public Articulo() {		
+	}
+
 	public int getCodigoBarra() {
 		return codigoBarra;
 	}
