@@ -31,6 +31,9 @@ public class Lote {
 		this.articulo = articulo;
 		this.ubicaciones = ubicaciones;
 	}
+	public Lote() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getNroLote() {
 		return nroLote;
 	}

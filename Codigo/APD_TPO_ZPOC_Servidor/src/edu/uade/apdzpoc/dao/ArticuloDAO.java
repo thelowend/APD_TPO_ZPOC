@@ -68,7 +68,7 @@ public class ArticuloDAO {
 	
 	
 
-	private ArticuloEntity toEntity(Articulo articuloNegocio) {
+	public ArticuloEntity toEntity(Articulo articuloNegocio) {
 		ArticuloEntity articuloAPersistir = new ArticuloEntity();
 		articuloAPersistir.setCodigoBarra(articuloNegocio.getCodigoBarra());
 		articuloAPersistir.setNombreArticulo(articuloNegocio.getNombreArticulo());
@@ -89,7 +89,7 @@ public class ArticuloDAO {
 		return 		articuloAPersistir;
 }
 
-	private Articulo toNegocio(ArticuloEntity articuloRecuperado) {
+	public Articulo toNegocio(ArticuloEntity articuloRecuperado) {
 		Articulo articuloNegocio = new Articulo();
 				
 		articuloNegocio.setCodigoBarra(articuloRecuperado.getCodigoBarra());
