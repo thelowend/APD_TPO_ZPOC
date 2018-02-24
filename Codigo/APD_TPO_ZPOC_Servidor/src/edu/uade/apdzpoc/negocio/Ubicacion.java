@@ -39,6 +39,12 @@ public class Ubicacion {
 		this.capacidad = capacidad;
 	}
 
+	public Ubicacion() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
 	public String getIdUbicacion() {
 		return idUbicacion;
 	}
