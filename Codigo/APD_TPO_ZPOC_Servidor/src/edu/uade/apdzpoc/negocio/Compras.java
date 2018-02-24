@@ -18,6 +18,8 @@ package edu.uade.apdzpoc.negocio;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
+import edu.uade.apdzpoc.enums.EstadoItemPedido;
+import edu.uade.apdzpoc.enums.EstadoOC;
 
 public class Compras {
 private static Compras instancia;
@@ -30,18 +32,23 @@ private static Compras instancia;
 		return instancia;
 	}
 	
-	//Si recibio el PW
+
 	public void crearOrdenCompra(PedidoWeb pw){
+		//Recibo el PedidoWEB que va a generar la o las Ordenes de compra.
+		//Recorro los items pedidos por cada uno que tenga estado "Sin_Stock" genero una OC
 		
-		List<ItemPedido> ip;
-		ItemPedido aux;
-		ip= pw.getItems();
-		while (ip.iterator() != null){
-			aux=ip.get(0);
-				if(aux.getEstado().equals("Sin_Stock")){
-					Articulo a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(aux.getArticulo().getCodigoBarra());
+		List<ItemPedido> ipAux= pw.getItems();
+		for(ItemPedido ip : ipAux ) {
+			if(ip.getEstado()==EstadoItemPedido.Sin_Stock)
+			{
+					//Recupero el Articulo para saber que cantidad tenemos que pedir
+					Articulo a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(ip.getArticulo().getCodigoBarra());
+					
+					//Selecciono el mejor proveedor, el que tenga el precio mas bajo. El dao me va a devolver el que tenga el menor precio.
 					Proveedor p= this.seleccionarProveedor(a);
-					/*OrdenCompra(p, a.getCantidadCompra(), a.getCodigoBarra(), pw);*/
+					OrdenCompra oc= new OrdenCompra(p, a.getCantidadCompra(), a, pw);
+					oc.setEstado(EstadoOC.Pendiente);
+				
 				}
 				
 			
