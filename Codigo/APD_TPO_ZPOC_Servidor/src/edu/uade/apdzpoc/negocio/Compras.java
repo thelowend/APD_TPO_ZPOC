@@ -15,7 +15,50 @@
 
 
 package edu.uade.apdzpoc.negocio;
+import java.util.List;
+
+import edu.uade.apdzpoc.dao.ArticuloDAO;
 
 public class Compras {
-
+private static Compras instancia;
+	
+	private Compras(){ }
+	
+	public static Compras getInstancia(){
+		if(instancia == null)
+			instancia = new Compras();
+		return instancia;
+	}
+	
+	//Si recibio el PW
+	public void crearOrdenCompra(PedidoWeb pw){
+		
+		List<ItemPedido> ip;
+		ItemPedido aux;
+		ip= pw.getItems();
+		while (ip.iterator() != null){
+			aux=ip.get(0);
+				if(aux.getEstado().equals("Sin_Stock")){
+					Articulo a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(aux.getArticulo().getCodigoBarra());
+					Proveedor p= this.seleccionarProveedor(a);
+					/*OrdenCompra(p, a.getCantidadCompra(), a.getCodigoBarra(), pw);*/
+				}
+				
+			
+		}
+	}
+		
+		
+		private Proveedor seleccionarProveedor (Articulo a){
+			//Busco el mejor proveedor
+			Proveedor p = null;
+			
+			return p;
+		}
+		
+	/*		
+		ArticuloProveedor ap=
+		Articulo a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(codigoBarra);
+		OrdenCompra oc= new OrdenCompra(proveedor, a.getCantidadCompra(), a.getCodigoBarra(), lote, pedidoW)
+	*/
 }

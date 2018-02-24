@@ -35,7 +35,6 @@ public class OrdenCompra {
 		this.proveedor = proveedor;
 		this.cantidad = cantidad;
 		this.articulo = articulo;
-		this.lote = lote;
 		this.pedidoW = pedidoW;
 	}
 
