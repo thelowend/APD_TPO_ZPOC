@@ -28,11 +28,11 @@ public class Cliente {
 	private CuentaCorriente cuentaCorriente;
 	
 	
-	
+	public Cliente () {};
 	
 	public Cliente(int idCliente, String nombre, int documento, String domicilioFacturacion,
 			boolean responsableInscripto, boolean ivaInscripto, float descuento, CuentaCorriente cuentaCorriente) {
-		super();
+		
 		this.idCliente = idCliente;
 		this.nombre = nombre;
 		this.documento = documento;
@@ -42,6 +42,7 @@ public class Cliente {
 		this.descuento = descuento;
 		this.cuentaCorriente = cuentaCorriente;
 	}
+	
 	public int getIdCliente() {
 		return idCliente;
 	}
