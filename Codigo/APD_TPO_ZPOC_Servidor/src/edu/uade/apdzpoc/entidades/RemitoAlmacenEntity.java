@@ -50,6 +50,16 @@ public class RemitoAlmacenEntity {
 	}
 
 
+	public String getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+
 	public List<ItemRemitoAlmacenEntity> getItemsRemito() {
 		return itemsRemito;
 	}
@@ -60,24 +70,7 @@ public class RemitoAlmacenEntity {
 	}
 
 
-	public String getTipoDocumento() {
-		return tipoDocumento;
-	}
-
-
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
-
-
-	public Integer getNroDocumento() {
-		return nroDocumento;
-	}
-
-
-	public void setNroDocumento(Integer nroDocumento) {
-		this.nroDocumento = nroDocumento;
-	}
+	
 	
 	
 	
