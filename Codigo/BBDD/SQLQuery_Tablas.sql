@@ -115,28 +115,29 @@ create table Ubicacion_Lote
 	)
 
 GO
+Create table Remito_Almacen
+(	Id_RemitoAlmacen smallint identity not null,
+	IdEstado	varchar(30),
+	Tipo_Remito varchar(30),
+	numero int,
+	Primary Key (Id_RemitoAlmacen),
+
+	)
+
+GO
 
 Create table Item_RemitoAlmacen
 (	Id_ItemRemitoAlamcen smallint identity,
+	Id_RemitoAlmacen smallint,
 	Codigo_Barra	int,
 	Cantidad smallint,
 	Id_Ubicacion Char(7),
 	Primary Key (Id_ItemRemitoAlamcen),
+	Constraint	FKId_RemitoAlmacen Foreign Key (Id_RemitoAlmacen) references Remito_Almacen (Id_RemitoAlmacen),
 	Constraint  FKCodigo_Barra3 Foreign Key (Codigo_Barra ) references Articulo(Codigo_Barra ),
 	Constraint  FKId_Ubicacion5 Foreign Key (Id_Ubicacion) references Ubicacion(Id_Ubicacion))
 GO
 
-Create table Remito_Almacen
-(	Id_RemitoAlmacen smallint identity not null,
-	IdEstado	varchar(30),
-	Id_ItemRemitoAlamcen smallint,
-	Tipo_Documento varchar(30),
-	Nro_Documento int,
-	Primary Key (Id_RemitoAlmacen),
-	Constraint  FKId_ItemRemitoAlamcen Foreign Key (Id_ItemRemitoAlamcen) references Item_RemitoAlmacen(Id_ItemRemitoAlamcen),
-	)
-
-GO
 
 
 Create table Remito_Trasporte
@@ -192,3 +193,5 @@ Create table Cuenta_Corriente
 	Primary Key (IdCtaCte),
 	Constraint  FKIdCliente Foreign Key (IdCliente ) references Cliente(IdCliente)
 	)
+
+	select * from Proveedor
