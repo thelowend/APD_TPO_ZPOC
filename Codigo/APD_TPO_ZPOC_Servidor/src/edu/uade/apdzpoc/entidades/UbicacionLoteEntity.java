@@ -9,6 +9,8 @@ public class UbicacionLoteEntity {
 	@EmbeddedId
 	private UbicacionLoteIDEntity id;
 	
+	@OneToOne
+	@JoinColumn(name="Id_Ubicacion")
 	private UbicacionEntity ubicacion;
 	
 	public UbicacionLoteEntity() {

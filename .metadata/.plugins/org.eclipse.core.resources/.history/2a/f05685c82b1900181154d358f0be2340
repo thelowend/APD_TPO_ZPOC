@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.entidades;
+
+public class UbicacionLoteEntity {
+
+	public UbicacionLoteEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

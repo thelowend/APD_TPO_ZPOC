@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("Por PedidoWeb")
-public class MovimientoPedidoEntity {
+public class MovimientoPedidoEntity extends MovimientoEntity{
 
 	@OneToOne
 	@JoinColumn(name="Nro_Pedido")

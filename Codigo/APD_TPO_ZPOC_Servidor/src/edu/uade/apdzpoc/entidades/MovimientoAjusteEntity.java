@@ -8,7 +8,7 @@ import edu.uade.apdzpoc.enums.DestinoArticulos;
 
 @Entity
 @DiscriminatorValue("Por Inventario")
-public class MovimientoAjusteEntity {
+public class MovimientoAjusteEntity extends MovimientoEntity {
 
 	@Column(name="Legajo_Operador")
 	private Integer legajoOperador;

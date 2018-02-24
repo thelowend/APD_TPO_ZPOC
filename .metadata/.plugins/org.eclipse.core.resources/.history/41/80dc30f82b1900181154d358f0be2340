@@ -1,0 +1,16 @@
+package edu.uade.apdzpoc.entidades;
+
+import javax.persistence.EmbeddedId;
+
+@Entity
+@Table(name="Ubicacion_Lote")
+public class UbicacionLoteEntity {
+
+	@EmbeddedId
+	private UbicacionLoteIDEntity id;
+	
+	public UbicacionLoteEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

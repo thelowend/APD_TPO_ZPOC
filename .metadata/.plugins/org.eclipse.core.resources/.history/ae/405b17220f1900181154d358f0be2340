@@ -1,0 +1,9 @@
+package edu.uade.apdzpoc.entidades;
+
+public class MovimientoAjusteEntity {
+
+	public MovimientoAjusteEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

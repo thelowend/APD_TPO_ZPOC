@@ -16,6 +16,45 @@ public class ArticuloEntity {
 	@Column(name="Nombre_Articulo")
 	private String nombreArticulo;
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigoBarra == null) ? 0 : codigoBarra.hashCode());
+		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + ((nombreArticulo == null) ? 0 : nombreArticulo.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ArticuloEntity other = (ArticuloEntity) obj;
+		if (codigoBarra == null) {
+			if (other.codigoBarra != null)
+				return false;
+		} else if (!codigoBarra.equals(other.codigoBarra))
+			return false;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (nombreArticulo == null) {
+			if (other.nombreArticulo != null)
+				return false;
+		} else if (!nombreArticulo.equals(other.nombreArticulo))
+			return false;
+		return true;
+	}
+
+
 	@Column(name="Descripcion")
 	private String descripcion;
 	

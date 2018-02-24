@@ -1,0 +1,21 @@
+package edu.uade.apdzpoc.entidades;
+
+import edu.uade.apdzpoc.negocio.Lote;
+import javax.persistence.*;
+
+public class MovimientoAjusteEntity {
+
+	@Entity
+	@DiscriminatorValue("Ajuste")
+	private int legajoOperador;
+	private int legajoAutorizante;
+	private int destino;
+	private String subtipo;
+	private Lote lote;
+	
+	
+	public MovimientoAjusteEntity() {
+	
+	}
+
+}

@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @DiscriminatorValue("Por Orden de Compra")
 
-public class MovimientoCompraEntity {
+public class MovimientoCompraEntity extends MovimientoEntity {
 
 	@OneToOne
 	@JoinColumn(name="Nro_OC")

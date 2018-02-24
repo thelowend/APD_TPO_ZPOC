@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Table(name="Movimiento_Stock")
 @DiscriminatorColumn(name="Tipo_Movimiento", discriminatorType=DiscriminatorType.STRING)
-public class MovimientoEntity {
+public abstract class MovimientoEntity {
 
 	@Id
 	@Column(name="Id_MStock")
@@ -20,7 +20,7 @@ public class MovimientoEntity {
 	
 	@OneToOne
 	@JoinColumn(name="Codigo_Barra")
-	protected Articulo articulo;
+	protected ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")
 	protected Integer cantidad;
@@ -73,7 +73,7 @@ public class MovimientoEntity {
 
 
 
-	public Articulo getArticulo() {
+	public ArticuloEntity getArticulo() {
 		return articulo;
 	}
 
@@ -81,7 +81,7 @@ public class MovimientoEntity {
 
 
 
-	public void setArticulo(Articulo articulo) {
+	public void setArticulo(ArticuloEntity articulo) {
 		this.articulo = articulo;
 	}
 
