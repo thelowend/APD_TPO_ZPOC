@@ -15,9 +15,76 @@
  
 package edu.uade.apdzpoc.negocio;
 
-public class Almacen {
+import java.util.List;
 
+import edu.uade.apdzpoc.enums.EstadoPedido;
+
+public class Almacen {
+	private static Almacen instancia;
+
+	private Almacen() {
+
+	}
+
+	public static Almacen getInstancia() {
+		if (instancia == null)
+			instancia = new Almacen();
+		return instancia;
+	}
 	
+	public boolean alcanzaStockPedido(PedidoWeb pedidoWeb) {
+		// Compras compras = Compras.getInstancia();
+		
+		List<ItemPedido> itemsPedidos = pedidoWeb.getItems();
+		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido, quedará en true.
+		
+		for(ItemPedido item : itemsPedidos) {
+			boolean hayStock = item.getArticulo().getStockDisponible() > item.getCantidad();
+			if(!hayStock) {
+				//GENERAR MovimientoCompra para ORDEN DE COMPRA
+				// "queda en estado de pendiente y Almacén solicitara a compras que realice el pedido."
+				hayStockDeTodosLosItems = false;
+			}
+		}
+		
+		if(!hayStockDeTodosLosItems)
+			Compras.getInstancia().crearOrdenCompra(pedidoWeb);
+		
+		return hayStockDeTodosLosItems;
+		
+//		if(!hayStockDeTodosLosItems) {
+//			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Stock);
+//			return false;
+//		} else {
+//			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
+//			return true;
+//		}
+	}
 	
-	
+	public void solicitarProductos(PedidoWeb pedidoWeb) {
+		List<ItemPedido> itemsPedidos = pedidoWeb.getItems();
+		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido, quedará en true.
+		
+		for(ItemPedido item : itemsPedidos) {
+			boolean hayStock = item.getArticulo().getStockDisponible() > item.getCantidad();
+			
+			if(!hayStock) {
+				//GENERAR MovimientoCompra para ORDEN DE COMPRA
+				// "queda en estado de pendiente y Almacén solicitara a compras que realice el pedido."
+				hayStockDeTodosLosItems = false;
+			} else {
+				//GENERAR MovimientoPedido
+			}
+		}
+		
+		return;
+		
+//		if(!hayStockDeTodosLosItems) {
+//			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Stock);
+//			return false;
+//		} else {
+//			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
+//			return true;
+//		}
+	}
 }

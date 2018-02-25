@@ -1,5 +1,6 @@
 package edu.uade.apdzpoc.remoto;
 
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import edu.uade.apdzpoc.interfaces.InterfazRemota;
@@ -20,5 +21,12 @@ import edu.uade.apdzpoc.interfaces.InterfazRemota;
  */
 
 public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota {
+
+	protected ObjetoRemoto() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	private static final long serialVersionUID = -6961672630964242179L;
 
 }

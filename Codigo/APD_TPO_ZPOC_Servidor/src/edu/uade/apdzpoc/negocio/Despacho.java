@@ -12,9 +12,21 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
 public class Despacho {
+	private static Despacho instancia;
 
+	private Despacho() {}
+
+	public static Despacho getInstancia() {
+		if (instancia == null)
+			instancia = new Despacho();
+		return instancia;
+	}
+	
+	public void encolarPedidoWeb(PedidoWeb pedidoWeb) {
+		
+	}
 }

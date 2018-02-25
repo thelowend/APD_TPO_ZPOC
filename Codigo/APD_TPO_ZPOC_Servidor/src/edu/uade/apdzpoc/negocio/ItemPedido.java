@@ -12,41 +12,50 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
 
 public class ItemPedido {
-	
+
 	private Articulo articulo;
 	private int cantidad;
 	private EstadoItemPedido estado;
+
 	public ItemPedido(Articulo articulo, int cantidad, EstadoItemPedido estado) {
 		super();
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 		this.estado = estado;
 	}
+
 	public Articulo getArticulo() {
 		return articulo;
 	}
+
 	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
 	}
+
 	public int getCantidad() {
 		return cantidad;
 	}
+
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+
 	public EstadoItemPedido getEstado() {
 		return estado;
 	}
+
 	public void setEstado(EstadoItemPedido estado) {
 		this.estado = estado;
 	}
 	
-	
-		
+	public float calcularTotal() {
+		return this.articulo.getPrecioVenta() * this.cantidad;
+	}
+
 }
