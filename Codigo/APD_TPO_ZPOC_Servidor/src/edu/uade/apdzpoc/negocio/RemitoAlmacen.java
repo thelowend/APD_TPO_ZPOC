@@ -36,6 +36,9 @@ public class RemitoAlmacen {
 		this.tipo = tipo;
 		this.nro = nro;
 	}
+	public RemitoAlmacen() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getIdRemito() {
 		return idRemito;
 	}

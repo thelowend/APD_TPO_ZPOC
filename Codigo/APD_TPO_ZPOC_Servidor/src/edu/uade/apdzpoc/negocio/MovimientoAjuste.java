@@ -50,6 +50,10 @@ public class MovimientoAjuste extends Movimiento {
 		// TODO Auto-generated constructor stub
 	}
 
+	public MovimientoAjuste() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getLegajoOperador() {
 		return legajoOperador;
 	}

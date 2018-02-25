@@ -41,6 +41,10 @@ public class MovimientoCompra extends Movimiento {
 		// TODO Auto-generated constructor stub
 	}
 
+	public MovimientoCompra() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public OrdenCompra getOc() {
 		return oc;
 	}

@@ -28,7 +28,7 @@ public class ProveedorDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		ProveedorEntity aux = (ProveedorEntity) s.createQuery("select pe from ProveedorEntity ue where idProveedor = ?").setInteger(0, idProveedor).uniqueResult();
+		ProveedorEntity aux = (ProveedorEntity) s.createQuery("select pe from ProveedorEntity pe where idProveedor = ?").setInteger(0, idProveedor).uniqueResult();
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();

@@ -37,6 +37,10 @@ public class OrdenCompra {
 		this.pedidoW = pedidoW;
 	}
 
+	public OrdenCompra() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdOC() {
 		return idOC;
 	}

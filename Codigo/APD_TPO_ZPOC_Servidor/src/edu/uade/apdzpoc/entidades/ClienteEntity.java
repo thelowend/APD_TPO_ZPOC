@@ -49,4 +49,72 @@ public class ClienteEntity {
 	
 	public ClienteEntity(){}
 
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Integer getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(Integer documento) {
+		this.documento = documento;
+	}
+
+	public String getDomicilioFacturacion() {
+		return domicilioFacturacion;
+	}
+
+	public void setDomicilioFacturacion(String domicilioFacturacion) {
+		this.domicilioFacturacion = domicilioFacturacion;
+	}
+
+	public Boolean getResponsableInscripto() {
+		return responsableInscripto;
+	}
+
+	public void setResponsableInscripto(Boolean responsableInscripto) {
+		this.responsableInscripto = responsableInscripto;
+	}
+
+	public Boolean getIvaInscripto() {
+		return ivaInscripto;
+	}
+
+	public void setIvaInscripto(Boolean ivaInscripto) {
+		this.ivaInscripto = ivaInscripto;
+	}
+
+	public Float getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(Float descuento) {
+		this.descuento = descuento;
+	}
+
+	public CuentaCorrienteEntity getCuentaCorriente() {
+		return cuentaCorriente;
+	}
+
+	public void setCuentaCorriente(CuentaCorrienteEntity cuentaCorriente) {
+		this.cuentaCorriente = cuentaCorriente;
+	}
+	
+	
+	
+	
+
 }

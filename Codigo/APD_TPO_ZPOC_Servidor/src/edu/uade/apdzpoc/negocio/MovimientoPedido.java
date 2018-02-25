@@ -52,4 +52,8 @@ public class MovimientoPedido extends Movimiento {
 		this.pw = pw;
 	}
 
+	public MovimientoPedido() {
+		// TODO Auto-generated constructor stub
+	}
+
 }

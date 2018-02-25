@@ -41,6 +41,11 @@ public class PedidoWeb {
 	}
 
 
+	public PedidoWeb() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public int getIdPedido() {
 		return idPedido;
 	}
