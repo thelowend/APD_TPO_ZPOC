@@ -26,6 +26,9 @@ public class ItemFactura {
 		this.cantidad = cantidad;
 		this.precio = precio;
 	}
+	public ItemFactura() {
+		// TODO Auto-generated constructor stub
+	}
 	public Articulo getArticulo() {
 		return articulo;
 	}
