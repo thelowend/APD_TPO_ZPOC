@@ -20,7 +20,7 @@ import javax.persistence.*;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
 
 @Entity
-@Table(name="")
+@Table(name="Ubicacion")
 public class UbicacionEntity {
 
 	/**
