@@ -3,6 +3,7 @@ package edu.uade.apdzpoc.entidades;
 
 import javax.persistence.*;
 
+import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 
 
@@ -21,8 +22,19 @@ public class MovimientoAjusteEntity extends MovimientoEntity {
 	private DestinoArticulos destino;
 	
 	@Column(name="SubTipo")
-	private String subtipo;
+	@Enumerated(EnumType.STRING)
+	private CausaAjuste causa;
 	
+	public CausaAjuste getCausa() {
+		return causa;
+	}
+
+
+	public void setCausa(CausaAjuste causa) {
+		this.causa = causa;
+	}
+
+
 	@OneToOne
 	@JoinColumn(name="Nro_Lote")
 	private LoteEntity lote;
@@ -63,16 +75,7 @@ public class MovimientoAjusteEntity extends MovimientoEntity {
 	}
 
 
-	public String getSubtipo() {
-		return subtipo;
-	}
-
-
-	public void setSubtipo(String subtipo) {
-		this.subtipo = subtipo;
-	}
-
-
+	
 	public LoteEntity getLote() {
 		return lote;
 	}

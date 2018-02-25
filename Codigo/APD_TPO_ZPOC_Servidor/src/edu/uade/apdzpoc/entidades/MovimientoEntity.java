@@ -2,7 +2,6 @@ package edu.uade.apdzpoc.entidades;
 
 import java.util.Date;
 
-import edu.uade.apdzpoc.negocio.Articulo;
 import javax.persistence.*;
 
 @Entity
@@ -24,11 +23,6 @@ public abstract class MovimientoEntity {
 	
 	@Column(name="Cantidad")
 	protected Integer cantidad;
-	
-	@Column(name="Estado")
-	protected String estado;
-	
-	
 	
 	
 	
@@ -104,20 +98,5 @@ public abstract class MovimientoEntity {
 
 
 
-
-	public String getEstado() {
-		return estado;
-	}
-
-
-
-
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-
-	
 	
 }

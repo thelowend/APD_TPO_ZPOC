@@ -33,6 +33,10 @@ public abstract class Movimiento {
 		// this.tipo = tipo;
 	}
 
+	public Movimiento() {
+
+	}
+
 	public int getIdMovimiento() {
 		return idMovimiento;
 	}

@@ -71,25 +71,23 @@ public class RemitoTransporteDAO {
 		remitoTransporteEntityAPersistir.setEmpresaTransporte(remitoTransporteNegocio.getEmpresaTransporte());
 		
 		PedidoWebEntity aux1 = PedidoWebDAO.getInstancia().toEntity(remitoTransporteNegocio.getPedido());
+		remitoTransporteEntityAPersistir.setPedido(aux1);
+		
 		return remitoTransporteEntityAPersistir;
-}
+	}
 
 	public RemitoTransporte toNegocio(RemitoTransporteEntity remitoTransporteRecuperado) {
 		RemitoTransporte remitoTransporteNegocio = new RemitoTransporte();
 		
 		remitoTransporteNegocio.setIdRemito(remitoTransporteRecuperado.getIdRemito());
-		remitoTransporteNegocio.getEmpresaTransporte(remitoTransporteRecuperado.getEmpresaTransporte());
+		remitoTransporteNegocio.setEmpresaTransporte(remitoTransporteRecuperado.getEmpresaTransporte());
 		
 		PedidoWeb aux1 = PedidoWebDAO.getInstancia().toNegocio(remitoTransporteRecuperado.getPedido());
-				
+		remitoTransporteNegocio.setPedido(aux1);
+		
 		return remitoTransporteNegocio;	
 	}
 	
 
-	
-	
-	
-	
-	
 	
 }

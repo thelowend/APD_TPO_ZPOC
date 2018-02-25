@@ -13,8 +13,8 @@ import edu.uade.apdzpoc.negocio.*;
 
 public class LoteDAO {
 
-private static LoteDAO instancia;
-	
+	private static LoteDAO instancia;
+		
 	private LoteDAO() {}
 	
 	public static LoteDAO getInstancia(){

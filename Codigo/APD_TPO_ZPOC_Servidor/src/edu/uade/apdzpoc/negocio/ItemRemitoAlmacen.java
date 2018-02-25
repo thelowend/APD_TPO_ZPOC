@@ -17,6 +17,15 @@ package edu.uade.apdzpoc.negocio;
 
 public class ItemRemitoAlmacen {
 
+	private int IdItemRemitoAlmacen;
+	public int getIdItemRemitoAlmacen() {
+		return IdItemRemitoAlmacen;
+	}
+
+	public void setIdItemRemitoAlmacen(int idItemRemitoAlmacen) {
+		IdItemRemitoAlmacen = idItemRemitoAlmacen;
+	}
+
 	private Articulo articulo;
 	private int cantidad;
 	private Ubicacion ubicacion;
@@ -25,6 +34,10 @@ public class ItemRemitoAlmacen {
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 		this.ubicacion = ubicacion;
+	}
+
+	public ItemRemitoAlmacen() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Articulo getArticulo() {

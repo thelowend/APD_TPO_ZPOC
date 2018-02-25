@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.FacturaDAO;
-import edu.uade.apdzpoc.enums.EstadoPedido;
+
 
 public class Facturacion {
 	private static Facturacion instancia;

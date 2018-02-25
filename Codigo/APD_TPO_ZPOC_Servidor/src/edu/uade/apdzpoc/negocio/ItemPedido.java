@@ -19,6 +19,15 @@ import edu.uade.apdzpoc.enums.EstadoItemPedido;
 
 public class ItemPedido {
 
+	private int IdItemPedido;
+	public int getIdItemPedido() {
+		return IdItemPedido;
+	}
+
+	public void setIdItemPedido(int idItemPedido) {
+		IdItemPedido = idItemPedido;
+	}
+
 	private Articulo articulo;
 	private int cantidad;
 	private EstadoItemPedido estado;
@@ -27,6 +36,10 @@ public class ItemPedido {
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 		this.estado = estado;
+	}
+
+	public ItemPedido() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Articulo getArticulo() {

@@ -13,7 +13,7 @@ import edu.uade.apdzpoc.negocio.*;
 
 public class FacturaDAO {
 
-private static FacturaDAO instancia;
+	private static FacturaDAO instancia;
 	
 	private FacturaDAO() {}
 	
@@ -23,6 +23,22 @@ private static FacturaDAO instancia;
 		return instancia;
 	}
 
+	
+	public Factura findByCodigo(Integer idFactura){
+		Factura resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		FacturaEntity aux = (FacturaEntity) s.createQuery("from FacturaEntity where idFactura = ?").setInteger(0, idFactura).uniqueResult();
+		resultado = this.toNegocio(aux);
+		s.getTransaction().commit();
+		s.close();
+		return resultado;
+	}
+	
+	
+	
+	
 	// Ya casteado en To Entity
 	
 	public void save(Factura factura) {
