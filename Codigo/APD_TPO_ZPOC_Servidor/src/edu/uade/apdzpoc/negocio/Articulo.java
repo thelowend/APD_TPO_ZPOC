@@ -40,7 +40,6 @@ public class Articulo {
 
 	public Articulo(String nombreArticulo, String descripcion, float precioVenta, int cantidadCompra,
 			String presentacion, String tamanio) {
-		super();
 		this.nombreArticulo = nombreArticulo;
 		this.descripcion = descripcion;
 		this.precioVenta = precioVenta;

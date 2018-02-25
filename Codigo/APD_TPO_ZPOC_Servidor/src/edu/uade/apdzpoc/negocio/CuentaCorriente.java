@@ -21,7 +21,6 @@ public class CuentaCorriente {
 	private float saldo;
 	private float limMax;
 	public CuentaCorriente(float limMax) {
-		super();
 		this.limMax = limMax;
 	}
 	public int getIdCtaCorriente() {

@@ -22,7 +22,6 @@ public class ItemRemitoAlmacen {
 	private Ubicacion ubicacion;
 	
 	public ItemRemitoAlmacen(Articulo articulo, int cantidad, Ubicacion ubicacion) {
-		super();
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 		this.ubicacion = ubicacion;

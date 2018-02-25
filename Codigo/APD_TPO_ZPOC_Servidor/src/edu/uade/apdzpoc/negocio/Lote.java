@@ -25,7 +25,6 @@ public class Lote {
 	private Articulo articulo;
 	private List<Ubicacion> ubicaciones;
 	public Lote(int nroLote, Date vencimiento, Articulo articulo, List<Ubicacion> ubicaciones) {
-		super();
 		this.nroLote = nroLote;
 		this.vencimiento = vencimiento;
 		this.articulo = articulo;

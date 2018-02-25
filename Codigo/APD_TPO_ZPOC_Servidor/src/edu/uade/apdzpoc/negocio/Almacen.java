@@ -33,9 +33,9 @@ public class Almacen {
 		return instancia;
 	}
 
-	public boolean alcanzaStockPedido(PedidoWeb pedidoWeb) {
+	public boolean alcanzaStockPedido(PedidoWeb pw) {
 
-		List<ItemPedido> itemsPedidos = pedidoWeb.getItems();
+		List<ItemPedido> itemsPedidos = pw.getItems();
 		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido,
 												// quedará en true.
 
@@ -52,14 +52,14 @@ public class Almacen {
 		return hayStockDeTodosLosItems;
 	}
 	
-	public List<Movimiento> crearMovimientos(PedidoWeb pedidoWeb) {
+	public List<Movimiento> crearMovimientos(PedidoWeb pw) {
 		List<Movimiento> result = new ArrayList<>();
-		for(ItemPedido item : pedidoWeb.getItems()) {
+		for(ItemPedido item : pw.getItems()) {
 			if (item.getEstado() == EstadoItemPedido.Con_Stock) {
-				result.add(item.getArticulo().crearMovimientoPedido(item.getCantidad(), pedidoWeb));
+				result.add(item.getArticulo().crearMovimientoPedido(item.getCantidad(), pw));
 			} else {
-				List<OrdenCompra> loc = Compras.getInstancia().crearOrdenesCompra(item, pedidoWeb); // Genero las OC
-				result.add(item.getArticulo().crearMovimientoCompra(loc.get(0).getCantidad() * loc.size(), pedidoWeb.getFechaGeneracion())); // Por si la cantidad supera más 100% la cantidad de pedido
+				List<OrdenCompra> loc = Compras.getInstancia().crearOrdenesCompra(item, pw); // Genero las OC
+				result.add(item.getArticulo().crearMovimientoCompra(loc.get(0).getCantidad() * loc.size(), pw.getFechaGeneracion())); // Por si la cantidad supera más 100% la cantidad de pedido
 			}
 		}
 		return result;

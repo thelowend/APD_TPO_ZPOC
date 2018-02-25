@@ -24,7 +24,6 @@ public class ItemPedido {
 	private EstadoItemPedido estado;
 
 	public ItemPedido(Articulo articulo, int cantidad, EstadoItemPedido estado) {
-		super();
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 		this.estado = estado;

@@ -35,9 +35,9 @@ public class Facturacion {
 		return instancia;
 	}
 	
-	public boolean alcanzaLimiteCTA(PedidoWeb pedidoWeb) {
-		List<ItemPedido> itemsComprados = pedidoWeb.getItems();
-		Cliente cliente = pedidoWeb.getCliente();
+	public boolean alcanzaLimiteCTA(PedidoWeb pw) {
+		List<ItemPedido> itemsComprados = pw.getItems();
+		Cliente cliente = pw.getCliente();
 		float totalCompra = 0f;
 		
 		for(ItemPedido item : itemsComprados) {
@@ -56,22 +56,22 @@ public class Facturacion {
 //		}
 	}
 	
-	public void crearFactura(PedidoWeb pedidoWeb) {
+	public void crearFactura(PedidoWeb pw) {
 		Date fechaEmision = new Date();
 		Date fechaVencimiento = new Date(); // Date +30, +60 +90 días;
 		
 		// Si el cliente es responsable inscripto, es factura A. Factura B es para los demás.
-		String tipoFactura = pedidoWeb.getCliente().isIvaInscripto() ?  "A" : "B";
+		String tipoFactura = pw.getCliente().isIvaInscripto() ?  "A" : "B";
 		
 		List<ItemFactura> itemsFactura = new ArrayList<>();
-		for(ItemPedido item : pedidoWeb.getItems()) {
+		for(ItemPedido item : pw.getItems()) {
 			// Esta bien guardar el calculartotal como campo de itemFactura al momento de crearlo,
 			// ya que en el futuro podría cambiar el precio del artículo, pero no debería cambiar el precio en la factura emitida.
 			itemsFactura.add(new ItemFactura(item.getArticulo(), item.getCantidad(), item.calcularTotal()));
 		}
 		
 		// Persisto la nueva factura
-		FacturaDAO.getInstancia().save(new Factura(pedidoWeb.getCliente(), fechaEmision, fechaVencimiento, tipoFactura, itemsFactura));
+		FacturaDAO.getInstancia().save(new Factura(pw.getCliente(), fechaEmision, fechaVencimiento, tipoFactura, itemsFactura));
 	}
 	
 	public void crearRemito(PedidoWeb pedidoWeb) {
