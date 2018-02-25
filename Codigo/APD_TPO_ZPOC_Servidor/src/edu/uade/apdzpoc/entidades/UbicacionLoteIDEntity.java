@@ -12,12 +12,46 @@ public class UbicacionLoteIDEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ManyToOne
+	@JoinColumn(name="Id_Ubicacion", nullable=false)
+	private UbicacionEntity ubicacion;
+	
+	@ManyToOne
+	@JoinColumn(name="Nro_Lote", nullable=false)
+	private LoteEntity lote;
+	
+	
+	public UbicacionLoteIDEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public UbicacionEntity getUbicacion() {
+		return ubicacion;
+	}
+
+
+	public void setUbicacion(UbicacionEntity ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+
+	public LoteEntity getLote() {
+		return lote;
+	}
+
+
+	public void setLote(LoteEntity lote) {
+		this.lote = lote;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((articulo == null) ? 0 : articulo.hashCode());
-		result = prime * result + ((proveedor == null) ? 0 : proveedor.hashCode());
+		result = prime * result + ((lote == null) ? 0 : lote.hashCode());
+		result = prime * result + ((ubicacion == null) ? 0 : ubicacion.hashCode());
 		return result;
 	}
 
@@ -31,52 +65,19 @@ public class UbicacionLoteIDEntity implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		UbicacionLoteIDEntity other = (UbicacionLoteIDEntity) obj;
-		if (articulo == null) {
-			if (other.articulo != null)
+		if (lote == null) {
+			if (other.lote != null)
 				return false;
-		} else if (!articulo.equals(other.articulo))
+		} else if (!lote.equals(other.lote))
 			return false;
-		if (proveedor == null) {
-			if (other.proveedor != null)
+		if (ubicacion == null) {
+			if (other.ubicacion != null)
 				return false;
-		} else if (!proveedor.equals(other.proveedor))
+		} else if (!ubicacion.equals(other.ubicacion))
 			return false;
 		return true;
 	}
 
-
-	@ManyToOne
-	@JoinColumn(name="Codigo_Barra", nullable=false)
-	private ArticuloEntity articulo;
-	
-	@ManyToOne
-	@JoinColumn(name="Nro_Lote", nullable=false)
-	private ProveedorEntity proveedor;
-	
-	
-	public UbicacionLoteIDEntity() {
-		// TODO Auto-generated constructor stub
-	}
-
-
-	public ArticuloEntity getArticulo() {
-		return articulo;
-	}
-
-
-	public void setArticulo(ArticuloEntity articulo) {
-		this.articulo = articulo;
-	}
-
-
-	public ProveedorEntity getProveedor() {
-		return proveedor;
-	}
-
-
-	public void setProveedor(ProveedorEntity proveedor) {
-		this.proveedor = proveedor;
-	}
 
 	
 	
