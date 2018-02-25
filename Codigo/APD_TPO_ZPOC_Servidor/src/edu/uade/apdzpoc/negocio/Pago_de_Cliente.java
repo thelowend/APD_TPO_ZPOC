@@ -25,6 +25,12 @@ public class Pago_de_Cliente {
 
 
 
+	public Pago_de_Cliente() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public int getIdPago() {
 		return IdPago;
 	}
