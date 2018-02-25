@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import edu.uade.apdzpoc.enums.EstadoRemito;
+import edu.uade.apdzpoc.enums.TipoRemitoAlmacen;
 
 @Entity
 @Table(name="Remito_Almacen")
@@ -23,7 +24,8 @@ public class RemitoAlmacenEntity {
 	private List <ItemRemitoAlmacenEntity> itemsRemito;
 	
 	@Column(name="Tipo_Remito")
-	private String tipo;
+	@Enumerated(EnumType.STRING)
+	private TipoRemitoAlmacen tipo;
 
 	public RemitoAlmacenEntity() {
 		
@@ -60,24 +62,16 @@ public class RemitoAlmacenEntity {
 	}
 
 
-	public String getTipoDocumento() {
-		return tipoDocumento;
+	public TipoRemitoAlmacen getTipo() {
+		return tipo;
 	}
 
 
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
+	public void setTipo(TipoRemitoAlmacen tipo) {
+		this.tipo = tipo;
 	}
 
 
-	public Integer getNroDocumento() {
-		return nroDocumento;
-	}
-
-
-	public void setNroDocumento(Integer nroDocumento) {
-		this.nroDocumento = nroDocumento;
-	}
 	
 	
 	

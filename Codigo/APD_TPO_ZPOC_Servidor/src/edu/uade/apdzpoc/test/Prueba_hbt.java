@@ -15,7 +15,6 @@ public class Prueba_hbt {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		
-		
 	}
 	
 	
