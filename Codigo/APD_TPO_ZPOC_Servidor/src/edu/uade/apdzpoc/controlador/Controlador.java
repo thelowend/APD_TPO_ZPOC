@@ -1,6 +1,7 @@
 package edu.uade.apdzpoc.controlador;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 //import edu.uade.apdzpoc.dto.ClienteDTO;
 //import edu.uade.apdzpoc.dto.ItemPedidoDTO;
@@ -9,7 +10,7 @@ import edu.uade.apdzpoc.negocio.Almacen;
 import edu.uade.apdzpoc.negocio.Cliente;
 import edu.uade.apdzpoc.negocio.Compras;
 import edu.uade.apdzpoc.negocio.Despacho;
-
+import edu.uade.apdzpoc.negocio.Facturacion;
 import edu.uade.apdzpoc.negocio.ItemPedido;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
 
@@ -29,12 +30,12 @@ import edu.uade.apdzpoc.enums.EstadoPedido;
  *
  */
 
-
 public class Controlador {
 	
 	private static Controlador instancia;
 	
-	private Controlador(){ }
+	private Controlador() {
+	}
 	
 	public static Controlador getInstancia() {
 		if(instancia == null)
@@ -43,32 +44,46 @@ public class Controlador {
 	}
 	
 	// En el business delegate, esto será: 
-	// public void crearPedidoWeb(List<ItemPedidoDTO> articulos, ClienteDTO cliente) {
-	public void crearPedidoWeb(List<ItemPedido> articulos, Cliente cliente) {
+	// public void crearPedidoWeb(List<ItemPedidoDTO> articulos, ClienteDTO cliente, String direccion) {
+	public int crearPedidoWeb(List<ItemPedido> articulos, Cliente cliente, String direccion) {
 		
-		Compras compras = Compras.getInstancia();
-		Despacho despacho = Despacho.getInstancia();
+		Facturacion facturacion = Facturacion.getInstancia();
 		Almacen almacen = Almacen.getInstancia();
+		Despacho despacho = Despacho.getInstancia();
 		
-		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, "Calle Falsa 123", articulos);
+		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, direccion, articulos);
 		
-		if (!compras.verificarClienteSaldoPedido(pedidoWeb)) {
-			// TODO: Hacer lo que corresponde cuando no pasa esta verificación:
-			// Informar al usuario, etc. Razón: “No puede realizar el pedido, debe regularizar los pagos adeudados”
-			// si está rechazado no lo encola.
-			return;
-		}
+		// Para enviar mensajes al usuario
+		ResourceBundle mensajes = ResourceBundle.getBundle("mensajes");
+		String mensajeResultado = "";
 		
-		if (!almacen.verificarStockPedido(pedidoWeb)) {
-			// Acá ya no hay return/interrupción porque vamos a encolar el pedido
-			// Mensaje: "Su pedido está siendo procesado. Ingrese luego para verificar el estado de este."
+		if (!facturacion.alcanzaLimiteCTA(pedidoWeb)) {
+			pedidoWeb.setEstadoPedido(EstadoPedido.Rechazado);
+			mensajeResultado = mensajes.getString("rechazado");
+			// El Despacho NO encola el pedido.
 		} else {
-			// Mensaje: Su pedido será entregado dentro de los 30 días.
+			
+			// Lo envío a Facturación para confeccionar la factura:
+			facturacion.crearFactura(pedidoWeb);
+			
+			//Acá: la gestión del pago??
+			
+			if (!almacen.alcanzaStockPedido(pedidoWeb)) {
+				pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Stock);
+				mensajeResultado = mensajes.getString("pendiente_stock");
+			} else {
+				pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
+				mensajeResultado = mensajes.getString("pendiente_despacho");
+			}
+			
+			// El Despacho encola el pedido.
+			despacho.encolarPedidoWeb(pedidoWeb);
 		}
 		
-		// Encolo el pedido que creamos
-		despacho.encolarPedidoWeb(pedidoWeb);
-			
+		// Ver como mandar "mensajeResultado" a la vista.
+		
+		// Devuelvo el ID del pedido.
+		return pedidoWeb.getIdPedido();
 	}
 	
 }
