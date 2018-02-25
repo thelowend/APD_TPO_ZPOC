@@ -41,6 +41,7 @@ public class Controlador {
 	private static Controlador instancia;
 	
 	private Controlador() {
+		// Test
 	}
 	
 	public static Controlador getInstancia() {
