@@ -30,7 +30,6 @@ public class RemitoAlmacen {
 
 
 	public RemitoAlmacen(int idRemito, EstadoRemito estado, List<ItemRemitoAlmacen> itemsRemito, TipoRemitoAlmacen tipo, int nro) {
-		super();
 		this.idRemito = idRemito;
 		this.estado = estado;
 		this.itemsRemito = itemsRemito;

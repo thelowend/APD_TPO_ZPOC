@@ -1,5 +1,5 @@
 package edu.uade.apdzpoc.enums;
 
-public enum Medio_de_Pago {
+public enum MedioPago {
  Efectivo, TarjetaCredito, TarjetaCrédito, TarjetaDebito
 }

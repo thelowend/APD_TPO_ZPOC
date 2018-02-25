@@ -12,7 +12,7 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
 public class ArticuloProveedor {
@@ -20,32 +20,35 @@ public class ArticuloProveedor {
 	private Articulo articulo;
 	private Proveedor proveedor;
 	private float precio;
+
 	public ArticuloProveedor(Articulo articulo, Proveedor proveedor, float precio) {
-		super();
 		this.articulo = articulo;
 		this.proveedor = proveedor;
 		this.precio = precio;
 	}
+
 	public Articulo getArticulo() {
 		return articulo;
 	}
+
 	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
 	}
+
 	public Proveedor getProveedor() {
 		return proveedor;
 	}
+
 	public void setProveedor(Proveedor proveedor) {
 		this.proveedor = proveedor;
 	}
+
 	public float getPrecio() {
 		return precio;
 	}
+
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-	
-	
-	
-	
+
 }

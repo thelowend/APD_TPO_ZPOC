@@ -22,11 +22,12 @@ public class ItemFactura {
 	private float precio;
 
 	public ItemFactura(Articulo articulo, int cantidad, float precio) {
-		super();
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 		this.precio = precio;
 	}
+	
+	public ItemFactura () {}
 
 	public Articulo getArticulo() {
 		return articulo;

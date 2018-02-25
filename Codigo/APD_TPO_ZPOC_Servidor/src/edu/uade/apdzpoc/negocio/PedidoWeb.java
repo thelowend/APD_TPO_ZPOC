@@ -34,7 +34,6 @@ public class PedidoWeb {
 	
 	
 	public PedidoWeb(Cliente cliente, EstadoPedido estadoPedido, String direccionPedido, List<ItemPedido> items) {
-		super();
 		this.cliente = cliente;
 		this.estadoPedido = estadoPedido;
 		this.direccionPedido = direccionPedido;

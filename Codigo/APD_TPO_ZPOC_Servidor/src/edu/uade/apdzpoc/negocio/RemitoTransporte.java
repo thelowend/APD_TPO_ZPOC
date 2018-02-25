@@ -7,7 +7,6 @@ public class RemitoTransporte {
 	private PedidoWeb pedido;
 	
 	public RemitoTransporte(String empresaTransporte, PedidoWeb pedido) {
-		super();
 		this.empresaTransporte = empresaTransporte;
 		this.pedido = pedido;
 	}

@@ -36,10 +36,8 @@ public class Factura {
 		this.itemsFactura = itemsFactura;
 		this.totalFactura = this.calcularMontoTotal();
 	}
-
-	public Factura() {
-		// TODO Auto-generated constructor stub
-	}
+	
+	public Factura () {}
 
 	public int getIdFactura() {
 		return idFactura;

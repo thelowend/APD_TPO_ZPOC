@@ -21,7 +21,7 @@ public class ArticuloProveedorDAO {
 	}
 	
 	
-	public Proveedor findBestProveedorByArticulo(Integer codigo_barra){
+	public Proveedor findBestProveedorByArticulo(Integer codigo_barra) {
 		//Proveedor resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();

@@ -29,7 +29,6 @@ public class Ubicacion {
 	private int capacidad;
 
 	public Ubicacion(String calle, int bloque, int estante, int bandeja, int posicion, EstadoUbicacion estado, int capacidad) {
-		super();
 		this.calle = calle;
 		this.bloque = bloque;
 		this.estante = estante;

@@ -1,17 +1,13 @@
 package edu.uade.apdzpoc.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.FacturaEntity;
-import edu.uade.apdzpoc.entidades.ItemFacturaEntity;
 import edu.uade.apdzpoc.entidades.PagoClienteEntity;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.Factura;
-import edu.uade.apdzpoc.negocio.Pago_de_Cliente;
+import edu.uade.apdzpoc.negocio.PagoCliente;
 
 public class PagoClienteDAO {
 	
@@ -25,7 +21,7 @@ private static PagoClienteDAO instancia;
 		return instancia;
 	}
 	
-public void save(Pago_de_Cliente pago) {
+public void save(PagoCliente pago) {
 		
 		PagoClienteEntity PagoAPersistir = this.toEntity(pago);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -40,7 +36,7 @@ public void save(Pago_de_Cliente pago) {
 	
 //PagoAPersistir = Corresponde a una Pago de Negocio que voy a guardar en bd
 
-	public PagoClienteEntity toEntity(Pago_de_Cliente pago) {
+	public PagoClienteEntity toEntity(PagoCliente pago) {
 		
 		PagoClienteEntity PagoAPersistir = new PagoClienteEntity();
 		PagoAPersistir.setFecha(pago.getFecha());
@@ -61,9 +57,9 @@ public void save(Pago_de_Cliente pago) {
 	
 	// Recupero de la BD y lo convierto en Negocio
 	
-	public Pago_de_Cliente toNegocio(PagoClienteEntity PagoRecuperado) {
+	public PagoCliente toNegocio(PagoClienteEntity PagoRecuperado) {
 		
-		Pago_de_Cliente pago = new Pago_de_Cliente();
+		PagoCliente pago = new PagoCliente();
 		pago.setFecha(pago.getFecha());
 		pago.setIdPago(pago.getIdPago());
 		pago.setMedioDePago(pago.getMedioDePago());

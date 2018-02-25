@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
+import edu.uade.apdzpoc.dao.ArticuloProveedorDAO;
 import edu.uade.apdzpoc.enums.EstadoOC;
 
 public class Compras {
@@ -54,23 +55,22 @@ public class Compras {
 		return result;
 	}
 
-	private Proveedor seleccionarProveedor(Articulo a) {
+	private Proveedor seleccionarProveedor(Articulo art) {
 		// Busco el mejor proveedor
-		Proveedor p = null;
-		return p;
+		return ArticuloProveedorDAO.getInstancia().findBestProveedorByArticulo(art.getCodigoBarra());
 	}
 	
 	public void validarOrdenCompra(OrdenCompra oc, EstadoOC estado) {
 		oc.setEstado(estado);
 	}
 
-	public void aceptarOC(OrdenCompra oc) {
-		oc.setEstado(EstadoOC.Aceptada);
-
-		// RemitoAlmacen ra = new RemitoAlmacen(EstadoRemito.Pendiente, itemsRemito,
-		// tipoDocumento, nroDocumento);
-
-	}
+//	public void aceptarOC(OrdenCompra oc) {
+//		oc.setEstado(EstadoOC.Aceptada);
+//
+//		// RemitoAlmacen ra = new RemitoAlmacen(EstadoRemito.Pendiente, itemsRemito,
+//		// tipoDocumento, nroDocumento);
+//
+//	}
 
 	/*
 	 * ArticuloProveedor ap= Articulo

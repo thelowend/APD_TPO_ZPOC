@@ -13,46 +13,46 @@ import edu.uade.apdzpoc.negocio.*;
 public class ArticuloDAO {
 
 	private static ArticuloDAO instancia;
-	
-	private ArticuloDAO() {}
-	
-	public static ArticuloDAO getInstancia(){
-		if(instancia == null)
+
+	private ArticuloDAO() {
+	}
+
+	public static ArticuloDAO getInstancia() {
+		if (instancia == null)
 			instancia = new ArticuloDAO();
 		return instancia;
 	}
-	
-	
-	public Articulo findrecuperadoByCodigo(Integer codigoBarras){
+
+	public Articulo findrecuperadoByCodigo(Integer codigoBarras) {
 		Articulo resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		ArticuloEntity aux = (ArticuloEntity) s.createQuery("select ae from ArticuloEntity ae inner join ae.lotes where codigoBarra = ?").setInteger(0, codigoBarras).uniqueResult();
+		ArticuloEntity aux = (ArticuloEntity) s
+				.createQuery("select ae from ArticuloEntity ae inner join ae.lotes where codigoBarra = ?")
+				.setInteger(0, codigoBarras).uniqueResult();
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	public List<Articulo> getAll(){
+
+	public List<Articulo> getAll() {
 		List<Articulo> resultado = new ArrayList<Articulo>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<ArticuloEntity> aux = (List<ArticuloEntity>) s.createQuery("from ArticuloEntity").list();
-		for(ArticuloEntity ae : aux)
-		{
+		for (ArticuloEntity ae : aux) {
 			resultado.add(this.toNegocio(ae));
 		}
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	
-	public void save(Articulo recuperado){
+
+	public void save(Articulo recuperado) {
 		ArticuloEntity ArticuloAPersistir = this.toEntity(recuperado);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -62,11 +62,6 @@ public class ArticuloDAO {
 		session.getTransaction().commit();
 		session.close();
 	}
-	
-	
-	
-	
-	
 
 	public ArticuloEntity toEntity(Articulo articuloNegocio) {
 		ArticuloEntity articuloAPersistir = new ArticuloEntity();
@@ -80,18 +75,18 @@ public class ArticuloDAO {
 		articuloAPersistir.setStockFisico(articuloNegocio.getStockFisico());
 		articuloAPersistir.setStockPendienteEntrega(articuloNegocio.getStockPendienteEntrega());
 		articuloAPersistir.setStockVirtual(articuloNegocio.getStockVirtual());
-						
+
 		List<LoteEntity> aux1 = new ArrayList<LoteEntity>();
-		List <Lote> lotes = articuloNegocio.getLote();
-		for(Lote l : lotes)
+		List<Lote> lotes = articuloNegocio.getLote();
+		for (Lote l : lotes)
 			aux1.add(LoteDAO.getInstancia().toEntity(l));
 		articuloAPersistir.setLotes(aux1);
-		return 		articuloAPersistir;
-}
+		return articuloAPersistir;
+	}
 
 	public Articulo toNegocio(ArticuloEntity articuloRecuperado) {
 		Articulo articuloNegocio = new Articulo();
-				
+
 		articuloNegocio.setCodigoBarra(articuloRecuperado.getCodigoBarra());
 		articuloNegocio.setNombreArticulo(articuloRecuperado.getNombreArticulo());
 		articuloNegocio.setDescripcion(articuloRecuperado.getDescripcion());
@@ -102,16 +97,14 @@ public class ArticuloDAO {
 		articuloNegocio.setStockFisico(articuloRecuperado.getStockFisico());
 		articuloNegocio.setStockPendienteEntrega(articuloRecuperado.getStockPendienteEntrega());
 		articuloNegocio.setStockVirtual(articuloRecuperado.getStockVirtual());
-						
+
 		List<Lote> aux1 = new ArrayList<Lote>();
 		List<LoteEntity> lotes = articuloRecuperado.getLotes();
-		for(LoteEntity l : lotes)
+		for (LoteEntity l : lotes)
 			aux1.add(LoteDAO.getInstancia().toNegocio(l));
 		articuloNegocio.setLote(aux1);
-				
-		return articuloNegocio;	
+
+		return articuloNegocio;
 	}
-	
-	
-	
+
 }

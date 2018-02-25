@@ -20,7 +20,6 @@ public class Proveedor {
 	private int idProveedor;
 	private String nombreProveedor;
 	public Proveedor(String nombreProveedor) {
-		super();
 		this.nombreProveedor = nombreProveedor;
 	}
 	public Proveedor() {
