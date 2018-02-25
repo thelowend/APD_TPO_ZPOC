@@ -15,13 +15,11 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
-import edu.uade.apdzpoc.enums.EstadoItemPedido;
 import edu.uade.apdzpoc.enums.EstadoOC;
-import edu.uade.apdzpoc.enums.EstadoRemito;
-import edu.uade.apdzpoc.enums.EstadoPedido;
 
 public class Compras {
 	private static Compras instancia;
@@ -35,30 +33,35 @@ public class Compras {
 		return instancia;
 	}
 
-	public void crearOrdenCompra(PedidoWeb pw) {
-		// Recibo el PedidoWEB que va a generar la o las Ordenes de compra.
-		// Recorro los items pedidos por cada uno que tenga estado "Sin_Stock" genero
-		// una OC
+	public List<OrdenCompra> crearOrdenesCompra(ItemPedido ip, PedidoWeb pw) {
+		
+		List<OrdenCompra> result = new ArrayList<>();
+		
+		// Recupero el Articulo para saber que cantidad tenemos que pedir
+		Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(ip.getArticulo().getCodigoBarra());
 
-		for (ItemPedido ip : pw.getItems()) {
-			if (ip.getEstado() == EstadoItemPedido.Sin_Stock) {
-				
-				// Recupero el Articulo para saber que cantidad tenemos que pedir
-				Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(ip.getArticulo().getCodigoBarra());
-				
-				// Selecciono el mejor proveedor, el que tenga el precio mas bajo. El dao me va
-				// a devolver el que tenga el menor precio.
-				Proveedor p = this.seleccionarProveedor(a);
-				OrdenCompra oc = new OrdenCompra(p, a.getCantidadCompra(), a, pw);
-				oc.setEstado(EstadoOC.Pendiente);
-			}
+		// Selecciono el mejor proveedor, el que tenga el precio mas bajo. El dao me va
+		// a devolver el que tenga el menor precio.
+		Proveedor p = this.seleccionarProveedor(a);
+		
+		// Genero órdenes de compra hasta cubrir los items pedidos
+		for(int cantidadItem = ip.getCantidad(); cantidadItem > 0; cantidadItem -= a.getCantidadCompra()) {
+			OrdenCompra oc = new OrdenCompra(p, a, pw);
+			oc.setEstado(EstadoOC.Pendiente);
+			result.add(oc);
 		}
+		
+		return result;
 	}
 
 	private Proveedor seleccionarProveedor(Articulo a) {
 		// Busco el mejor proveedor
 		Proveedor p = null;
 		return p;
+	}
+	
+	public void validarOrdenCompra(OrdenCompra oc, EstadoOC estado) {
+		oc.setEstado(estado);
 	}
 
 	public void aceptarOC(OrdenCompra oc) {

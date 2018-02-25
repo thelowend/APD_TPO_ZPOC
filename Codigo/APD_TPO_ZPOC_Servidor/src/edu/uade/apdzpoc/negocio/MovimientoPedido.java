@@ -12,43 +12,43 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
 
 public class MovimientoPedido extends Movimiento {
 
-	
 	private PedidoWeb pw;
-	/* (non-Javadoc)
-	 * @see edu.uade.apdzpoc.negocio.Movimiento#actualizarNovedadStock(edu.uade.apdzpoc.negocio.Articulo)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.uade.apdzpoc.negocio.Movimiento#actualizarNovedadStock(edu.uade.apdzpoc.
+	 * negocio.Articulo)
 	 */
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	public void actualizarNovedadStock(Articulo art) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void actualizarNovedadStock() {
+		
+		this.articulo.setStockDisponible(0);
+		this.articulo.setStockVirtual(0);
 	}
+
 	public PedidoWeb getPw() {
 		return pw;
 	}
+
 	public void setPw(PedidoWeb pw) {
 		this.pw = pw;
 	}
-	public MovimientoPedido(Date fecha, Articulo articulo, int cantidad, String estado, String tipo) {
-		super(fecha, articulo, cantidad, estado, tipo);
-		// TODO Auto-generated constructor stub
+
+	public MovimientoPedido(Date fecha, Articulo articulo, int cantidad) {
+		super(fecha, articulo, cantidad);
 	}
-	public MovimientoPedido(Date fecha, Articulo articulo, int cantidad, String estado, String tipo, PedidoWeb pw) {
-		super(fecha, articulo, cantidad, estado, tipo);
+
+	public MovimientoPedido(Date fecha, Articulo articulo, int cantidad, PedidoWeb pw) {
+		super(fecha, articulo, cantidad);
 		this.pw = pw;
 	}
 

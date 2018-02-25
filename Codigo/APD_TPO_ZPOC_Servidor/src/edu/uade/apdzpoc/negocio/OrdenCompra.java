@@ -30,10 +30,9 @@ public class OrdenCompra {
 	private PedidoWeb pedidoW;
 	private Date fecha;
 	
-	public OrdenCompra(Proveedor proveedor, int cantidad, Articulo articulo, PedidoWeb pedidoW) {
-		super();
+	public OrdenCompra(Proveedor proveedor, Articulo articulo, PedidoWeb pedidoW) {
 		this.proveedor = proveedor;
-		this.cantidad = cantidad;
+		this.cantidad = articulo.getCantidadCompra();
 		this.articulo = articulo;
 		this.pedidoW = pedidoW;
 	}

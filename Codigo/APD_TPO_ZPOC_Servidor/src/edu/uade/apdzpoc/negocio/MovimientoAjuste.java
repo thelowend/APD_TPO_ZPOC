@@ -12,121 +12,87 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
 
+import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 
 public class MovimientoAjuste extends Movimiento {
 
-
-	/* (non-Javadoc)
-	 * @see edu.uade.apdzpoc.negocio.Movimiento#actualizarNovedadStock(edu.uade.apdzpoc.negocio.Articulo)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.uade.apdzpoc.negocio.Movimiento#actualizarNovedadStock(edu.uade.apdzpoc.
+	 * negocio.Articulo)
 	 */
 	private int legajoOperador;
 	private int legajoAutorizante;
 	private DestinoArticulos destino;
-	private String subtipo;
+	private CausaAjuste causa;
 	private Lote lote;
-	
-	
-	
-	public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad, String estado, String tipo, int legajoOperador,
-			int legajoAutorizante, DestinoArticulos destino, String subtipo, Lote lote) {
-		super(fecha, articulo, cantidad, estado, tipo);
+
+	public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad, /* String tipo, */ CausaAjuste causa,
+			int legajoOperador, int legajoAutorizante, DestinoArticulos destino, Lote lote) {
+		super(fecha, articulo, cantidad);
+		this.causa = causa;
 		this.legajoOperador = legajoOperador;
 		this.legajoAutorizante = legajoAutorizante;
 		this.destino = destino;
-		this.setSubtipo(subtipo);
 		this.lote = lote;
 	}
 
-
-
+	public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad/* , String tipo */) {
+		super(fecha, articulo, cantidad);
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getLegajoOperador() {
 		return legajoOperador;
 	}
 
-
-
-
 	public void setLegajoOperador(int legajoOperador) {
 		this.legajoOperador = legajoOperador;
 	}
-
-
-
 
 	public int getLegajoAutorizante() {
 		return legajoAutorizante;
 	}
 
-
-
-
 	public void setLegajoAutorizante(int legajoAutorizante) {
 		this.legajoAutorizante = legajoAutorizante;
 	}
-
-
-
 
 	public DestinoArticulos getDestino() {
 		return destino;
 	}
 
-
-
-
 	public void setDestino(DestinoArticulos destino) {
 		this.destino = destino;
 	}
-
-
-
 
 	public Lote getLote() {
 		return lote;
 	}
 
-
-
-
 	public void setLote(Lote lote) {
 		this.lote = lote;
 	}
 
-
-
-
-	public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad, String estado, String tipo) {
-		super(fecha, articulo, cantidad, estado, tipo);
-		// TODO Auto-generated constructor stub
-	}
-
-	
-	
-	
 	@Override
-	public void actualizarNovedadStock(Articulo art) {
-		
+	public void actualizarNovedadStock() {
+
 	}
 
-
-
-
-	public String getSubtipo() {
-		return subtipo;
+	public CausaAjuste getCausa() {
+		return causa;
 	}
 
-
-
-
-	public void setSubtipo(String subtipo) {
-		this.subtipo = subtipo;
+	public void setCausa(CausaAjuste causa) {
+		this.causa = causa;
 	}
 
 }

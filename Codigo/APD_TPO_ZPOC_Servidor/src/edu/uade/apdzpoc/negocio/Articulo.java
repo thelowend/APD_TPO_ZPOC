@@ -15,7 +15,11 @@
  
 package edu.uade.apdzpoc.negocio;
 
+import java.util.Date;
 import java.util.List;
+
+import edu.uade.apdzpoc.enums.CausaAjuste;
+import edu.uade.apdzpoc.enums.DestinoArticulos;
 
 public class Articulo {
 
@@ -45,7 +49,7 @@ public class Articulo {
 		this.tamanio = tamanio;
 	}
 
-	public Articulo() {		
+	public Articulo() {
 	}
 
 	public int getCodigoBarra() {
@@ -142,6 +146,29 @@ public class Articulo {
 
 	public void setLote(List<Lote> lote) {
 		this.lote = lote;
+	}
+	
+	public MovimientoPedido crearMovimientoPedido(int cantidad, PedidoWeb pw) {
+		MovimientoPedido mp = new MovimientoPedido(pw.getFechaGeneracion(), this, cantidad, pw);
+		//MovimientoDAO.getInstancia().save(mp);
+		return mp;
+	}
+	
+	public MovimientoCompra crearMovimientoCompra(int cantidad, Date fechaGeneracion) {
+		MovimientoCompra mc = new MovimientoCompra(fechaGeneracion, this, cantidad);
+		//MovimientoDAO.getInstancia().save(mc);
+		return mc;
+	}
+	
+	public MovimientoCompra crearMovimientoCompra(OrdenCompra oc) {
+		MovimientoCompra mc = new MovimientoCompra(new Date(), oc.getArticulo(), oc.getCantidad(), oc, oc.getLote());
+		//MovimientoDAO.getInstancia().save(mc);
+		return mc;
+	}
+	
+	public void crearMovimientoAjuste(int cantidad, Date fechaGeneracion, CausaAjuste causa, int legajoOperador, int legajoAutorizante, DestinoArticulos destino, Lote lote) {
+		MovimientoAjuste ma = new MovimientoAjuste(fechaGeneracion, this, cantidad, causa, legajoOperador, legajoAutorizante, destino, lote);
+		//MovimientoDAO.getInstancia().save(ma);
 	}
 	
 	

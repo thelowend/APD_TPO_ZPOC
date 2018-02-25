@@ -12,12 +12,13 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import edu.uade.apdzpoc.enums.EstadoPedido;
+import edu.uade.apdzpoc.enums.EstadoItemPedido;
 
 public class Almacen {
 	private static Almacen instancia;
@@ -31,60 +32,40 @@ public class Almacen {
 			instancia = new Almacen();
 		return instancia;
 	}
-	
+
 	public boolean alcanzaStockPedido(PedidoWeb pedidoWeb) {
-		// Compras compras = Compras.getInstancia();
-		
+
 		List<ItemPedido> itemsPedidos = pedidoWeb.getItems();
-		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido, quedará en true.
-		
-		for(ItemPedido item : itemsPedidos) {
+		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido,
+												// quedará en true.
+
+		for (ItemPedido item : itemsPedidos) {
 			boolean hayStock = item.getArticulo().getStockDisponible() > item.getCantidad();
-			if(!hayStock) {
-				//GENERAR MovimientoCompra para ORDEN DE COMPRA
-				// "queda en estado de pendiente y Almacén solicitara a compras que realice el pedido."
-				hayStockDeTodosLosItems = false;
-			}
-		}
-		
-		if(!hayStockDeTodosLosItems)
-			Compras.getInstancia().crearOrdenCompra(pedidoWeb);
-		
-		return hayStockDeTodosLosItems;
-		
-//		if(!hayStockDeTodosLosItems) {
-//			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Stock);
-//			return false;
-//		} else {
-//			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
-//			return true;
-//		}
-	}
-	
-	public void solicitarProductos(PedidoWeb pedidoWeb) {
-		List<ItemPedido> itemsPedidos = pedidoWeb.getItems();
-		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido, quedará en true.
-		
-		for(ItemPedido item : itemsPedidos) {
-			boolean hayStock = item.getArticulo().getStockDisponible() > item.getCantidad();
-			
-			if(!hayStock) {
-				//GENERAR MovimientoCompra para ORDEN DE COMPRA
-				// "queda en estado de pendiente y Almacén solicitara a compras que realice el pedido."
+			if (!hayStock) {
+				item.setEstado(EstadoItemPedido.Sin_Stock);
 				hayStockDeTodosLosItems = false;
 			} else {
-				//GENERAR MovimientoPedido
+				item.setEstado(EstadoItemPedido.Con_Stock);
 			}
 		}
-		
-		return;
-		
-//		if(!hayStockDeTodosLosItems) {
-//			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Stock);
-//			return false;
-//		} else {
-//			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
-//			return true;
-//		}
+
+		return hayStockDeTodosLosItems;
+	}
+	
+	public List<Movimiento> crearMovimientos(PedidoWeb pedidoWeb) {
+		List<Movimiento> result = new ArrayList<>();
+		for(ItemPedido item : pedidoWeb.getItems()) {
+			if (item.getEstado() == EstadoItemPedido.Con_Stock) {
+				result.add(item.getArticulo().crearMovimientoPedido(item.getCantidad(), pedidoWeb));
+			} else {
+				List<OrdenCompra> loc = Compras.getInstancia().crearOrdenesCompra(item, pedidoWeb); // Genero las OC
+				result.add(item.getArticulo().crearMovimientoCompra(loc.get(0).getCantidad() * loc.size(), pedidoWeb.getFechaGeneracion())); // Por si la cantidad supera más 100% la cantidad de pedido
+			}
+		}
+		return result;
+	}
+	
+	public MovimientoCompra crearMovimiento(OrdenCompra oc) {
+		 return oc.getArticulo().crearMovimientoCompra(oc);
 	}
 }

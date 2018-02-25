@@ -1,5 +1,6 @@
 package edu.uade.apdzpoc.controlador;
 
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -7,13 +8,18 @@ import java.util.ResourceBundle;
 //import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 
 import edu.uade.apdzpoc.negocio.Almacen;
+import edu.uade.apdzpoc.negocio.Articulo;
 import edu.uade.apdzpoc.negocio.Cliente;
 import edu.uade.apdzpoc.negocio.Compras;
 import edu.uade.apdzpoc.negocio.Despacho;
 import edu.uade.apdzpoc.negocio.Facturacion;
 import edu.uade.apdzpoc.negocio.ItemPedido;
+import edu.uade.apdzpoc.negocio.Lote;
+import edu.uade.apdzpoc.negocio.Movimiento;
+import edu.uade.apdzpoc.negocio.MovimientoCompra;
+import edu.uade.apdzpoc.negocio.OrdenCompra;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
-
+import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.enums.EstadoPedido;
 
 /**
@@ -58,22 +64,30 @@ public class Controlador {
 		String mensajeResultado = "";
 		
 		if (!facturacion.alcanzaLimiteCTA(pedidoWeb)) {
+			// Mandar al despacho para actualizar el pedido
 			pedidoWeb.setEstadoPedido(EstadoPedido.Rechazado);
 			mensajeResultado = mensajes.getString("rechazado");
 			// El Despacho NO encola el pedido.
 		} else {
 			
-			// Lo envío a Facturación para confeccionar la factura:
-			facturacion.crearFactura(pedidoWeb);
-			
-			//Acá: la gestión del pago??
-			
 			if (!almacen.alcanzaStockPedido(pedidoWeb)) {
 				pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Stock);
 				mensajeResultado = mensajes.getString("pendiente_stock");
+				
 			} else {
 				pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
 				mensajeResultado = mensajes.getString("pendiente_despacho");
+				
+				facturacion.crearFactura(pedidoWeb);
+				facturacion.crearRemito(pedidoWeb);
+				
+			}
+			
+			// Paso por el almacen para generar los movimientos:
+			List<Movimiento> lm = almacen.crearMovimientos(pedidoWeb);
+			
+			for(Movimiento m : lm) {
+				m.actualizarNovedadStock();
 			}
 			
 			// El Despacho encola el pedido.
@@ -85,5 +99,26 @@ public class Controlador {
 		// Devuelvo el ID del pedido.
 		return pedidoWeb.getIdPedido();
 	}
+	
+	// En el business delegate recibe OrdenCompraDTO
+	public void ingresarCompra(OrdenCompra oc, EstadoOC estadoOC) {
+		Almacen almacen = Almacen.getInstancia();
+		
+		Compras.getInstancia().validarOrdenCompra(oc, estadoOC);
+		
+		if (oc.getEstado() == EstadoOC.Aceptada) {
+			
+			MovimientoCompra mc = almacen.crearMovimiento(oc);
+			mc.actualizarNovedadStock();
+			
+		} else {
+			// Rechazada
+		}
+		
+	}
+	
+	// Lo envío a Facturación para confeccionar la factura:
+	// 
+	//Acá: la gestión del pago??
 	
 }

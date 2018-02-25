@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.uade.apdzpoc.dao.FacturaDAO;
 import edu.uade.apdzpoc.enums.EstadoPedido;
 
 public class Facturacion {
@@ -57,8 +58,10 @@ public class Facturacion {
 	
 	public void crearFactura(PedidoWeb pedidoWeb) {
 		Date fechaEmision = new Date();
-		Date fechaVencimiento = new Date(); // De dónde lo saco? Del artículo?
-		String tipoFactura = "A"; // De dónde lo saco? Del cliente?
+		Date fechaVencimiento = new Date(); // Date +30, +60 +90 días;
+		
+		// Si el cliente es responsable inscripto, es factura A. Factura B es para los demás.
+		String tipoFactura = pedidoWeb.getCliente().isIvaInscripto() ?  "A" : "B";
 		
 		List<ItemFactura> itemsFactura = new ArrayList<>();
 		for(ItemPedido item : pedidoWeb.getItems()) {
@@ -67,8 +70,11 @@ public class Facturacion {
 			itemsFactura.add(new ItemFactura(item.getArticulo(), item.getCantidad(), item.calcularTotal()));
 		}
 		
-		// Creo la nueva factura
-		new Factura(pedidoWeb.getCliente(), fechaEmision, fechaVencimiento, tipoFactura, itemsFactura);
+		// Persisto la nueva factura
+		FacturaDAO.getInstancia().save(new Factura(pedidoWeb.getCliente(), fechaEmision, fechaVencimiento, tipoFactura, itemsFactura));
+	}
+	
+	public void crearRemito(PedidoWeb pedidoWeb) {
 		
 	}
 }
