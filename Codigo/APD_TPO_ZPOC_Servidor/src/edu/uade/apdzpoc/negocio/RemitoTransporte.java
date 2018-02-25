@@ -12,6 +12,10 @@ public class RemitoTransporte {
 		this.pedido = pedido;
 	}
 
+	public RemitoTransporte() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdRemito() {
 		return idRemito;
 	}

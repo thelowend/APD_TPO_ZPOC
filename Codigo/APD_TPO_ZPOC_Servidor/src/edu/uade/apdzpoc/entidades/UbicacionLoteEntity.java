@@ -9,9 +9,9 @@ public class UbicacionLoteEntity {
 	@EmbeddedId
 	private UbicacionLoteIDEntity id;
 	
-	@OneToOne
+	/*@OneToOne
 	@JoinColumn(name="Id_Ubicacion")
-	private UbicacionEntity ubicacion;
+	private UbicacionEntity ubicacion;*/
 	
 	public UbicacionLoteEntity() {
 		// TODO Auto-generated constructor stub
@@ -25,13 +25,13 @@ public class UbicacionLoteEntity {
 		this.id = id;
 	}
 
-	public UbicacionEntity getUbicacion() {
+	/*public UbicacionEntity getUbicacion() {
 		return ubicacion;
 	}
 
 	public void setUbicacion(UbicacionEntity ubicacion) {
 		this.ubicacion = ubicacion;
-	}
+	}*/
 	
 	
 	
