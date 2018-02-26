@@ -22,15 +22,15 @@ public class CuentaCorriente {
 	private int idCtaCorriente;
 	private float saldo;
 	private float limMax;
-	private Cliente cliente;
+	//private Cliente cliente;
 
-	public Cliente getCliente() {
+/*	public Cliente getCliente() {
 		return cliente;
 	}
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
+	}*/
 
 	public CuentaCorriente(float limMax) {
 		this.limMax = limMax;

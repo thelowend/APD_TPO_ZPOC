@@ -9,11 +9,11 @@ public class CuentaCorrienteEntity {
 	@Column(name="IdCtaCte")
 	private Integer idCtaCorriente;
 	
-	
+/*	
 	@OneToOne
 	@JoinColumn(name="IdCliente")
 	private ClienteEntity cliente;
-	
+*/	
 	@Column(name="SaldoTotal")
 	private float saldo;
 	
@@ -33,7 +33,7 @@ public class CuentaCorrienteEntity {
 	public void setIdCtaCorriente(Integer idCtaCorriente) {
 		this.idCtaCorriente = idCtaCorriente;
 	}
-
+/*
 
 	public ClienteEntity getCliente() {
 		return cliente;
@@ -43,7 +43,7 @@ public class CuentaCorrienteEntity {
 	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
-
+*/
 
 	public float getSaldo() {
 		return saldo;

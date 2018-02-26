@@ -33,7 +33,7 @@ public class Prueba_hbt {
 
 		Factura f= FacturaDAO.getInstancia().findByCodigo(2);
 		
-		System.out.println(f.getCliente());
+		System.out.println(f.getCliente().getNombre());
 		
 		
 		//OrdenCompra oc= OrdenCompraDAO.getInstancia().findByCodigo(7);

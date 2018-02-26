@@ -46,17 +46,20 @@ public class CuentaCorrienteDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		CuentaCorrienteEntity aux = (CuentaCorrienteEntity) s
+		/*CuentaCorrienteEntity aux = (CuentaCorrienteEntity) s
 				.createQuery("from CuentaCorrienteEntity ct join c.cliente cl where cl.idCliente = ?")
+				.setInteger(0, idCliente).uniqueResult();*/
+		CuentaCorrienteEntity aux = (CuentaCorrienteEntity) s
+				.createQuery("from CuentaCorrienteEntity ct where cl.idCliente = ?")
 				.setInteger(0, idCliente).uniqueResult();
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
-		if (aux != null) {
+		/*if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
 			throw new ClienteException("No se encontró el cliente " + idCliente);
-		}
+		}*/
 		return resultado;
 	}
 
@@ -77,9 +80,9 @@ public class CuentaCorrienteDAO {
 		cuentaCorrienteAPersistir.setLimMax(cuentaCorrienteNegocio.getLimMax());
 		cuentaCorrienteAPersistir.setSaldo(cuentaCorrienteNegocio.getSaldo());
 
-		ClienteEntity clAux = ClienteDAO.getInstancia().toEntity(cuentaCorrienteNegocio.getCliente());
+		/*ClienteEntity clAux = ClienteDAO.getInstancia().toEntity(cuentaCorrienteNegocio.getCliente());
 		cuentaCorrienteAPersistir.setCliente(clAux);
-
+*/
 		return cuentaCorrienteAPersistir;
 	}
 
@@ -89,9 +92,9 @@ public class CuentaCorrienteDAO {
 		cuentaCorrienteNegocio.setLimMax(cuentaCorrienteRecuperado.getLimMax());
 		cuentaCorrienteNegocio.setSaldo(cuentaCorrienteRecuperado.getSaldo());
 
-		Cliente clAux = ClienteDAO.getInstancia().toNegocio(cuentaCorrienteRecuperado.getCliente());
+		/*Cliente clAux = ClienteDAO.getInstancia().toNegocio(cuentaCorrienteRecuperado.getCliente());
 		cuentaCorrienteNegocio.setCliente(clAux);
-
+*/
 		return cuentaCorrienteNegocio;
 	}
 

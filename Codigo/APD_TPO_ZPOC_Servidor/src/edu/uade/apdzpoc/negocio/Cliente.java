@@ -85,6 +85,7 @@ public class Cliente {
 	public void setDescuento(float descuento) {
 		this.descuento = descuento;
 	}
+	
 	public CuentaCorriente getCuentaCorriente() {
 		return cuentaCorriente;
 	}

@@ -65,13 +65,16 @@ public class FacturaDAO {
 	public FacturaEntity toEntity(Factura factura) {
 		
 		FacturaEntity facturaAPersistir = new FacturaEntity();
+	
 		facturaAPersistir.setIdFactura(factura.getIdFactura());
 		facturaAPersistir.setFechaVencimiento(factura.getFechaVencimiento());
 		facturaAPersistir.setFechaEmision(factura.getFechaEmision());
 		facturaAPersistir.setTotalFactura(factura.getTotalFactura());
+		//Grabo El cliente Entity
+		ClienteEntity ce= new ClienteEntity();
+		ce=ClienteDAO.getInstancia().toEntity(factura.getCliente());
 		
 		List<ItemFacturaEntity> aux1 = new ArrayList<ItemFacturaEntity>();	
-		
 		List <ItemFactura> facturas = factura.getItemsFactura();
 		for(ItemFactura f : facturas)
 			aux1.add(ItemFacturaDAO.getInstancia().toEntity(f));
@@ -91,7 +94,8 @@ public class FacturaDAO {
 		factura.setFechaVencimiento(facturaRecuperada.getFechaVencimiento());
 		factura.setFechaEmision(facturaRecuperada.getFechaEmision());
 		factura.setTotalFactura(facturaRecuperada.getTotalFactura());
-		
+		//recupero el cliente
+		factura.setCliente(ClienteDAO.getInstancia().toNegocio(facturaRecuperada.getCliente()));
 		
 		List<ItemFactura> aux1 = new ArrayList<ItemFactura>();	
 		
