@@ -30,7 +30,7 @@ public class FacturaEntity {
 	private String tipoFactura;
 	
 	@OneToMany
-	@JoinColumn(name="Nro_Factura")
+	@JoinColumn(name="NroFactura")
 	private List<ItemFacturaEntity> itemsFactura;
 	
 	@Column(name="TotalFactura")
@@ -99,6 +99,16 @@ public class FacturaEntity {
 
 	public void setTotalFactura(float totalFactura) {
 		this.totalFactura = totalFactura;
+	}
+
+
+	public ClienteEntity getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(ClienteEntity cliente) {
+		this.cliente = cliente;
 	}
 	
 	
