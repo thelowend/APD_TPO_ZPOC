@@ -29,19 +29,19 @@ public class ClienteEntity {
 	private String nombre;
 	
 	@Column (name="Documento")
-	private Integer documento;
+	private int documento;
 	
 	@Column (name="DomicilioFacturacion")
 	private String domicilioFacturacion;
 	
 	@Column (name="ResponsableInscripto")
-	private Boolean responsableInscripto;
+	private boolean responsableInscripto;
 	
 	@Column(name="IVAInscripto")
-	private Boolean ivaInscripto;
+	private boolean ivaInscripto;
 
 	@Column (name="Descuento")
-	private Float descuento;
+	private float descuento;
 
 	@OneToOne
 	@JoinColumn(name="IdCliente")
@@ -65,7 +65,7 @@ public class ClienteEntity {
 		this.nombre = nombre;
 	}
 
-	public Integer getDocumento() {
+	public int getDocumento() {
 		return documento;
 	}
 
@@ -81,7 +81,7 @@ public class ClienteEntity {
 		this.domicilioFacturacion = domicilioFacturacion;
 	}
 
-	public Boolean getResponsableInscripto() {
+	public boolean getResponsableInscripto() {
 		return responsableInscripto;
 	}
 
@@ -89,7 +89,7 @@ public class ClienteEntity {
 		this.responsableInscripto = responsableInscripto;
 	}
 
-	public Boolean getIvaInscripto() {
+	public boolean getIvaInscripto() {
 		return ivaInscripto;
 	}
 
@@ -97,7 +97,7 @@ public class ClienteEntity {
 		this.ivaInscripto = ivaInscripto;
 	}
 
-	public Float getDescuento() {
+	public float getDescuento() {
 		return descuento;
 	}
 

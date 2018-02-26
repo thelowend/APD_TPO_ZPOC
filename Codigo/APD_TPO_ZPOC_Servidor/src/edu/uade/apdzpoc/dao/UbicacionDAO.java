@@ -23,20 +23,19 @@ public class UbicacionDAO {
 		return instancia;
 	}
 
-	public Ubicacion findrecuperadoByNro(String idUbicacion) throws UbicacionException {
+	public Ubicacion findrecuperadoByNro(Integer idUbicacion) throws UbicacionException {
 		Ubicacion resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		UbicacionEntity aux = (UbicacionEntity) s.createQuery("select ue from UbicacionEntity ue where idUbicacion = ?")
-				.setString(0, idUbicacion).uniqueResult();
-		resultado = this.toNegocio(aux);
+				.setInteger(0, idUbicacion).uniqueResult();
 		s.getTransaction().commit();
 		s.close();
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new UbicacionException("No se encontró la Ubicacion " + idUbicacion);
+			throw new UbicacionException("No se encontró la ubicación " + idUbicacion);
 		}
 		return resultado;
 	}
@@ -68,7 +67,7 @@ public class UbicacionDAO {
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new UbicacionException("El depósito está lleno.");
+			throw new UbicacionException("¡El depósito está lleno!");
 		}
 		return resultado;
 	}
@@ -103,6 +102,7 @@ public class UbicacionDAO {
 	public UbicacionEntity toEntity(Ubicacion ubicacionNegocio) {
 		UbicacionEntity ubicacionAPersistir = new UbicacionEntity();
 		ubicacionAPersistir.setIdUbicacion(ubicacionNegocio.getIdUbicacion());
+		ubicacionAPersistir.setNombre(ubicacionNegocio.getNombre());
 		ubicacionAPersistir.setBloque(ubicacionNegocio.getBloque());
 		ubicacionAPersistir.setCalle(ubicacionNegocio.getCalle());
 		ubicacionAPersistir.setCapacidad(ubicacionNegocio.getCapacidad());
@@ -116,6 +116,7 @@ public class UbicacionDAO {
 	public Ubicacion toNegocio(UbicacionEntity ubicacionRecuperada) {
 		Ubicacion ubicacionNegocio = new Ubicacion();
 		ubicacionNegocio.setIdUbicacion(ubicacionRecuperada.getIdUbicacion());
+		ubicacionNegocio.setNombre(ubicacionRecuperada.getNombre());
 		ubicacionNegocio.setBloque(ubicacionRecuperada.getBloque());
 		ubicacionNegocio.setCalle(ubicacionRecuperada.getCalle());
 		ubicacionNegocio.setCapacidad(ubicacionRecuperada.getCapacidad());

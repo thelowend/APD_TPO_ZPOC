@@ -14,7 +14,7 @@ public class ItemRemitoAlmacenEntity {
 	private ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")
-	private Integer cantidad;
+	private int cantidad;
 	
 	@OneToOne
 	@JoinColumn(name="IdUbicacion")
@@ -46,7 +46,7 @@ public class ItemRemitoAlmacenEntity {
 	}
 
 
-	public Integer getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 

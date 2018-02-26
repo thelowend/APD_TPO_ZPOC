@@ -2,6 +2,8 @@ package edu.uade.apdzpoc.entidades;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 import edu.uade.apdzpoc.enums.MedioPago;
 
 @Entity
@@ -17,10 +19,11 @@ public class PagoClienteEntity {
 	private MedioPago medioDePago;
 
 	@Column(name = "FechaPago")
+	@Type(type="date")
 	private java.sql.Date fecha;
 
 	@Column(name = "Monto")
-	private Float monto;
+	private float monto;
 
 	@OneToOne
 	@JoinColumn(name = "NroFactura")
@@ -54,7 +57,7 @@ public class PagoClienteEntity {
 		this.fecha = fecha;
 	}
 
-	public Float getMonto() {
+	public float getMonto() {
 		return monto;
 	}
 

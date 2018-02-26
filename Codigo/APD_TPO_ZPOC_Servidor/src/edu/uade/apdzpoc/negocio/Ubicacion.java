@@ -20,7 +20,8 @@ import edu.uade.apdzpoc.enums.EstadoUbicacion;
 
 public class Ubicacion {
 
-	private String idUbicacion;
+	private int idUbicacion;
+	private String nombre;
 	private String calle;
 	private int bloque;
 	private int estante;
@@ -29,7 +30,8 @@ public class Ubicacion {
 	private int capacidad;
 	private int capacidadInicial;
 
-	public Ubicacion(String calle, int bloque, int estante, int posicion, EstadoUbicacion estado, int capacidad) {
+	public Ubicacion(String Nombre, String calle, int bloque, int estante, int posicion, EstadoUbicacion estado, int capacidad) {
+		this.nombre=Nombre;
 		this.calle = calle;
 		this.bloque = bloque;
 		this.estante = estante;
@@ -43,13 +45,21 @@ public class Ubicacion {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getIdUbicacion() {
+	public int getIdUbicacion() {
 		return idUbicacion;
 	}
-
-	public void setIdUbicacion(String idUbicacion) {
-		this.idUbicacion = idUbicacion;
+	public void setIdUbicacion(int idUbicacion){
+		this.idUbicacion=idUbicacion;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 
 	public String getCalle() {
 		return calle;

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Table(name="MovimientosStock")
@@ -15,6 +17,7 @@ public abstract class MovimientoEntity {
 	protected Integer idMovimiento;
 	
 	@Column(name="Fecha")
+	@Type(type="date")
 	protected Date fecha;
 	
 	@OneToOne
@@ -22,10 +25,8 @@ public abstract class MovimientoEntity {
 	protected ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")
-	protected Integer cantidad;
-	
-	
-	
+	protected int cantidad;
+
 	
 	public MovimientoEntity() {
 		// TODO Auto-generated constructor stub
@@ -83,7 +84,7 @@ public abstract class MovimientoEntity {
 
 
 
-	public Integer getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 

@@ -4,22 +4,26 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name="Facturas")
 public class FacturaEntity {
 
 	@Id
 	@Column(name="NroFactura")
-	private int idFactura;
+	private Integer idFactura;
 	
 	@ManyToOne
 	@JoinColumn(name="IdCliente")
 	private ClienteEntity cliente;
 	
 	@Column(name="FechaEmision")
+	@Type(type="date")
 	private Date fechaEmision;
 	
 	@Column(name="FechaVencimiento")
+	@Type(type="date")
 	private Date fechaVencimiento;
 	
 	@Column(name="TipoFactura")

@@ -15,10 +15,10 @@ public class ItemFacturaEntity {
 	private ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")
-	private Integer cantidad;
+	private int cantidad;
 	
 	@Column(name="Precio")
-	private Float precio;
+	private float precio;
 	
 	
 	public ItemFacturaEntity() {
@@ -46,7 +46,7 @@ public class ItemFacturaEntity {
 	}
 
 
-	public Integer getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 
@@ -56,7 +56,7 @@ public class ItemFacturaEntity {
 	}
 
 
-	public Float getPrecio() {
+	public float getPrecio() {
 		return precio;
 	}
 

@@ -1,5 +1,6 @@
 package edu.uade.apdzpoc.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class OrdenCompraDAO {
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new OrdenCompraException("No se encontró la Orden de Compra " + idOC);
+			throw new OrdenCompraException("No se encontró la orden de compra " + idOC);
 		}
 		return resultado;
 	}
@@ -88,7 +89,8 @@ public class OrdenCompraDAO {
 	public OrdenCompraEntity toEntity(OrdenCompra ordenCompraNegocio) {
 		OrdenCompraEntity ordenCompraEntityAPersistir = new OrdenCompraEntity();
 		ordenCompraEntityAPersistir.setIdOC(ordenCompraNegocio.getIdOC());
-		ordenCompraEntityAPersistir.setFecha(ordenCompraNegocio.getFecha());
+		java.sql.Date d = new Date(ordenCompraNegocio.getFecha().getTime());
+		ordenCompraEntityAPersistir.setFecha(d);
 		ordenCompraEntityAPersistir.setEstado(ordenCompraNegocio.getEstado());
 		ordenCompraEntityAPersistir.setCantidad(ordenCompraNegocio.getCantidad());
 

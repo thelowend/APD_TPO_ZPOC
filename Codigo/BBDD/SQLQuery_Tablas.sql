@@ -94,7 +94,8 @@ GO
 	
 Create table Ubicaciones
 (	
-	IdUbicacion Char(7), 
+	IdUbicacion	int identity,
+	Nombre		Char(7), 
 	Calle		Char(1), 
 	Bloque		smallint, 
 	Estante		smallint, 
@@ -116,7 +117,7 @@ create table Lotes
 GO
 
 create table UbicacionesLote
-(	IdUbicacion Char(7),
+(	IdUbicacion int,
 	NroLote int not null,
 	Primary Key (NroLote,IdUbicacion),
 	Constraint  FKIdUbicacion2 Foreign Key (IdUbicacion) references Ubicaciones(IdUbicacion),
@@ -140,7 +141,7 @@ Create table ItemsRemitoAlmacen
 	IdRemitoAlmacen smallint,
 	CodigoBarra	int,
 	Cantidad smallint,
-	IdUbicacion Char(7),
+	IdUbicacion int,
 	Primary Key (IdItemRemitoAlamcen),
 	Constraint	FKIdRemitoAlmacen Foreign Key (IdRemitoAlmacen) references RemitosAlmacen (IdRemitoAlmacen),
 	Constraint  FKCodigo_Barra3 Foreign Key (CodigoBarra ) references Articulos(CodigoBarra ),

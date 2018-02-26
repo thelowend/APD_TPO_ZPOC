@@ -13,7 +13,7 @@ public class RemitoAlmacenEntity {
 
 	@Id
 	@Column(name="IdRemitoAlmacen")
-	private int idRemito;
+	private Integer idRemito;
 	
 	@Column(name="Estado")
 	@Enumerated(EnumType.STRING)
@@ -28,9 +28,9 @@ public class RemitoAlmacenEntity {
 	private TipoRemitoAlmacen tipo;
 	
 	@Column(name="Numero")
-	private Integer numero;
+	private int numero;
 	
-	public Integer getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 

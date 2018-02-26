@@ -3,6 +3,8 @@ package edu.uade.apdzpoc.entidades;
 import java.util.Date;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 import edu.uade.apdzpoc.enums.EstadoOC;
 
 
@@ -19,7 +21,7 @@ public class OrdenCompraEntity {
 	private ProveedorEntity proveedor;
 	
 	@Column (name="Cantidad")
-	private Integer cantidad;
+	private int cantidad;
 	
 	@Column(name="EstadoOC")
 	@Enumerated(EnumType.STRING)
@@ -38,6 +40,7 @@ public class OrdenCompraEntity {
 	private PedidoWebEntity pedidoW;
 	
 	@Column(name="Fecha")
+	@Type(type="date")
 	private Date fecha;
 	
 	
@@ -66,7 +69,7 @@ public class OrdenCompraEntity {
 	}
 
 
-	public Integer getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 

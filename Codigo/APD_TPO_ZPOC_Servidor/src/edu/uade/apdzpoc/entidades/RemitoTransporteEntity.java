@@ -24,7 +24,7 @@ public class RemitoTransporteEntity {
 
 
 
-	public Integer getIdRemito() {
+	public int getIdRemito() {
 		return idRemito;
 	}
 
