@@ -1,40 +1,40 @@
-Create table Cliente
+Create table Clientes
 (	IdCliente				smallint not null identity,
 	Nombre					Char(30),
-	Domicilio_Facturacion	Char(30),
-	Responsable_Inscripto	Tinyint,
+	Documento				int,
+	ResponsableInscripto	Tinyint,
+	IVAInscripto			Tinyint,
+	DomicilioFacturacion	Char(30),
 	Descuento				float,
-	IVA_Inscripto			Tinyint,
+
 	Primary Key (IdCliente)
 	)
-
 GO
 
 
-create table Factura
-(	Nro_Factura			smallint not null identity,
-	Fecha_Emision		date,
-	Fecha_Vencimiento	date,
-	Tipo_Factura		Char(1),
-	Estado				Char(30),
-	Total				float,
+create table Facturas
+(	NroFactura			smallint not null identity,
 	IdCliente			smallint,
-	Constraint PKNro_Factura Primary Key (Nro_Factura),
-	Constraint FKCliente2  Foreign Key (IdCliente) references Cliente (IdCliente))
+	FechaEmision		date,
+	FechaVencimiento	date,
+	TipoFactura			Char(1),
+	TotalFactura		float,
+	Constraint PKNro_Factura Primary Key (NroFactura),
+	Constraint FKCliente2  Foreign Key (IdCliente) references Clientes (IdCliente))
 GO
 
-create table Pago_Cliente
+create table PagosCliente
 (	IdComprobante		smallint not null identity,
-	Medio_Pago			varchar(30) not null,
-	Fecha_Pago			date,
+	MedioPago			varchar(30) not null,
+	FechaPago			date,
 	Monto				float,
-	Nro_Factura			smallint,
-	Constraint PKPago_Cliente Primary Key (IdComprobante),
-	Constraint FKNro_Factura Foreign Key (Nro_Factura) references Factura(Nro_Factura))
+	NroFactura			smallint,
+	Constraint PKPagoCliente Primary Key (IdComprobante),
+	Constraint FKNroFactura Foreign Key (NroFactura) references Facturas(NroFactura))
 GO
 
-create table Pedido_WEB
-(	Id_Pedido			smallint not null identity,
+create table PedidosWEB
+(	IdPedido			smallint not null identity,
 	IdCliente			smallint not null,
 	Fecha_Generacion	date,
 	Fecha_Despacho		date,
@@ -42,7 +42,7 @@ create table Pedido_WEB
 	EstadoPedido		varchar(50),
 	DireccionEnvio		Char(100),
 	Constraint PKId_Pedido  Primary Key (Id_Pedido),
-	Constraint FKCliente Foreign Key (IdCliente) references Cliente(IdCliente)
+	Constraint FKCliente Foreign Key (IdCliente) references Clientes(IdCliente)
 	)
 
 Create Table Articulo
