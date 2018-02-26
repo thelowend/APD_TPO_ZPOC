@@ -188,7 +188,7 @@ Create table OrdenesCompra
 	IdPedido smallint,
 	NroLote int,
 	Cantidad int,
-	Fecha date,
+	Fecha datetime,
 	Primary Key (NroOC),
 	Constraint  FKIdProveedor1 Foreign Key (IdProveedor ) references Proveedores(IdProveedor),
 	Constraint  FKCodigoBarra7 Foreign Key (CodigoBarra ) references Articulos(CodigoBarra),

@@ -1,6 +1,6 @@
 package edu.uade.apdzpoc.entidades;
 
-import java.util.Date;
+import java.sql.Date;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
@@ -31,9 +31,12 @@ public class OrdenCompraEntity {
 	@JoinColumn(name="CodigoBarra")
 	private ArticuloEntity articulo;
 	
-	@OneToOne
+	/*@OneToOne
 	@JoinColumn(name="NroLote")
 	private LoteEntity lote;
+	*/
+	@Column(name="NroLote")
+	private int lote;
 	
 	@OneToOne
 	@JoinColumn(name="IdPedido")
@@ -99,12 +102,12 @@ public class OrdenCompraEntity {
 	}
 
 
-	public LoteEntity getLote() {
+	public int getLote() {
 		return lote;
 	}
 
 
-	public void setLote(LoteEntity lote) {
+	public void setLote(int lote) {
 		this.lote = lote;
 	}
 
