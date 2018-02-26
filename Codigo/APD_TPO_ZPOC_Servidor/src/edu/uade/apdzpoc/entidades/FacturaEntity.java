@@ -10,7 +10,7 @@ public class FacturaEntity {
 
 	@Id
 	@Column(name="NroFactura")
-	private int idFactura;
+	private Integer idFactura;
 	
 	@ManyToOne
 	@JoinColumn(name="IdCliente")

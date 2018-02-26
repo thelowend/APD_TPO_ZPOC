@@ -19,7 +19,7 @@ public class ProveedorEntity {
 	}
 
 
-	public Integer getIdProveedor() {
+	public int getIdProveedor() {
 		return idProveedor;
 	}
 

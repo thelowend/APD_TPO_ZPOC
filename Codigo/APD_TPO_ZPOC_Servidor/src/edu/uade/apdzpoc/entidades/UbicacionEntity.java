@@ -23,21 +23,21 @@ import edu.uade.apdzpoc.enums.EstadoUbicacion;
 @Table(name = "Ubicaciones")
 public class UbicacionEntity {
 
-	/**
-	 * 
-	 */
 	@Id
 	@Column(name = "IdUbicacion")
-	private String idUbicacion;
+	private Integer idUbicacion;
+	
+	@Column(name = "Nombre")
+	private String nombre;
 
 	@Column(name = "Calle")
 	private String calle;
 
 	@Column(name = "Bloque")
-	private Integer bloque;
+	private int bloque;
 
 	@Column(name = "Estante")
-	private Integer estante;
+	private int estante;
 
 	@Column(name = "Posicion")
 	private int posicion;
@@ -47,23 +47,34 @@ public class UbicacionEntity {
 	private EstadoUbicacion estado;
 
 	@Column(name = "Capacidad")
-	private Integer Capacidad;
+	private int Capacidad;
 
 	@Column(name = "CapacidadInicial")
-	private Integer CapacidadInicial;
+	private int CapacidadInicial;
 
 	public UbicacionEntity() {
 
 	}
 
-	public String getIdUbicacion() {
+	public Integer getIdUbicacion() {
 		return idUbicacion;
 	}
 
-	public void setIdUbicacion(String idUbicacion) {
+	public void setIdUbicacion(Integer idUbicacion) {
 		this.idUbicacion = idUbicacion;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	
+	
+	
 	public String getCalle() {
 		return calle;
 	}
@@ -72,7 +83,7 @@ public class UbicacionEntity {
 		this.calle = calle;
 	}
 
-	public Integer getBloque() {
+	public int getBloque() {
 		return bloque;
 	}
 
@@ -80,7 +91,7 @@ public class UbicacionEntity {
 		this.bloque = bloque;
 	}
 
-	public Integer getEstante() {
+	public int getEstante() {
 		return estante;
 	}
 
@@ -104,7 +115,7 @@ public class UbicacionEntity {
 		this.estado = estado;
 	}
 
-	public Integer getCapacidad() {
+	public int getCapacidad() {
 		return Capacidad;
 	}
 
@@ -112,7 +123,7 @@ public class UbicacionEntity {
 		this.Capacidad = capacidad;
 	}
 
-	public Integer getCapacidadInicial() {
+	public int getCapacidadInicial() {
 		return CapacidadInicial;
 	}
 

@@ -15,10 +15,10 @@ public class CuentaCorrienteEntity {
 	private ClienteEntity cliente;
 	
 	@Column(name="SaldoTotal")
-	private Float saldo;
+	private float saldo;
 	
 	@Column(name="LimiteMaximo")
-	private Float limMax;
+	private float limMax;
 	
 	
 	public CuentaCorrienteEntity() {
@@ -45,7 +45,7 @@ public class CuentaCorrienteEntity {
 	}
 
 
-	public Float getSaldo() {
+	public float getSaldo() {
 		return saldo;
 	}
 
@@ -55,7 +55,7 @@ public class CuentaCorrienteEntity {
 	}
 
 
-	public Float getLimMax() {
+	public float getLimMax() {
 		return limMax;
 	}
 

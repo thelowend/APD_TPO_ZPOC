@@ -22,13 +22,13 @@ public class UbicacionDAO {
 		return instancia;
 	}
 
-	public Ubicacion findrecuperadoByNro(String idUbicacion) {
+	public Ubicacion findrecuperadoByNro(Integer idUbicacion) {
 		Ubicacion resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		UbicacionEntity aux = (UbicacionEntity) s.createQuery("select ue from UbicacionEntity ue where idUbicacion = ?")
-				.setString(0, idUbicacion).uniqueResult();
+				.setInteger(0, idUbicacion).uniqueResult();
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
@@ -95,6 +95,7 @@ public class UbicacionDAO {
 	public UbicacionEntity toEntity(Ubicacion ubicacionNegocio) {
 		UbicacionEntity ubicacionAPersistir = new UbicacionEntity();
 		ubicacionAPersistir.setIdUbicacion(ubicacionNegocio.getIdUbicacion());
+		ubicacionAPersistir.setNombre(ubicacionNegocio.getNombre());
 		ubicacionAPersistir.setBloque(ubicacionNegocio.getBloque());
 		ubicacionAPersistir.setCalle(ubicacionNegocio.getCalle());
 		ubicacionAPersistir.setCapacidad(ubicacionNegocio.getCapacidad());
@@ -108,6 +109,7 @@ public class UbicacionDAO {
 	public Ubicacion toNegocio(UbicacionEntity ubicacionRecuperada) {
 		Ubicacion ubicacionNegocio = new Ubicacion();
 		ubicacionNegocio.setIdUbicacion(ubicacionRecuperada.getIdUbicacion());
+		ubicacionNegocio.setNombre(ubicacionRecuperada.getNombre());
 		ubicacionNegocio.setBloque(ubicacionRecuperada.getBloque());
 		ubicacionNegocio.setCalle(ubicacionRecuperada.getCalle());
 		ubicacionNegocio.setCapacidad(ubicacionRecuperada.getCapacidad());

@@ -20,7 +20,7 @@ public class PagoClienteEntity {
 	private java.sql.Date fecha;
 
 	@Column(name = "Monto")
-	private Float monto;
+	private float monto;
 
 	@OneToOne
 	@JoinColumn(name = "NroFactura")
@@ -54,7 +54,7 @@ public class PagoClienteEntity {
 		this.fecha = fecha;
 	}
 
-	public Float getMonto() {
+	public float getMonto() {
 		return monto;
 	}
 

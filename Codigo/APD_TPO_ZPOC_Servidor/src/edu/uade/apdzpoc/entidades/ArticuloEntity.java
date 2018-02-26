@@ -20,10 +20,10 @@ public class ArticuloEntity {
 	private String descripcion;
 
 	@Column(name="PrecioVenta")
-	private Float precioVenta;
+	private float precioVenta;
 
 	@Column(name="CantidadOC")
-	private Integer cantidadCompra;
+	private int cantidadCompra;
 
 	@Column(name="Presentacion")
 	private String presentacion;
@@ -32,16 +32,16 @@ public class ArticuloEntity {
 	private String tamanio;
 
 	@Column(name="StockFisico")
-	private Integer stockFisico;
+	private int stockFisico;
 
 	@Column(name="StockVirtual")
-	private Integer stockVirtual;
+	private int stockVirtual;
 
 	@Column(name="StockDisponible")
-	private Integer stockDisponible;
+	private int stockDisponible;
 
 	@Column(name="StockPendienteEntrega")
-	private Integer stockPendienteEntrega;
+	private int stockPendienteEntrega;
 
 	@OneToMany
 	@JoinColumn(name="CodigoBarra")

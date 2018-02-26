@@ -19,7 +19,7 @@ public class ItemPedidoEntity {
 	private ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")
-	private Integer cantidad;
+	private int cantidad;
 	
 	@Column(name="Estado")
 	@Enumerated(EnumType.STRING)
@@ -50,7 +50,7 @@ public class ItemPedidoEntity {
 	}
 
 
-	public Integer getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 

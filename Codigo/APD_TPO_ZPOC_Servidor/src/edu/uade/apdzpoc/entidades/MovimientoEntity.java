@@ -22,10 +22,8 @@ public abstract class MovimientoEntity {
 	protected ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")
-	protected Integer cantidad;
-	
-	
-	
+	protected int cantidad;
+
 	
 	public MovimientoEntity() {
 		// TODO Auto-generated constructor stub
@@ -83,7 +81,7 @@ public abstract class MovimientoEntity {
 
 
 
-	public Integer getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 

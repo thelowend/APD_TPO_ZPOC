@@ -12,10 +12,10 @@ import edu.uade.apdzpoc.enums.DestinoArticulos;
 public class MovimientoAjusteEntity extends MovimientoEntity {
 
 	@Column(name="Operador")
-	private Integer legajoOperador;
+	private int legajoOperador;
 	
 	@Column(name="Autorizante")
-	private Integer legajoAutorizante;
+	private int legajoAutorizante;
 	
 	@Column(name="Destino")
 	@Enumerated(EnumType.STRING)
@@ -45,7 +45,7 @@ public class MovimientoAjusteEntity extends MovimientoEntity {
 	}
 
 
-	public Integer getLegajoOperador() {
+	public int getLegajoOperador() {
 		return legajoOperador;
 	}
 
@@ -55,7 +55,7 @@ public class MovimientoAjusteEntity extends MovimientoEntity {
 	}
 
 
-	public Integer getLegajoAutorizante() {
+	public int getLegajoAutorizante() {
 		return legajoAutorizante;
 	}
 

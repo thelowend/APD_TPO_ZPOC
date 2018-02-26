@@ -19,7 +19,7 @@ public class OrdenCompraEntity {
 	private ProveedorEntity proveedor;
 	
 	@Column (name="Cantidad")
-	private Integer cantidad;
+	private int cantidad;
 	
 	@Column(name="EstadoOC")
 	@Enumerated(EnumType.STRING)
@@ -66,7 +66,7 @@ public class OrdenCompraEntity {
 	}
 
 
-	public Integer getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 
