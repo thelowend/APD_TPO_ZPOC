@@ -22,6 +22,7 @@ public class PedidoWebEntity {
 	private ClienteEntity cliente;
 	
 	@Column(name="FechaGeneracion")
+	@Type(type="date")
 	private Date fechaGeneracion;
 	
 	@Column(name="FechaDespacho")
