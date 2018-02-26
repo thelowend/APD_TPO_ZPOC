@@ -15,6 +15,7 @@
  
 package edu.uade.apdzpoc.negocio;
 
+import edu.uade.apdzpoc.dao.UbicacionDAO;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
 
 public class Ubicacion {
@@ -106,6 +107,10 @@ public class Ubicacion {
 
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
+	}
+	
+	public void save() {
+		UbicacionDAO.getInstancia().save(this);
 	}
 	
 	

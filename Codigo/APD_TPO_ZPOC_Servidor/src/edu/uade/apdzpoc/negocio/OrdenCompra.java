@@ -17,6 +17,7 @@ package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
 
+import edu.uade.apdzpoc.dao.OrdenCompraDAO;
 import edu.uade.apdzpoc.enums.EstadoOC;
 
 public class OrdenCompra {
@@ -103,6 +104,10 @@ public class OrdenCompra {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+	
+	public void save() {
+		OrdenCompraDAO.getInstancia().save(this);
 	}
 	
 	

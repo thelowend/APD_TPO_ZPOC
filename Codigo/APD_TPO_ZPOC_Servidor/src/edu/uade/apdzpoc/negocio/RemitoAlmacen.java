@@ -17,6 +17,7 @@ package edu.uade.apdzpoc.negocio;
 
 import java.util.List;
 
+import edu.uade.apdzpoc.dao.RemitoAlmacenDAO;
 import edu.uade.apdzpoc.enums.EstadoRemito;
 import edu.uade.apdzpoc.enums.TipoRemitoAlmacen;
 
@@ -68,6 +69,10 @@ public class RemitoAlmacen {
 	}
 	public void setNro(int nro) {
 		this.nro = nro;
+	}
+	
+	public void save() {
+		RemitoAlmacenDAO.getInstancia().save(this);
 	}
 
 }

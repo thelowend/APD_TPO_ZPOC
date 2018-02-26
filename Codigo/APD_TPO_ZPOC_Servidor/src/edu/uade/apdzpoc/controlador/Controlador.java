@@ -19,6 +19,8 @@ import edu.uade.apdzpoc.negocio.Movimiento;
 import edu.uade.apdzpoc.negocio.MovimientoCompra;
 import edu.uade.apdzpoc.negocio.OrdenCompra;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
+import edu.uade.apdzpoc.dao.ArticuloDAO;
+import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.enums.EstadoPedido;
 
@@ -82,6 +84,8 @@ public class Controlador {
 				facturacion.crearFactura(pedidoWeb);
 				facturacion.crearRemito(pedidoWeb);
 				
+				almacen.buscarUbicacionesArticulos(pedidoWeb);
+				
 			}
 			
 			// Paso por el almacen para generar los movimientos:
@@ -89,6 +93,7 @@ public class Controlador {
 			
 			for(Movimiento m : lm) {
 				m.actualizarNovedadStock();
+				m.getArticulo().save(); // Guardo el artículo con el stock actualizado y los movimientos nuevos
 			}
 			
 			// El Despacho encola el pedido.
@@ -111,15 +116,50 @@ public class Controlador {
 			
 			MovimientoCompra mc = almacen.crearMovimiento(oc);
 			mc.actualizarNovedadStock();
+			mc.getArticulo().save(); // Guardo el artículo con el stock actualizado y los movimientos nuevos
 			
+			// Ubicar articulos here:
+			almacen.asignarUbicacionesArticulos(oc); // Esto genera los remito almacen en pendiente y les asigna ubicaciones en el almacen.
+			
+			// Procesar pedido pendiente, para verificar si ya se puede completar:
+			procesarPedidoWeb(oc.getPedidoW());
 		} else {
 			// Rechazada
+			// TODO: Crear nueva OC igual
 		}
+		
+		oc.save(); // Persistimos la OC
 		
 	}
 	
-	// Lo envío a Facturación para confeccionar la factura:
-	// 
-	//Acá: la gestión del pago??
+	public void procesarPedidosWeb(OrdenCompra oc) {
+		
+		procesarPedidoWeb(oc.getPedidoW());
+		
+		if(oc.getPedidoW().getEstadoPedido() != EstadoPedido.Pendiente_Despacho) {
+			List<PedidoWeb> pedidosPendientes = PedidoWebDAO.getInstancia().getAllbyArticulo(oc.getArticulo().getCodigoBarra());
+			for(PedidoWeb pw : pedidosPendientes) {
+				procesarPedidoWeb(pw);
+			}
+		}
+	}
+	
+	private void procesarPedidoWeb(PedidoWeb pedidoWeb) {
+		Facturacion facturacion = Facturacion.getInstancia();
+		Almacen almacen = Almacen.getInstancia();
+		//Despacho despacho = Despacho.getInstancia();
+		
+		if (!almacen.alcanzaStockPedido(pedidoWeb)) {
+			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Stock);
+		} else {
+			pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
+			
+			facturacion.crearFactura(pedidoWeb);
+			facturacion.crearRemito(pedidoWeb);
+			
+			almacen.buscarUbicacionesArticulos(pedidoWeb);
+			
+		}
+	}
 	
 }

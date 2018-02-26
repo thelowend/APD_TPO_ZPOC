@@ -63,19 +63,13 @@ public class MovimientoCompra extends Movimiento {
 
 	@Override
 	public void actualizarNovedadStock() {
-		int cantidadRecibida = this.cantidad;
-		/*
-		 * 		
-		Stock Fisico. (Stock Entregado)
-		Stock Disponible (Stock Entregado - Stock Virtual)
-		Stock Virtual (Lo suma)
-		Stock Pendiente de Entrega (Lo resta)
-		 * 
-		 */
-//		this.articulo.setStockFisico(this.articulo.getStockFisico() + cantidadRecibida);
 		
-		this.articulo.setStockDisponible(this.articulo.getStockDisponible() + cantidadRecibida);
-		this.articulo.setStockVirtual(this.articulo.getStockVirtual() + cantidadRecibida);
+		int cantidadRecibida = this.cantidad;
+		
+		int stockActual = this.articulo.getStockDisponible() + cantidadRecibida + this.articulo.getStockVirtual();
+	 	this.articulo.setStockDisponible(stockActual < 0 ? 0 : stockActual);
+		this.articulo.setStockVirtual(stockActual > 0 ? 0 : stockActual);
+		
 		this.articulo.setStockPendienteEntrega(this.articulo.getStockPendienteEntrega() - cantidadRecibida);
 
 	}

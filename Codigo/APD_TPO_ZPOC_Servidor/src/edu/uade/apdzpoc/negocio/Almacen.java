@@ -18,7 +18,12 @@ package edu.uade.apdzpoc.negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.uade.apdzpoc.dao.LoteDAO;
+import edu.uade.apdzpoc.dao.UbicacionDAO;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
+import edu.uade.apdzpoc.enums.EstadoRemito;
+import edu.uade.apdzpoc.enums.EstadoUbicacion;
+import edu.uade.apdzpoc.enums.TipoRemitoAlmacen;
 
 public class Almacen {
 	private static Almacen instancia;
@@ -67,5 +72,95 @@ public class Almacen {
 	
 	public MovimientoCompra crearMovimiento(OrdenCompra oc) {
 		 return oc.getArticulo().crearMovimientoCompra(oc);
+	}
+	
+	public void asignarUbicacionesArticulos(OrdenCompra oc) {
+		Lote loteArticulo = oc.getLote();
+		int cantArticulosSinUbicacion = oc.getCantidad();
+		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();		
+		
+		while(cantArticulosSinUbicacion > 0) { 
+			
+			Ubicacion uAux = this.getUbicacionLibre(loteArticulo);
+			if (uAux.getCapacidad() <= cantArticulosSinUbicacion) {
+				cantArticulosSinUbicacion =- uAux.getCapacidad(); 
+				uAux.setCapacidad(0);
+				uAux.setEstado(EstadoUbicacion.Completa);
+				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(oc.getArticulo(), uAux.getCapacidad(), uAux));
+			} else {
+				uAux.setCapacidad(uAux.getCapacidad() - cantArticulosSinUbicacion);
+				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(oc.getArticulo(), cantArticulosSinUbicacion, uAux));
+				cantArticulosSinUbicacion = 0;
+			}
+			
+			this.crearRemitoAlmacen(itemsRemitoAlmacen, oc); // Esto genera el remito pendiente, después en la GUI de Almacen se listan los mismos para que el empleado los marque a "mano" como EstadoRemito.Procesado 
+			uAux.save();
+			
+			//loteArticulo.save();
+		}
+		
+	}
+	
+	public void buscarUbicacionesArticulos(PedidoWeb pw) {
+		// buscar 
+		List<ItemPedido> itemsPedidos = pw.getItems();
+		List<Ubicacion> ubicaciones = new ArrayList<>();
+		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();
+		
+		for (ItemPedido item : itemsPedidos) {
+			List<Lote> lotesArticulo = item.getArticulo().getLote();
+//			lotesArticulo.
+//			item.getArticulo()
+//			item.getCantidad()
+			
+		}
+	}
+	
+	public void crearRemitoAlmacen(List<ItemRemitoAlmacen> ira, OrdenCompra oc) {
+		RemitoAlmacen ra = new RemitoAlmacen();
+		ra.setEstado(EstadoRemito.Pendiente);
+		ra.setItemsRemito(ira);
+		ra.setNro(oc.getIdOC());
+		ra.setTipo(TipoRemitoAlmacen.Compra);
+		//ra.setIdRemito(java.util.UUID.randomUUID()); // Se supone que la base lo genera
+		
+		ra.save();
+	}
+	
+	public void crearRemitoAlmacen(List<ItemRemitoAlmacen> ira, PedidoWeb pw) {
+		RemitoAlmacen ra = new RemitoAlmacen();
+		ra.setEstado(EstadoRemito.Pendiente);
+		ra.setItemsRemito(ira);
+		ra.setNro(pw.getIdPedido());
+		ra.setTipo(TipoRemitoAlmacen.PedidoWeb);
+		
+		ra.save();
+	}
+	
+	public Ubicacion getUbicacionLibre(Lote loteArticulo) {
+		Lote loteAux = LoteDAO.getInstancia().findrecuperadoByNro(loteArticulo.getNroLote());
+		
+		Ubicacion ubicacionAux = null;
+		for(Ubicacion u : loteAux.getUbicaciones()) {
+			if (u.getEstado() == EstadoUbicacion.Con_disponibilidad) {
+				ubicacionAux = u;
+			}
+			 
+		}
+		
+		// TODO: Si no existe el  lote, creo un lote nuevo, lo persisto, y luego devuelvo ubicacion libre
+		if(ubicacionAux == null) {
+			//asigno nueva ubicacion al lote
+			loteAux.getUbicaciones().add(this.getUbicacionLibre());
+		} else {
+			
+		}
+		
+		return ubicacionAux;
+		
+	}
+	
+	public Ubicacion getUbicacionLibre() {
+		return UbicacionDAO.getInstancia().getUbicacionLibre();
 	}
 }

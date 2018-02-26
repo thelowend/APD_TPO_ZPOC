@@ -11,102 +11,98 @@ import edu.uade.apdzpoc.entidades.*;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
-
 public class PedidoWebDAO {
 
-	
 	private static PedidoWebDAO instancia;
-	
-	private PedidoWebDAO() {}
-	
-	public static PedidoWebDAO getInstancia(){
-		if(instancia == null)
+
+	private PedidoWebDAO() {
+	}
+
+	public static PedidoWebDAO getInstancia() {
+		if (instancia == null)
 			instancia = new PedidoWebDAO();
 		return instancia;
-	}	
-	
-	public PedidoWeb findByCodigo(Integer idPedido){
+	}
+
+	public PedidoWeb findByCodigo(Integer idPedido) {
 		PedidoWeb resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		PedidoWebEntity aux = (PedidoWebEntity) s.createQuery("select pe from PedidoWebEntity pe  where idPedido = ?").setInteger(0, idPedido).uniqueResult();
+		PedidoWebEntity aux = (PedidoWebEntity) s.createQuery("select pe from PedidoWebEntity pe  where idPedido = ?")
+				.setInteger(0, idPedido).uniqueResult();
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	
-	
-	
-	public List<PedidoWeb> getAll(){
+
+	public List<PedidoWeb> getAll() {
 		List<PedidoWeb> resultado = new ArrayList<PedidoWeb>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery("from PedidoWebEntity").list();
-		for(PedidoWebEntity pe : aux)
-		{
+		for (PedidoWebEntity pe : aux) {
 			resultado.add(this.toNegocio(pe));
 		}
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	public List<PedidoWeb> getAllDespachables(){
+
+	public List<PedidoWeb> getAllDespachables() {
 		List<PedidoWeb> resultado = new ArrayList<PedidoWeb>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery("from PedidoWebEntity where estadoPedido = ? OrderBy fechaGeneracion ASC").setString(0, "Pendiente_Despacho").list();
-		for(PedidoWebEntity pe : aux)
-		{
+		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s
+				.createQuery("from PedidoWebEntity where estadoPedido = ? OrderBy fechaGeneracion ASC")
+				.setString(0, "Pendiente_Despacho").list();
+		for (PedidoWebEntity pe : aux) {
 			resultado.add(this.toNegocio(pe));
 		}
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	public List<PedidoWeb> findByEstado(String estado){
+
+	public List<PedidoWeb> findByEstado(String estado) {
 		List<PedidoWeb> resultado = new ArrayList<PedidoWeb>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List<PedidoWebEntity> aux = (List<PedidoWebEntity>)  s.createQuery("from PedidoWebEntity where estado = ?").setString(0, estado).list();
-		for(PedidoWebEntity oce : aux)
-		{
+		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery("from PedidoWebEntity where estado = ?")
+				.setString(0, estado).list();
+		for (PedidoWebEntity oce : aux) {
 			resultado.add(this.toNegocio(oce));
 		}
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	
-	
-	public List<PedidoWeb> getAllbyArticulo(Integer codigo_barra){
+
+	public List<PedidoWeb> getAllbyArticulo(Integer codigo_barra) {
 		List<PedidoWeb> resultado = new ArrayList<PedidoWeb>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery("from PedidoWebEntity pe join pe.items.articulo a where a.codigoBarra = ? OrderBy fechaGeneracion ASC").setInteger(0, codigo_barra).list();
-		for(PedidoWebEntity pe : aux)
-		{
+		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery(
+				"from PedidoWebEntity pe join pe.items.articulo a where a.codigoBarra = ? OrderBy fechaGeneracion ASC")
+				.setInteger(0, codigo_barra).list();
+		for (PedidoWebEntity pe : aux) {
 			resultado.add(this.toNegocio(pe));
 		}
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	public void save(PedidoWeb recuperado){
+
+	public void save(PedidoWeb recuperado) {
 		PedidoWebEntity pedidoWebAPersistir = this.toEntity(recuperado);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -116,8 +112,7 @@ public class PedidoWebDAO {
 		session.getTransaction().commit();
 		session.close();
 	}
-	
-	
+
 	public PedidoWebEntity toEntity(PedidoWeb pedidoWebNegocio) {
 		PedidoWebEntity pedidoWebEntityAPersistir = new PedidoWebEntity();
 		pedidoWebEntityAPersistir.setIdPedido(pedidoWebNegocio.getIdPedido());
@@ -126,23 +121,22 @@ public class PedidoWebDAO {
 		pedidoWebEntityAPersistir.setFechaDeEntrega(pedidoWebNegocio.getFechaDeEntrega());
 		pedidoWebEntityAPersistir.setFechaDespacho(pedidoWebNegocio.getFechaDespacho());
 		pedidoWebEntityAPersistir.setFechaGeneracion(pedidoWebNegocio.getFechaGeneracion());
-				
+
 		ClienteEntity clAux = ClienteDAO.getInstancia().toEntity(pedidoWebNegocio.getCliente());
 		pedidoWebEntityAPersistir.setCliente(clAux);
-		
-			
-		List <ItemPedidoEntity> itemsAPersistir = new ArrayList<ItemPedidoEntity>();
-		List <ItemPedido> items = pedidoWebNegocio.getItems();
-		for(ItemPedido it: items)
+
+		List<ItemPedidoEntity> itemsAPersistir = new ArrayList<ItemPedidoEntity>();
+		List<ItemPedido> items = pedidoWebNegocio.getItems();
+		for (ItemPedido it : items)
 			itemsAPersistir.add(ItemPedidoDAO.getInstancia().toEntity(it));
-		
+
 		pedidoWebEntityAPersistir.setItems(itemsAPersistir);
-		
+
 		return pedidoWebEntityAPersistir;
-}
+	}
 
 	public PedidoWeb toNegocio(PedidoWebEntity pedidoWebRecuperado) {
-				
+
 		PedidoWeb pedidoWebNegocio = new PedidoWeb();
 		pedidoWebNegocio.setIdPedido(pedidoWebRecuperado.getIdPedido());
 		pedidoWebNegocio.setDireccionPedido(pedidoWebRecuperado.getDireccionPedido());
@@ -150,27 +144,18 @@ public class PedidoWebDAO {
 		pedidoWebNegocio.setFechaDeEntrega(pedidoWebRecuperado.getFechaDeEntrega());
 		pedidoWebNegocio.setFechaDespacho(pedidoWebRecuperado.getFechaDespacho());
 		pedidoWebNegocio.setFechaGeneracion(pedidoWebRecuperado.getFechaGeneracion());
-				
+
 		Cliente clAux = ClienteDAO.getInstancia().toNegocio(pedidoWebRecuperado.getCliente());
 		pedidoWebNegocio.setCliente(clAux);
-		
-			
-		List <ItemPedido> itemsNegocio = new ArrayList<ItemPedido>();
-		List <ItemPedidoEntity> items = pedidoWebRecuperado.getItems();
-		for(ItemPedidoEntity it: items)
+
+		List<ItemPedido> itemsNegocio = new ArrayList<ItemPedido>();
+		List<ItemPedidoEntity> items = pedidoWebRecuperado.getItems();
+		for (ItemPedidoEntity it : items)
 			itemsNegocio.add(ItemPedidoDAO.getInstancia().toNegocio(it));
-		
+
 		pedidoWebNegocio.setItems(itemsNegocio);
-		
-		
-		
-		return pedidoWebNegocio;	
+
+		return pedidoWebNegocio;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }
