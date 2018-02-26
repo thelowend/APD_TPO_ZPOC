@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 import edu.uade.apdzpoc.enums.EstadoPedido;
 
 
@@ -23,9 +25,11 @@ public class PedidoWebEntity {
 	private Date fechaGeneracion;
 	
 	@Column(name="FechaDespacho")
+	@Type(type="date")
 	private Date fechaDespacho;
 	
 	@Column(name="FechaEntrega")
+	@Type(type="date")
 	private Date fechaDeEntrega;
 	
 	@Column(name="EstadoPedido")

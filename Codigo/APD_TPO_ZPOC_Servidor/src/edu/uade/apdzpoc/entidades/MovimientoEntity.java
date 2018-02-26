@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Table(name="MovimientosStock")
@@ -15,6 +17,7 @@ public abstract class MovimientoEntity {
 	protected Integer idMovimiento;
 	
 	@Column(name="Fecha")
+	@Type(type="date")
 	protected Date fecha;
 	
 	@OneToOne
