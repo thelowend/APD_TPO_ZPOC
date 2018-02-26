@@ -7,6 +7,8 @@ import edu.uade.apdzpoc.controlador.Controlador;
 import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.dao.ProveedorDAO;
+import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.Articulo;
 import edu.uade.apdzpoc.negocio.Lote;
@@ -14,7 +16,7 @@ import edu.uade.apdzpoc.negocio.Proveedor;
 
 public class Prueba_hbt {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws LoteException, ProveedorException {
 		
 
 		// Aca es para poner las llamadas al Controlador

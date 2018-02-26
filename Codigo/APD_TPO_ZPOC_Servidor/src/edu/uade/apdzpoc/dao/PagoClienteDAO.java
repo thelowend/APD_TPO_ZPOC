@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.PagoClienteException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -23,15 +24,19 @@ public class PagoClienteDAO {
 		return instancia;
 	}
 	
-	public PagoCliente findrecuperadoByNro(Integer IdPago){
+	public PagoCliente findrecuperadoByNro(Integer IdPago) throws PagoClienteException {
 		PagoCliente resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		PagoClienteEntity aux = (PagoClienteEntity) s.createQuery("from PagoClienteEntity where IdPago = ?").setInteger(0, IdPago).uniqueResult();
-		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new PagoClienteException("No se encontró el pago de cliente de número " + IdPago);
+		}
 		return resultado;
 	}
 	

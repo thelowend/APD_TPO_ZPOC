@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.LoteException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -23,7 +24,7 @@ public class LoteDAO {
 		return instancia;
 	}
 
-	public Lote findrecuperadoByNro(Integer nroLote) {
+	public Lote findrecuperadoByNro(Integer nroLote) throws LoteException {
 		Lote resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
@@ -31,9 +32,13 @@ public class LoteDAO {
 		LoteEntity aux = (LoteEntity) s
 				.createQuery("select le from LoteEntity le inner join le.ubicaciones where nroLote = ?")
 				.setInteger(0, nroLote).uniqueResult();
-		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new LoteException("No se encontró el lote de número " + nroLote);
+		}
 		return resultado;
 	}
 
@@ -44,6 +49,40 @@ public class LoteDAO {
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<LoteEntity> aux = (List<LoteEntity>) s.createQuery("from LoteEntity").list();
+		for (LoteEntity le : aux) {
+			resultado.add(this.toNegocio(le));
+		}
+		s.getTransaction().commit();
+		s.close();
+		return resultado;
+	}
+	
+	public List<Lote> getAllByArticulo(Articulo art) {
+		List<Lote> resultado = new ArrayList<Lote>();
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<LoteEntity> aux = (List<LoteEntity>) s
+				.createQuery(
+						"FROM LoteEntity le JOIN le.articulo ar WHERE ar.CodigoBarra = ? ORDER BY le.vencimiento ASC")
+				.setInteger(0, art.getCodigoBarra()).list();
+		for (LoteEntity le : aux) {
+			resultado.add(this.toNegocio(le));
+		}
+		s.getTransaction().commit();
+		s.close();
+		return resultado;
+	}
+
+	public List<Lote> getAllByVencimiento() {
+		List<Lote> resultado = new ArrayList<Lote>();
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<LoteEntity> aux = (List<LoteEntity>) s.createQuery("FROM LoteEntity le ORDER BY le.vencimiento ASC")
+				.list();
 		for (LoteEntity le : aux) {
 			resultado.add(this.toNegocio(le));
 		}
@@ -69,7 +108,7 @@ public class LoteDAO {
 		loteAPersistir.setNroLote(loteNegocio.getNroLote());
 		java.sql.Date d = new Date(loteNegocio.getVencimiento().getTime());
 		loteAPersistir.setVencimiento(d);
-		//loteAPersistir.setArticulo(ArticuloDAO.getInstancia().toEntity(loteNegocio.getArticulo()));
+		// loteAPersistir.setArticulo(ArticuloDAO.getInstancia().toEntity(loteNegocio.getArticulo()));
 
 		List<UbicacionEntity> aux1 = new ArrayList<UbicacionEntity>();
 		List<Ubicacion> ubicaciones = loteNegocio.getUbicaciones();
@@ -85,7 +124,7 @@ public class LoteDAO {
 		Lote LoteNegocio = new Lote();
 		LoteNegocio.setNroLote(loteRecuperado.getNroLote());
 		LoteNegocio.setVencimiento(loteRecuperado.getVencimiento());
-		//LoteNegocio.setArticulo(ArticuloDAO.getInstancia().toNegocio(loteRecuperado.getArticulo()));
+		// LoteNegocio.setArticulo(ArticuloDAO.getInstancia().toNegocio(loteRecuperado.getArticulo()));
 
 		List<Ubicacion> aux1 = new ArrayList<Ubicacion>();
 		List<UbicacionEntity> ubicaciones = loteRecuperado.getUbicaciones();
@@ -94,36 +133,6 @@ public class LoteDAO {
 		LoteNegocio.setUbicaciones(aux1);
 		return LoteNegocio;
 
-	}
-	
-	public List<Lote> getAllByArticulo(Articulo art) {
-		List<Lote> resultado = new ArrayList<Lote>();
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session s = sf.openSession();
-		s.beginTransaction();
-		@SuppressWarnings("unchecked")
-		List<LoteEntity> aux = (List<LoteEntity>) s.createQuery("FROM LoteEntity le JOIN le.articulo ar WHERE ar.CodigoBarra = ? ORDER BY le.vencimiento ASC").setInteger(0, art.getCodigoBarra()).list();
-		for (LoteEntity le : aux) {
-			resultado.add(this.toNegocio(le));
-		}
-		s.getTransaction().commit();
-		s.close();
-		return resultado;
-	}
-	
-	public List<Lote> getAllByVencimiento() {
-		List<Lote> resultado = new ArrayList<Lote>();
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session s = sf.openSession();
-		s.beginTransaction();
-		@SuppressWarnings("unchecked")
-		List<LoteEntity> aux = (List<LoteEntity>) s.createQuery("FROM LoteEntity le ORDER BY le.vencimiento ASC").list();
-		for (LoteEntity le : aux) {
-			resultado.add(this.toNegocio(le));
-		}
-		s.getTransaction().commit();
-		s.close();
-		return resultado;
 	}
 
 }

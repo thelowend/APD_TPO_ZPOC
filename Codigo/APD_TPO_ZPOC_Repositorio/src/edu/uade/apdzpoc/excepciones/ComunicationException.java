@@ -1,5 +1,3 @@
-package edu.uade.apdzpoc.excepciones;
-
 /**
  * 
  * TPO: APDZPOC
@@ -13,9 +11,11 @@ package edu.uade.apdzpoc.excepciones;
  *  
  *
  */
-
+package edu.uade.apdzpoc.excepciones;
 
 public class ComunicationException extends Exception {
+
+	private static final long serialVersionUID = -8741471246763197242L;
 
 	public ComunicationException() {
 		// TODO Auto-generated constructor stub

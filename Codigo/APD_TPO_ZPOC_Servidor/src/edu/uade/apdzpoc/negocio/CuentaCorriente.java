@@ -12,8 +12,10 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
+
+import edu.uade.apdzpoc.dao.CuentaCorrienteDAO;
 
 public class CuentaCorriente {
 
@@ -21,38 +23,49 @@ public class CuentaCorriente {
 	private float saldo;
 	private float limMax;
 	private Cliente cliente;
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
 	public CuentaCorriente(float limMax) {
 		this.limMax = limMax;
 	}
+
 	public CuentaCorriente() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public int getIdCtaCorriente() {
 		return idCtaCorriente;
 	}
+
 	public void setIdCtaCorriente(int idCtaCorriente) {
 		this.idCtaCorriente = idCtaCorriente;
 	}
+
 	public float getSaldo() {
 		return saldo;
 	}
+
 	public void setSaldo(float saldo) {
 		this.saldo = saldo;
 	}
+
 	public float getLimMax() {
 		return limMax;
 	}
+
 	public void setLimMax(float limMax) {
 		this.limMax = limMax;
 	}
-	
-	
-	
+
+	public void save() {
+		CuentaCorrienteDAO.getInstancia().save(this);
+	}
+
 }

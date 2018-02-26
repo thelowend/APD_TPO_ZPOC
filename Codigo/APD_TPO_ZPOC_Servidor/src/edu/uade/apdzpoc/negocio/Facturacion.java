@@ -65,15 +65,24 @@ public class Facturacion {
 
 		// Persisto la nueva factura
 		FacturaDAO.getInstancia()
-				.save(new Factura(pw.getCliente(), fechaEmision, fechaVencimiento, tipoFactura, itemsFactura));
+				.save(new Factura(pw.getCliente(), fechaEmision, fechaVencimiento, tipoFactura, itemsFactura, EstadoFactura.Emitida));
 	}
 
 	public void crearRemitoTransporte(PedidoWeb pw, String empresaTransporte) {
 		new RemitoTransporte(empresaTransporte, pw).save();
 	}
 	
-	public void ingresarPagoCliente(Cliente cliente, Factura factura) {
-		//factura.setEstado(EstadoFactura.Paga);
+	public void ingresarPagoCliente(PagoCliente pc) {
+
+		Factura factura = pc.getFactura();
+		CuentaCorriente cc = pc.getFactura().getCliente().getCuentaCorriente();
+		
+		cc.setSaldo(cc.getSaldo() - factura.getTotalFactura());
+		cc.save();
+		
+		factura.setEstado(EstadoFactura.Paga);
+		factura.save();
+		
 	}
 
 }

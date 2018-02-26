@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.RemitoAlmacenException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -25,15 +26,19 @@ public class RemitoAlmacenDAO {
 		return instancia;
 	}
 	
-	public RemitoAlmacen findrecuperadoByNro(Integer idRemito){
+	public RemitoAlmacen findrecuperadoByNro(Integer idRemito) throws RemitoAlmacenException {
 		RemitoAlmacen resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		RemitoAlmacenEntity aux = (RemitoAlmacenEntity) s.createQuery("from RemitoAlmacenEntity where idRemito = ?").setInteger(0, idRemito).uniqueResult();
-		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new RemitoAlmacenException("No se encontró el Remito de Almacen " + idRemito);
+		}
 		return resultado;
 	}
 	

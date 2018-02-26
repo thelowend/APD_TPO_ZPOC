@@ -22,17 +22,22 @@ import edu.uade.apdzpoc.negocio.Almacen;
 import edu.uade.apdzpoc.negocio.Cliente;
 import edu.uade.apdzpoc.negocio.Compras;
 import edu.uade.apdzpoc.negocio.Despacho;
-import edu.uade.apdzpoc.negocio.Factura;
 import edu.uade.apdzpoc.negocio.Facturacion;
 import edu.uade.apdzpoc.negocio.ItemPedido;
 import edu.uade.apdzpoc.negocio.Lote;
 import edu.uade.apdzpoc.negocio.MovimientoCompra;
 import edu.uade.apdzpoc.negocio.OrdenCompra;
+import edu.uade.apdzpoc.negocio.PagoCliente;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.enums.EstadoPedido;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
+import edu.uade.apdzpoc.excepciones.UbicacionException;
 
 public class Controlador {
 	
@@ -47,7 +52,7 @@ public class Controlador {
 	}
 	
 	// En el business delegate, esto será:  public int crearPedidoWeb(List<ItemPedidoDTO> articulos, ClienteDTO cliente, String direccion) {
-	public int crearPedidoWeb(List<ItemPedido> articulos, Cliente cliente, String direccion) {
+	public int crearPedidoWeb(List<ItemPedido> articulos, Cliente cliente, String direccion) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		
 		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, direccion, articulos);
 		
@@ -64,7 +69,7 @@ public class Controlador {
 	}
 	
 	// En el business delegate recibirá OrdenCompraDTO ocDTO, EstadoOC estadoOC
-	public void ingresarCompra(OrdenCompra oc, EstadoOC estadoOC) {
+	public void ingresarCompra(OrdenCompra oc, EstadoOC estadoOC) throws LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException {
 		Almacen almacen = Almacen.getInstancia();
 		Compras compras = Compras.getInstancia();
 		
@@ -90,13 +95,13 @@ public class Controlador {
 		
 	}
 	
-	public void ingresarPagoCliente(Cliente cliente, Factura factura) {
-		Facturacion.getInstancia().ingresarPagoCliente(cliente, factura);
+	public void ingresarPagoCliente(PagoCliente pago) {
+		Facturacion.getInstancia().ingresarPagoCliente(pago);
 	}
 	
 	// En el bd vamos a recibir loteDTO, etc. 
 	public void controlarInventario(int legajoOperador, int legajoAutorizante, Lote lote, int destino) {
-		
+		// TODO: Hacer
 	}
 	
 	// Cada 30 días el Almacén controla automáticamente los vencimientos:
@@ -104,7 +109,7 @@ public class Controlador {
 		Almacen.getInstancia().controlarVencimientos();
 	}
 	
-	private void procesarPedidosWeb(OrdenCompra oc) {
+	private void procesarPedidosWeb(OrdenCompra oc) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		
 		// Prioriza el pedido que originó la orden de compra.
 		Despacho.getInstancia().procesarPedidoWeb(oc.getPedidoW());

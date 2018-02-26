@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.UbicacionException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -22,7 +23,7 @@ public class UbicacionDAO {
 		return instancia;
 	}
 
-	public Ubicacion findrecuperadoByNro(String idUbicacion) {
+	public Ubicacion findrecuperadoByNro(String idUbicacion) throws UbicacionException {
 		Ubicacion resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
@@ -32,6 +33,11 @@ public class UbicacionDAO {
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new UbicacionException("No se encontró la Ubicacion " + idUbicacion);
+		}
 		return resultado;
 	}
 
@@ -50,18 +56,20 @@ public class UbicacionDAO {
 		return resultado;
 	}
 
-	public Ubicacion getUbicacionLibre() {
+	public Ubicacion getUbicacionLibre() throws UbicacionException {
 		Ubicacion resultado = new Ubicacion();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		UbicacionEntity aux = (UbicacionEntity) s.createQuery("from UbicacionEntity where estado = 'Libre'")
 				.setFirstResult(0).setMaxResults(1).uniqueResult();
-
-		resultado = this.toNegocio(aux);
-
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new UbicacionException("El depósito está lleno.");
+		}
 		return resultado;
 	}
 

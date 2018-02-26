@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.RemitoTransporteException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -24,15 +25,19 @@ public class RemitoTransporteDAO {
 		return instancia;
 	}	
 	
-	public RemitoTransporte findByCodigo(Integer idRemito){
+	public RemitoTransporte findByCodigo(Integer idRemito) throws RemitoTransporteException {
 		RemitoTransporte resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		RemitoTransporteEntity aux = (RemitoTransporteEntity) s.createQuery("select rte from RemitoTransporteEntity rte  where idRemito = ?").setInteger(0, idRemito).uniqueResult();
-		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new RemitoTransporteException("No se encontró el Remito de Transporte " + idRemito);
+		}
 		return resultado;
 	}
 	

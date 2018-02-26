@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -24,7 +25,7 @@ public class ArticuloDAO {
 		return instancia;
 	}
 
-	public Articulo findrecuperadoByCodigo(Integer codigoBarras) {
+	public Articulo findrecuperadoByCodigo(Integer codigoBarras) throws ArticuloException {
 		Articulo resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
@@ -34,15 +35,21 @@ public class ArticuloDAO {
 			aux = (ArticuloEntity) s
 					.createQuery("select ae from ArticuloEntity ae inner join ae.lotes where ae.codigoBarra = ?")
 					.setInteger(0, codigoBarras).uniqueResult();
-					
-			resultado = this.toNegocio(aux);
+			
+			s.getTransaction().commit();
+			s.close();
+			
+			if (aux != null) {
+				resultado = this.toNegocio(aux);
+			} else {
+				throw new ArticuloException("No se encontró el artículo de código: '" + codigoBarras + "'.");
+			}
+
 		} catch (HibernateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		s.getTransaction().commit();
-		s.close();
 		return resultado;
 	}
 
@@ -56,8 +63,10 @@ public class ArticuloDAO {
 		for (ArticuloEntity ae : aux) {
 			resultado.add(this.toNegocio(ae));
 		}
+		
 		s.getTransaction().commit();
 		s.close();
+
 		return resultado;
 	}
 
