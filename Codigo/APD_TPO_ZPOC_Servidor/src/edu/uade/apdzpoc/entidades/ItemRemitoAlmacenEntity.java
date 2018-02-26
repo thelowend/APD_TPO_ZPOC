@@ -3,21 +3,21 @@ package edu.uade.apdzpoc.entidades;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Item_RemitoAlmacen")
+@Table(name="ItemsRemitoAlmacen")
 public class ItemRemitoAlmacenEntity {
 	@Id
-	@Column(name="Id_ItemRemitoAlmacen")
+	@Column(name="IdItemRemitoAlmacen")
 	private Integer idItemRemitoAlmacen;
 	
 	@OneToOne
-	@JoinColumn(name="Codigo_Barra")
+	@JoinColumn(name="CodigoBarra")
 	private ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")
 	private Integer cantidad;
 	
 	@OneToOne
-	@JoinColumn(name="Id_Ubicacion")
+	@JoinColumn(name="IdUbicacion")
 	private UbicacionEntity ubicacion;
 	
 	

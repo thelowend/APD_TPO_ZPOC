@@ -6,23 +6,23 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Articulo")
+@Table(name = "Articulos")
 public class ArticuloEntity {
 
 	@Id
-	@Column(name = "Codigo_Barra")
+	@Column(name = "CodigoBarra")
 	private Integer codigoBarra;
 
-	@Column(name = "Nombre_Articulo")
+	@Column(name = "NombreArticulo")
 	private String nombreArticulo;
 
 	@Column(name = "Descripcion")
 	private String descripcion;
 
-	@Column(name = "Precio_Venta")
+	@Column(name = "PrecioVenta")
 	private Float precioVenta;
 
-	@Column(name = "Cantidad_OC")
+	@Column(name = "CantidadOC")
 	private Integer cantidadCompra;
 
 	@Column(name = "Presentacion")
@@ -31,16 +31,16 @@ public class ArticuloEntity {
 	@Column(name = "Tamano")
 	private String tamanio;
 
-	@Column(name = "Stock_Fisico")
+	@Column(name = "StockFisico")
 	private Integer stockFisico;
 
-	@Column(name = "Stock_Virtual")
+	@Column(name = "StockVirtual")
 	private Integer stockVirtual;
 
-	@Column(name = "Stock_Disponible")
+	@Column(name = "StockDisponible")
 	private Integer stockDisponible;
 
-	@Column(name = "Stock_PendienteEntrega")
+	@Column(name = "StockPendienteEntrega")
 	private Integer stockPendienteEntrega;
 
 	@OneToMany

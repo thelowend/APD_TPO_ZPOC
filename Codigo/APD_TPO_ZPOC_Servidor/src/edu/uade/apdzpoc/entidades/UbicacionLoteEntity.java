@@ -3,7 +3,7 @@ package edu.uade.apdzpoc.entidades;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Ubicacion_Lote")
+@Table(name="UbicacionesLote")
 public class UbicacionLoteEntity {
 
 	@EmbeddedId

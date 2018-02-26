@@ -5,7 +5,7 @@ import javax.persistence.*;
 import edu.uade.apdzpoc.enums.MedioPago;
 
 @Entity
-@Table(name = "Pago_Cliente")
+@Table(name = "PagosCliente")
 public class PagoClienteEntity {
 
 	@Id
@@ -13,16 +13,17 @@ public class PagoClienteEntity {
 	private Integer IdPago;
 
 	@Enumerated(EnumType.STRING)
+	@Column(name="MedioPago")
 	private MedioPago medioDePago;
 
-	@Column(name = "Fecha_Pago")
+	@Column(name = "FechaPago")
 	private java.sql.Date fecha;
 
 	@Column(name = "Monto")
 	private Float monto;
 
 	@OneToOne
-	@JoinColumn(name = "Nro_Factura")
+	@JoinColumn(name = "NroFactura")
 	private FacturaEntity factura;
 
 	public PagoClienteEntity() {

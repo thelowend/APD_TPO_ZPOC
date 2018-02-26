@@ -4,14 +4,14 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="Item_Factura")
+@Table(name="ItemsFactura")
 public class ItemFacturaEntity {
 	@Id
-	@Column(name="Id_ItemFactura")
+	@Column(name="IdItemFactura")
 	private Integer idItemFactura;
 	
 	@OneToOne
-	@JoinColumn(name="Codigo_Barra")
+	@JoinColumn(name="CodigoBarra")
 	private ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")

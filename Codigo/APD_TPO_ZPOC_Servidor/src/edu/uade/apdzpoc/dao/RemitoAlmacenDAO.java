@@ -88,7 +88,8 @@ public class RemitoAlmacenDAO {
 		remitoAlmacenEntityAPersistir.setIdRemito(remitoAlmacenNegocio.getIdRemito());
 		remitoAlmacenEntityAPersistir.setEstado(remitoAlmacenNegocio.getEstado());
 		remitoAlmacenEntityAPersistir.setTipo(remitoAlmacenNegocio.getTipo());
-					
+		remitoAlmacenEntityAPersistir.setNumero(remitoAlmacenNegocio.getNro());	
+		
 		List <ItemRemitoAlmacenEntity> itemsAPersistir = new ArrayList<ItemRemitoAlmacenEntity>();
 		List <ItemRemitoAlmacen> items = remitoAlmacenNegocio.getItemsRemito();
 		
@@ -106,7 +107,9 @@ public class RemitoAlmacenDAO {
 		remitoAlmacenNegocio.setIdRemito(remitoAlmacenRecuperado.getIdRemito());
 		remitoAlmacenNegocio.setEstado(remitoAlmacenRecuperado.getEstado());
 		remitoAlmacenNegocio.setTipo(remitoAlmacenRecuperado.getTipo());
-					
+		remitoAlmacenNegocio.setNro(remitoAlmacenRecuperado.getNumero());
+		
+		
 		List <ItemRemitoAlmacen> itemsANegocio = new ArrayList<ItemRemitoAlmacen>();
 		List <ItemRemitoAlmacenEntity> items = remitoAlmacenRecuperado.getItemsRemito();
 		

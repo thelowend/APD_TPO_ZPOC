@@ -8,11 +8,11 @@ import javax.persistence.*;
 public class MovimientoCompraEntity extends MovimientoEntity {
 
 	@OneToOne
-	@JoinColumn(name="Nro_OC")
+	@JoinColumn(name="NroOC")
 	private OrdenCompraEntity oc;
 
 	@OneToOne
-	@JoinColumn(name="Nro_Lote")
+	@JoinColumn(name="NroLote")
 	private LoteEntity lote;
 	
 	

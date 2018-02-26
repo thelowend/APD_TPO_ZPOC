@@ -3,19 +3,19 @@ package edu.uade.apdzpoc.entidades;
 import javax.persistence.*;
 
 @Entity
-@Table (name="Remito_Trasporte")
+@Table (name="RemitosTrasporte")
 public class RemitoTransporteEntity {
 	
 	
 	@Id
-	@Column(name="Id_RemitoT")
+	@Column(name="IdRemitoT")
 	private Integer idRemito;
 	
 	@Column(name="Empresa")
 	private String empresaTransporte;
 	
 	@OneToOne
-	@JoinColumn(name="Id_Pedido")
+	@JoinColumn(name="IdPedido")
 	private PedidoWebEntity pedido;
 	
 	

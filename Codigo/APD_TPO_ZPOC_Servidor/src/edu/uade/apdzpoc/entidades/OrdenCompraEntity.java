@@ -7,15 +7,15 @@ import edu.uade.apdzpoc.enums.EstadoOC;
 
 
 @Entity
-@Table(name="Orden_Compra")
+@Table(name="OrdenesCompra")
 public class OrdenCompraEntity {
 
 	@Id
-	@Column(name="Nro_OC")
+	@Column(name="NroOC")
 	private Integer idOC;
 	
 	@ManyToOne
-	@JoinColumn(name="Id_Proveedor")
+	@JoinColumn(name="IdProveedor")
 	private ProveedorEntity proveedor;
 	
 	@Column (name="Cantidad")
@@ -26,15 +26,15 @@ public class OrdenCompraEntity {
 	private EstadoOC estado;
 	
 	@OneToOne
-	@JoinColumn(name="Codigo_Barra")
+	@JoinColumn(name="CodigoBarra")
 	private ArticuloEntity articulo;
 	
 	@OneToOne
-	@JoinColumn(name="Nro_Lote")
+	@JoinColumn(name="NroLote")
 	private LoteEntity lote;
 	
 	@OneToOne
-	@JoinColumn(name="Id_Pedido")
+	@JoinColumn(name="IdPedido")
 	private PedidoWebEntity pedidoW;
 	
 	@Column(name="Fecha")

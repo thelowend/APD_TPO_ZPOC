@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class MovimientoPedidoEntity extends MovimientoEntity{
 
 	@OneToOne
-	@JoinColumn(name="Nro_Pedido")
+	@JoinColumn(name="IdPedido")
 	private PedidoWebEntity pw;
 	
 	
