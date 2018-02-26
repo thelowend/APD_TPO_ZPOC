@@ -13,11 +13,11 @@ public class UbicacionLoteIDEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name="Id_Ubicacion", nullable=false)
+	@JoinColumn(name="IdUbicacion", nullable=false)
 	private UbicacionEntity ubicacion;
 	
 	@ManyToOne
-	@JoinColumn(name="Nro_Lote", nullable=false)
+	@JoinColumn(name="NroLote", nullable=false)
 	private LoteEntity lote;
 	
 	

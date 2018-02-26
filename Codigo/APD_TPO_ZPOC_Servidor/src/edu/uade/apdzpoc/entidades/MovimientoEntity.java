@@ -6,19 +6,19 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@Table(name="Movimiento_Stock")
-@DiscriminatorColumn(name="Tipo_Movimiento", discriminatorType=DiscriminatorType.STRING)
+@Table(name="MovimientosStock")
+@DiscriminatorColumn(name="TipoMovimiento", discriminatorType=DiscriminatorType.STRING)
 public abstract class MovimientoEntity {
 
 	@Id
-	@Column(name="Id_MStock")
+	@Column(name="IdMStock")
 	protected Integer idMovimiento;
 	
 	@Column(name="Fecha")
 	protected Date fecha;
 	
 	@OneToOne
-	@JoinColumn(name="Codigo_Barra")
+	@JoinColumn(name="CodigoBarra")
 	protected ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")

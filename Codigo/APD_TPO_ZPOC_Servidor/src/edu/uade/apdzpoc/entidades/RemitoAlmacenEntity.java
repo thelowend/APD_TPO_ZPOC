@@ -8,11 +8,11 @@ import edu.uade.apdzpoc.enums.EstadoRemito;
 import edu.uade.apdzpoc.enums.TipoRemitoAlmacen;
 
 @Entity
-@Table(name="Remito_Almacen")
+@Table(name="RemitosAlmacen")
 public class RemitoAlmacenEntity {
 
 	@Id
-	@Column(name="Id_RemitoAlmacen")
+	@Column(name="IdRemitoAlmacen")
 	private int idRemito;
 	
 	@Column(name="Estado")
@@ -20,12 +20,25 @@ public class RemitoAlmacenEntity {
 	private EstadoRemito estado;
 	
 	@OneToMany
-	@JoinColumn(name="Id_ItemRemitoAlmacen")
+	@JoinColumn(name="IdItemRemitoAlmacen")
 	private List <ItemRemitoAlmacenEntity> itemsRemito;
 	
-	@Column(name="Tipo_Remito")
+	@Column(name="TipoRemito")
 	@Enumerated(EnumType.STRING)
 	private TipoRemitoAlmacen tipo;
+	
+	@Column(name="Numero")
+	private Integer numero;
+	
+	public Integer getNumero() {
+		return numero;
+	}
+
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
 
 	public RemitoAlmacenEntity() {
 		

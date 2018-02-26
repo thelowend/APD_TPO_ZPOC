@@ -5,31 +5,31 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Factura")
+@Table(name="Facturas")
 public class FacturaEntity {
 
 	@Id
-	@Column(name="Nro_Factura")
+	@Column(name="NroFactura")
 	private int idFactura;
 	
 	@ManyToOne
 	@JoinColumn(name="IdCliente")
 	private ClienteEntity cliente;
 	
-	@Column(name="Fecha_Emision")
+	@Column(name="FechaEmision")
 	private Date fechaEmision;
 	
-	@Column(name="Fecha_Vencimiento")
+	@Column(name="FechaVencimiento")
 	private Date fechaVencimiento;
 	
-	@Column(name="Tipo_Factura")
+	@Column(name="TipoFactura")
 	private String tipoFactura;
 	
 	@OneToMany
 	@JoinColumn(name="Nro_Factura")
 	private List<ItemFacturaEntity> itemsFactura;
 	
-	@Column(name="Total_Factura")
+	@Column(name="TotalFactura")
 	private float totalFactura;
 	
 	

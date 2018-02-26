@@ -2,7 +2,7 @@ package edu.uade.apdzpoc.entidades;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Cuenta_Corriente")
+@Table(name="CuentasCorriente")
 public class CuentaCorrienteEntity {
 
 	@Id
@@ -17,7 +17,7 @@ public class CuentaCorrienteEntity {
 	@Column(name="SaldoTotal")
 	private Float saldo;
 	
-	@Column(name="Limite_Maximo")
+	@Column(name="LimiteMaximo")
 	private Float limMax;
 	
 	

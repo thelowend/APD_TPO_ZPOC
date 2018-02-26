@@ -5,10 +5,10 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Lote")
+@Table(name="Lotes")
 public class LoteEntity {
 	@Id
-	@Column(name="Nro_Lote")
+	@Column(name="NroLote")
 	private Integer nroLote;
 	
 	@Column(name="Vencimiento")
@@ -16,7 +16,7 @@ public class LoteEntity {
 	
 	
 	@ManyToOne
-	@JoinColumn (name="Codigo_Barra")
+	@JoinColumn (name="CodigoBarra")
 	private ArticuloEntity articulo;
 	
 	

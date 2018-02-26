@@ -11,10 +11,10 @@ import edu.uade.apdzpoc.enums.DestinoArticulos;
 @DiscriminatorValue("Por Inventario")
 public class MovimientoAjusteEntity extends MovimientoEntity {
 
-	@Column(name="Legajo_Operador")
+	@Column(name="Operador")
 	private Integer legajoOperador;
 	
-	@Column(name="Legajo_Autorizante")
+	@Column(name="Autorizante")
 	private Integer legajoAutorizante;
 	
 	@Column(name="Destino")
