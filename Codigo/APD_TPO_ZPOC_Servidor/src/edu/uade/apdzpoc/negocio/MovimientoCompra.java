@@ -71,6 +71,8 @@ public class MovimientoCompra extends Movimiento {
 		this.articulo.setStockVirtual(stockActual > 0 ? 0 : stockActual);
 		
 		this.articulo.setStockPendienteEntrega(this.articulo.getStockPendienteEntrega() - cantidadRecibida);
+		
+		this.articulo.save();
 
 	}
 

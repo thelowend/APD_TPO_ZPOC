@@ -18,6 +18,8 @@ package edu.uade.apdzpoc.negocio;
 import java.util.Date;
 import java.util.List;
 
+import edu.uade.apdzpoc.enums.EstadoFactura;
+
 public class Factura {
 
 	private int idFactura;
@@ -28,13 +30,14 @@ public class Factura {
 	private List<ItemFactura> itemsFactura;
 	private float totalFactura;
 
-	public Factura(Cliente cliente, Date fechaEmision, Date fechaVencimiento, String tipoFactura, List<ItemFactura> itemsFactura) {
+	public Factura(Cliente cliente, Date fechaEmision, Date fechaVencimiento, String tipoFactura, List<ItemFactura> itemsFactura/*, EstadoFactura estado*/) {
 		this.cliente = cliente;
 		this.fechaEmision = fechaEmision;
 		this.fechaVencimiento = fechaVencimiento;
 		this.tipoFactura = tipoFactura;
 		this.itemsFactura = itemsFactura;
 		this.totalFactura = this.calcularMontoTotal();
+		// this.estado = estado;
 	}
 	
 	public Factura () {}
@@ -102,5 +105,13 @@ public class Factura {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	
+//	public EstadoFactura getEstado() {
+//		return estado;
+//	}
+//
+//	public void setEstado(EstadoFactura estado) {
+//		this.estado = estado;
+//	}
 
 }

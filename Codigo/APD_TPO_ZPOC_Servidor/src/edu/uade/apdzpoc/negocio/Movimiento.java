@@ -24,13 +24,11 @@ public abstract class Movimiento {
 	protected Articulo articulo;
 	protected int cantidad;
 	protected String estado;
-	// protected String tipo;
 
 	public Movimiento(Date fecha, Articulo articulo, int cantidad/*, String tipo */) {
 		this.fecha = fecha;
 		this.articulo = articulo;
 		this.cantidad = cantidad;
-		// this.tipo = tipo;
 	}
 
 	public Movimiento() {
@@ -68,15 +66,6 @@ public abstract class Movimiento {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-
-
-//	public String getTipo() {
-//		return tipo;
-//	}
-//
-//	public void setTipo(String tipo) {
-//		this.tipo = tipo;
-//	}
 
 	public abstract void actualizarNovedadStock();
 

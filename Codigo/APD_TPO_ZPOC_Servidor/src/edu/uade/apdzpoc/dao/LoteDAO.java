@@ -95,5 +95,35 @@ public class LoteDAO {
 		return LoteNegocio;
 
 	}
+	
+	public List<Lote> getAllByArticulo(Articulo art) {
+		List<Lote> resultado = new ArrayList<Lote>();
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<LoteEntity> aux = (List<LoteEntity>) s.createQuery("FROM LoteEntity le JOIN le.articulo ar WHERE ar.CodigoBarra = ? ORDER BY le.vencimiento ASC").setInteger(0, art.getCodigoBarra()).list();
+		for (LoteEntity le : aux) {
+			resultado.add(this.toNegocio(le));
+		}
+		s.getTransaction().commit();
+		s.close();
+		return resultado;
+	}
+	
+	public List<Lote> getAllByVencimiento() {
+		List<Lote> resultado = new ArrayList<Lote>();
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<LoteEntity> aux = (List<LoteEntity>) s.createQuery("FROM LoteEntity le ORDER BY le.vencimiento ASC").list();
+		for (LoteEntity le : aux) {
+			resultado.add(this.toNegocio(le));
+		}
+		s.getTransaction().commit();
+		s.close();
+		return resultado;
+	}
 
 }

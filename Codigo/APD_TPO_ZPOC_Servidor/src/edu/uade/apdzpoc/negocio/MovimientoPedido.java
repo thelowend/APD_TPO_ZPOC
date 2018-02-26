@@ -49,10 +49,7 @@ public class MovimientoPedido extends Movimiento {
 	 	this.articulo.setStockDisponible(stockActual < 0 ? 0 : stockActual);
 		this.articulo.setStockVirtual(stockActual > 0 ? 0 : stockActual);
 		
-		this.articulo.setStockPendienteEntrega(this.articulo.getStockPendienteEntrega() - cantidadRecibida);}
-	
-//		this.articulo.setStockDisponible(0);
-//		this.articulo.setStockVirtual(0);
-	
+		this.articulo.setStockPendienteEntrega(this.articulo.getStockPendienteEntrega() - cantidadRecibida);
+	}
 
 }

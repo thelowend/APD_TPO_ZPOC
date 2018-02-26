@@ -15,6 +15,12 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.util.Date;
+import java.util.List;
+
+import edu.uade.apdzpoc.dao.PedidoWebDAO;
+import edu.uade.apdzpoc.enums.EstadoPedido;
+
 public class Despacho {
 	private static Despacho instancia;
 
@@ -26,7 +32,46 @@ public class Despacho {
 		return instancia;
 	}
 	
-	public void encolarPedidoWeb(PedidoWeb pedidoWeb) {
+	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
+		// Facturación crea el Remito de Transporte
+		Facturacion.getInstancia().crearRemitoTransporte(pw, empresaTransporte);
 		
+		pw.setFechaDeEntrega(fechaEntrega);
+		pw.setEstadoPedido(EstadoPedido.Despachado);
+		pw.save();
+	}
+	
+	public void procesarPedidoWeb(PedidoWeb pw) {
+		// El despacho actualizará el estado:
+		Facturacion facturacion = Facturacion.getInstancia();
+		Almacen almacen = Almacen.getInstancia();
+		
+		if (!facturacion.alcanzaLimiteCTA(pw)) {
+
+			pw.setEstadoPedido(EstadoPedido.Rechazado);
+			
+		} else {
+			if (!almacen.alcanzaStockPedido(pw)) {
+				pw.setEstadoPedido(EstadoPedido.Pendiente_Stock);
+			} else {
+				pw.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
+				facturacion.crearFactura(pw);
+				almacen.buscarUbicacionesArticulos(pw);
+			}
+			
+			// Paso por el almacen para generar los movimientos:
+			List<Movimiento> lm = almacen.crearMovimientos(pw);
+			
+			for (Movimiento m : lm) {
+				m.actualizarNovedadStock();
+				m.getArticulo().save(); // Guardo el artículo con el stock actualizado y los movimientos nuevos
+			}	
+		}
+		
+		pw.save(); // Guardamos el pedido
+	}
+	
+	public List<PedidoWeb> obtenerPedidosADespachar() {
+		return PedidoWebDAO.getInstancia().findByEstado(EstadoPedido.Pendiente_Despacho);
 	}
 }

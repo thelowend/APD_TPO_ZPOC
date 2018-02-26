@@ -12,7 +12,7 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.entidades;
 
 import javax.persistence.*;
@@ -20,84 +20,69 @@ import javax.persistence.*;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
 
 @Entity
-@Table(name="Ubicaciones")
+@Table(name = "Ubicaciones")
 public class UbicacionEntity {
 
 	/**
 	 * 
 	 */
 	@Id
-	@Column(name="IdUbicacion")
+	@Column(name = "IdUbicacion")
 	private String idUbicacion;
-	
-	@Column (name="Calle")
+
+	@Column(name = "Calle")
 	private String calle;
-	
-	@Column (name="Bloque")
+
+	@Column(name = "Bloque")
 	private Integer bloque;
-	
-	@Column (name="Estante")
+
+	@Column(name = "Estante")
 	private Integer estante;
-		
-	@Column (name="Posicion")
+
+	@Column(name = "Posicion")
 	private int posicion;
-	
-	@Column (name="Estado")	
+
+	@Column(name = "Estado")
 	@Enumerated(EnumType.STRING)
 	private EstadoUbicacion estado;
-	
-	@Column(name="Capacidad")
+
+	@Column(name = "Capacidad")
 	private Integer Capacidad;
-	
-	
-	
+
+	@Column(name = "CapacidadInicial")
+	private Integer CapacidadInicial;
+
 	public UbicacionEntity() {
-		
+
 	}
-
-
 
 	public String getIdUbicacion() {
 		return idUbicacion;
 	}
 
-
-
 	public void setIdUbicacion(String idUbicacion) {
 		this.idUbicacion = idUbicacion;
 	}
-
-
 
 	public String getCalle() {
 		return calle;
 	}
 
-
-
 	public void setCalle(String calle) {
 		this.calle = calle;
 	}
-
-
 
 	public Integer getBloque() {
 		return bloque;
 	}
 
-
-
 	public void setBloque(Integer bloque) {
 		this.bloque = bloque;
 	}
 
-
-
 	public Integer getEstante() {
 		return estante;
 	}
-
-
 
 	public void setEstante(Integer estante) {
 		this.estante = estante;
@@ -107,38 +92,32 @@ public class UbicacionEntity {
 		return posicion;
 	}
 
-
-
 	public void setPosicion(int posicion) {
 		this.posicion = posicion;
 	}
-
-
 
 	public EstadoUbicacion getEstado() {
 		return estado;
 	}
 
-
-
 	public void setEstado(EstadoUbicacion estado) {
 		this.estado = estado;
 	}
-
-
 
 	public Integer getCapacidad() {
 		return Capacidad;
 	}
 
-
-
 	public void setCapacidad(Integer capacidad) {
 		this.Capacidad = capacidad;
 	}
 
-	
-	
-	
-	
+	public Integer getCapacidadInicial() {
+		return CapacidadInicial;
+	}
+
+	public void setCapacidadInicial(Integer capacidadInicial) {
+		this.CapacidadInicial = capacidadInicial;
+	}
+
 }

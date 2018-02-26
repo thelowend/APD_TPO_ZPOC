@@ -62,6 +62,10 @@ public class Lote {
 	public void addUbicacion(Ubicacion ubicacion) {
 		this.ubicaciones.add(ubicacion);
 	}
+	public void removeUbicacion(Ubicacion ubicacion) {
+		this.ubicaciones.remove(ubicacion);
+	}
+	
 	public void save() {
 		LoteDAO.getInstancia().save(this);
 	}

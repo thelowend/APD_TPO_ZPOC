@@ -9,83 +9,79 @@ import edu.uade.apdzpoc.entidades.*;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
-
 public class UbicacionDAO {
 
-private static UbicacionDAO instancia;
-	
-	private UbicacionDAO() {}
-	
-	public static UbicacionDAO getInstancia(){
-		if(instancia == null)
+	private static UbicacionDAO instancia;
+
+	private UbicacionDAO() {
+	}
+
+	public static UbicacionDAO getInstancia() {
+		if (instancia == null)
 			instancia = new UbicacionDAO();
 		return instancia;
 	}
 
-	
-	public Ubicacion findrecuperadoByNro(String idUbicacion){
+	public Ubicacion findrecuperadoByNro(String idUbicacion) {
 		Ubicacion resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		UbicacionEntity aux = (UbicacionEntity) s.createQuery("select ue from UbicacionEntity ue where idUbicacion = ?").setString(0, idUbicacion).uniqueResult();
+		UbicacionEntity aux = (UbicacionEntity) s.createQuery("select ue from UbicacionEntity ue where idUbicacion = ?")
+				.setString(0, idUbicacion).uniqueResult();
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	public List<Ubicacion> getAll(){
+
+	public List<Ubicacion> getAll() {
 		List<Ubicacion> resultado = new ArrayList<Ubicacion>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<UbicacionEntity> aux = (List<UbicacionEntity>) s.createQuery("from UbicacionEntity").list();
-		for(UbicacionEntity ue : aux)
-		{
+		for (UbicacionEntity ue : aux) {
 			resultado.add(this.toNegocio(ue));
 		}
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	
-	public Ubicacion getUbicacionLibre(){
+
+	public Ubicacion getUbicacionLibre() {
 		Ubicacion resultado = new Ubicacion();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		UbicacionEntity aux = (UbicacionEntity) s.createQuery("from UbicacionEntity where estado = 'Libre'").setFirstResult(0).setMaxResults(1).uniqueResult();
-		
+		UbicacionEntity aux = (UbicacionEntity) s.createQuery("from UbicacionEntity where estado = 'Libre'")
+				.setFirstResult(0).setMaxResults(1).uniqueResult();
+
 		resultado = this.toNegocio(aux);
-		
+
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	
-	public List<Ubicacion> getAllFree(){
+
+	public List<Ubicacion> getAllFree() {
 		List<Ubicacion> resultado = new ArrayList<Ubicacion>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List<UbicacionEntity> aux = (List<UbicacionEntity>) s.createQuery("from UbicacionEntity where estado = 'Libre'").list();
-		for(UbicacionEntity ue : aux)
-		{
+		List<UbicacionEntity> aux = (List<UbicacionEntity>) s.createQuery("from UbicacionEntity where estado = 'Libre'")
+				.list();
+		for (UbicacionEntity ue : aux) {
 			resultado.add(this.toNegocio(ue));
 		}
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	
-	
-	public void save(Ubicacion recuperada){
+
+	public void save(Ubicacion recuperada) {
 		UbicacionEntity ubicacionAPersistir = this.toEntity(recuperada);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -95,13 +91,7 @@ private static UbicacionDAO instancia;
 		session.getTransaction().commit();
 		session.close();
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	public UbicacionEntity toEntity(Ubicacion ubicacionNegocio) {
 		UbicacionEntity ubicacionAPersistir = new UbicacionEntity();
 		ubicacionAPersistir.setIdUbicacion(ubicacionNegocio.getIdUbicacion());
@@ -111,6 +101,7 @@ private static UbicacionDAO instancia;
 		ubicacionAPersistir.setEstado(ubicacionNegocio.getEstado());
 		ubicacionAPersistir.setEstante(ubicacionNegocio.getEstante());
 		ubicacionAPersistir.setPosicion(ubicacionNegocio.getPosicion());
+		ubicacionAPersistir.setCapacidadInicial(ubicacionNegocio.getCapacidadInicial());
 		return ubicacionAPersistir;
 	}
 
@@ -123,10 +114,8 @@ private static UbicacionDAO instancia;
 		ubicacionNegocio.setEstado(ubicacionRecuperada.getEstado());
 		ubicacionNegocio.setEstante(ubicacionRecuperada.getEstante());
 		ubicacionNegocio.setPosicion(ubicacionRecuperada.getPosicion());
+		ubicacionNegocio.setCapacidadInicial(ubicacionRecuperada.getCapacidadInicial());
 		return ubicacionNegocio;
 	}
-	
 
-	
-	
 }
