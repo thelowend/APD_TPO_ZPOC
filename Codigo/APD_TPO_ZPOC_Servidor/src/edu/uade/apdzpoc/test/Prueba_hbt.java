@@ -5,14 +5,17 @@ import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.controlador.Controlador;
 import edu.uade.apdzpoc.dao.ArticuloDAO;
+import edu.uade.apdzpoc.dao.FacturaDAO;
 import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.dao.OrdenCompraDAO;
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.dao.ProveedorDAO;
+import edu.uade.apdzpoc.excepciones.FacturaException;
 import edu.uade.apdzpoc.excepciones.LoteException;
 import edu.uade.apdzpoc.excepciones.ProveedorException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.Articulo;
+import edu.uade.apdzpoc.negocio.Factura;
 import edu.uade.apdzpoc.negocio.ItemPedido;
 import edu.uade.apdzpoc.negocio.Lote;
 import edu.uade.apdzpoc.negocio.OrdenCompra;
@@ -21,15 +24,20 @@ import edu.uade.apdzpoc.negocio.Proveedor;
 
 public class Prueba_hbt {
 
-	public static void main(String[] args) throws LoteException, ProveedorException {
+	public static void main(String[] args) throws LoteException, ProveedorException, FacturaException {
 		
 
 		// Aca es para poner las llamadas al Controlador
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 
-		OrdenCompra oc= OrdenCompraDAO.getInstancia().findByCodigo(7);
-		System.out.println(oc.getIdOC());
+		Factura f= FacturaDAO.getInstancia().findByCodigo(2);
+		
+		System.out.println(f.getCliente());
+		
+		
+		//OrdenCompra oc= OrdenCompraDAO.getInstancia().findByCodigo(7);
+		//System.out.println(oc.getIdOC());
 		//Articulo a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(10000);
 		//System.out.println(a.getCodigoBarra());
 		
