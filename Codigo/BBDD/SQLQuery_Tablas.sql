@@ -23,6 +23,7 @@ create table Facturas
 	Constraint FKCliente2  Foreign Key (IdCliente) references Clientes (IdCliente))
 GO
 
+
 create table PagosCliente
 (	IdComprobante		smallint not null identity,
 	MedioPago			varchar(30) not null,
@@ -36,162 +37,180 @@ GO
 create table PedidosWEB
 (	IdPedido			smallint not null identity,
 	IdCliente			smallint not null,
-	Fecha_Generacion	date,
-	Fecha_Despacho		date,
-	Fecha_Entrega		date,
+	FechaGeneracion		date,
+	FechaDespacho		date,
+	FechaEntrega		date,
 	EstadoPedido		varchar(50),
 	DireccionEnvio		Char(100),
-	Constraint PKId_Pedido  Primary Key (Id_Pedido),
+	Constraint PKId_Pedido  Primary Key (IdPedido),
 	Constraint FKCliente Foreign Key (IdCliente) references Clientes(IdCliente)
 	)
 
-Create Table Articulo
+Create Table Articulos
 (	
-	Codigo_Barra int identity (10000,200) not null,
-	Nombre_Articulo Char(50),
-	Precio_Venta float,
-	Cantidad_OC int,
-	Presentacion Char(100),
-	Tamano Char(50),
-	Primary Key (Codigo_Barra))
+	CodigoBarra		int identity (10000,200) not null,
+	NombreArticulo	Char(50),
+	Descripcion		 Char (100),
+	PrecioVenta		float,
+	CantidadOC		int,
+	Presentacion	Char(100),
+	Tamano			Char(50),
+	StockFisico		int,
+	StockVirtual	int,
+	StockDisponible int,
+	StockPendienteEntrega int,
+	Primary Key (CodigoBarra))
 GO
 
-create table Proveedor
-(	Id_Proveedor smallint identity not null,
+create table Proveedores
+(	IdProveedor smallint identity not null,
 	Nombre Char(100),
-	Primary Key (Id_Proveedor))
+	Primary Key (IdProveedor))
 
 	GO
 
-Create Table Articulo_Proveedor
-(	Id_Proveedor smallint not null,
-	Codigo_Barra int not null,
-	Precio_Compra float,
-	Primary Key (Id_Proveedor, Codigo_Barra),
-	Constraint  FKId_Proveedor Foreign Key (Id_Proveedor) references Proveedor(Id_Proveedor),
-	Constraint  FKCodigo_Barra Foreign Key (Codigo_Barra) references Articulo(Codigo_Barra))
+Create Table ArticulosProveedor
+(	IdProveedor smallint not null,
+	CodigoBarra int not null,
+	PrecioCompra float,
+	Primary Key (IdProveedor, CodigoBarra),
+	Constraint  FKIdProveedor Foreign Key (IdProveedor) references Proveedores(IdProveedor),
+	Constraint  FKCodigoBarra Foreign Key (CodigoBarra) references Articulos(CodigoBarra))
 GO
 
 
-Create Table Item_Pedido
-(	Id_ItemPedido smallint identity,
-	Id_Pedido smallint not null,
+Create Table ItemsPedido
+(	IdItemPedido smallint identity,
+	IdPedido smallint not null,
+	CodigoBarra int not null,
 	Cantidad smallint,
 	Estado char(30),
-	Codigo_Barra int not null,
-	Primary Key (Id_ItemPedido),
-	Constraint  FKCodigo_Barra1 Foreign Key (Codigo_Barra ) references Articulo(Codigo_Barra),
-	Constraint  FKId_Pedido Foreign Key (Id_Pedido ) references Pedido_WEB(Id_Pedido  ))
+	
+	Primary Key (IdItemPedido),
+	Constraint  FKCodigoBarra1 Foreign Key (CodigoBarra) references Articulos(CodigoBarra),
+	Constraint  FKIdPedido Foreign Key (IdPedido ) references PedidosWEB(IdPedido))
 GO
 
 	
-Create table Ubicacion
+Create table Ubicaciones
 (	
-	Id_Ubicacion Char(7), 
-	Calle Char(1), 
-	Bloque	smallint, 
-	Estante smallint, 
-	Posicion smallint,
-	Capacidad smallint,
-	Estado varchar(30),
-	Primary Key (Id_Ubicacion))
+	IdUbicacion Char(7), 
+	Calle		Char(1), 
+	Bloque		smallint, 
+	Estante		smallint, 
+	Posicion	smallint,
+	Capacidad	smallint,
+	Estado		varchar(30),
+	Primary Key (IdUbicacion)
+)
 
 GO
 
-create table Lote
-(	Nro_Lote Char(10) not null,
+create table Lotes
+(	NroLote Char(10) not null,
 	Vencimiento date,
-	Codigo_Barra int not null,
-	Primary Key (Nro_Lote),
-	Constraint  FKCodigo_Barra4 Foreign Key (Codigo_Barra ) references Articulo(Codigo_Barra))
+	CodigoBarra int not null,
+	Primary Key (NroLote),
+	Constraint  FKCodigoBarra4 Foreign Key (CodigoBarra) references Articulos(CodigoBarra))
 GO
 
-create table Ubicacion_Lote
-(	Nro_Lote Char(10) not null,
-	Id_Ubicacion Char(7),
-	Primary Key (Nro_Lote,Id_Ubicacion),
-	Constraint  FKId_Ubicacion2 Foreign Key (Id_Ubicacion) references Ubicacion(Id_Ubicacion),
-	Constraint  FKLote  Foreign Key (Nro_Lote) references Lote(Nro_Lote)
+create table UbicacionesLote
+(	IdUbicacion Char(7),
+	NroLote Char(10) not null,
+	Primary Key (NroLote,IdUbicacion),
+	Constraint  FKIdUbicacion2 Foreign Key (IdUbicacion) references Ubicaciones(IdUbicacion),
+	Constraint  FKLote  Foreign Key (NroLote) references Lotes(NroLote)
 	)
 
 GO
-Create table Remito_Almacen
-(	Id_RemitoAlmacen smallint identity not null,
-	IdEstado	varchar(30),
-	Tipo_Remito varchar(30),
-	numero int,
-	Primary Key (Id_RemitoAlmacen),
+Create table RemitosAlmacen
+(	IdRemitoAlmacen smallint identity not null,
+	IdEstado		varchar(30),
+	TipoRemito		varchar(30),
+	Numero			int,
+	Primary Key (IdRemitoAlmacen),
 
 	)
 
 GO
 
-Create table Item_RemitoAlmacen
-(	Id_ItemRemitoAlamcen smallint identity,
-	Id_RemitoAlmacen smallint,
-	Codigo_Barra	int,
+Create table ItemsRemitoAlmacen
+(	IdItemRemitoAlamcen smallint identity,
+	IdRemitoAlmacen smallint,
+	CodigoBarra	int,
 	Cantidad smallint,
-	Id_Ubicacion Char(7),
-	Primary Key (Id_ItemRemitoAlamcen),
-	Constraint	FKId_RemitoAlmacen Foreign Key (Id_RemitoAlmacen) references Remito_Almacen (Id_RemitoAlmacen),
-	Constraint  FKCodigo_Barra3 Foreign Key (Codigo_Barra ) references Articulo(Codigo_Barra ),
-	Constraint  FKId_Ubicacion5 Foreign Key (Id_Ubicacion) references Ubicacion(Id_Ubicacion))
+	IdUbicacion Char(7),
+	Primary Key (IdItemRemitoAlamcen),
+	Constraint	FKIdRemitoAlmacen Foreign Key (IdRemitoAlmacen) references RemitosAlmacen (IdRemitoAlmacen),
+	Constraint  FKCodigo_Barra3 Foreign Key (CodigoBarra ) references Articulos(CodigoBarra ),
+	Constraint  FKIdUbicacion5 Foreign Key (IdUbicacion) references Ubicaciones(IdUbicacion))
 GO
 
 
 
-Create table Remito_Trasporte
-(	Id_RemitoT smallint identity not null,
-	Id_Pedido smallint,
+Create table RemitosTrasporte
+(	IdRemitoT smallint identity not null,
+	IdPedido smallint,
     Empresa	Char(100),
-	Primary Key (Id_RemitoT),
-	Constraint  FKId_Pedido5 Foreign Key (Id_Pedido ) references Pedido_WEB(Id_Pedido ))
+	Primary Key (IdRemitoT),
+	Constraint  FKIdPedido5 Foreign Key (IdPedido ) references PedidosWEB(IdPedido ))
 
 GO
 
 
-Create table Movimiento_Stock
-(	Id_MStock smallint identity not null,
+Create table MovimientosStock
+(	IdMStock smallint identity not null,
 	Fecha date,
-	Codigo_Barra int,
-	Tipo_Movimiento varchar(50),
+	CodigoBarra int,
+	TipoMovimiento varchar(50),
 	Cantidad smallint,
 	Estado varchar(20),
 	Destino varchar(30),
 	SubTipo varchar (30),
     Operador Char(100),
     Autorizante Char(100),
-	Nro_OC smallint,
-    Id_Pedido smallint, 
-	Nro_Lote Char(10) not null,
-	Primary Key (Id_MStock),
-	Constraint  FKCodigo_Barra8 Foreign Key (Codigo_Barra ) references Articulo(Codigo_Barra ),
-	Constraint  FKNro_Lote4 Foreign Key (Nro_Lote ) references Lote(Nro_Lote ))
+	NroOC smallint,
+    IdPedido smallint, 
+	NroLote Char(10) not null,
+	Primary Key (IdMStock),
+	Constraint  FKCodigoBarra8 Foreign Key (CodigoBarra ) references Articulos(CodigoBarra ),
+	Constraint  FKNroLote4 Foreign Key (NroLote ) references Lotes(NroLote ))
 
 	Go
 
-Create table Orden_Compra
-(	Nro_OC smallint identity not null,
-	Id_Proveedor smallint,
-	Codigo_Barra int,
+Create table OrdenesCompra
+(	NroOC smallint identity not null,
+	IdProveedor smallint,
+	CodigoBarra int,
 	EstadoOC varchar (30),
-	Nro_Lote Char(10),
+	IdPedido smallint,
+	NroLote Char(10),
 	Cantidad int,
 	Fecha date,
-	Primary Key (Nro_OC),
-	Constraint  FKId_Proveedor1 Foreign Key (Id_Proveedor ) references Proveedor(Id_Proveedor),
-	Constraint  FKCodigo_Barra7 Foreign Key (Codigo_Barra ) references Articulo(Codigo_Barra),
-	
+	Primary Key (NroOC),
+	Constraint  FKIdProveedor1 Foreign Key (IdProveedor ) references Proveedores(IdProveedor),
+	Constraint  FKCodigoBarra7 Foreign Key (CodigoBarra ) references Articulos(CodigoBarra),
+	Constraint  FKIdPedido Foreign Key (IdPedido ) references PedidosWEB(IdPedido)
 	)
+	
 	GO
 
-Create table Cuenta_Corriente
+Create table CuentasCorriente
 (	IdCtaCte smallint identity not null,
 	IdCliente smallint,
-	Saldo_Total float,
-	Limite_Maximo float,
+	SaldoTotal float,
+	LimiteMaximo float,
 	Primary Key (IdCtaCte),
-	Constraint  FKIdCliente Foreign Key (IdCliente ) references Cliente(IdCliente)
+	Constraint  FKIdCliente Foreign Key (IdCliente ) references Clientes(IdCliente)
 	)
 
-	select * from Proveedor
+		
+create table ItemsFactura (
+	IdItemFactura smallint not null identity,
+	NroFactura smallint,
+	CodigoBarra	   int, 
+	Cantidad	   int,
+	Precio		  float,
+	Constraint  FKCodigoBarra Foreign Key (CodigoBarra) references Articulos(CodigoBarra),
+	Constraint	FKFactura2   Foreign Key (NroFactura) references Facturas (NroFactura)
+)
