@@ -53,6 +53,6 @@ public class MovimientoPedido extends Movimiento {
 	
 //		this.articulo.setStockDisponible(0);
 //		this.articulo.setStockVirtual(0);
-	}
+	
 
 }
