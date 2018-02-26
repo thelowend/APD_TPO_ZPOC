@@ -1,9 +1,0 @@
-package edu.uade.apdzpoc.remoto;
-
-import java.rmi.server.UnicastRemoteObject;
-
-import edu.uade.apdzpoc.interfaces.InterfazRemota;
-
-public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota {
-
-}

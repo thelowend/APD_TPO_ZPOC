@@ -1,9 +1,0 @@
-package edu.uade.apdzpoc.negocio;
-
-public class Medio_de_Pago {
-
-	public Medio_de_Pago() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

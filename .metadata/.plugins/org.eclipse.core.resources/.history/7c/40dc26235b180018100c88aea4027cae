@@ -1,9 +1,0 @@
-package edu.uade.apdzpoc.entidades;
-
-public class ItemPedidoEntity {
-
-	public ItemPedidoEntity() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

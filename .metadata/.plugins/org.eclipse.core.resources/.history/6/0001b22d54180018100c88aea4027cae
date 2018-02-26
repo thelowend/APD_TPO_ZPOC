@@ -1,9 +1,0 @@
-package edu.uade.apdzpoc.entidades;
-
-public class RemitoTransporteEntity {
-
-	public RemitoTransporteEntity() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

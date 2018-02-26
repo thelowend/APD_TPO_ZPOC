@@ -1,9 +1,0 @@
-package edu.uade.apdzpoc.entidades;
-
-public class MovimientoCompraEntity {
-
-	public MovimientoCompraEntity() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

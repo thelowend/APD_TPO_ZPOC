@@ -1,9 +1,0 @@
-package edu.uade.apdzpoc.entidades;
-
-public class MovimientoPedido {
-
-	public MovimientoPedido() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

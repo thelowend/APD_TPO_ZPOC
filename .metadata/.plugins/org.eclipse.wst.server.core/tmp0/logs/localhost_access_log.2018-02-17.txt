@@ -1,3 +1,0 @@
-127.0.0.1 - - [17/Feb/2018:12:56:14 -0300] "GET / HTTP/1.1" 404 994
-0:0:0:0:0:0:0:1 - - [17/Feb/2018:12:56:34 -0300] "GET /APD_TPO_ZPOC_ClienteWEB/WEB-INF/classes/edu/uade/apdzpoc/servlets/pruebServlet.java HTTP/1.1" 404 967
-0:0:0:0:0:0:0:1 - - [17/Feb/2018:12:56:58 -0300] "GET /APD_TPO_ZPOC_ClienteWEB/WEB-INF/classes/edu/uade/apdzpoc/servlets/pruebServlet.java HTTP/1.1" 404 967

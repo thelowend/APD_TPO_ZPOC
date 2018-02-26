@@ -1,3 +1,0 @@
-#Tomcat publish data
-#Sat Feb 17 13:53:21 ART 2018
-org.eclipse.jst.j2ee.server\:APD_TPO_ZPOC_Repositorio=WEB-INF/lib/APD_TPO_ZPOC_Repositorio.jar

@@ -1,9 +1,0 @@
-package edu.uade.apdzpoc.entidades;
-
-public class CuentaCorrienteEntity {
-
-	public CuentaCorrienteEntity() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

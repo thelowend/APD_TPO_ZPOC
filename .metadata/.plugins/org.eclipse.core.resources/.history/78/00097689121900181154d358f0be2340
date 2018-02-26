@@ -1,9 +1,0 @@
-package edu.uade.apdzpoc.entidades;
-
-public class DestinoEntity {
-
-	public DestinoEntity() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
