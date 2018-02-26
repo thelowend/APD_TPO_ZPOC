@@ -64,18 +64,4 @@ public class Compras {
 		oc.setEstado(estado);
 	}
 
-//	public void aceptarOC(OrdenCompra oc) {
-//		oc.setEstado(EstadoOC.Aceptada);
-//
-//		// RemitoAlmacen ra = new RemitoAlmacen(EstadoRemito.Pendiente, itemsRemito,
-//		// tipoDocumento, nroDocumento);
-//
-//	}
-
-	/*
-	 * ArticuloProveedor ap= Articulo
-	 * a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(codigoBarra); OrdenCompra
-	 * oc= new OrdenCompra(proveedor, a.getCantidadCompra(), a.getCodigoBarra(),
-	 * lote, pedidoW)
-	 */
 }

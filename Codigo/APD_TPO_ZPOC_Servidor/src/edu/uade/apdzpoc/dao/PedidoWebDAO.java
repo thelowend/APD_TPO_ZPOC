@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
-
+import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -69,14 +69,14 @@ public class PedidoWebDAO {
 		return resultado;
 	}
 
-	public List<PedidoWeb> findByEstado(String estado) {
+	public List<PedidoWeb> findByEstado(EstadoPedido estado) {
 		List<PedidoWeb> resultado = new ArrayList<PedidoWeb>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery("from PedidoWebEntity where estado = ?")
-				.setString(0, estado).list();
+				.setString(0, estado.toString()).list();
 		for (PedidoWebEntity oce : aux) {
 			resultado.add(this.toNegocio(oce));
 		}

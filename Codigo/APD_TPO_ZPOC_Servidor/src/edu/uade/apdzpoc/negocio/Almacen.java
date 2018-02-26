@@ -102,16 +102,45 @@ public class Almacen {
 	}
 	
 	public void buscarUbicacionesArticulos(PedidoWeb pw) {
-		// buscar 
+
 		List<ItemPedido> itemsPedidos = pw.getItems();
-		List<Ubicacion> ubicaciones = new ArrayList<>();
 		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();
 		
+		
 		for (ItemPedido item : itemsPedidos) {
-			List<Lote> lotesArticulo = item.getArticulo().getLote();
-//			lotesArticulo.
-//			item.getArticulo()
-//			item.getCantidad()
+			int cantidadAobtener = item.getCantidad();
+			List<Lote> lotesArticulo = LoteDAO.getInstancia().getAllByArticulo(item.getArticulo()); // Obtengo los lotes del articulo ordenados por el vencimiento
+			
+			for(Lote lote : lotesArticulo) {
+				for(Ubicacion ubicacion: lote.getUbicaciones()) {
+ 
+					while(cantidadAobtener > 0) {
+						
+						int cantidadArticulosEnLote = ubicacion.getCapacidadInicial() - ubicacion.getCapacidad();
+						
+						if (cantidadAobtener < cantidadArticulosEnLote) {
+							ubicacion.setCapacidad(ubicacion.getCapacidad() - cantidadAobtener);
+							itemsRemitoAlmacen.add(new ItemRemitoAlmacen(item.getArticulo(), cantidadAobtener, ubicacion));
+							cantidadAobtener = 0;
+						} else {
+							ubicacion.setCapacidad(ubicacion.getCapacidadInicial()); // La ubicación queda vacía
+							cantidadAobtener -= ubicacion.getCapacidadInicial(); // Le resto a los articulos toda la capacidad de la ubicación
+							
+							// Libero la ubicación y la disasocio del lote
+							ubicacion.setEstado(EstadoUbicacion.Libre);
+							lote.removeUbicacion(ubicacion);
+							lote.save();
+							
+							itemsRemitoAlmacen.add(new ItemRemitoAlmacen(item.getArticulo(), ubicacion.getCapacidadInicial(), ubicacion));
+						}
+						ubicacion.save();
+					}
+					
+				}
+			}
+			
+			// Creo el remito correspondiente
+			this.crearRemitoAlmacen(itemsRemitoAlmacen, pw);
 			
 		}
 	}

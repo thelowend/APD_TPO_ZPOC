@@ -27,6 +27,7 @@ public class Ubicacion {
 	private int posicion;
 	private EstadoUbicacion estado;
 	private int capacidad;
+	private int capacidadInicial;
 
 	public Ubicacion(String calle, int bloque, int estante, int posicion, EstadoUbicacion estado, int capacidad) {
 		this.calle = calle;
@@ -35,13 +36,12 @@ public class Ubicacion {
 		this.posicion = posicion;
 		this.estado = estado;
 		this.capacidad = capacidad;
+		this.capacidadInicial = capacidad; // Cuando creo la ubicación, seteo la capacidad inicial.
 	}
 
 	public Ubicacion() {
 		// TODO Auto-generated constructor stub
 	}
-
-	
 
 	public String getIdUbicacion() {
 		return idUbicacion;
@@ -102,6 +102,14 @@ public class Ubicacion {
 	
 	public void save() {
 		UbicacionDAO.getInstancia().save(this);
+	}
+
+	public int getCapacidadInicial() {
+		return capacidadInicial;
+	}
+
+	public void setCapacidadInicial(int capacidadInicial) {
+		this.capacidadInicial = capacidadInicial;
 	}
 	
 	

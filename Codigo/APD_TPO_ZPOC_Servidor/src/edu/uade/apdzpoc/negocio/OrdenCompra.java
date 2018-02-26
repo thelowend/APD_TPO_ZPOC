@@ -12,7 +12,7 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
@@ -30,7 +30,7 @@ public class OrdenCompra {
 	private Lote lote;
 	private PedidoWeb pedidoW;
 	private Date fecha;
-	
+
 	public OrdenCompra(Proveedor proveedor, Articulo articulo, PedidoWeb pedidoW) {
 		this.proveedor = proveedor;
 		this.cantidad = articulo.getCantidadCompra();
@@ -105,10 +105,9 @@ public class OrdenCompra {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
+
 	public void save() {
 		OrdenCompraDAO.getInstancia().save(this);
 	}
-	
-	
+
 }

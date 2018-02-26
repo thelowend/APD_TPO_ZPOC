@@ -1,11 +1,13 @@
 package edu.uade.apdzpoc.negocio;
 
+import edu.uade.apdzpoc.dao.RemitoTransporteDAO;
+
 public class RemitoTransporte {
 
 	private int idRemito;
 	private String empresaTransporte;
 	private PedidoWeb pedido;
-	
+
 	public RemitoTransporte(String empresaTransporte, PedidoWeb pedido) {
 		this.empresaTransporte = empresaTransporte;
 		this.pedido = pedido;
@@ -39,5 +41,8 @@ public class RemitoTransporte {
 		this.pedido = pedido;
 	}
 
-	
+	public void save() {
+		RemitoTransporteDAO.getInstancia().save(this);
+	}
+
 }

@@ -12,14 +12,14 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
 import java.util.List;
 
+import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.enums.EstadoPedido;
-
 
 public class PedidoWeb {
 
@@ -31,8 +31,7 @@ public class PedidoWeb {
 	private EstadoPedido estadoPedido;
 	private String direccionPedido;
 	private List<ItemPedido> items;
-	
-	
+
 	public PedidoWeb(Cliente cliente, EstadoPedido estadoPedido, String direccionPedido, List<ItemPedido> items) {
 		this.cliente = cliente;
 		this.estadoPedido = estadoPedido;
@@ -40,91 +39,75 @@ public class PedidoWeb {
 		this.items = items;
 	}
 
-
 	public PedidoWeb() {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public int getIdPedido() {
 		return idPedido;
 	}
 
-
 	public void setIdPedido(int idPedido) {
 		this.idPedido = idPedido;
 	}
-
 
 	public Cliente getCliente() {
 		return cliente;
 	}
 
-
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
 
 	public Date getFechaGeneracion() {
 		return fechaGeneracion;
 	}
 
-
 	public void setFechaGeneracion(Date fechaGeneracion) {
 		this.fechaGeneracion = fechaGeneracion;
 	}
-
 
 	public Date getFechaDespacho() {
 		return fechaDespacho;
 	}
 
-
 	public void setFechaDespacho(Date fechaDespacho) {
 		this.fechaDespacho = fechaDespacho;
 	}
-
 
 	public Date getFechaDeEntrega() {
 		return fechaDeEntrega;
 	}
 
-
 	public void setFechaDeEntrega(Date fechaDeEntrega) {
 		this.fechaDeEntrega = fechaDeEntrega;
 	}
-
 
 	public EstadoPedido getEstadoPedido() {
 		return estadoPedido;
 	}
 
-
 	public void setEstadoPedido(EstadoPedido estadoPedido) {
 		this.estadoPedido = estadoPedido;
 	}
-
 
 	public String getDireccionPedido() {
 		return direccionPedido;
 	}
 
-
 	public void setDireccionPedido(String direccionPedido) {
 		this.direccionPedido = direccionPedido;
 	}
-
 
 	public List<ItemPedido> getItems() {
 		return items;
 	}
 
-
 	public void setItems(List<ItemPedido> items) {
 		this.items = items;
 	}
-	
-	
-	
+	public void save() {
+		PedidoWebDAO.getInstancia().save(this);
+	}
+
 }
