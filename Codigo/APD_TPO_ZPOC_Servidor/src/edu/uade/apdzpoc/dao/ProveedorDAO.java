@@ -7,51 +7,56 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
 public class ProveedorDAO {
 
 	private static ProveedorDAO instancia;
-	
-	private ProveedorDAO() {}
-	
-	public static ProveedorDAO getInstancia(){
-		if(instancia == null)
+
+	private ProveedorDAO() {
+	}
+
+	public static ProveedorDAO getInstancia() {
+		if (instancia == null)
 			instancia = new ProveedorDAO();
 		return instancia;
 	}
-	
-	
-	public Proveedor findByNro(Integer idProveedor){
+
+	public Proveedor findByNro(Integer idProveedor) throws ProveedorException {
 		Proveedor resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		ProveedorEntity aux = (ProveedorEntity) s.createQuery("select pe from ProveedorEntity pe where idProveedor = ?").setInteger(0, idProveedor).uniqueResult();
-		resultado = this.toNegocio(aux);
+		ProveedorEntity aux = (ProveedorEntity) s.createQuery("select pe from ProveedorEntity pe where idProveedor = ?")
+				.setInteger(0, idProveedor).uniqueResult();
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new ProveedorException("No se encontró el Proveedor " + idProveedor);
+		}
 		return resultado;
 	}
-	
-	public List<Proveedor> getAll(){
+
+	public List<Proveedor> getAll() {
 		List<Proveedor> resultado = new ArrayList<Proveedor>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<ProveedorEntity> aux = (List<ProveedorEntity>) s.createQuery("from ProveedorEntity").list();
-		for(ProveedorEntity pe : aux)
-		{
+		for (ProveedorEntity pe : aux) {
 			resultado.add(this.toNegocio(pe));
 		}
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
 	}
-	
-	public void save(Proveedor recuperado){
+
+	public void save(Proveedor recuperado) {
 		ProveedorEntity proveedorAPersistir = this.toEntity(recuperado);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -61,13 +66,12 @@ public class ProveedorDAO {
 		session.getTransaction().commit();
 		session.close();
 	}
-	
-	
+
 	public ProveedorEntity toEntity(Proveedor proveedorNegocio) {
 		ProveedorEntity proveedorAPersistir = new ProveedorEntity();
 		proveedorAPersistir.setIdProveedor(proveedorNegocio.getIdProveedor());
 		proveedorAPersistir.setNombreProveedor(proveedorNegocio.getNombreProveedor());
-		
+
 		return proveedorAPersistir;
 	}
 
@@ -75,11 +79,8 @@ public class ProveedorDAO {
 		Proveedor proveedorNegocio = new Proveedor();
 		proveedorNegocio.setIdProveedor(proveedorRecuperado.getIdProveedor());
 		proveedorNegocio.setNombreProveedor(proveedorRecuperado.getNombreProveedor());
-		
-		
+
 		return proveedorNegocio;
 	}
-	
-	
-	
+
 }

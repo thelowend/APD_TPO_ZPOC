@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.ClienteException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -26,15 +27,20 @@ public class ClienteDAO {
 	}	
 	
 	
-	public Cliente findByCodigo(Integer idCliente){
+	public Cliente findByCodigo(Integer idCliente) throws ClienteException {
 		Cliente resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		ClienteEntity aux = (ClienteEntity) s.createQuery("from ClienteEntity cl join cl.cuentaCorriente ctaCte  where idCliente = ?").setInteger(0, idCliente).uniqueResult();
-		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
+		
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new ClienteException("No se encontró el cliente " + idCliente);
+		}
 		return resultado;
 	}
 	

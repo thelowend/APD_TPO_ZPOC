@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.excepciones.FacturaException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -24,7 +25,7 @@ public class FacturaDAO {
 	}
 
 	
-	public Factura findByCodigo(Integer idFactura){
+	public Factura findByCodigo(Integer idFactura) throws FacturaException {
 		Factura resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
@@ -33,6 +34,11 @@ public class FacturaDAO {
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new FacturaException("No se encontró la factura " + idFactura);
+		}
 		return resultado;
 	}
 	

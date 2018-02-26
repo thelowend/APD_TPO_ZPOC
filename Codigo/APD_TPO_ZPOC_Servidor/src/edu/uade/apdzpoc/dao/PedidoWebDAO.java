@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
 import edu.uade.apdzpoc.enums.EstadoPedido;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
 
@@ -24,15 +25,19 @@ public class PedidoWebDAO {
 		return instancia;
 	}
 
-	public PedidoWeb findByCodigo(int idPedido) {
+	public PedidoWeb findByCodigo(int idPedido) throws PedidoWebException {
 		PedidoWeb resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		PedidoWebEntity aux = (PedidoWebEntity) s.createQuery("select pe from PedidoWebEntity pe  where idPedido = ?").setInteger(0, idPedido).uniqueResult();
-		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();
+		if (aux != null) {
+			resultado = this.toNegocio(aux);
+		} else {
+			throw new PedidoWebException("No se encontró el pedido de número " + idPedido);
+		}
 		return resultado;
 	}
 

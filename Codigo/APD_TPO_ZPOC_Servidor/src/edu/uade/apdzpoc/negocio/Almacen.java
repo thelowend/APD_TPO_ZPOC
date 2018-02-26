@@ -29,6 +29,11 @@ import edu.uade.apdzpoc.enums.EstadoItemPedido;
 import edu.uade.apdzpoc.enums.EstadoRemito;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
 import edu.uade.apdzpoc.enums.TipoRemitoAlmacen;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
+import edu.uade.apdzpoc.excepciones.UbicacionException;
 
 public class Almacen {
 	private static Almacen instancia;
@@ -62,7 +67,7 @@ public class Almacen {
 		return hayStockDeTodosLosItems;
 	}
 	
-	public List<Movimiento> crearMovimientos(PedidoWeb pw) {
+	public List<Movimiento> crearMovimientos(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		List<Movimiento> result = new ArrayList<>();
 		for(ItemPedido item : pw.getItems()) {
 			if (item.getEstado() == EstadoItemPedido.Con_Stock) {
@@ -79,7 +84,7 @@ public class Almacen {
 		 return oc.getArticulo().crearMovimientoCompra(oc);
 	}
 	
-	public void asignarUbicacionesArticulos(OrdenCompra oc) {
+	public void asignarUbicacionesArticulos(OrdenCompra oc) throws LoteException, UbicacionException {
 		Lote loteArticulo = oc.getLote();
 		int cantArticulosSinUbicacion = oc.getCantidad();
 		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();		
@@ -180,7 +185,7 @@ public class Almacen {
 		ra.save();
 	}
 	
-	public Ubicacion getUbicacionLibre(Lote loteArticulo) {
+	public Ubicacion getUbicacionLibre(Lote loteArticulo) throws LoteException, UbicacionException {
 		Ubicacion ubicacionAux = null;
 		
 		// Me fijo si existe el lote
@@ -222,7 +227,7 @@ public class Almacen {
 		
 	}
 	
-	public Ubicacion getUbicacionLibre() {
+	public Ubicacion getUbicacionLibre() throws UbicacionException {
 		return UbicacionDAO.getInstancia().getUbicacionLibre();
 	}
 	

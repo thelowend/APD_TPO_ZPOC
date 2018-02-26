@@ -20,6 +20,9 @@ import java.util.List;
 
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.enums.EstadoPedido;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
 
 public class Despacho {
 	private static Despacho instancia;
@@ -41,7 +44,7 @@ public class Despacho {
 		pw.save();
 	}
 	
-	public void procesarPedidoWeb(PedidoWeb pw) {
+	public void procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		// El despacho actualizará el estado:
 		Facturacion facturacion = Facturacion.getInstancia();
 		Almacen almacen = Almacen.getInstancia();
