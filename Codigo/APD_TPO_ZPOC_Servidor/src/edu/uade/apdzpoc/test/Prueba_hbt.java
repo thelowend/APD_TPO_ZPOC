@@ -6,10 +6,15 @@ import org.hibernate.SessionFactory;
 import edu.uade.apdzpoc.controlador.Controlador;
 import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.dao.LoteDAO;
+import edu.uade.apdzpoc.dao.OrdenCompraDAO;
+import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.dao.ProveedorDAO;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.Articulo;
+import edu.uade.apdzpoc.negocio.ItemPedido;
 import edu.uade.apdzpoc.negocio.Lote;
+import edu.uade.apdzpoc.negocio.OrdenCompra;
+import edu.uade.apdzpoc.negocio.PedidoWeb;
 import edu.uade.apdzpoc.negocio.Proveedor;
 
 public class Prueba_hbt {
@@ -20,8 +25,18 @@ public class Prueba_hbt {
 		// Aca es para poner las llamadas al Controlador
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
+
+		OrdenCompra oc= OrdenCompraDAO.getInstancia().findByCodigo(7);
+		System.out.println(oc.getIdOC());
+		//Articulo a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(10000);
+		//System.out.println(a.getCodigoBarra());
 		
 		
+		
+		//PedidoWeb pw= PedidoWebDAO.getInstancia().findByCodigo(3);
+		//System.out.println(pw.getIdPedido());	
+		
+		/*
 		Lote l = LoteDAO.getInstancia().findrecuperadoByNro(1254);
 		
 		System.out.println(l.getNroLote());
@@ -45,7 +60,6 @@ public class Prueba_hbt {
 		System.out.println(aux2.getNombreArticulo());
 		System.out.println(aux2.getPrecioVenta());
 	*/
-	
 	
 	
 	}
