@@ -18,6 +18,8 @@ package edu.uade.apdzpoc.negocio;
 import java.util.Date;
 import java.util.List;
 
+import edu.uade.apdzpoc.dao.LoteDAO;
+
 public class Lote {
 
 	private int nroLote;
@@ -56,6 +58,12 @@ public class Lote {
 	}
 	public void setUbicaciones(List<Ubicacion> ubicaciones) {
 		this.ubicaciones = ubicaciones;
+	}
+	public void addUbicacion(Ubicacion ubicacion) {
+		this.ubicaciones.add(ubicacion);
+	}
+	public void save() {
+		LoteDAO.getInstancia().save(this);
 	}
 	
 	

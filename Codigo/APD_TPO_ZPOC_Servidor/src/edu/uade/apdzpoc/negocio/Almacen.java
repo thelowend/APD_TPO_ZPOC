@@ -138,22 +138,41 @@ public class Almacen {
 	}
 	
 	public Ubicacion getUbicacionLibre(Lote loteArticulo) {
-		Lote loteAux = LoteDAO.getInstancia().findrecuperadoByNro(loteArticulo.getNroLote());
-		
 		Ubicacion ubicacionAux = null;
-		for(Ubicacion u : loteAux.getUbicaciones()) {
-			if (u.getEstado() == EstadoUbicacion.Con_disponibilidad) {
-				ubicacionAux = u;
-			}
-			 
-		}
 		
-		// TODO: Si no existe el  lote, creo un lote nuevo, lo persisto, y luego devuelvo ubicacion libre
-		if(ubicacionAux == null) {
-			//asigno nueva ubicacion al lote
-			loteAux.getUbicaciones().add(this.getUbicacionLibre());
-		} else {
+		// Me fijo si existe el lote
+		Lote loteAux = LoteDAO.getInstancia().findrecuperadoByNro(loteArticulo.getNroLote()); 
+		
+		// Si el lote existe, verifico si alguna de sus ubicaciones tiene capacidad:
+		if (loteAux != null) {
 			
+			List<Ubicacion> ubicacionesDelLote = loteAux.getUbicaciones();
+			
+			// Salgo tan pronto como encuentro una ubicación con disponibilidad:
+			for(int i = 0; ubicacionAux == null && i < ubicacionesDelLote.size(); i++) {
+				Ubicacion u = ubicacionesDelLote.get(i);
+				if (u.getEstado() == EstadoUbicacion.Con_disponibilidad) {
+					ubicacionAux = u;
+				}
+			}
+			
+			// Si NO encontró una ubicacion con disponibilidad:
+			if (ubicacionAux == null) {
+				// Asigno ubicación libre al lote:
+				ubicacionAux = getUbicacionLibre();
+				ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicación tiene disponibilidad
+				ubicacionAux.save(); // Persisto la ubicación
+				loteAux.addUbicacion(ubicacionAux);
+				loteAux.save(); //Persisto el lote para que quede la ubicación asignada.
+			}
+				
+		} else {
+			// Si el lote no existe, directamente le asigno una ubicación libre al mismo
+			ubicacionAux = getUbicacionLibre();
+			ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicación tiene disponibilidad
+			ubicacionAux.save(); // Persisto la ubicación
+			loteArticulo.addUbicacion(ubicacionAux);
+			loteArticulo.save();
 		}
 		
 		return ubicacionAux;
