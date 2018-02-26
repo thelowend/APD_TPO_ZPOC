@@ -24,13 +24,12 @@ public class PedidoWebDAO {
 		return instancia;
 	}
 
-	public PedidoWeb findByCodigo(Integer idPedido) {
+	public PedidoWeb findByCodigo(int idPedido) {
 		PedidoWeb resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		PedidoWebEntity aux = (PedidoWebEntity) s.createQuery("select pe from PedidoWebEntity pe  where idPedido = ?")
-				.setInteger(0, idPedido).uniqueResult();
+		PedidoWebEntity aux = (PedidoWebEntity) s.createQuery("select pe from PedidoWebEntity pe  where idPedido = ?").setInteger(0, idPedido).uniqueResult();
 		resultado = this.toNegocio(aux);
 		s.getTransaction().commit();
 		s.close();

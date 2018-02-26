@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name="Lotes")
 public class LoteEntity {
@@ -12,16 +14,17 @@ public class LoteEntity {
 	private Integer nroLote;
 	
 	@Column(name="Vencimiento")
+	@Type(type="date")
 	private Date vencimiento;
 	
-	
-	@ManyToOne
+/*	
+	@OneToOne
 	@JoinColumn (name="CodigoBarra")
 	private ArticuloEntity articulo;
-	
+	*/
 	
 	@OneToMany
-	@JoinColumn(name="Id_Ubicacion")
+	@JoinColumn(name="IdUbicacion")
 	private List<UbicacionEntity> ubicaciones;
 	
 	
@@ -29,33 +32,23 @@ public class LoteEntity {
 	public LoteEntity() {
 		
 	}
-
-
-
 	public Integer getNroLote() {
 		return nroLote;
 	}
-
-
 
 	public void setNroLote(Integer nroLote) {
 		this.nroLote = nroLote;
 	}
 
-
-
 	public Date getVencimiento() {
 		return vencimiento;
 	}
-
-
 
 	public void setVencimiento(Date vencimiento) {
 		this.vencimiento = vencimiento;
 	}
 
-
-
+/*
 	public ArticuloEntity getArticulo() {
 		return articulo;
 	}
@@ -66,7 +59,7 @@ public class LoteEntity {
 		this.articulo = articulo;
 	}
 
-
+*/
 
 	public List<UbicacionEntity> getUbicaciones() {
 		return ubicaciones;

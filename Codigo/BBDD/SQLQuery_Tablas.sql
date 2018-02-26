@@ -100,6 +100,7 @@ Create table Ubicaciones
 	Estante		smallint, 
 	Posicion	smallint,
 	Capacidad	smallint,
+	CapacidadInicial smallint,
 	Estado		varchar(30),
 	Primary Key (IdUbicacion)
 )
@@ -107,7 +108,7 @@ Create table Ubicaciones
 GO
 
 create table Lotes
-(	NroLote Char(10) not null,
+(	NroLote int not null,
 	Vencimiento date,
 	CodigoBarra int not null,
 	Primary Key (NroLote),
@@ -116,7 +117,7 @@ GO
 
 create table UbicacionesLote
 (	IdUbicacion Char(7),
-	NroLote Char(10) not null,
+	NroLote int not null,
 	Primary Key (NroLote,IdUbicacion),
 	Constraint  FKIdUbicacion2 Foreign Key (IdUbicacion) references Ubicaciones(IdUbicacion),
 	Constraint  FKLote  Foreign Key (NroLote) references Lotes(NroLote)
@@ -171,7 +172,7 @@ Create table MovimientosStock
     Autorizante Char(100),
 	NroOC smallint,
     IdPedido smallint, 
-	NroLote Char(10) not null,
+	NroLote int not null,
 	Primary Key (IdMStock),
 	Constraint  FKCodigoBarra8 Foreign Key (CodigoBarra ) references Articulos(CodigoBarra ),
 	Constraint  FKNroLote4 Foreign Key (NroLote ) references Lotes(NroLote ))
@@ -184,13 +185,13 @@ Create table OrdenesCompra
 	CodigoBarra int,
 	EstadoOC varchar (30),
 	IdPedido smallint,
-	NroLote Char(10),
+	NroLote int,
 	Cantidad int,
 	Fecha date,
 	Primary Key (NroOC),
 	Constraint  FKIdProveedor1 Foreign Key (IdProveedor ) references Proveedores(IdProveedor),
 	Constraint  FKCodigoBarra7 Foreign Key (CodigoBarra ) references Articulos(CodigoBarra),
-	Constraint  FKIdPedido Foreign Key (IdPedido ) references PedidosWEB(IdPedido)
+	Constraint  FKIdPedido10 Foreign Key (IdPedido ) references PedidosWEB(IdPedido)
 	)
 	
 	GO
@@ -211,6 +212,6 @@ create table ItemsFactura (
 	CodigoBarra	   int, 
 	Cantidad	   int,
 	Precio		  float,
-	Constraint  FKCodigoBarra Foreign Key (CodigoBarra) references Articulos(CodigoBarra),
+	Constraint  FKCodigoBarra15 Foreign Key (CodigoBarra) references Articulos(CodigoBarra),
 	Constraint	FKFactura2   Foreign Key (NroFactura) references Facturas (NroFactura)
 )

@@ -10,41 +10,41 @@ import javax.persistence.*;
 public class ArticuloEntity {
 
 	@Id
-	@Column(name = "CodigoBarra")
+	@Column(name="CodigoBarra")
 	private Integer codigoBarra;
 
-	@Column(name = "NombreArticulo")
+	@Column(name="NombreArticulo")
 	private String nombreArticulo;
 
-	@Column(name = "Descripcion")
+	@Column(name="Descripcion")
 	private String descripcion;
 
-	@Column(name = "PrecioVenta")
+	@Column(name="PrecioVenta")
 	private Float precioVenta;
 
-	@Column(name = "CantidadOC")
+	@Column(name="CantidadOC")
 	private Integer cantidadCompra;
 
-	@Column(name = "Presentacion")
+	@Column(name="Presentacion")
 	private String presentacion;
 
-	@Column(name = "Tamano")
+	@Column(name="Tamano")
 	private String tamanio;
 
-	@Column(name = "StockFisico")
+	@Column(name="StockFisico")
 	private Integer stockFisico;
 
-	@Column(name = "StockVirtual")
+	@Column(name="StockVirtual")
 	private Integer stockVirtual;
 
-	@Column(name = "StockDisponible")
+	@Column(name="StockDisponible")
 	private Integer stockDisponible;
 
-	@Column(name = "StockPendienteEntrega")
+	@Column(name="StockPendienteEntrega")
 	private Integer stockPendienteEntrega;
 
 	@OneToMany
-	@JoinColumn(name = "Codigo_Barra")
+	@JoinColumn(name="CodigoBarra")
 	private List<LoteEntity> lotes;
 
 	public ArticuloEntity() {

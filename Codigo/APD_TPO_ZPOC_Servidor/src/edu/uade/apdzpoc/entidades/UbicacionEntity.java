@@ -103,11 +103,6 @@ public class UbicacionEntity {
 		this.estante = estante;
 	}
 
-
-
-
-
-
 	public int getPosicion() {
 		return posicion;
 	}

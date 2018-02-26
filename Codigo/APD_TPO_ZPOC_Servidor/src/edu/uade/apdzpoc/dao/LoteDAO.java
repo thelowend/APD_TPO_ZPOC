@@ -2,7 +2,7 @@ package edu.uade.apdzpoc.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.sql.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -67,9 +67,9 @@ public class LoteDAO {
 
 		LoteEntity loteAPersistir = new LoteEntity();
 		loteAPersistir.setNroLote(loteNegocio.getNroLote());
-		loteAPersistir.setVencimiento(loteNegocio.getVencimiento());
-
-		loteAPersistir.setArticulo(ArticuloDAO.getInstancia().toEntity(loteNegocio.getArticulo()));
+		java.sql.Date d = new Date(loteNegocio.getVencimiento().getTime());
+		loteAPersistir.setVencimiento(d);
+		//loteAPersistir.setArticulo(ArticuloDAO.getInstancia().toEntity(loteNegocio.getArticulo()));
 
 		List<UbicacionEntity> aux1 = new ArrayList<UbicacionEntity>();
 		List<Ubicacion> ubicaciones = loteNegocio.getUbicaciones();
@@ -85,8 +85,7 @@ public class LoteDAO {
 		Lote LoteNegocio = new Lote();
 		LoteNegocio.setNroLote(loteRecuperado.getNroLote());
 		LoteNegocio.setVencimiento(loteRecuperado.getVencimiento());
-
-		LoteNegocio.setArticulo(ArticuloDAO.getInstancia().toNegocio(loteRecuperado.getArticulo()));
+		//LoteNegocio.setArticulo(ArticuloDAO.getInstancia().toNegocio(loteRecuperado.getArticulo()));
 
 		List<Ubicacion> aux1 = new ArrayList<Ubicacion>();
 		List<UbicacionEntity> ubicaciones = loteRecuperado.getUbicaciones();

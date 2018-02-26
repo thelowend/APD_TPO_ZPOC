@@ -3,6 +3,7 @@ package edu.uade.apdzpoc.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -28,10 +29,18 @@ public class ArticuloDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		ArticuloEntity aux = (ArticuloEntity) s
-				.createQuery("select ae from ArticuloEntity ae inner join ae.lotes where codigoBarra = ?")
-				.setInteger(0, codigoBarras).uniqueResult();
-		resultado = this.toNegocio(aux);
+		ArticuloEntity aux;
+		try {
+			aux = (ArticuloEntity) s
+					.createQuery("select ae from ArticuloEntity ae inner join ae.lotes where ae.codigoBarra = ?")
+					.setInteger(0, codigoBarras).uniqueResult();
+					
+			resultado = this.toNegocio(aux);
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		s.getTransaction().commit();
 		s.close();
 		return resultado;
