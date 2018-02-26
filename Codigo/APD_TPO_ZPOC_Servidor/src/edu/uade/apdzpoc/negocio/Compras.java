@@ -33,6 +33,10 @@ public class Compras {
 			instancia = new Compras();
 		return instancia;
 	}
+	
+	public void validarOrdenCompra(OrdenCompra oc, EstadoOC estado) {
+		oc.setEstado(estado);
+	}
 
 	public List<OrdenCompra> crearOrdenesCompra(ItemPedido ip, PedidoWeb pw) {
 		
@@ -60,8 +64,6 @@ public class Compras {
 		return ArticuloProveedorDAO.getInstancia().findBestProveedorByArticulo(art.getCodigoBarra());
 	}
 	
-	public void validarOrdenCompra(OrdenCompra oc, EstadoOC estado) {
-		oc.setEstado(estado);
-	}
+
 
 }

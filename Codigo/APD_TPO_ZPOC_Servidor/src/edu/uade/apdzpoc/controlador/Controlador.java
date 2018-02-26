@@ -56,8 +56,8 @@ public class Controlador {
 	}
 	
 	// Acá desde la GUI el empleado de Despacho despacha el pedido, con la fecha de entrega y la empresa de transporte a cargo:
-	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaDeTransporte) {
-		Despacho.getInstancia().despacharPedido(pw, fechaEntrega, empresaDeTransporte);
+	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
+		Despacho.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
 	}
 	
 	// En el business delegate recibirá OrdenCompraDTO ocDTO, EstadoOC estadoOC
@@ -87,7 +87,7 @@ public class Controlador {
 		
 	}
 	
-	public void procesarPedidosWeb(OrdenCompra oc) {
+	private void procesarPedidosWeb(OrdenCompra oc) {
 		
 		// Prioriza el pedido que originó la orden de compra.
 		Despacho.getInstancia().procesarPedidoWeb(oc.getPedidoW());

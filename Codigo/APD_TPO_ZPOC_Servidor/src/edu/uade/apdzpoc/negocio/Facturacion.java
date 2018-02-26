@@ -24,9 +24,7 @@ import edu.uade.apdzpoc.dao.FacturaDAO;
 public class Facturacion {
 	private static Facturacion instancia;
 
-	private Facturacion() {
-
-	}
+	private Facturacion() {	}
 
 	public static Facturacion getInstancia() {
 		if (instancia == null)
@@ -65,8 +63,8 @@ public class Facturacion {
 				.save(new Factura(pw.getCliente(), fechaEmision, fechaVencimiento, tipoFactura, itemsFactura));
 	}
 
-	public void crearRemitoTransporte(PedidoWeb pedidoWeb, String empresaDeTransporte) {
-		new RemitoTransporte(empresaDeTransporte, pedidoWeb).save();
+	public void crearRemitoTransporte(PedidoWeb pw, String empresaTransporte) {
+		new RemitoTransporte(empresaTransporte, pw).save();
 	}
 
 }

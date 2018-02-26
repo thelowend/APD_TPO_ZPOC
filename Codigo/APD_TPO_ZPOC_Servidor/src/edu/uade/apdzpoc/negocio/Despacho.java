@@ -32,43 +32,35 @@ public class Despacho {
 		return instancia;
 	}
 	
-//	public void encolarPedidoWeb(PedidoWeb pw) {
-//		pw.save();
-//	}
-	
-	public List<PedidoWeb> obtenerPedidosADespachar() {
-		return PedidoWebDAO.getInstancia().findByEstado(EstadoPedido.Pendiente_Despacho);
-	}
-	
-	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaDeTransporte) {
+	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
 		// Facturación crea el Remito de Transporte
-		Facturacion.getInstancia().crearRemitoTransporte(pw, empresaDeTransporte);
+		Facturacion.getInstancia().crearRemitoTransporte(pw, empresaTransporte);
 		
 		pw.setFechaDeEntrega(fechaEntrega);
 		pw.setEstadoPedido(EstadoPedido.Despachado);
 		pw.save();
 	}
 	
-	public void procesarPedidoWeb(PedidoWeb pedidoWeb) {
+	public void procesarPedidoWeb(PedidoWeb pw) {
 		// El despacho actualizará el estado:
 		Facturacion facturacion = Facturacion.getInstancia();
 		Almacen almacen = Almacen.getInstancia();
 		
-		if (!facturacion.alcanzaLimiteCTA(pedidoWeb)) {
+		if (!facturacion.alcanzaLimiteCTA(pw)) {
 
-			pedidoWeb.setEstadoPedido(EstadoPedido.Rechazado);
+			pw.setEstadoPedido(EstadoPedido.Rechazado);
 			
 		} else {
-			if (!almacen.alcanzaStockPedido(pedidoWeb)) {
-				pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Stock);
+			if (!almacen.alcanzaStockPedido(pw)) {
+				pw.setEstadoPedido(EstadoPedido.Pendiente_Stock);
 			} else {
-				pedidoWeb.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
-				facturacion.crearFactura(pedidoWeb);
-				almacen.buscarUbicacionesArticulos(pedidoWeb);
+				pw.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
+				facturacion.crearFactura(pw);
+				almacen.buscarUbicacionesArticulos(pw);
 			}
 			
 			// Paso por el almacen para generar los movimientos:
-			List<Movimiento> lm = almacen.crearMovimientos(pedidoWeb);
+			List<Movimiento> lm = almacen.crearMovimientos(pw);
 			
 			for (Movimiento m : lm) {
 				m.actualizarNovedadStock();
@@ -76,7 +68,10 @@ public class Despacho {
 			}	
 		}
 		
-		pedidoWeb.save(); // Guardamos el pedido
-
+		pw.save(); // Guardamos el pedido
+	}
+	
+	public List<PedidoWeb> obtenerPedidosADespachar() {
+		return PedidoWebDAO.getInstancia().findByEstado(EstadoPedido.Pendiente_Despacho);
 	}
 }
