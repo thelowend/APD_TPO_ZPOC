@@ -105,7 +105,6 @@ private static UbicacionDAO instancia;
 	public UbicacionEntity toEntity(Ubicacion ubicacionNegocio) {
 		UbicacionEntity ubicacionAPersistir = new UbicacionEntity();
 		ubicacionAPersistir.setIdUbicacion(ubicacionNegocio.getIdUbicacion());
-		ubicacionAPersistir.setBandeja(ubicacionNegocio.getBandeja());
 		ubicacionAPersistir.setBloque(ubicacionNegocio.getBloque());
 		ubicacionAPersistir.setCalle(ubicacionNegocio.getCalle());
 		ubicacionAPersistir.setCapacidad(ubicacionNegocio.getCapacidad());
@@ -118,7 +117,6 @@ private static UbicacionDAO instancia;
 	public Ubicacion toNegocio(UbicacionEntity ubicacionRecuperada) {
 		Ubicacion ubicacionNegocio = new Ubicacion();
 		ubicacionNegocio.setIdUbicacion(ubicacionRecuperada.getIdUbicacion());
-		ubicacionNegocio.setBandeja(ubicacionRecuperada.getBandeja());
 		ubicacionNegocio.setBloque(ubicacionRecuperada.getBloque());
 		ubicacionNegocio.setCalle(ubicacionRecuperada.getCalle());
 		ubicacionNegocio.setCapacidad(ubicacionRecuperada.getCapacidad());

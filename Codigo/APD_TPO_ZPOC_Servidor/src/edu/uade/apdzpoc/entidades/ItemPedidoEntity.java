@@ -5,17 +5,17 @@ import javax.persistence.*;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
 
 @Entity
-@Table(name="Item_Pedido")
+@Table(name="ItemsPedido")
 
 public class ItemPedidoEntity {
 
 	
 	@Id
-	@Column(name="Id_ItemPedido")
+	@Column(name="IdItemPedido")
 	private Integer idItemPedido;
 	
 	@OneToOne
-	@JoinColumn(name="Codigo_Barra")
+	@JoinColumn(name="CodigoBarra")
 	private ArticuloEntity articulo;
 	
 	@Column(name="Cantidad")

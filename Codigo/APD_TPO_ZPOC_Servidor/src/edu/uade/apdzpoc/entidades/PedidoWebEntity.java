@@ -8,24 +8,24 @@ import edu.uade.apdzpoc.enums.EstadoPedido;
 
 
 @Entity
-@Table(name="Pedido_WEB")
+@Table(name="PedidosWEB")
 public class PedidoWebEntity {
 
 	@Id
-	@Column(name="Id_Pedido")
+	@Column(name="IdPedido")
 	private Integer idPedido;
 	
 	@OneToOne
 	@JoinColumn(name="IdCliente")
 	private ClienteEntity cliente;
 	
-	@Column(name="Fecha_Generacion")
+	@Column(name="FechaGeneracion")
 	private Date fechaGeneracion;
 	
-	@Column(name="Fecha_Despacho")
+	@Column(name="FechaDespacho")
 	private Date fechaDespacho;
 	
-	@Column(name="Fecha_Entrega")
+	@Column(name="FechaEntrega")
 	private Date fechaDeEntrega;
 	
 	@Column(name="EstadoPedido")
@@ -36,7 +36,7 @@ public class PedidoWebEntity {
 	private String direccionPedido;
 	
 	@OneToMany
-	@JoinColumn(name="Id_Pedido")
+	@JoinColumn(name="IdPedido")
 	private List<ItemPedidoEntity> items;
 	
 	

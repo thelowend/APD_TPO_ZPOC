@@ -20,14 +20,14 @@ import javax.persistence.*;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
 
 @Entity
-@Table(name="Ubicacion")
+@Table(name="Ubicaciones")
 public class UbicacionEntity {
 
 	/**
 	 * 
 	 */
 	@Id
-	@Column(name="Id_Ubicacion")
+	@Column(name="IdUbicacion")
 	private String idUbicacion;
 	
 	@Column (name="Calle")
@@ -39,9 +39,6 @@ public class UbicacionEntity {
 	@Column (name="Estante")
 	private Integer estante;
 		
-	@Column (name="Bandeja")
-	private Integer bandeja;
-	
 	@Column (name="Posicion")
 	private int posicion;
 	
@@ -108,15 +105,6 @@ public class UbicacionEntity {
 
 
 
-	public Integer getBandeja() {
-		return bandeja;
-	}
-
-
-
-	public void setBandeja(Integer bandeja) {
-		this.bandeja = bandeja;
-	}
 
 
 

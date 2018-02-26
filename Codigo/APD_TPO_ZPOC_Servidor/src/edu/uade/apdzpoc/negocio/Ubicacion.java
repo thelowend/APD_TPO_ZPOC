@@ -24,16 +24,14 @@ public class Ubicacion {
 	private String calle;
 	private int bloque;
 	private int estante;
-	private int bandeja;
 	private int posicion;
 	private EstadoUbicacion estado;
 	private int capacidad;
 
-	public Ubicacion(String calle, int bloque, int estante, int bandeja, int posicion, EstadoUbicacion estado, int capacidad) {
+	public Ubicacion(String calle, int bloque, int estante, int posicion, EstadoUbicacion estado, int capacidad) {
 		this.calle = calle;
 		this.bloque = bloque;
 		this.estante = estante;
-		this.bandeja = bandeja;
 		this.posicion = posicion;
 		this.estado = estado;
 		this.capacidad = capacidad;
@@ -77,13 +75,6 @@ public class Ubicacion {
 		this.estante = estante;
 	}
 
-	public int getBandeja() {
-		return bandeja;
-	}
-
-	public void setBandeja(int bandeja) {
-		this.bandeja = bandeja;
-	}
 
 	public int getPosicion() {
 		return posicion;

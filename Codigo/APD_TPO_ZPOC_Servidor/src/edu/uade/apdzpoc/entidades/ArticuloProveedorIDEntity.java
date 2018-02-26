@@ -24,6 +24,43 @@ import javax.persistence.*;
 @Embeddable
 public class ArticuloProveedorIDEntity implements Serializable {
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@ManyToOne
+	@JoinColumn(name="CodigoBarra", nullable=false)
+	private ArticuloEntity articulo;
+	
+	@ManyToOne
+	@JoinColumn(name="IdProveedor", nullable=false)
+	private ProveedorEntity proveedor;
+
+
+	public ArticuloProveedorIDEntity() {	}
+
+
+	public ArticuloEntity getArticulo() {
+		return articulo;
+	}
+
+
+	public void setArticulo(ArticuloEntity articulo) {
+		this.articulo = articulo;
+	}
+
+
+	public ProveedorEntity getProveedor() {
+		return proveedor;
+	}
+
+
+	public void setProveedor(ProveedorEntity proveedor) {
+		this.proveedor = proveedor;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,43 +94,6 @@ public class ArticuloProveedorIDEntity implements Serializable {
 	}
 
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@ManyToOne
-	@JoinColumn(name="Codigo_Barra", nullable=false)
-	private ArticuloEntity articulo;
-	
-	@ManyToOne
-	@JoinColumn(name="identificador", nullable=false)
-	private ProveedorEntity proveedor;
-
-
-	public ArticuloProveedorIDEntity() {	}
-
-
-	public ArticuloEntity getArticulo() {
-		return articulo;
-	}
-
-
-	public void setArticulo(ArticuloEntity articulo) {
-		this.articulo = articulo;
-	}
-
-
-	public ProveedorEntity getProveedor() {
-		return proveedor;
-	}
-
-
-	public void setProveedor(ProveedorEntity proveedor) {
-		this.proveedor = proveedor;
-	}
-
-	
 	
 	
 	

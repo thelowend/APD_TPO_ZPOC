@@ -4,14 +4,14 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="Articulo_Proveedor")
+@Table(name="ArticulosProveedor")
 
 public class ArticuloProveedorEntity {
 
 	@EmbeddedId
 	private ArticuloProveedorIDEntity id;
 	
-	@Column(name="Precio_Compra")
+	@Column(name="PrecioCompra")
 	private Float precio;
 
 	public ArticuloProveedorEntity() {

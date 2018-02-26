@@ -19,7 +19,7 @@ import edu.uade.apdzpoc.negocio.CuentaCorriente;
  *
  */
 @Entity
-@Table(name = "Cliente")
+@Table(name = "Clientes")
 public class ClienteEntity {
 	@Id
 	@Column (name="IdCliente")
@@ -31,13 +31,13 @@ public class ClienteEntity {
 	@Column (name="Documento")
 	private Integer documento;
 	
-	@Column (name="Domicilio_Facturacion")
+	@Column (name="DomicilioFacturacion")
 	private String domicilioFacturacion;
 	
-	@Column (name="Responsable_Inscripto")
+	@Column (name="ResponsableInscripto")
 	private Boolean responsableInscripto;
 	
-	@Column(name="IVA_Inscripto")
+	@Column(name="IVAInscripto")
 	private Boolean ivaInscripto;
 
 	@Column (name="Descuento")
