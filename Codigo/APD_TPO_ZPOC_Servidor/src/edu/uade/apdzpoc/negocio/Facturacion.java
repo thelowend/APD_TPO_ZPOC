@@ -15,11 +15,14 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.FacturaDAO;
+import edu.uade.apdzpoc.enums.EstadoFactura;
 
 public class Facturacion {
 	private static Facturacion instancia;
@@ -45,8 +48,10 @@ public class Facturacion {
 	}
 
 	public void crearFactura(PedidoWeb pw) {
-		Date fechaEmision = new Date();
-		Date fechaVencimiento = new Date(); // Date +30, +60 +90 días;
+		Date fechaEmision = new Date(); // Fecha actual
+		
+		// Pongo la facturo a vencer dentro de tres meses:
+		Date fechaVencimiento = Date.from(LocalDate.now().plusMonths(3).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
 		// Si el cliente es responsable inscripto, es factura A. Factura B es para los demás.
 		String tipoFactura = pw.getCliente().isIvaInscripto() ? "A" : "B";
@@ -65,6 +70,10 @@ public class Facturacion {
 
 	public void crearRemitoTransporte(PedidoWeb pw, String empresaTransporte) {
 		new RemitoTransporte(empresaTransporte, pw).save();
+	}
+	
+	public void ingresarPagoCliente(Cliente cliente, Factura factura) {
+		//factura.setEstado(EstadoFactura.Paga);
 	}
 
 }

@@ -15,11 +15,16 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.dao.UbicacionDAO;
+import edu.uade.apdzpoc.enums.CausaAjuste;
+import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
 import edu.uade.apdzpoc.enums.EstadoRemito;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
@@ -166,6 +171,15 @@ public class Almacen {
 		ra.save();
 	}
 	
+	public void crearRemitoAlmacen(List<ItemRemitoAlmacen> ira, Lote loteVencido) {
+		RemitoAlmacen ra = new RemitoAlmacen();
+		ra.setEstado(EstadoRemito.Pendiente);
+		ra.setItemsRemito(ira);
+		ra.setTipo(TipoRemitoAlmacen.Vencimiento);
+		ra.setNro(loteVencido.getNroLote());
+		ra.save();
+	}
+	
 	public Ubicacion getUbicacionLibre(Lote loteArticulo) {
 		Ubicacion ubicacionAux = null;
 		
@@ -210,5 +224,43 @@ public class Almacen {
 	
 	public Ubicacion getUbicacionLibre() {
 		return UbicacionDAO.getInstancia().getUbicacionLibre();
+	}
+	
+	// Funcion que se ejecuta cada 30 días.
+	public void controlarVencimientos() {
+		List<Lote> lotes = LoteDAO.getInstancia().getAllByVencimiento();
+
+		// Fecha actual + 1 mes (Para verificar los que se vencen dentro de los próximos 30 días)
+		Date fechaVencimiento = Date.from(LocalDate.now().plusMonths(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		boolean fechaEsAnterior = false;
+		for (int i = 0; !fechaEsAnterior && i < lotes.size(); i++) {
+			Lote lote = lotes.get(i);
+			
+			if (fechaVencimiento.after(lote.getVencimiento())) {
+				// Si el lote esta vencido:
+				int legajoOperador = 0;   // Legajo para proceso automático, no hay "operador" en verdad.
+				int legajoAutorizante = 0; // quién lo autoriza?
+				
+				List<ItemRemitoAlmacen> ira = new ArrayList<>();
+				
+				int cantidadArticulosVencidos = 0;
+				for (Ubicacion ubicacionVencida : lote.getUbicaciones()) {
+					// Por cada ubicación del lote vencido, voy creando los items del remito almacén para lotes vencidos.
+					int cantidadArticulosVencidosEnUbicacion = ubicacionVencida.getCapacidadInicial() - ubicacionVencida.getCapacidad(); // Otengo la cantidad de items en el lote
+					ira.add(new ItemRemitoAlmacen(lote.getArticulo(), cantidadArticulosVencidos, ubicacionVencida));
+					cantidadArticulosVencidos += cantidadArticulosVencidosEnUbicacion;
+				}
+				
+				// Creo el Movimiento de ajuste negativo
+				lote.getArticulo().crearMovimientoAjuste(cantidadArticulosVencidos, new Date(), CausaAjuste.Vecimiento, legajoOperador, legajoAutorizante, DestinoArticulos.Destruccion, lote);
+				
+				// Creo el remito vencido. Cuando se procese en el futuro, se liberarán las ubicaciones en donde estaba dicho lote.
+				crearRemitoAlmacen(ira, lote);
+				
+			} else {
+				fechaEsAnterior = true; // Dejo de revisar los lotes si la fecha de vencimiento alcanzada ya es anterior a la actual.
+			}
+		}
 	}
 }

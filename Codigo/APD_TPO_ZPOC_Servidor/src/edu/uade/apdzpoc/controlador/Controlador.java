@@ -22,7 +22,10 @@ import edu.uade.apdzpoc.negocio.Almacen;
 import edu.uade.apdzpoc.negocio.Cliente;
 import edu.uade.apdzpoc.negocio.Compras;
 import edu.uade.apdzpoc.negocio.Despacho;
+import edu.uade.apdzpoc.negocio.Factura;
+import edu.uade.apdzpoc.negocio.Facturacion;
 import edu.uade.apdzpoc.negocio.ItemPedido;
+import edu.uade.apdzpoc.negocio.Lote;
 import edu.uade.apdzpoc.negocio.MovimientoCompra;
 import edu.uade.apdzpoc.negocio.OrdenCompra;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
@@ -85,6 +88,20 @@ public class Controlador {
 		
 		oc.save(); // Persistimos la OC
 		
+	}
+	
+	public void ingresarPagoCliente(Cliente cliente, Factura factura) {
+		Facturacion.getInstancia().ingresarPagoCliente(cliente, factura);
+	}
+	
+	// En el bd vamos a recibir loteDTO, etc. 
+	public void controlarInventario(int legajoOperador, int legajoAutorizante, Lote lote, int destino) {
+		
+	}
+	
+	// Cada 30 días el Almacén controla automáticamente los vencimientos:
+	public void controlarVencimientos() {
+		Almacen.getInstancia().controlarVencimientos();
 	}
 	
 	private void procesarPedidosWeb(OrdenCompra oc) {
