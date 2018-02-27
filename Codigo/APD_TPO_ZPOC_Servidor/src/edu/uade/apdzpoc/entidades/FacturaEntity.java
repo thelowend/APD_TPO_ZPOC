@@ -12,42 +12,43 @@ public class FacturaEntity {
 
 	@Id
 	@Column(name="NroFactura")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idFactura;
-	
+
 	@ManyToOne
 	@JoinColumn(name="IdCliente")
 	private ClienteEntity cliente;
-	
+
 	@Column(name="FechaEmision")
 	@Type(type="date")
 	private Date fechaEmision;
-	
+
 	@Column(name="FechaVencimiento")
 	@Type(type="date")
 	private Date fechaVencimiento;
-	
+
 	@Column(name="TipoFactura")
 	private String tipoFactura;
-	
-	@OneToMany
+
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="NroFactura")
 	private List<ItemFacturaEntity> itemsFactura;
-	
+
 	@Column(name="TotalFactura")
 	private float totalFactura;
-	
-	
+
+
 	public FacturaEntity() {
-	
+
 	}
 
 
-	public int getIdFactura() {
+	public Integer getIdFactura() {
 		return idFactura;
 	}
 
 
-	public void setIdFactura(int idFactura) {
+	public void setIdFactura(Integer idFactura) {
 		this.idFactura = idFactura;
 	}
 
@@ -110,7 +111,7 @@ public class FacturaEntity {
 	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
-	
-	
+
+
 
 }

@@ -31,14 +31,14 @@ public class Prueba_hbt {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 
-		Factura f= FacturaDAO.getInstancia().findByCodigo(2);
+		/*Factura f= FacturaDAO.getInstancia().findByCodigo(2);
 		
 		System.out.println(f.getCliente().getNombre());
 		
-		
+		*/
 		//OrdenCompra oc= OrdenCompraDAO.getInstancia().findByCodigo(7);
 		//System.out.println(oc.getIdOC());
-		//Articulo a=ArticuloDAO.getInstancia().findrecuperadoByCodigo(10000);
+		//Articulo a=ArticuloDAO.getInstancia().findByCodigo(10000);
 		//System.out.println(a.getCodigoBarra());
 		
 		
@@ -47,7 +47,7 @@ public class Prueba_hbt {
 		//System.out.println(pw.getIdPedido());	
 		
 		/*
-		Lote l = LoteDAO.getInstancia().findrecuperadoByNro(1254);
+		Lote l = LoteDAO.getInstancia().findByNro(1254);
 		
 		System.out.println(l.getNroLote());
 	
@@ -57,7 +57,7 @@ public class Prueba_hbt {
 		
 		System.out.println(p.getNombreProveedor());
 		
-		/*Articulo aux = ArticuloDAO.getInstancia().findrecuperadoByCodigo(10800);
+		/*Articulo aux = ArticuloDAO.getInstancia().findByCodigo(10800);
 		
 		System.out.println(aux.getNombreArticulo());
 		System.out.println(aux.getPrecioVenta());
@@ -65,7 +65,7 @@ public class Prueba_hbt {
 		aux.setPrecioVenta(345);
 		ArticuloDAO.getInstancia().save(aux);
 		
-		Articulo aux2 = ArticuloDAO.getInstancia().findrecuperadoByCodigo(10800);
+		Articulo aux2 = ArticuloDAO.getInstancia().findByCodigo(10800);
 		
 		System.out.println(aux2.getNombreArticulo());
 		System.out.println(aux2.getPrecioVenta());

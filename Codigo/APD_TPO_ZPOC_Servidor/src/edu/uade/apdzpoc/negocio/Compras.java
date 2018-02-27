@@ -20,6 +20,7 @@ import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.dao.ArticuloProveedorDAO;
+import edu.uade.apdzpoc.dao.OrdenCompraDAO;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
@@ -46,13 +47,13 @@ public class Compras {
 		List<OrdenCompra> result = new ArrayList<>();
 		
 		// Recupero el Articulo para saber que cantidad tenemos que pedir
-		Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(ip.getArticulo().getCodigoBarra());
+		Articulo a = ArticuloDAO.getInstancia().findByCodigo(ip.getArticulo().getCodigoBarra());
 
 		// Selecciono el mejor proveedor, el que tenga el precio mas bajo. El dao me va
 		// a devolver el que tenga el menor precio.
 		Proveedor p = this.seleccionarProveedor(a);
 		
-		// Genero órdenes de compra hasta cubrir los items pedidos
+		// Genero ï¿½rdenes de compra hasta cubrir los items pedidos
 		for(int cantidadItem = ip.getCantidad(); cantidadItem > 0; cantidadItem -= a.getCantidadCompra()) {
 			OrdenCompra oc = new OrdenCompra(p, a, pw);
 			oc.setEstado(EstadoOC.Pendiente);
@@ -65,6 +66,11 @@ public class Compras {
 	private Proveedor seleccionarProveedor(Articulo art) throws ArticuloProveedorException, ProveedorException {
 		// Busco el mejor proveedor
 		return ArticuloProveedorDAO.getInstancia().findBestProveedorByArticulo(art.getCodigoBarra());
+	}
+
+	public List<OrdenCompra> obtenerOCParaValidar() {
+		return OrdenCompraDAO.getInstancia().findByEstado(EstadoOC.Pendiente);
+		
 	}
 	
 

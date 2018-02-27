@@ -1,15 +1,15 @@
 /**
- * 
- * 
+ *
+ *
  * TPO: APDZPOC
- * 
+ *
  * GRUPO 08
  * Integrantes:
  * 	LU:0119404	- Zapatero, Barbara Daniela
  * 	LU:1022185	- Pablos, Diego Maximiliano
  * 	LU:0133009	- Ojeda, Maria De Los Angeles
  *  LU:0127304	- Cavallaro, Cristian Alberto
- *  
+ *
  *
  */
 
@@ -23,13 +23,12 @@ import edu.uade.apdzpoc.enums.EstadoUbicacion;
 
 public class Lote {
 
-	private int nroLote;
+	private Integer nroLote;
 	private Date vencimiento;
 	private Articulo articulo;
 	private List<Ubicacion> ubicaciones;
 
-	public Lote(int nroLote, Date vencimiento, Articulo articulo, List<Ubicacion> ubicaciones) {
-		this.nroLote = nroLote;
+	public Lote(Date vencimiento, Articulo articulo, List<Ubicacion> ubicaciones) {
 		this.vencimiento = vencimiento;
 		this.articulo = articulo;
 		this.ubicaciones = ubicaciones;
@@ -39,11 +38,11 @@ public class Lote {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getNroLote() {
+	public Integer getNroLote() {
 		return nroLote;
 	}
 
-	public void setNroLote(int nroLote) {
+	public void setNroLote(Integer nroLote) {
 		this.nroLote = nroLote;
 	}
 
@@ -78,19 +77,19 @@ public class Lote {
 	public void removeUbicacion(Ubicacion ubicacion) {
 		this.ubicaciones.remove(ubicacion);
 	}
-	
+
 	public Ubicacion getMejorUbicacion() {
 
 		List<Ubicacion> ubicaciones = this.getUbicaciones();
 		Ubicacion mejor = ubicaciones.get(0);
-		
-		//Empiezo desde la segunda porque ya tomé la primera
+
+		//Empiezo desde la segunda porque ya tomï¿½ la primera
 		for (int i = 1; i < ubicaciones.size(); i++) {
 			if(ubicaciones.get(i).getCapacidad() < mejor.getCapacidad()) {
 				mejor = ubicaciones.get(i);
 			}
 		}
-		
+
 		return mejor;
 	}
 

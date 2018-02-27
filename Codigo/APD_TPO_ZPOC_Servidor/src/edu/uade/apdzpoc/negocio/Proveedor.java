@@ -15,9 +15,11 @@
  
 package edu.uade.apdzpoc.negocio;
 
+import edu.uade.apdzpoc.dao.ProveedorDAO;
+
 public class Proveedor {
 
-	private int idProveedor;
+	private Integer idProveedor;
 	private String nombreProveedor;
 	public Proveedor(String nombreProveedor) {
 		this.nombreProveedor = nombreProveedor;
@@ -25,10 +27,10 @@ public class Proveedor {
 	public Proveedor() {
 		// TODO Auto-generated constructor stub
 	}
-	public int getIdProveedor() {
+	public Integer getIdProveedor() {
 		return idProveedor;
 	}
-	public void setIdProveedor(int idProveedor) {
+	public void setIdProveedor(Integer idProveedor) {
 		this.idProveedor = idProveedor;
 	}
 	public String getNombreProveedor() {
@@ -37,8 +39,9 @@ public class Proveedor {
 	public void setNombreProveedor(String nombreProveedor) {
 		this.nombreProveedor = nombreProveedor;
 	}
-	
-	
-	
-	
+
+
+    public void save() {
+		ProveedorDAO.getInstancia().save(this);
+    }
 }

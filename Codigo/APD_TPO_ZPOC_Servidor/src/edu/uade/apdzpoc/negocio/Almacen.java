@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.dao.UbicacionDAO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
@@ -54,7 +55,7 @@ public class Almacen {
 	}
 	
 	public List<Ubicacion> buscarUbicaciones(ItemPedido itemPedido) {
-		// Devolverá las ubicaciones correspondientes a la cantidad de artículos pedidos en ese item
+		// Devolverï¿½ las ubicaciones correspondientes a la cantidad de artï¿½culos pedidos en ese item
 		return itemPedido.getArticulo().obtenerUbicacionesItemsALiberar(itemPedido.getCantidad());
 	}
 	
@@ -65,7 +66,7 @@ public class Almacen {
 				result.add(item.getArticulo().crearMovimientoPedido(item.getCantidad(), pw));
 			} else {
 				List<OrdenCompra> loc = Compras.getInstancia().crearOrdenesCompra(item, pw); // Genero las OC
-				result.add(item.getArticulo().crearMovimientoCompra(loc.get(0).getCantidad() * loc.size(), pw.getFechaGeneracion())); // Por si la cantidad supera más 100% la cantidad de pedido
+				result.add(item.getArticulo().crearMovimientoCompra(loc.get(0).getCantidad() * loc.size(), pw.getFechaGeneracion())); // Por si la cantidad supera mï¿½s 100% la cantidad de pedido
 			}
 		}
 		return result;
@@ -94,7 +95,7 @@ public class Almacen {
 				cantArticulosSinUbicacion = 0;
 			}
 			
-			this.crearRemitoAlmacen(itemsRemitoAlmacen, oc); // Esto genera el remito pendiente, después en la GUI de Almacen se listan los mismos para que el empleado los marque a "mano" como EstadoRemito.Procesado 
+			this.crearRemitoAlmacen(itemsRemitoAlmacen, oc); // Esto genera el remito pendiente, despuï¿½s en la GUI de Almacen se listan los mismos para que el empleado los marque a "mano" como EstadoRemito.Procesado 
 			uAux.save();
 			
 			//loteArticulo.save();
@@ -140,14 +141,14 @@ public class Almacen {
 		Ubicacion ubicacionAux = null;
 		
 		// Me fijo si existe el lote
-		Lote loteAux = LoteDAO.getInstancia().findrecuperadoByNro(loteArticulo.getNroLote()); 
+		Lote loteAux = LoteDAO.getInstancia().findByNro(loteArticulo.getNroLote());
 		
 		// Si el lote existe, verifico si alguna de sus ubicaciones tiene capacidad:
 		if (loteAux != null) {
 			
 			List<Ubicacion> ubicacionesDelLote = loteAux.getUbicaciones();
 			
-			// Salgo tan pronto como encuentro una ubicación con disponibilidad:
+			// Salgo tan pronto como encuentro una ubicaciï¿½n con disponibilidad:
 			for(int i = 0; ubicacionAux == null && i < ubicacionesDelLote.size(); i++) {
 				Ubicacion u = ubicacionesDelLote.get(i);
 				if (u.getEstado() == EstadoUbicacion.Con_disponibilidad) {
@@ -155,21 +156,21 @@ public class Almacen {
 				}
 			}
 			
-			// Si NO encontró una ubicacion con disponibilidad:
+			// Si NO encontrï¿½ una ubicacion con disponibilidad:
 			if (ubicacionAux == null) {
-				// Asigno ubicación libre al lote:
+				// Asigno ubicaciï¿½n libre al lote:
 				ubicacionAux = getUbicacionLibre();
-				ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicación tiene disponibilidad
-				ubicacionAux.save(); // Persisto la ubicación
+				ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicaciï¿½n tiene disponibilidad
+				ubicacionAux.save(); // Persisto la ubicaciï¿½n
 				loteAux.addUbicacion(ubicacionAux);
-				loteAux.save(); //Persisto el lote para que quede la ubicación asignada.
+				loteAux.save(); //Persisto el lote para que quede la ubicaciï¿½n asignada.
 			}
 				
 		} else {
-			// Si el lote no existe, directamente le asigno una ubicación libre al mismo
+			// Si el lote no existe, directamente le asigno una ubicaciï¿½n libre al mismo
 			ubicacionAux = getUbicacionLibre();
-			ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicación tiene disponibilidad
-			ubicacionAux.save(); // Persisto la ubicación
+			ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicaciï¿½n tiene disponibilidad
+			ubicacionAux.save(); // Persisto la ubicaciï¿½n
 			loteArticulo.addUbicacion(ubicacionAux);
 			loteArticulo.save();
 		}
@@ -182,11 +183,11 @@ public class Almacen {
 		return UbicacionDAO.getInstancia().getUbicacionLibre();
 	}
 	
-	// Funcion que se ejecuta cada 30 días.
+	// Funcion que se ejecuta cada 30 dï¿½as.
 	public void controlarVencimientos() {
 		List<Lote> lotes = LoteDAO.getInstancia().getAllByVencimiento();
 
-		// Fecha actual + 1 mes (Para verificar los que se vencen dentro de los próximos 30 días)
+		// Fecha actual + 1 mes (Para verificar los que se vencen dentro de los prï¿½ximos 30 dï¿½as)
 		Date fechaVencimiento = Date.from(LocalDate.now().plusMonths(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
 		
 		boolean fechaEsAnterior = false;
@@ -195,28 +196,37 @@ public class Almacen {
 			
 			if (fechaVencimiento.after(lote.getVencimiento())) {
 				// Si el lote esta vencido:
-				int legajoOperador = 0;   // Legajo para proceso automático, no hay "operador" en verdad.
-				int legajoAutorizante = 0; // quién lo autoriza?
+				int legajoOperador = 0;   // Legajo para proceso automï¿½tico, no hay "operador" en verdad.
+				int legajoAutorizante = 0; // quiï¿½n lo autoriza?
 				
 				List<ItemRemitoAlmacen> ira = new ArrayList<>();
 				
 				int cantidadArticulosVencidos = 0;
 				for (Ubicacion ubicacionVencida : lote.getUbicaciones()) {
-					// Por cada ubicación del lote vencido, voy creando los items del remito almacén para lotes vencidos.
+					// Por cada ubicaciï¿½n del lote vencido, voy creando los items del remito almacï¿½n para lotes vencidos.
 					int cantidadArticulosVencidosEnUbicacion = ubicacionVencida.getCapacidadInicial() - ubicacionVencida.getCapacidad(); // Otengo la cantidad de items en el lote
 					ira.add(new ItemRemitoAlmacen(lote.getArticulo(), cantidadArticulosVencidos, ubicacionVencida));
 					cantidadArticulosVencidos += cantidadArticulosVencidosEnUbicacion;
 				}
 				
 				// Creo el Movimiento de ajuste negativo
-				lote.getArticulo().crearMovimientoAjuste(cantidadArticulosVencidos, new Date(), CausaAjuste.Vecimiento, legajoOperador, legajoAutorizante, DestinoArticulos.Destruccion, lote);
+				lote.getArticulo().crearMovimientoAjuste(cantidadArticulosVencidos, CausaAjuste.Vecimiento, legajoOperador, legajoAutorizante, DestinoArticulos.Destruccion, lote);
 				
-				// Creo el remito vencido. Cuando se procese en el futuro, se liberarán las ubicaciones en donde estaba dicho lote.
+				// Creo el remito vencido. Cuando se procese en el futuro, se liberarï¿½n las ubicaciones en donde estaba dicho lote.
 				crearRemitoAlmacen(ira, lote);
 				
 			} else {
 				fechaEsAnterior = true; // Dejo de revisar los lotes si la fecha de vencimiento alcanzada ya es anterior a la actual.
 			}
 		}
+	}
+
+	
+	
+	//propiedad que se utiliza para realizar ajustes en las existencias del stock
+	public void actualizarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, Lote lote, DestinoArticulos destino) throws ArticuloException {
+		Articulo a = ArticuloDAO.getInstancia().findByLote(lote.getNroLote());
+		a.crearMovimientoAjuste(cantidad, causa, legajoOperador, legajoAutorizante, destino, lote);
+		
 	}
 }

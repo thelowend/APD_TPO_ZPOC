@@ -38,6 +38,7 @@ public class PedidoWeb {
 		this.estadoPedido = estadoPedido;
 		this.direccionPedido = direccionPedido;
 		this.items = items;
+		this.fechaGeneracion = new Date();
 	}
 
 	public PedidoWeb() {
@@ -127,7 +128,7 @@ public class PedidoWeb {
 	}
 	
 	public boolean hayStockDeItems() {
-		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido, quedará en true.
+		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido, quedarï¿½ en true.
 		
 		for (ItemPedido item : this.getItems()) {
 			if(!item.hayStock()) {

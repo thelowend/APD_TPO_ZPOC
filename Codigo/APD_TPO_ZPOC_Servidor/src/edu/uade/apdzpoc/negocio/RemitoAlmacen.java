@@ -24,15 +24,14 @@ import edu.uade.apdzpoc.enums.TipoRemitoAlmacen;
 
 public class RemitoAlmacen {
 
-	private int idRemito;
+	private Integer idRemito;
 	private EstadoRemito estado;
 	private List<ItemRemitoAlmacen> itemsRemito;
 	private TipoRemitoAlmacen tipo;
 	private int nro;
 
-	public RemitoAlmacen(int idRemito, EstadoRemito estado, List<ItemRemitoAlmacen> itemsRemito, TipoRemitoAlmacen tipo,
-			int nro) {
-		this.idRemito = idRemito;
+
+	public RemitoAlmacen(EstadoRemito estado, List<ItemRemitoAlmacen> itemsRemito, TipoRemitoAlmacen tipo, int nro) {
 		this.estado = estado;
 		this.itemsRemito = itemsRemito;
 		this.tipo = tipo;
@@ -45,11 +44,11 @@ public class RemitoAlmacen {
 		this.tipo = tipo;
 		this.nro = nro;
 	}
-	
+
 	private List<ItemRemitoAlmacen> generarItemsRemito(List<ItemPedido> items) {
 		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();
 		for (ItemPedido item : items) {
-			// Está bien guardar el calculartotal como campo de itemFactura al momento de crearlo, ya que en el futuro podría cambiar el precio del artículo, pero no debería cambiar el precio en la factura emitida.
+			// Estï¿½ bien guardar el calculartotal como campo de itemFactura al momento de crearlo, ya que en el futuro podrï¿½a cambiar el precio del artï¿½culo, pero no deberï¿½a cambiar el precio en la factura emitida.
 			List<Ubicacion> ubicacionesItem = Almacen.getInstancia().buscarUbicaciones(item);
 			for (Ubicacion ubicacionItem : ubicacionesItem) {
 				itemsRemito.add(new ItemRemitoAlmacen(item.getArticulo(), item.getCantidad(), ubicacionItem));
@@ -62,11 +61,10 @@ public class RemitoAlmacen {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getIdRemito() {
+	public Integer getIdRemito() {
 		return idRemito;
 	}
-
-	public void setIdRemito(int idRemito) {
+	public void setIdRemito(Integer idRemito) {
 		this.idRemito = idRemito;
 	}
 

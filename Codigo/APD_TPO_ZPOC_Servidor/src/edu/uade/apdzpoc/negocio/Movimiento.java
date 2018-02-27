@@ -19,7 +19,7 @@ import java.util.Date;
 
 public abstract class Movimiento {
 
-	protected int idMovimiento;
+	protected Integer idMovimiento;
 	protected Date fecha;
 	protected Articulo articulo;
 	protected int cantidad;
@@ -35,11 +35,11 @@ public abstract class Movimiento {
 
 	}
 
-	public int getIdMovimiento() {
+	public Integer getIdMovimiento() {
 		return idMovimiento;
 	}
 
-	public void setIdMovimiento(int idMovimiento) {
+	public void setIdMovimiento(Integer idMovimiento) {
 		this.idMovimiento = idMovimiento;
 	}
 

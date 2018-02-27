@@ -39,8 +39,6 @@ import edu.uade.apdzpoc.entidades.ProveedorEntity;
 import edu.uade.apdzpoc.entidades.RemitoAlmacenEntity;
 import edu.uade.apdzpoc.entidades.RemitoTransporteEntity;
 import edu.uade.apdzpoc.entidades.UbicacionEntity;
-import edu.uade.apdzpoc.entidades.UbicacionLoteEntity;
-import edu.uade.apdzpoc.entidades.UbicacionLoteIDEntity;
 
 
 public class HibernateUtil {
@@ -73,8 +71,6 @@ public class HibernateUtil {
 	         	config.addAnnotatedClass(RemitoAlmacenEntity.class);
 	         	config.addAnnotatedClass(RemitoTransporteEntity.class);
 	         	config.addAnnotatedClass(UbicacionEntity.class);
-	         	config.addAnnotatedClass(UbicacionLoteEntity.class);
-	         	config.addAnnotatedClass(UbicacionLoteIDEntity.class);
 	         	
 	             sessionFactory = config.buildSessionFactory();
 	        }

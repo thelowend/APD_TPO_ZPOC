@@ -45,7 +45,7 @@ public class Facturacion {
 		Factura factura = pc.getFactura();
 		CuentaCorriente cc = pc.getFactura().getCliente().getCuentaCorriente();
 		
-		cc.setSaldo(cc.getSaldo() - factura.getTotalFactura());
+		cc.actulizarSaldo(factura.getTotalFactura());
 		cc.save();
 		
 		factura.setEstado(EstadoFactura.Paga);

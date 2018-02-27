@@ -30,6 +30,8 @@ import edu.uade.apdzpoc.negocio.OrdenCompra;
 import edu.uade.apdzpoc.negocio.PagoCliente;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
+import edu.uade.apdzpoc.enums.CausaAjuste;
+import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.enums.EstadoPedido;
@@ -64,16 +66,30 @@ public class Controlador {
 	}
 	
 	// Acá desde la GUI el empleado de Despacho despacha el pedido, con la fecha de entrega y la empresa de transporte a cargo:
+	
+	public void obtenerPedidosParaDespachar(){
+		Despacho.getInstancia().obtenerPedidosADespachar();
+	}
+	
+	
 	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
 		Despacho.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
 	}
 	
 	// En el business delegate recibirá OrdenCompraDTO ocDTO, EstadoOC estadoOC
+	
+	public void obtenerOrdenesdeCompraParaValidar(){
+		Compras.getInstancia().obtenerOCParaValidar();
+		
+	}
+	
 	public void ingresarCompra(OrdenCompra oc, EstadoOC estadoOC) throws LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException {
 		Almacen almacen = Almacen.getInstancia();
 		Compras compras = Compras.getInstancia();
 		
 		// Compras valida el estado de la orden de compra:
+		
+		
 		compras.validarOrdenCompra(oc, estadoOC);
 		
 		if (oc.getEstado() == EstadoOC.Aceptada) {
@@ -94,14 +110,15 @@ public class Controlador {
 		oc.save(); // Persistimos la OC
 		
 	}
+	// Ingresar pago de cliente para poder actualizar su cuenta corriente
 	
 	public void ingresarPagoCliente(PagoCliente pago) {
 		Facturacion.getInstancia().ingresarPagoCliente(pago);
 	}
 	
 	// En el bd vamos a recibir loteDTO, etc. 
-	public void controlarInventario(int legajoOperador, int legajoAutorizante, Lote lote, int destino) {
-		// TODO: Hacer
+	public void controlarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, Lote lote, DestinoArticulos destino) throws ArticuloException {
+		Almacen.getInstancia().actualizarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote, destino);
 	}
 	
 	// Cada 30 días el Almacén controla automáticamente los vencimientos:

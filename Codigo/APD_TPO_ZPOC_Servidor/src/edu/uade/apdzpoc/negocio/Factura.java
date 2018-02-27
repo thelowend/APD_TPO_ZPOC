@@ -26,7 +26,7 @@ import edu.uade.apdzpoc.enums.EstadoFactura;
 
 public class Factura {
 
-	private int idFactura;
+	private Integer idFactura;
 	private Cliente cliente;
 	private Date fechaEmision;
 	private Date fechaVencimiento;
@@ -56,11 +56,11 @@ public class Factura {
 		return itemsFactura;
 	}
 
-	public int getIdFactura() {
+	public Integer getIdFactura() {
 		return idFactura;
 	}
 
-	public void setIdFactura(int idFactura) {
+	public void setIdFactura(Integer idFactura) {
 		this.idFactura = idFactura;
 	}
 
@@ -107,7 +107,7 @@ public class Factura {
 	private float calcularMontoTotal() {
 		float montoTotal = 0f;
 		for(ItemFactura item : this.itemsFactura) {
-			montoTotal += item.getPrecio(); // porque precio ya tiene el cálculo hecho del costo del articulo x cantidad en el momento que se creó.
+			montoTotal += item.getPrecio(); // porque precio ya tiene el cï¿½lculo hecho del costo del articulo x cantidad en el momento que se creï¿½.
 		}
 		return montoTotal;
 	}

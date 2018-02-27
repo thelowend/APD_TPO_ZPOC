@@ -24,7 +24,7 @@ public class MovimientoAjusteDAO {
 		return instancia;
 	}
 
-	public MovimientoAjuste findrecuperadoByNro(Integer idMovimiento) throws MovimientoException {
+	public MovimientoAjuste findByNro(Integer idMovimiento) throws MovimientoException {
 		MovimientoAjuste resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
@@ -37,7 +37,7 @@ public class MovimientoAjusteDAO {
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new MovimientoException("No se encontró movimiento " + idMovimiento);
+			throw new MovimientoException("No se encontrï¿½ movimiento " + idMovimiento);
 		}
 		return resultado;
 	}

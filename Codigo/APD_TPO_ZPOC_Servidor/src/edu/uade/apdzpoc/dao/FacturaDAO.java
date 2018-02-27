@@ -70,9 +70,7 @@ public class FacturaDAO {
 		facturaAPersistir.setFechaVencimiento(factura.getFechaVencimiento());
 		facturaAPersistir.setFechaEmision(factura.getFechaEmision());
 		facturaAPersistir.setTotalFactura(factura.getTotalFactura());
-		//Grabo El cliente Entity
-		ClienteEntity ce= new ClienteEntity();
-		ce=ClienteDAO.getInstancia().toEntity(factura.getCliente());
+		facturaAPersistir.setCliente(ClienteDAO.getInstancia().toEntity(factura.getCliente()));
 		
 		List<ItemFacturaEntity> aux1 = new ArrayList<ItemFacturaEntity>();	
 		List <ItemFactura> facturas = factura.getItemsFactura();

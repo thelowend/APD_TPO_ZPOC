@@ -64,6 +64,11 @@ public class CuentaCorriente {
 		this.limMax = limMax;
 	}
 
+	public void actulizarSaldo(float monto){
+		this.setSaldo(this.saldo-monto);
+	}
+	
+	
 	public void save() {
 		CuentaCorrienteDAO.getInstancia().save(this);
 	}

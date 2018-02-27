@@ -24,13 +24,13 @@ public class LoteDAO {
 		return instancia;
 	}
 
-	public Lote findrecuperadoByNro(Integer nroLote) throws LoteException {
+	public Lote findByNro(Integer nroLote) throws LoteException {
 		Lote resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		LoteEntity aux = (LoteEntity) s
-				.createQuery("select le from LoteEntity le inner join le.ubicaciones where nroLote = ?")
+				.createQuery("select le from LoteEntity le where le.nroLote = ?")
 				.setInteger(0, nroLote).uniqueResult();
 		s.getTransaction().commit();
 		s.close();

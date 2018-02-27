@@ -17,12 +17,12 @@ package edu.uade.apdzpoc.negocio;
 
 public class ItemRemitoAlmacen {
 
-	private int IdItemRemitoAlmacen;
-	public int getIdItemRemitoAlmacen() {
+	private Integer IdItemRemitoAlmacen;
+	public Integer getIdItemRemitoAlmacen() {
 		return IdItemRemitoAlmacen;
 	}
 
-	public void setIdItemRemitoAlmacen(int idItemRemitoAlmacen) {
+	public void setIdItemRemitoAlmacen(Integer idItemRemitoAlmacen) {
 		IdItemRemitoAlmacen = idItemRemitoAlmacen;
 	}
 
