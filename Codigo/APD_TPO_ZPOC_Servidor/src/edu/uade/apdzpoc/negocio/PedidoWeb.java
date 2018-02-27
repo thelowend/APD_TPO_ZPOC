@@ -1,20 +1,21 @@
 /**
- * 
- * 
+ *
+ *
  * TPO: APDZPOC
- * 
+ *
  * GRUPO 08
  * Integrantes:
  * 	LU:0119404	- Zapatero, Barbara Daniela
  * 	LU:1022185	- Pablos, Diego Maximiliano
  * 	LU:0133009	- Ojeda, Maria De Los Angeles
  *  LU:0127304	- Cavallaro, Cristian Alberto
- *  
+ *
  *
  */
 
 package edu.uade.apdzpoc.negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import edu.uade.apdzpoc.enums.EstadoPedido;
 
 public class PedidoWeb {
 
-	private int idPedido;
+	private Integer idPedido;
 	private Cliente cliente;
 	private Date fechaGeneracion;
 	private Date fechaDespacho;
@@ -40,14 +41,14 @@ public class PedidoWeb {
 	}
 
 	public PedidoWeb() {
-		// TODO Auto-generated constructor stub
+		this.items = new ArrayList<>();
 	}
 
-	public int getIdPedido() {
+	public Integer getIdPedido() {
 		return idPedido;
 	}
 
-	public void setIdPedido(int idPedido) {
+	public void setIdPedido(Integer idPedido) {
 		this.idPedido = idPedido;
 	}
 
@@ -106,6 +107,11 @@ public class PedidoWeb {
 	public void setItems(List<ItemPedido> items) {
 		this.items = items;
 	}
+
+	public void addItem(ItemPedido itemPedido){
+		this.items.add(itemPedido);
+	}
+
 	public void save() {
 		PedidoWebDAO.getInstancia().save(this);
 	}

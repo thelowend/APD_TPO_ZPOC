@@ -21,6 +21,7 @@ import edu.uade.apdzpoc.negocio.CuentaCorriente;
 @Entity
 @Table(name = "Clientes")
 public class ClienteEntity {
+
 	@Id
 	@Column (name="IdCliente")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,20 +1,21 @@
 /**
- * 
- * 
+ *
+ *
  * TPO: APDZPOC
- * 
+ *
  * GRUPO 08
  * Integrantes:
  * 	LU:0119404	- Zapatero, Barbara Daniela
  * 	LU:1022185	- Pablos, Diego Maximiliano
  * 	LU:0133009	- Ojeda, Maria De Los Angeles
  *  LU:0127304	- Cavallaro, Cristian Alberto
- *  
+ *
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,19 +28,19 @@ import edu.uade.apdzpoc.enums.DestinoArticulos;
 
 public class Articulo {
 
-	private int codigoBarra;
+	private Integer codigoBarra;
 	private String nombreArticulo;
 	private String descripcion;
 	private float precioVenta;
 	private int cantidadCompra;
 	private String presentacion;
 	private String tamanio;
-	
+
 	private int stockFisico;
 	private int stockVirtual;
 	private int stockDisponible;
 	private int stockPendienteEntrega;
-	
+
 	private List<Lote> lote;
 
 	public Articulo(String nombreArticulo, String descripcion, float precioVenta, int cantidadCompra,
@@ -50,16 +51,17 @@ public class Articulo {
 		this.cantidadCompra = cantidadCompra;
 		this.presentacion = presentacion;
 		this.tamanio = tamanio;
+		this.lote = new ArrayList<>();
 	}
 
 	public Articulo() {
 	}
 
-	public int getCodigoBarra() {
+	public Integer getCodigoBarra() {
 		return codigoBarra;
 	}
 
-	public void setCodigoBarra(int codigoBarra) {
+	public void setCodigoBarra(Integer codigoBarra) {
 		this.codigoBarra = codigoBarra;
 	}
 
@@ -150,36 +152,36 @@ public class Articulo {
 	public void setLote(List<Lote> lote) {
 		this.lote = lote;
 	}
-	
+
 	public MovimientoPedido crearMovimientoPedido(int cantidad, PedidoWeb pw) {
 		MovimientoPedido mp = new MovimientoPedido(pw.getFechaGeneracion(), this, cantidad, pw);
 		MovimientoPedidoDAO.getInstancia().save(mp);
 		return mp;
 	}
-	
+
 	public MovimientoCompra crearMovimientoCompra(int cantidad, Date fechaGeneracion) {
 		MovimientoCompra mc = new MovimientoCompra(fechaGeneracion, this, cantidad);
 		MovimientoCompraDAO.getInstancia().save(mc);
 		return mc;
 	}
-	
+
 	public MovimientoCompra crearMovimientoCompra(OrdenCompra oc) {
 		MovimientoCompra mc = new MovimientoCompra(new Date(), oc.getArticulo(), oc.getCantidad(), oc, oc.getLote());
 		MovimientoCompraDAO.getInstancia().save(mc);
 		return mc;
 	}
-	
+
 	public void crearMovimientoAjuste(int cantidad, Date fechaGeneracion, CausaAjuste causa, int legajoOperador, int legajoAutorizante, DestinoArticulos destino, Lote lote) {
 		MovimientoAjuste ma = new MovimientoAjuste(fechaGeneracion, this, cantidad, causa, legajoOperador, legajoAutorizante, destino, lote);
 		MovimientoAjusteDAO.getInstancia().save(ma);
 	}
-	
+
 	public void save() {
 		ArticuloDAO.getInstancia().save(this);
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import edu.uade.apdzpoc.enums.EstadoPedido;
@@ -17,38 +19,39 @@ public class PedidoWebEntity {
 	@Column(name="IdPedido")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idPedido;
-	
+
 	@OneToOne
 	@JoinColumn(name="IdCliente")
 	private ClienteEntity cliente;
-	
+
 	@Column(name="FechaGeneracion")
 	@Type(type="date")
 	private Date fechaGeneracion;
-	
+
 	@Column(name="FechaDespacho")
 	@Type(type="date")
 	private Date fechaDespacho;
-	
+
 	@Column(name="FechaEntrega")
 	@Type(type="date")
 	private Date fechaDeEntrega;
-	
+
 	@Column(name="EstadoPedido")
 	@Enumerated(EnumType.STRING)
 	private EstadoPedido estadoPedido;
-	
+
 	@Column(name="DireccionEnvio")
 	private String direccionPedido;
-	
-	@OneToMany
-	@JoinColumn(name="IdPedido")
+
+	@OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name="IdPedido")
 	private List<ItemPedidoEntity> items;
-	
-	
-	
+
+
+
 	public PedidoWebEntity() {
-		
+
 	}
 
 
@@ -146,9 +149,9 @@ public class PedidoWebEntity {
 	public void setItems(List<ItemPedidoEntity> items) {
 		this.items = items;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

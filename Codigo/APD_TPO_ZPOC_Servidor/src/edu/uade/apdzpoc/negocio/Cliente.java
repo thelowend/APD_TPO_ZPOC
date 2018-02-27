@@ -20,7 +20,7 @@ import edu.uade.apdzpoc.dao.ClienteDAO;
 
 public class Cliente {
 
-	private int idCliente;
+	private Integer idCliente;
 	private String nombre;
 	private int documento;
 	private String domicilioFacturacion;
@@ -32,10 +32,8 @@ public class Cliente {
 
 	public Cliente () {};
 
-	public Cliente(int idCliente, String nombre, int documento, String domicilioFacturacion,
+	public Cliente(String nombre, int documento, String domicilioFacturacion,
 			boolean responsableInscripto, boolean ivaInscripto, float descuento, CuentaCorriente cuentaCorriente) {
-
-		this.idCliente = idCliente;
 		this.nombre = nombre;
 		this.documento = documento;
 		this.domicilioFacturacion = domicilioFacturacion;
@@ -45,10 +43,10 @@ public class Cliente {
 		this.cuentaCorriente = cuentaCorriente;
 	}
 
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 	public String getNombre() {
