@@ -84,6 +84,18 @@ public class MovimientoAjusteDAO {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	public MovimientoAjuste saveAndFetch(MovimientoAjuste recuperado) {
+		MovimientoAjusteEntity movimientoAjusteAPersistir = this.toEntity(recuperado);
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(movimientoAjusteAPersistir);
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return this.toNegocio(movimientoAjusteAPersistir);
+	}
 
 	public MovimientoAjusteEntity toEntity(MovimientoAjuste movimientoAjusteNegocio) {
 		MovimientoAjusteEntity movimientoAjusteEntityAPersistir = new MovimientoAjusteEntity();

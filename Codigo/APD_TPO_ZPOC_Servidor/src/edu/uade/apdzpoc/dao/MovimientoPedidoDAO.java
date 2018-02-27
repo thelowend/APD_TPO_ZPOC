@@ -87,6 +87,18 @@ public class MovimientoPedidoDAO {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	public MovimientoPedido saveAndFetch(MovimientoPedido recuperado) {
+		MovimientoPedidoEntity movimientoPedidoAPersistir = this.toEntity(recuperado);
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(movimientoPedidoAPersistir);
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		return this.toNegocio(movimientoPedidoAPersistir);
+	}
 
 	public MovimientoPedidoEntity toEntity(MovimientoPedido movimientoPedidoNegocio) {
 		MovimientoPedidoEntity movimientoPedidoEntityAPersistir = new MovimientoPedidoEntity();

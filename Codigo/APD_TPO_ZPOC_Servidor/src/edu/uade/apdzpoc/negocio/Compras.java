@@ -18,9 +18,6 @@ package edu.uade.apdzpoc.negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uade.apdzpoc.dao.ArticuloDAO;
-import edu.uade.apdzpoc.dao.ArticuloProveedorDAO;
-import edu.uade.apdzpoc.dao.OrdenCompraDAO;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
@@ -46,11 +43,11 @@ public class Compras {
 		
 		List<OrdenCompra> result = new ArrayList<>();
 		
-		// Recupero el Articulo para saber que cantidad tenemos que pedir
+		// Recupero el Articulo para saber que cantidad tenemos que pedir:
 		Articulo articulo = ip.getArticulo();
 		Proveedor proveedor = articulo.obtenerMejorProveedor();
 		
-		// Genero �rdenes de compra hasta cubrir los items pedidos
+		// Genero ordenes de compra hasta cubrir los items pedidos
 		for(int cantidadItem = ip.getCantidad(); cantidadItem > 0; cantidadItem -= articulo.getCantidadCompra()) {
 			OrdenCompra oc = new OrdenCompra(proveedor, articulo, pw);
 			result.add(oc);
@@ -60,14 +57,8 @@ public class Compras {
 		return result;
 	}
 
-	private Proveedor seleccionarProveedor(Articulo art) throws ArticuloProveedorException, ProveedorException {
-		// Busco el mejor proveedor
-		return ArticuloProveedorDAO.getInstancia().findBestProveedorByArticulo(art.getCodigoBarra());
-	}
-
 	public List<OrdenCompra> obtenerOCParaValidar() {
 		return OrdenCompra.obtenerOCParaValidar();
-		
 	}
 	
 

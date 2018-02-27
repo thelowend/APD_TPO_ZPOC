@@ -30,7 +30,8 @@ public class RemitoAlmacen {
 	private TipoRemitoAlmacen tipo;
 	private int nro;
 
-
+	public RemitoAlmacen() { }
+	
 	public RemitoAlmacen(EstadoRemito estado, List<ItemRemitoAlmacen> itemsRemito, TipoRemitoAlmacen tipo, int nro) {
 		this.estado = estado;
 		this.itemsRemito = itemsRemito;
@@ -41,14 +42,13 @@ public class RemitoAlmacen {
 	public RemitoAlmacen(PedidoWeb pw) {
 		this.estado = EstadoRemito.Pendiente;
 		this.itemsRemito = this.generarItemsRemito(pw.getItems());
-		this.tipo = tipo;
-		this.nro = nro;
+		this.tipo = TipoRemitoAlmacen.PedidoWeb;
+		this.nro = pw.getIdPedido();
 	}
 
 	private List<ItemRemitoAlmacen> generarItemsRemito(List<ItemPedido> items) {
 		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();
 		for (ItemPedido item : items) {
-			// Est� bien guardar el calculartotal como campo de itemFactura al momento de crearlo, ya que en el futuro podr�a cambiar el precio del art�culo, pero no deber�a cambiar el precio en la factura emitida.
 			List<Ubicacion> ubicacionesItem = Almacen.getInstancia().buscarUbicaciones(item);
 			for (Ubicacion ubicacionItem : ubicacionesItem) {
 				itemsRemito.add(new ItemRemitoAlmacen(item.getArticulo(), item.getCantidad(), ubicacionItem));
@@ -56,9 +56,26 @@ public class RemitoAlmacen {
 		}
 		return itemsRemitoAlmacen;
 	}
+	
+	public void generarItemsRemito(MovimientoAjuste ma) {
+		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();
+		
+		int cantidadAjustar = ma.getCantidad();
 
-	public RemitoAlmacen() {
-		// TODO Auto-generated constructor stub
+		List<Ubicacion> ubicacionesArticulo = ma.getLote().getUbicaciones();
+		
+		for (int i = 0; cantidadAjustar > 0 && i < ubicacionesArticulo.size(); i++) {
+			if (cantidadAjustar <= ubicacionesArticulo.get(i).getCapacidad()) {
+				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(ma.getArticulo(), cantidadAjustar, ubicacionesArticulo.get(i)));
+				cantidadAjustar = 0;
+			} else {
+				cantidadAjustar =- ubicacionesArticulo.get(i).getCapacidad();
+				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(ma.getArticulo(), ubicacionesArticulo.get(i).getCapacidad(), ubicacionesArticulo.get(i)));
+			}
+			
+		}
+
+		this.setItemsRemito(itemsRemitoAlmacen);
 	}
 
 	public Integer getIdRemito() {

@@ -20,10 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
-import edu.uade.apdzpoc.dao.ArticuloProveedorDAO;
-import edu.uade.apdzpoc.dao.MovimientoAjusteDAO;
-import edu.uade.apdzpoc.dao.MovimientoCompraDAO;
-import edu.uade.apdzpoc.dao.MovimientoPedidoDAO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
@@ -44,8 +40,9 @@ public class Articulo {
 	private int stockVirtual;
 	private int stockDisponible;
 	private int stockPendienteEntrega;
-	
+
 	private List<Lote> lotes;
+
 	public Articulo(String nombreArticulo, String descripcion, float precioVenta, int cantidadCompra,
 			String presentacion, String tamanio) {
 		this.nombreArticulo = nombreArticulo;
@@ -155,64 +152,64 @@ public class Articulo {
 	public void setLotes(List<Lote> lotes) {
 		this.lotes = lotes;
 	}
-	
+
 	public boolean tieneStock(int cantidadRequerida) {
 		boolean result = false;
 		if (this.getStockDisponible() == 0) {
-			result = cantidadRequerida <= (this.getStockPendienteEntrega() + this.getStockVirtual()); //Sumo porque el stock virtual es un índice negativo.
+			result = cantidadRequerida <= (this.getStockPendienteEntrega() + this.getStockVirtual()); // Sumo porque el
+																										// stock virtual
+																										// es un índice
+																										// negativo.
 		} else {
 			result = this.getStockDisponible() > cantidadRequerida;
 		}
 		return result;
 	}
-	
+
 	public List<Ubicacion> obtenerUbicacionesItemsALiberar(int cantidadRequerida) {
-		
+
 		List<Ubicacion> ubicacionesItemsALiberar = new ArrayList<>();
 		List<Lote> lotesArticulo = this.getLotes(); // Vienen ordenados por vencimiento más cercano.
 		int cantidadRestante = cantidadRequerida;
-		
+
 		for (Lote lote : lotesArticulo) {
-			
-			while(cantidadRestante > 0) {
-				
-				Ubicacion u = lote.getMejorUbicacion(); //Busco la que tenga menos items para liberarlas más rápido
+
+			while (cantidadRestante > 0) {
+
+				Ubicacion u = lote.getMejorUbicacion(); // Busco la que tenga menos items para liberarlas más rápido
 				u.actualizarUbicacion(cantidadRestante);
-				cantidadRestante -= u.getCapacidad(); //La capacidad actualizada
+				cantidadRestante -= u.getCapacidad(); // La capacidad actualizada
 				ubicacionesItemsALiberar.add(u); // Guardo la ubicación para el remito
-				
+
 				if (u.getEstado() == EstadoUbicacion.Libre) {
 					lote.removeUbicacion(u); // La libero de su asociación al lote del Artículo
 				}
 			}
 		}
-		
+
 		return ubicacionesItemsALiberar;
 	}
-	
+
 	public List<PedidoWeb> traerPedidosPendientes() {
 		return PedidoWeb.obtenerPedidosPendientesStock(this);
 	}
 
 	public MovimientoPedido crearMovimientoPedido(int cantidad, PedidoWeb pw) {
 		MovimientoPedido mp = new MovimientoPedido(pw.getFechaGeneracion(), this, cantidad, pw);
-		MovimientoPedidoDAO.getInstancia().save(mp);
-		return mp;
+		return mp.saveAndFetch();
 	}
-
 
 	public MovimientoCompra crearMovimientoCompra(OrdenCompra oc) {
 		MovimientoCompra mc = new MovimientoCompra(new Date(), oc.getArticulo(), oc.getCantidad(), oc, oc.getLote());
-		MovimientoCompraDAO.getInstancia().save(mc);
-		return mc;
+		return mc.saveAndFetch();
 	}
 
-	public void crearMovimientoAjuste(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, DestinoArticulos destino, Lote lote) {
-		MovimientoAjuste ma = new MovimientoAjuste(new Date(), this, cantidad, causa, legajoOperador, legajoAutorizante, destino, lote);
-		this.setStockFisico(stockFisico+cantidad);
-		this.setStockDisponible(stockDisponible+cantidad);
-		this.save();
-		MovimientoAjusteDAO.getInstancia().save(ma);
+	public MovimientoAjuste crearMovimientoAjuste(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, DestinoArticulos destino, Lote lote) {
+		MovimientoAjuste ma = new MovimientoAjuste(new Date(), this, cantidad, causa, legajoOperador, legajoAutorizante,
+				destino, lote);
+		this.setStockFisico(stockFisico + cantidad);
+		this.setStockDisponible(stockDisponible + cantidad);
+		return ma.saveAndFetch();
 	}
 
 	public void save() {
@@ -222,6 +219,5 @@ public class Articulo {
 	public Proveedor obtenerMejorProveedor() throws ArticuloProveedorException, ProveedorException {
 		return ArticuloProveedor.getMejorProveedorPorArticulo(this);
 	}
-
 
 }

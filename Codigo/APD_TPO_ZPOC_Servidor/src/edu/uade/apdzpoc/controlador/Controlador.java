@@ -29,7 +29,6 @@ import edu.uade.apdzpoc.negocio.MovimientoCompra;
 import edu.uade.apdzpoc.negocio.OrdenCompra;
 import edu.uade.apdzpoc.negocio.PagoCliente;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
-import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
@@ -85,7 +84,6 @@ public class Controlador {
 	public void ingresarCompra(OrdenCompra oc, EstadoOC estadoOC) throws LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException {
 		Almacen almacen = Almacen.getInstancia();
 		Compras compras = Compras.getInstancia();
-		
 		
 		// Compras valida el estado de la orden de compra:
 		compras.validarOrdenCompra(oc, estadoOC);

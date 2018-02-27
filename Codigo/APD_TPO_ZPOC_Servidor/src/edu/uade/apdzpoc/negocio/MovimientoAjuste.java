@@ -19,84 +19,91 @@ import edu.uade.apdzpoc.enums.DestinoArticulos;
 
 public class MovimientoAjuste extends Movimiento {
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * edu.uade.apdzpoc.negocio.Movimiento#actualizarNovedadStock(edu.uade.apdzpoc.
-     * negocio.Articulo)
-     */
-    private int legajoOperador;
-    private int legajoAutorizante;
-    private DestinoArticulos destino;
-    private CausaAjuste causa;
-    private Lote lote;
+	private int legajoOperador;
+	private int legajoAutorizante;
+	private DestinoArticulos destino;
+	private CausaAjuste causa;
+	private Lote lote;
 
-    public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad, /* String tipo, */ CausaAjuste causa,
-                            int legajoOperador, int legajoAutorizante, DestinoArticulos destino, Lote lote) {
-        super(fecha, articulo, cantidad);
-        this.causa = causa;
-        this.legajoOperador = legajoOperador;
-        this.legajoAutorizante = legajoAutorizante;
-        this.destino = destino;
-        this.lote = lote;
-    }
+	public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad, CausaAjuste causa, int legajoOperador,
+			int legajoAutorizante, DestinoArticulos destino, Lote lote) {
+		super(fecha, articulo, cantidad);
+		this.causa = causa;
+		this.legajoOperador = legajoOperador;
+		this.legajoAutorizante = legajoAutorizante;
+		this.destino = destino;
+		this.lote = lote;
+	}
 
-    public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad/* , String tipo */) {
-        super(fecha, articulo, cantidad);
-        // TODO Auto-generated constructor stub
-    }
+	public MovimientoAjuste(Date fecha, Articulo articulo, int cantidad/* , String tipo */) {
+		super(fecha, articulo, cantidad);
+		// TODO Auto-generated constructor stub
+	}
 
-    public MovimientoAjuste() {
-        // TODO Auto-generated constructor stub
-    }
+	public MovimientoAjuste() {
+		// TODO Auto-generated constructor stub
+	}
 
-    public int getLegajoOperador() {
-        return legajoOperador;
-    }
+	public int getLegajoOperador() {
+		return legajoOperador;
+	}
 
-    public void setLegajoOperador(int legajoOperador) {
-        this.legajoOperador = legajoOperador;
-    }
+	public void setLegajoOperador(int legajoOperador) {
+		this.legajoOperador = legajoOperador;
+	}
 
-    public int getLegajoAutorizante() {
-        return legajoAutorizante;
-    }
+	public int getLegajoAutorizante() {
+		return legajoAutorizante;
+	}
 
-    public void setLegajoAutorizante(int legajoAutorizante) {
-        this.legajoAutorizante = legajoAutorizante;
-    }
+	public void setLegajoAutorizante(int legajoAutorizante) {
+		this.legajoAutorizante = legajoAutorizante;
+	}
 
-    public DestinoArticulos getDestino() {
-        return destino;
-    }
+	public DestinoArticulos getDestino() {
+		return destino;
+	}
 
-    public void setDestino(DestinoArticulos destino) {
-        this.destino = destino;
-    }
+	public void setDestino(DestinoArticulos destino) {
+		this.destino = destino;
+	}
 
-    public Lote getLote() {
-        return lote;
-    }
+	public Lote getLote() {
+		return lote;
+	}
 
-    public void setLote(Lote lote) {
-        this.lote = lote;
-    }
+	public void setLote(Lote lote) {
+		this.lote = lote;
+	}
 
-    @Override
-    public void actualizarNovedadStock() {
+	@Override
+	public void actualizarNovedadStock() {
 
-    }
+		int cantidadVencida = this.cantidad;
 
-    public CausaAjuste getCausa() {
-        return causa;
-    }
+		int stockActual = this.articulo.getStockDisponible() - cantidadVencida;
+		int stockFisico = this.articulo.getStockFisico() - cantidadVencida;
 
-    public void setCausa(CausaAjuste causa) {
-        this.causa = causa;
-    }
+		this.articulo.setStockDisponible(stockActual < 0 ? 0 : stockActual);
+		this.articulo.setStockVirtual(stockActual > 0 ? 0 : stockActual);
+		this.articulo.setStockFisico(stockFisico > 0 ? stockFisico : 0);
 
-    public void save() {
-        MovimientoAjusteDAO.getInstancia().save(this);
-    }
+		this.articulo.save();
+	}
+
+	public CausaAjuste getCausa() {
+		return causa;
+	}
+
+	public void setCausa(CausaAjuste causa) {
+		this.causa = causa;
+	}
+
+	public void save() {
+		MovimientoAjusteDAO.getInstancia().save(this);
+	}
+
+	public MovimientoAjuste saveAndFetch() {
+		return MovimientoAjusteDAO.getInstancia().saveAndFetch(this);
+	}
 }

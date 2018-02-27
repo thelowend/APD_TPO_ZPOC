@@ -41,7 +41,6 @@ public class Facturacion {
 	}
 	
 	public void ingresarPagoCliente(PagoCliente pc) {
-
 		Factura factura = pc.getFactura();
 		CuentaCorriente cc = pc.getFactura().getCliente().getCuentaCorriente();
 		
@@ -50,7 +49,6 @@ public class Facturacion {
 		
 		factura.setEstado(EstadoFactura.Paga);
 		factura.save();
-		
 	}
 
 }

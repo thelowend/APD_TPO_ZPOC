@@ -24,14 +24,6 @@ public class MovimientoCompra extends Movimiento {
 	private OrdenCompra oc;
 	private Lote lote;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * edu.uade.apdzpoc.negocio.Movimiento#actualizarNovedadStock(edu.uade.apdzpoc.
-	 * negocio.Articulo)
-	 */
-
 	public MovimientoCompra(Date fecha, Articulo articulo, int cantidad, OrdenCompra oc, Lote lote) {
 		super(fecha, articulo, cantidad);
 		this.oc = oc;
@@ -80,5 +72,9 @@ public class MovimientoCompra extends Movimiento {
 
     public void save() {
 		MovimientoCompraDAO.getInstancia().save(this);
+    }
+    
+    public MovimientoCompra saveAndFetch() {
+    	return MovimientoCompraDAO.getInstancia().saveAndFetch(this);
     }
 }

@@ -55,4 +55,8 @@ public class MovimientoPedido extends Movimiento {
     public void save() {
         MovimientoPedidoDAO.getInstancia().save(this);
     }
+    
+    public MovimientoPedido saveAndFetch() {
+    	return MovimientoPedidoDAO.getInstancia().saveAndFetch(this);
+    }
 }
