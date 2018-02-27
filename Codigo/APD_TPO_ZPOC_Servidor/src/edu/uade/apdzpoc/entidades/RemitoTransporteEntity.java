@@ -9,6 +9,7 @@ public class RemitoTransporteEntity {
 	
 	@Id
 	@Column(name="IdRemitoT")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idRemito;
 	
 	@Column(name="Empresa")

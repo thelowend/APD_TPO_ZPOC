@@ -4,7 +4,7 @@ import edu.uade.apdzpoc.dao.RemitoTransporteDAO;
 
 public class RemitoTransporte {
 
-	private int idRemito;
+	private Integer idRemito;
 	private String empresaTransporte;
 	private PedidoWeb pedido;
 
@@ -17,11 +17,11 @@ public class RemitoTransporte {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getIdRemito() {
+	public Integer getIdRemito() {
 		return idRemito;
 	}
 
-	public void setIdRemito(int idRemito) {
+	public void setIdRemito(Integer idRemito) {
 		this.idRemito = idRemito;
 	}
 
