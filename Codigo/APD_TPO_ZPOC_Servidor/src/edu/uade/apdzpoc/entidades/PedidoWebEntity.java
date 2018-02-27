@@ -15,6 +15,7 @@ public class PedidoWebEntity {
 
 	@Id
 	@Column(name="IdPedido")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idPedido;
 	
 	@OneToOne
