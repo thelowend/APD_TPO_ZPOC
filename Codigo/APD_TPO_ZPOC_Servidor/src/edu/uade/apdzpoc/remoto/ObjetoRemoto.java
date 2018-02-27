@@ -15,18 +15,14 @@ import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.interfaces.InterfazRemota;
 
-
 /**
  * 
  * TPO: APDZPOC
  * 
- * GRUPO 08
- * Integrantes:
- * 	LU:0119404	- Zapatero, Barbara Daniela
- * 	LU:1022185	- Pablos, Diego Maximiliano
- * 	LU:0133009	- Ojeda, Maria De Los Angeles
- *  LU:0127304	- Cavallaro, Cristian Alberto
- *  
+ * GRUPO 08 Integrantes: LU:0119404 - Zapatero, Barbara Daniela LU:1022185 -
+ * Pablos, Diego Maximiliano LU:0133009 - Ojeda, Maria De Los Angeles LU:0127304
+ * - Cavallaro, Cristian Alberto
+ * 
  *
  */
 
@@ -54,7 +50,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	@Override
 	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) throws RemoteException {
 		Controlador.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
-		
+
 	}
 
 	@Override
@@ -65,28 +61,16 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 
 	@Override
 	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC) throws RemoteException {
-		Controlador.getInstancia().ingresarCompra(oc, estadoOC);;
-		
+		Controlador.getInstancia().ingresarCompra(oc, estadoOC);
+
 	}
 
 	@Override
 	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante,
 			LoteDTO lote, String destino) throws RemoteException {
-		Controlador.getInstancia().controlarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote, destino);
-		
+		Controlador.getInstancia().controlarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote,
+				destino);
+
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

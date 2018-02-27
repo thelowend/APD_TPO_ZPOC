@@ -35,4 +35,7 @@ public interface InterfazRemota extends Remote, Serializable {
 			String destino) throws RemoteException;
 
 
+	public abstract void controlarVencimientos();
+
+
 }
