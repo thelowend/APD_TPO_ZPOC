@@ -15,19 +15,20 @@
 
 package edu.uade.apdzpoc.negocio;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
+import edu.uade.apdzpoc.dao.ArticuloProveedorDAO;
 import edu.uade.apdzpoc.dao.MovimientoAjusteDAO;
 import edu.uade.apdzpoc.dao.MovimientoCompraDAO;
 import edu.uade.apdzpoc.dao.MovimientoPedidoDAO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
+import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
 
 public class Articulo {
 
@@ -45,7 +46,6 @@ public class Articulo {
 	private int stockPendienteEntrega;
 	
 	private List<Lote> lotes;
-
 	public Articulo(String nombreArticulo, String descripcion, float precioVenta, int cantidadCompra,
 			String presentacion, String tamanio) {
 		this.nombreArticulo = nombreArticulo;
@@ -157,7 +157,13 @@ public class Articulo {
 	}
 	
 	public boolean tieneStock(int cantidadRequerida) {
-		return this.getStockDisponible() > cantidadRequerida;
+		boolean result = false;
+		if (this.getStockDisponible() == 0) {
+			result = cantidadRequerida <= (this.getStockPendienteEntrega() + this.getStockVirtual()); //Sumo porque el stock virtual es un índice negativo.
+		} else {
+			result = this.getStockDisponible() > cantidadRequerida;
+		}
+		return result;
 	}
 	
 	public List<Ubicacion> obtenerUbicacionesItemsALiberar(int cantidadRequerida) {
@@ -190,11 +196,6 @@ public class Articulo {
 		return mp;
 	}
 
-	public MovimientoCompra crearMovimientoCompra(int cantidad, Date fechaGeneracion) {
-		MovimientoCompra mc = new MovimientoCompra(fechaGeneracion, this, cantidad);
-		MovimientoCompraDAO.getInstancia().save(mc);
-		return mc;
-	}
 
 	public MovimientoCompra crearMovimientoCompra(OrdenCompra oc) {
 		MovimientoCompra mc = new MovimientoCompra(new Date(), oc.getArticulo(), oc.getCantidad(), oc, oc.getLote());
@@ -214,8 +215,9 @@ public class Articulo {
 		ArticuloDAO.getInstancia().save(this);
 	}
 
-
-
+	public Proveedor obtenerMejorProveedor() throws ArticuloProveedorException, ProveedorException {
+		return ArticuloProveedor.getMejorProveedorPorArticulo(this);
+	}
 
 
 }

@@ -65,38 +65,36 @@ public class Controlador {
 		return pedidoWeb.getIdPedido();
 	}
 	
-	// Acá desde la GUI el empleado de Despacho despacha el pedido, con la fecha de entrega y la empresa de transporte a cargo:
-	
-	public void obtenerPedidosParaDespachar(){
-		Despacho.getInstancia().obtenerPedidosADespachar();
-	}
-	
-	
 	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
 		Despacho.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
 	}
 	
-	// En el business delegate recibirá OrdenCompraDTO ocDTO, EstadoOC estadoOC
+	// Acá desde la GUI el empleado de Despacho despacha el pedido, con la fecha de entrega y la empresa de transporte a cargo:
 	
-	public void obtenerOrdenesdeCompraParaValidar(){
-		Compras.getInstancia().obtenerOCParaValidar();
-		
+	// TODO: Add exception
+	public List<PedidoWeb> obtenerPedidosParaDespachar() {
+		return Despacho.getInstancia().obtenerPedidosParaDespachar();
 	}
 	
+	// TODO: Add exception
+	public List<OrdenCompra> obtenerOrdenesdeCompraParaValidar() {
+		return Compras.getInstancia().obtenerOCParaValidar();
+	}
+	
+	// En el business delegate recibirá OrdenCompraDTO ocDTO, EstadoOC estadoOC
 	public void ingresarCompra(OrdenCompra oc, EstadoOC estadoOC) throws LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException {
 		Almacen almacen = Almacen.getInstancia();
 		Compras compras = Compras.getInstancia();
 		
+		// TODO quedamos acá:
+		
 		// Compras valida el estado de la orden de compra:
-		
-		
 		compras.validarOrdenCompra(oc, estadoOC);
 		
 		if (oc.getEstado() == EstadoOC.Aceptada) {
 			// Si es aceptada genero los movimientos correspondientes por cada artículo:
 			MovimientoCompra mc = almacen.crearMovimiento(oc);
 			mc.actualizarNovedadStock();
-			mc.getArticulo().save(); // Guardo el artículo con el stock actualizado y los movimientos nuevos
 			
 			almacen.asignarUbicacionesArticulos(oc); // Esto genera los remito almacen en pendiente y les asigna ubicaciones en el almacen.
 			

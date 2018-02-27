@@ -137,5 +137,9 @@ public class PedidoWeb {
 		}
 		return hayStockDeTodosLosItems;
 	}
+	
+	public static List<PedidoWeb> obtenerPedidosParaDespachar() {
+		return PedidoWebDAO.getInstancia().findByEstado(EstadoPedido.Pendiente_Despacho);
+	}
 
 }

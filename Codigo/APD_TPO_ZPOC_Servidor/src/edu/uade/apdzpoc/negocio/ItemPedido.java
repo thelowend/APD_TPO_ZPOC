@@ -20,6 +20,7 @@ import edu.uade.apdzpoc.enums.EstadoItemPedido;
 public class ItemPedido {
 
 	private Integer IdItemPedido;
+
 	public Integer getIdItemPedido() {
 		return IdItemPedido;
 	}
@@ -65,13 +66,13 @@ public class ItemPedido {
 	public void setEstado(EstadoItemPedido estado) {
 		this.estado = estado;
 	}
-	
+
 	public float calcularTotal() {
 		return this.articulo.getPrecioVenta() * this.cantidad;
 	}
-	
+
 	public boolean hayStock() {
-		
+
 		boolean hayStock = this.getArticulo().tieneStock(this.getCantidad());
 		if (!hayStock) {
 			this.setEstado(EstadoItemPedido.Sin_Stock);
@@ -79,6 +80,10 @@ public class ItemPedido {
 			this.setEstado(EstadoItemPedido.Con_Stock);
 		}
 		return hayStock;
+	}
+
+	public MovimientoPedido crearMovimientoPedido(PedidoWeb pw) {
+		return this.getArticulo().crearMovimientoPedido(this.getCantidad(), pw);
 	}
 
 }

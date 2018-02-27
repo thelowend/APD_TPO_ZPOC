@@ -35,15 +35,6 @@ public class Despacho {
 		return instancia;
 	}
 	
-	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
-		// Facturación crea el Remito de Transporte
-		Facturacion.getInstancia().crearRemitoTransporte(pw, empresaTransporte);
-		
-		pw.setFechaDeEntrega(fechaEntrega);
-		pw.setEstadoPedido(EstadoPedido.Despachado);
-		pw.save();
-	}
-	
 	public void procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		
 		Facturacion facturacion =  Facturacion.getInstancia();
@@ -57,24 +48,27 @@ public class Despacho {
 			} else {
 				pw.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
 				facturacion.crearFactura(pw);
-				almacen.generarRemitos(pw); // Genera la lista de ubicaciones de los artículos a retirar, cuando se DESPACHE el pedido.
+				almacen.generarRemitos(pw); // Genera la lista de ubicaciones de los artículos a retirar, CUANDO SE DESPACHE el pedido.
 			}
 			
-			// -*----------------- Vamos por acá ------------------*- //
-			
 			// Paso por el almacen para generar los movimientos:
-			List<Movimiento> lm = almacen.crearMovimientos(pw);
-			
-			for (Movimiento m : lm) {
-				m.actualizarNovedadStock();
-				m.getArticulo().save(); // Guardo el artículo con el stock actualizado y los movimientos nuevos
-			}	
+			almacen.crearMovimientos(pw);
 		}
 		
 		pw.save(); // Guardamos el pedido
 	}
 	
-	public List<PedidoWeb> obtenerPedidosADespachar() {
-		return PedidoWebDAO.getInstancia().findByEstado(EstadoPedido.Pendiente_Despacho);
+	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
+		// Facturación crea el Remito de Transporte
+		Facturacion.getInstancia().crearRemitoTransporte(pw, empresaTransporte);
+		
+		pw.setFechaDeEntrega(fechaEntrega);
+		pw.setEstadoPedido(EstadoPedido.Despachado);
+		pw.save();
+	}
+	
+	public List<PedidoWeb> obtenerPedidosParaDespachar() {
+		
+		return PedidoWeb.obtenerPedidosParaDespachar();
 	}
 }

@@ -15,6 +15,10 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import edu.uade.apdzpoc.dao.ArticuloProveedorDAO;
+import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
+
 public class ArticuloProveedor {
 
 	private Articulo articulo;
@@ -49,6 +53,10 @@ public class ArticuloProveedor {
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+	
+	public static Proveedor getMejorProveedorPorArticulo(Articulo articulo) throws ArticuloProveedorException, ProveedorException {
+		return ArticuloProveedorDAO.getInstancia().findBestProveedorByArticulo(articulo.getCodigoBarra());
 	}
 
 }

@@ -17,6 +17,7 @@ package edu.uade.apdzpoc.negocio;
 
 import edu.uade.apdzpoc.dao.UbicacionDAO;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
+import edu.uade.apdzpoc.excepciones.UbicacionException;
 
 public class Ubicacion {
 
@@ -130,6 +131,10 @@ public class Ubicacion {
 			this.setCapacidad(this.getCapacidad() - cantidadRestante);
 		}
 		this.save();
+	}
+	
+	public static Ubicacion obtenerUbicacionLibre() throws UbicacionException {
+		return UbicacionDAO.getInstancia().getUbicacionLibre();
 	}
 	
 	

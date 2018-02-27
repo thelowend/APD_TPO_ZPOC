@@ -20,6 +20,7 @@ import java.util.List;
 
 import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
+import edu.uade.apdzpoc.excepciones.UbicacionException;
 
 public class Lote {
 
@@ -91,6 +92,27 @@ public class Lote {
 		}
 
 		return mejor;
+	}
+	
+	public Ubicacion getUbicacionConCapacidad() throws UbicacionException {
+
+		Ubicacion ubicacion = null;
+		boolean encontrada = false;
+		
+		for (int i = 1; !encontrada && i < ubicaciones.size(); i++) {
+			if(ubicaciones.get(i).getEstado() == EstadoUbicacion.Con_disponibilidad) {
+				encontrada = true;
+				ubicacion = ubicaciones.get(i);
+			}
+		}
+		
+		if (ubicacion == null) {
+			ubicacion = Ubicacion.obtenerUbicacionLibre(); // Si el lote no tenía ninguna ubicación con capacidad...
+			this.addUbicacion(ubicacion);
+			ubicacion.setEstado(EstadoUbicacion.Con_disponibilidad);
+			this.save();
+		}
+		return ubicacion;
 	}
 
 	public void save() {

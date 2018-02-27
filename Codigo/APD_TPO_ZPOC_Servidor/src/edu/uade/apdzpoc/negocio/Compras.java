@@ -42,22 +42,19 @@ public class Compras {
 		oc.setEstado(estado);
 	}
 
-	public List<OrdenCompra> crearOrdenesCompra(ItemPedido ip, PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+	public List<OrdenCompra> crearOrdenesCompraPorItem(ItemPedido ip, PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		
 		List<OrdenCompra> result = new ArrayList<>();
 		
 		// Recupero el Articulo para saber que cantidad tenemos que pedir
-		Articulo a = ArticuloDAO.getInstancia().findByCodigo(ip.getArticulo().getCodigoBarra());
-
-		// Selecciono el mejor proveedor, el que tenga el precio mas bajo. El dao me va
-		// a devolver el que tenga el menor precio.
-		Proveedor p = this.seleccionarProveedor(a);
+		Articulo articulo = ip.getArticulo();
+		Proveedor proveedor = articulo.obtenerMejorProveedor();
 		
 		// Genero �rdenes de compra hasta cubrir los items pedidos
-		for(int cantidadItem = ip.getCantidad(); cantidadItem > 0; cantidadItem -= a.getCantidadCompra()) {
-			OrdenCompra oc = new OrdenCompra(p, a, pw);
-			oc.setEstado(EstadoOC.Pendiente);
+		for(int cantidadItem = ip.getCantidad(); cantidadItem > 0; cantidadItem -= articulo.getCantidadCompra()) {
+			OrdenCompra oc = new OrdenCompra(proveedor, articulo, pw);
 			result.add(oc);
+			oc.save();
 		}
 		
 		return result;
@@ -69,7 +66,7 @@ public class Compras {
 	}
 
 	public List<OrdenCompra> obtenerOCParaValidar() {
-		return OrdenCompraDAO.getInstancia().findByEstado(EstadoOC.Pendiente);
+		return OrdenCompra.obtenerOCParaValidar();
 		
 	}
 	

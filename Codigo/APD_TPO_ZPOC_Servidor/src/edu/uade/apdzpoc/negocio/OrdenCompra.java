@@ -15,10 +15,17 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.dao.OrdenCompraDAO;
+import edu.uade.apdzpoc.dao.UbicacionDAO;
 import edu.uade.apdzpoc.enums.EstadoOC;
+import edu.uade.apdzpoc.enums.EstadoUbicacion;
+import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.UbicacionException;
 
 public class OrdenCompra {
 
@@ -36,6 +43,7 @@ public class OrdenCompra {
 		this.cantidad = articulo.getCantidadCompra();
 		this.articulo = articulo;
 		this.pedidoW = pedidoW;
+		this.estado = EstadoOC.Pendiente;
 	}
 
 	public OrdenCompra() {
@@ -109,5 +117,87 @@ public class OrdenCompra {
 	public void save() {
 		OrdenCompraDAO.getInstancia().save(this);
 	}
+
+	public static List<OrdenCompra> obtenerOCParaValidar() {
+		return OrdenCompraDAO.getInstancia().findByEstado(EstadoOC.Pendiente);
+	}
+
+	public List<ItemRemitoAlmacen> asignarUbicacionesArticulos() throws UbicacionException {
+		
+		Lote loteArticulo = this.getLote();
+		int cantArticulosSinUbicacion = this.getCantidad();
+		
+		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();		
+		
+		while(cantArticulosSinUbicacion > 0) { 
+			
+			Ubicacion uAux = loteArticulo.getUbicacionConCapacidad(); 
+			
+			
+			if (uAux.getCapacidad() <= cantArticulosSinUbicacion) {
+				cantArticulosSinUbicacion =- uAux.getCapacidad(); 
+				uAux.setCapacidad(0);
+				uAux.setEstado(EstadoUbicacion.Completa);
+				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(this.getArticulo(), uAux.getCapacidad(), uAux));
+			} else {
+				uAux.setCapacidad(uAux.getCapacidad() - cantArticulosSinUbicacion);
+				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(this.getArticulo(), cantArticulosSinUbicacion, uAux));
+				cantArticulosSinUbicacion = 0;
+			}
+			
+			uAux.save();
+		}
+		
+		return itemsRemitoAlmacen;
+		
+	}
+	
+	public Ubicacion getUbicacionLibre(Lote loteArticulo) throws LoteException, UbicacionException {
+		Ubicacion ubicacionAux = null;
+		
+		// Me fijo si existe el lote
+		Lote loteAux = LoteDAO.getInstancia().findByNro(loteArticulo.getNroLote());
+		
+		// Si el lote existe, verifico si alguna de sus ubicaciones tiene capacidad:
+		if (loteAux != null) {
+			
+			List<Ubicacion> ubicacionesDelLote = loteAux.getUbicaciones();
+			
+			// Salgo tan pronto como encuentro una ubicaci�n con disponibilidad:
+			for(int i = 0; ubicacionAux == null && i < ubicacionesDelLote.size(); i++) {
+				Ubicacion u = ubicacionesDelLote.get(i);
+				if (u.getEstado() == EstadoUbicacion.Con_disponibilidad) {
+					ubicacionAux = u;
+				}
+			}
+			
+			// Si NO encontr� una ubicacion con disponibilidad:
+			if (ubicacionAux == null) {
+				// Asigno ubicaci�n libre al lote:
+				ubicacionAux = getUbicacionLibre();
+				ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicaci�n tiene disponibilidad
+				ubicacionAux.save(); // Persisto la ubicaci�n
+				loteAux.addUbicacion(ubicacionAux);
+				loteAux.save(); //Persisto el lote para que quede la ubicaci�n asignada.
+			}
+				
+		} else {
+			// Si el lote no existe, directamente le asigno una ubicaci�n libre al mismo
+			ubicacionAux = getUbicacionLibre();
+			ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicaci�n tiene disponibilidad
+			ubicacionAux.save(); // Persisto la ubicaci�n
+			loteArticulo.addUbicacion(ubicacionAux);
+			loteArticulo.save();
+		}
+		
+		return ubicacionAux;
+		
+	}
+	
+	public Ubicacion getUbicacionLibre() throws UbicacionException {
+		return UbicacionDAO.getInstancia().getUbicacionLibre();
+	}
+	
+	
 
 }

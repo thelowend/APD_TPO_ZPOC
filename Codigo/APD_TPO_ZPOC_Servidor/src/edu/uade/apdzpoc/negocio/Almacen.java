@@ -50,7 +50,6 @@ public class Almacen {
 	}
 
 	public boolean alcanzaStockPedido(PedidoWeb pw) {
-		
 		return pw.hayStockDeItems();
 	}
 	
@@ -59,17 +58,24 @@ public class Almacen {
 		return itemPedido.getArticulo().obtenerUbicacionesItemsALiberar(itemPedido.getCantidad());
 	}
 	
-	public List<Movimiento> crearMovimientos(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
-		List<Movimiento> result = new ArrayList<>();
+	public void crearMovimientos(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+		
+		List<Movimiento> movimientos = new ArrayList<>();
+		
 		for(ItemPedido item : pw.getItems()) {
 			if (item.getEstado() == EstadoItemPedido.Con_Stock) {
-				result.add(item.getArticulo().crearMovimientoPedido(item.getCantidad(), pw));
+				movimientos.add(item.crearMovimientoPedido(pw));	
 			} else {
-				List<OrdenCompra> loc = Compras.getInstancia().crearOrdenesCompra(item, pw); // Genero las OC
-				result.add(item.getArticulo().crearMovimientoCompra(loc.get(0).getCantidad() * loc.size(), pw.getFechaGeneracion())); // Por si la cantidad supera m�s 100% la cantidad de pedido
+				List<OrdenCompra> loc = Compras.getInstancia().crearOrdenesCompraPorItem(item, pw); // Genero las OC
+				for (OrdenCompra oc : loc) {
+					movimientos.add(oc.getArticulo().crearMovimientoCompra(oc));
+				}
 			}
 		}
-		return result;
+		
+		for (Movimiento m : movimientos) {
+			m.actualizarNovedadStock();
+		}
 	}
 	
 	public MovimientoCompra crearMovimiento(OrdenCompra oc) {
@@ -77,31 +83,10 @@ public class Almacen {
 	}
 	
 	public void asignarUbicacionesArticulos(OrdenCompra oc) throws LoteException, UbicacionException {
-		Lote loteArticulo = oc.getLote();
-		int cantArticulosSinUbicacion = oc.getCantidad();
-		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();		
-		
-		while(cantArticulosSinUbicacion > 0) { 
-			
-			Ubicacion uAux = this.getUbicacionLibre(loteArticulo);
-			if (uAux.getCapacidad() <= cantArticulosSinUbicacion) {
-				cantArticulosSinUbicacion =- uAux.getCapacidad(); 
-				uAux.setCapacidad(0);
-				uAux.setEstado(EstadoUbicacion.Completa);
-				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(oc.getArticulo(), uAux.getCapacidad(), uAux));
-			} else {
-				uAux.setCapacidad(uAux.getCapacidad() - cantArticulosSinUbicacion);
-				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(oc.getArticulo(), cantArticulosSinUbicacion, uAux));
-				cantArticulosSinUbicacion = 0;
-			}
-			
-			this.crearRemitoAlmacen(itemsRemitoAlmacen, oc); // Esto genera el remito pendiente, despu�s en la GUI de Almacen se listan los mismos para que el empleado los marque a "mano" como EstadoRemito.Procesado 
-			uAux.save();
-			
-			//loteArticulo.save();
-		}
-		
+		List<ItemRemitoAlmacen> ira = oc.asignarUbicacionesArticulos();
+		this.crearRemitoAlmacen(ira, oc); // Esto genera el remito pendiente, despu�s en la GUI de Almacen se listan los mismos para que el empleado los marque a "mano" como EstadoRemito.Procesado 
 	}
+	
 	
 	public void generarRemitos(PedidoWeb pw) {
 		new RemitoAlmacen(pw).save();
@@ -137,51 +122,51 @@ public class Almacen {
 		ra.save();
 	}
 	
-	public Ubicacion getUbicacionLibre(Lote loteArticulo) throws LoteException, UbicacionException {
-		Ubicacion ubicacionAux = null;
-		
-		// Me fijo si existe el lote
-		Lote loteAux = LoteDAO.getInstancia().findByNro(loteArticulo.getNroLote());
-		
-		// Si el lote existe, verifico si alguna de sus ubicaciones tiene capacidad:
-		if (loteAux != null) {
-			
-			List<Ubicacion> ubicacionesDelLote = loteAux.getUbicaciones();
-			
-			// Salgo tan pronto como encuentro una ubicaci�n con disponibilidad:
-			for(int i = 0; ubicacionAux == null && i < ubicacionesDelLote.size(); i++) {
-				Ubicacion u = ubicacionesDelLote.get(i);
-				if (u.getEstado() == EstadoUbicacion.Con_disponibilidad) {
-					ubicacionAux = u;
-				}
-			}
-			
-			// Si NO encontr� una ubicacion con disponibilidad:
-			if (ubicacionAux == null) {
-				// Asigno ubicaci�n libre al lote:
-				ubicacionAux = getUbicacionLibre();
-				ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicaci�n tiene disponibilidad
-				ubicacionAux.save(); // Persisto la ubicaci�n
-				loteAux.addUbicacion(ubicacionAux);
-				loteAux.save(); //Persisto el lote para que quede la ubicaci�n asignada.
-			}
-				
-		} else {
-			// Si el lote no existe, directamente le asigno una ubicaci�n libre al mismo
-			ubicacionAux = getUbicacionLibre();
-			ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicaci�n tiene disponibilidad
-			ubicacionAux.save(); // Persisto la ubicaci�n
-			loteArticulo.addUbicacion(ubicacionAux);
-			loteArticulo.save();
-		}
-		
-		return ubicacionAux;
-		
-	}
-	
-	public Ubicacion getUbicacionLibre() throws UbicacionException {
-		return UbicacionDAO.getInstancia().getUbicacionLibre();
-	}
+//	public Ubicacion getUbicacionLibre(Lote loteArticulo) throws LoteException, UbicacionException {
+//		Ubicacion ubicacionAux = null;
+//		
+//		// Me fijo si existe el lote
+//		Lote loteAux = LoteDAO.getInstancia().findByNro(loteArticulo.getNroLote());
+//		
+//		// Si el lote existe, verifico si alguna de sus ubicaciones tiene capacidad:
+//		if (loteAux != null) {
+//			
+//			List<Ubicacion> ubicacionesDelLote = loteAux.getUbicaciones();
+//			
+//			// Salgo tan pronto como encuentro una ubicaci�n con disponibilidad:
+//			for(int i = 0; ubicacionAux == null && i < ubicacionesDelLote.size(); i++) {
+//				Ubicacion u = ubicacionesDelLote.get(i);
+//				if (u.getEstado() == EstadoUbicacion.Con_disponibilidad) {
+//					ubicacionAux = u;
+//				}
+//			}
+//			
+//			// Si NO encontr� una ubicacion con disponibilidad:
+//			if (ubicacionAux == null) {
+//				// Asigno ubicaci�n libre al lote:
+//				ubicacionAux = getUbicacionLibre();
+//				ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicaci�n tiene disponibilidad
+//				ubicacionAux.save(); // Persisto la ubicaci�n
+//				loteAux.addUbicacion(ubicacionAux);
+//				loteAux.save(); //Persisto el lote para que quede la ubicaci�n asignada.
+//			}
+//				
+//		} else {
+//			// Si el lote no existe, directamente le asigno una ubicaci�n libre al mismo
+//			ubicacionAux = getUbicacionLibre();
+//			ubicacionAux.setEstado(EstadoUbicacion.Con_disponibilidad); // Determino que la ubicaci�n tiene disponibilidad
+//			ubicacionAux.save(); // Persisto la ubicaci�n
+//			loteArticulo.addUbicacion(ubicacionAux);
+//			loteArticulo.save();
+//		}
+//		
+//		return ubicacionAux;
+//		
+//	}
+//	
+//	public Ubicacion getUbicacionLibre() throws UbicacionException {
+//		return UbicacionDAO.getInstancia().getUbicacionLibre();
+//	}
 	
 	// Funcion que se ejecuta cada 30 d�as.
 	public void controlarVencimientos() {
