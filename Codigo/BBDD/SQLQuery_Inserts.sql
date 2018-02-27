@@ -1,4 +1,4 @@
-/*
+
 insert into Clientes values('Diego Maximiliano Pablos',22333456,0,0,'Rivadavia 7376',10)
 insert into Clientes values('Maria De Los Angeles Ojeda',33444555,1,1,'Boedo 150',20)
 insert into Clientes values('Cristian Alberto Cavallaro',44555666,0,1,'Puan 566',10)
@@ -113,16 +113,17 @@ insert into ItemsPedido values (7, 10600, 2, 'Con_Stock')
 
 
 
-insert into Ubicaciones  values ( 'A010101','A',01,01,01,100,'Completa')
-insert into Ubicaciones  values ( 'A010102','A',01, 01, 02, 100, 'Completa')
-insert into Ubicaciones  values ( 'A010103','A',01, 01, 03, 100, 'Completa')
-insert into Ubicaciones  values ( 'A010104','A',01, 01, 04, 100, 'Completa')
-insert into Ubicaciones  values ( 'A010105','A',01, 01, 05, 100, 'Completa')
-insert into Ubicaciones  values ( 'A010106','A',01, 01, 06, 100, 'Completa')
-insert into Ubicaciones  values ( 'A010107','A',01, 01, 07, 100, 'Completa')
-insert into Ubicaciones  values ( 'A010108','A',01, 01, 08, 100, 'Completa')
-insert into Ubicaciones  values ( 'A010109','A',01, 01, 09, 100, 'Completa')
-insert into Ubicaciones  values ( 'A010110','A',01, 01, 10, 100, 'Completa')
+insert into Ubicaciones  values ( 'A010101','A',01,01,01,100,0,'Completa')
+insert into Ubicaciones  values ( 'A010102','A',01, 01, 02, 100,50, 'Con_disponibilidad')
+insert into Ubicaciones  values ( 'A010103','A',01, 01, 03, 100,0, 'Completa')
+insert into Ubicaciones  values ( 'A010104','A',01, 01, 04, 100,0, 'Completa')
+insert into Ubicaciones  values ( 'A010105','A',01, 01, 05, 100,50, 'Con_disponibilidad')
+insert into Ubicaciones  values ( 'A010106','A',01, 01, 06, 100,0, 'Completa')
+insert into Ubicaciones  values ( 'A010107','A',01, 01, 07, 100,100, 'Libre')
+insert into Ubicaciones  values ( 'A010108','A',01, 01, 08, 100,100, 'Libre')
+insert into Ubicaciones  values ( 'A010109','A',01, 01, 09, 100,100, 'Libre')
+
+/*insert into Ubicaciones  values ( 'A010110','A',01, 01, 10, 100, 'Completa')
 insert into Ubicaciones  values ( 'A010111','A',01, 01, 11, 100, 'Completa')
 insert into Ubicaciones  values ( 'A010112','A',01, 01, 12, 100, 'Completa')
 insert into Ubicaciones  values ( 'A010113','A',01, 01, 13, 100, 'Completa')
@@ -4523,7 +4524,7 @@ insert into Ubicaciones  values ( 'G050618','G',05, 06, 18, 100, 'Libre')
 insert into Ubicaciones  values ( 'G050619','G',05, 06, 19, 100, 'Libre')
 insert into Ubicaciones  values ( 'G050621','G',05, 06, 21, 100, 'Libre')
 insert into Ubicaciones  values ( 'G050620','G',05, 06, 20, 100, 'Libre')
-
+*/
 
 insert into Lotes values (2500, '20180825',10000)
 insert into Lotes values (2600, '20180305',10200)
@@ -4580,7 +4581,7 @@ insert into ItemsRemitoAlmacen values (2,10200,100,'A010117')
 insert into ItemsRemitoAlmacen values (3,10400,1,'A010106')
 insert into ItemsRemitoAlmacen values (3,10600,1,'A010112')
 insert into ItemsRemitoAlmacen values (3,10800,1,'A010113')
-insert into ItemsRemitoAlmacen values (4,10400,120	,'A010118')
+insert into ItemsRemitoAlmacen values (4,10400,120,'A010118')
 insert into ItemsRemitoAlmacen values (5,10800,1,'A010113')
 insert into ItemsRemitoAlmacen values (5,10200,1,'A010104')
 insert into ItemsRemitoAlmacen values (6,10200,4,'A010104')
@@ -4605,4 +4606,3 @@ insert into RemitosTrasporte values (6, 'FedEx')
 insert into OrdenesCompra values (2,10200,'Aceptada',1,4852,100,'24-2-2018')
 insert into OrdenesCompra values (4,10400,'Aceptada',2,2824,120,'24-2-2017')
 
-*/
