@@ -32,14 +32,14 @@ public class ClienteDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		ClienteEntity aux = (ClienteEntity) s.createQuery("from ClienteEntity cl join cl.cuentaCorriente ctaCte  where idCliente = ?").setInteger(0, idCliente).uniqueResult();
+		ClienteEntity aux = (ClienteEntity) s.createQuery("from ClienteEntity cl where idCliente = ?").setInteger(0, idCliente).uniqueResult();
 		s.getTransaction().commit();
 		s.close();
 		
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new ClienteException("No se encontró el cliente " + idCliente);
+			throw new ClienteException("No se encontrï¿½ el cliente " + idCliente);
 		}
 		return resultado;
 	}

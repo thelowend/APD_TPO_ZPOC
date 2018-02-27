@@ -19,12 +19,12 @@ import edu.uade.apdzpoc.enums.EstadoItemPedido;
 
 public class ItemPedido {
 
-	private int IdItemPedido;
-	public int getIdItemPedido() {
+	private Integer IdItemPedido;
+	public Integer getIdItemPedido() {
 		return IdItemPedido;
 	}
 
-	public void setIdItemPedido(int idItemPedido) {
+	public void setIdItemPedido(Integer idItemPedido) {
 		IdItemPedido = idItemPedido;
 	}
 

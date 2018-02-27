@@ -7,6 +7,7 @@ public class CuentaCorrienteEntity {
 
 	@Id
 	@Column(name="IdCtaCte")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCtaCorriente;
 	
 /*	

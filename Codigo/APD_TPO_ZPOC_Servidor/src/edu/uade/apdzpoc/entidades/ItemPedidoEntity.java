@@ -9,9 +9,9 @@ import edu.uade.apdzpoc.enums.EstadoItemPedido;
 
 public class ItemPedidoEntity {
 
-	
 	@Id
 	@Column(name="IdItemPedido")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idItemPedido;
 	
 	@OneToOne

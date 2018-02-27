@@ -19,7 +19,7 @@ import edu.uade.apdzpoc.dao.CuentaCorrienteDAO;
 
 public class CuentaCorriente {
 
-	private int idCtaCorriente;
+	private Integer idCtaCorriente;
 	private float saldo;
 	private float limMax;
 	//private Cliente cliente;
@@ -40,11 +40,11 @@ public class CuentaCorriente {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getIdCtaCorriente() {
+	public Integer getIdCtaCorriente() {
 		return idCtaCorriente;
 	}
 
-	public void setIdCtaCorriente(int idCtaCorriente) {
+	public void setIdCtaCorriente(Integer idCtaCorriente) {
 		this.idCtaCorriente = idCtaCorriente;
 	}
 

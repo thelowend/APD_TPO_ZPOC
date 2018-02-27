@@ -33,7 +33,7 @@ public class ArticuloDAO {
 		ArticuloEntity aux;
 		try {
 			aux = (ArticuloEntity) s
-					.createQuery("select ae from ArticuloEntity ae inner join ae.lotes where ae.codigoBarra = ?")
+					.createQuery("select ae from ArticuloEntity ae where ae.codigoBarra = ?")
 					.setInteger(0, codigoBarras).uniqueResult();
 			
 			s.getTransaction().commit();
@@ -42,7 +42,7 @@ public class ArticuloDAO {
 			if (aux != null) {
 				resultado = this.toNegocio(aux);
 			} else {
-				throw new ArticuloException("No se encontró el artículo de código: '" + codigoBarras + "'.");
+				throw new ArticuloException("No se encontrï¿½ el artï¿½culo de cï¿½digo: '" + codigoBarras + "'.");
 			}
 
 		} catch (HibernateException e) {
@@ -88,6 +88,7 @@ public class ArticuloDAO {
 		articuloAPersistir.setDescripcion(articuloNegocio.getDescripcion());
 		articuloAPersistir.setCantidadCompra(articuloNegocio.getCantidadCompra());
 		articuloAPersistir.setPrecioVenta(articuloNegocio.getPrecioVenta());
+		articuloAPersistir.setPresentacion(articuloNegocio.getPresentacion());
 		articuloAPersistir.setTamanio(articuloNegocio.getTamanio());
 		articuloAPersistir.setStockDisponible(articuloNegocio.getStockDisponible());
 		articuloAPersistir.setStockFisico(articuloNegocio.getStockFisico());
@@ -95,7 +96,7 @@ public class ArticuloDAO {
 		articuloAPersistir.setStockVirtual(articuloNegocio.getStockVirtual());
 
 		List<LoteEntity> aux1 = new ArrayList<LoteEntity>();
-		List<Lote> lotes = articuloNegocio.getLote();
+		List<Lote> lotes = articuloNegocio.getLotes();
 		for (Lote l : lotes)
 			aux1.add(LoteDAO.getInstancia().toEntity(l));
 		articuloAPersistir.setLotes(aux1);
@@ -120,7 +121,7 @@ public class ArticuloDAO {
 		List<LoteEntity> lotes = articuloRecuperado.getLotes();
 		for (LoteEntity l : lotes)
 			aux1.add(LoteDAO.getInstancia().toNegocio(l));
-		articuloNegocio.setLote(aux1);
+		articuloNegocio.setLotes(aux1);
 
 		return articuloNegocio;
 	}

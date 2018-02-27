@@ -11,6 +11,7 @@ public class ArticuloEntity {
 
 	@Id
 	@Column(name="CodigoBarra")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigoBarra;
 
 	@Column(name="NombreArticulo")
@@ -43,7 +44,7 @@ public class ArticuloEntity {
 	@Column(name="StockPendienteEntrega")
 	private int stockPendienteEntrega;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="CodigoBarra")
 	private List<LoteEntity> lotes;
 
@@ -51,11 +52,11 @@ public class ArticuloEntity {
 
 	}
 
-	public int getCodigoBarra() {
+	public Integer getCodigoBarra() {
 		return codigoBarra;
 	}
 
-	public void setCodigoBarra(int codigoBarra) {
+	public void setCodigoBarra(Integer codigoBarra) {
 		this.codigoBarra = codigoBarra;
 	}
 
