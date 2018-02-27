@@ -86,7 +86,6 @@ public class Controlador {
 		Almacen almacen = Almacen.getInstancia();
 		Compras compras = Compras.getInstancia();
 		
-		// TODO quedamos acá:
 		
 		// Compras valida el estado de la orden de compra:
 		compras.validarOrdenCompra(oc, estadoOC);
@@ -126,12 +125,15 @@ public class Controlador {
 	
 	private void procesarPedidosWeb(OrdenCompra oc) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		
+		PedidoWeb pedidoOriginal = oc.getPedidoW();
 		// Prioriza el pedido que originó la orden de compra.
-		Despacho.getInstancia().procesarPedidoWeb(oc.getPedidoW());
+		Despacho.getInstancia().procesarPedidoWeb(pedidoOriginal);
 		
 		// Si logró completar el pedido priorizado, verifico que otros pedidos puedo despachar:
-		if (oc.getPedidoW().getEstadoPedido() != EstadoPedido.Pendiente_Despacho) {
-			List<PedidoWeb> pedidosPendientes = PedidoWebDAO.getInstancia().getAllbyArticulo(oc.getArticulo().getCodigoBarra());
+		if (pedidoOriginal.getEstadoPedido() != EstadoPedido.Pendiente_Despacho) {
+			
+			List<PedidoWeb> pedidosPendientes = oc.getArticulo().traerPedidosPendientes();
+			
 			for (PedidoWeb pw : pedidosPendientes) {
 				Despacho.getInstancia().procesarPedidoWeb(pw);
 			}

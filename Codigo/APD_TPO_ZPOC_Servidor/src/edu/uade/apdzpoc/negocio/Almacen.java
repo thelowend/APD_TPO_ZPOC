@@ -98,7 +98,6 @@ public class Almacen {
 		ra.setItemsRemito(ira);
 		ra.setNro(oc.getIdOC());
 		ra.setTipo(TipoRemitoAlmacen.Compra);
-		//ra.setIdRemito(java.util.UUID.randomUUID()); // Se supone que la base lo genera
 		
 		ra.save();
 	}

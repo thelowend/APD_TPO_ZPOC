@@ -22,15 +22,6 @@ public class CuentaCorriente {
 	private Integer idCtaCorriente;
 	private float saldo;
 	private float limMax;
-	//private Cliente cliente;
-
-/*	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}*/
 
 	public CuentaCorriente(float limMax) {
 		this.limMax = limMax;
@@ -65,9 +56,12 @@ public class CuentaCorriente {
 	}
 
 	public void actulizarSaldo(float monto){
-		this.setSaldo(this.saldo-monto);
+		this.setSaldo(this.saldo - monto);
 	}
 	
+	public float getDisponible() {
+		return this.limMax - this.saldo;
+	}
 	
 	public void save() {
 		CuentaCorrienteDAO.getInstancia().save(this);

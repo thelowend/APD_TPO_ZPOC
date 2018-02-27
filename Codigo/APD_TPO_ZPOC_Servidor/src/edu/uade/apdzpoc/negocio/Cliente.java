@@ -106,12 +106,12 @@ public class Cliente {
 		this.cuentaCorriente = cuentaCorriente;
 	}
 
-	public float saldoActual() {
-		return this.getCuentaCorriente().getSaldo();
+	public float disponibleEnCuenta() {
+		return this.getCuentaCorriente().getDisponible();
 	}
 
 	public boolean leAlcanza(float costo) {
-		return this.saldoActual() > costo;
+		return this.disponibleEnCuenta() > costo;
 	}
 
 	public String getTipoFactura() {

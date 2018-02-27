@@ -89,15 +89,15 @@ public class PedidoWebDAO {
 		return resultado;
 	}
 
-	public List<PedidoWeb> getAllbyArticulo(Integer codigo_barra) {
+	public List<PedidoWeb> getAllbyArticulo(Integer codigoBarra, EstadoPedido estado) {
 		List<PedidoWeb> resultado = new ArrayList<PedidoWeb>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery(
-				"from PedidoWebEntity pe join pe.items.articulo a where a.codigoBarra = ? OrderBy fechaGeneracion ASC")
-				.setInteger(0, codigo_barra).list();
+				"from PedidoWebEntity pe join pe.items.articulo a where a.codigoBarra = ? AND estado = ? OrderBy fechaGeneracion ASC")
+				.setInteger(0, codigoBarra).setString(1, estado.toString()).list();
 		for (PedidoWebEntity pe : aux) {
 			resultado.add(this.toNegocio(pe));
 		}

@@ -189,6 +189,10 @@ public class Articulo {
 		
 		return ubicacionesItemsALiberar;
 	}
+	
+	public List<PedidoWeb> traerPedidosPendientes() {
+		return PedidoWeb.obtenerPedidosPendientesStock(this);
+	}
 
 	public MovimientoPedido crearMovimientoPedido(int cantidad, PedidoWeb pw) {
 		MovimientoPedido mp = new MovimientoPedido(pw.getFechaGeneracion(), this, cantidad, pw);
