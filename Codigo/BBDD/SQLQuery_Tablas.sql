@@ -45,7 +45,7 @@ create table PedidosWEB
 	Constraint PKId_Pedido  Primary Key (IdPedido),
 	Constraint FKCliente Foreign Key (IdCliente) references Clientes(IdCliente)
 	)
-
+GO
 Create Table Articulos
 (	
 	CodigoBarra		int identity (10000,200) not null,
