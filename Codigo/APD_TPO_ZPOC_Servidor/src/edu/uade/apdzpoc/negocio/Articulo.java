@@ -15,6 +15,8 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -200,8 +202,11 @@ public class Articulo {
 		return mc;
 	}
 
-	public void crearMovimientoAjuste(int cantidad, Date fechaGeneracion, CausaAjuste causa, int legajoOperador, int legajoAutorizante, DestinoArticulos destino, Lote lote) {
-		MovimientoAjuste ma = new MovimientoAjuste(fechaGeneracion, this, cantidad, causa, legajoOperador, legajoAutorizante, destino, lote);
+	public void crearMovimientoAjuste(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, DestinoArticulos destino, Lote lote) {
+		MovimientoAjuste ma = new MovimientoAjuste(new Date(), this, cantidad, causa, legajoOperador, legajoAutorizante, destino, lote);
+		this.setStockFisico(stockFisico+cantidad);
+		this.setStockDisponible(stockDisponible+cantidad);
+		this.save();
 		MovimientoAjusteDAO.getInstancia().save(ma);
 	}
 

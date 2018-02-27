@@ -31,11 +31,11 @@ public class Prueba_hbt {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 
-		Factura f= FacturaDAO.getInstancia().findByCodigo(2);
+		/*Factura f= FacturaDAO.getInstancia().findByCodigo(2);
 		
 		System.out.println(f.getCliente().getNombre());
 		
-		
+		*/
 		//OrdenCompra oc= OrdenCompraDAO.getInstancia().findByCodigo(7);
 		//System.out.println(oc.getIdOC());
 		//Articulo a=ArticuloDAO.getInstancia().findByCodigo(10000);

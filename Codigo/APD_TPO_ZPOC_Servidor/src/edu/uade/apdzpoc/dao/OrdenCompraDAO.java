@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.uade.apdzpoc.entidades.*;
+import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.excepciones.OrdenCompraException;
 import edu.uade.apdzpoc.hbt.HibernateUtil;
 import edu.uade.apdzpoc.negocio.*;
@@ -57,14 +58,14 @@ public class OrdenCompraDAO {
 		return resultado;
 	}
 
-	public List<OrdenCompra> findByEstado(String estado) {
+	public List<OrdenCompra> findByEstado(EstadoOC estado) {
 		List<OrdenCompra> resultado = new ArrayList<OrdenCompra>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<OrdenCompraEntity> aux = (List<OrdenCompraEntity>) s.createQuery("from OrdenCompraEntity where estado = ?")
-				.setString(0, estado).list();
+				.setString(0, estado.toString()).list();
 		for (OrdenCompraEntity oce : aux) {
 			resultado.add(this.toNegocio(oce));
 		}
@@ -130,4 +131,5 @@ public class OrdenCompraDAO {
 		return ordenCompraNegocio;
 	}
 
+	
 }

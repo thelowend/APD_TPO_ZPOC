@@ -126,4 +126,32 @@ public class ArticuloDAO {
 		return articuloNegocio;
 	}
 
+	public Articulo findByLote(Integer nroLote) throws ArticuloException {
+		Articulo resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		ArticuloEntity aux;
+		try {
+			aux = (ArticuloEntity) s
+					.createQuery("select ae from ArticuloEntity ae join ae.lotes l where l.nroLote = ?")
+					.setInteger(0, nroLote).uniqueResult();
+			
+			s.getTransaction().commit();
+			s.close();
+			
+			if (aux != null) {
+				resultado = this.toNegocio(aux);
+			} else {
+				throw new ArticuloException("No se encontro el articulo perteneciente al lote nro: '" + nroLote + "'.");
+			}
+
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return resultado;
+	}
+
 }

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.dao.UbicacionDAO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
@@ -209,7 +210,7 @@ public class Almacen {
 				}
 				
 				// Creo el Movimiento de ajuste negativo
-				lote.getArticulo().crearMovimientoAjuste(cantidadArticulosVencidos, new Date(), CausaAjuste.Vecimiento, legajoOperador, legajoAutorizante, DestinoArticulos.Destruccion, lote);
+				lote.getArticulo().crearMovimientoAjuste(cantidadArticulosVencidos, CausaAjuste.Vecimiento, legajoOperador, legajoAutorizante, DestinoArticulos.Destruccion, lote);
 				
 				// Creo el remito vencido. Cuando se procese en el futuro, se liberar�n las ubicaciones en donde estaba dicho lote.
 				crearRemitoAlmacen(ira, lote);
@@ -218,5 +219,14 @@ public class Almacen {
 				fechaEsAnterior = true; // Dejo de revisar los lotes si la fecha de vencimiento alcanzada ya es anterior a la actual.
 			}
 		}
+	}
+
+	
+	
+	//propiedad que se utiliza para realizar ajustes en las existencias del stock
+	public void actualizarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, Lote lote, DestinoArticulos destino) throws ArticuloException {
+		Articulo a = ArticuloDAO.getInstancia().findByLote(lote.getNroLote());
+		a.crearMovimientoAjuste(cantidad, causa, legajoOperador, legajoAutorizante, destino, lote);
+		
 	}
 }

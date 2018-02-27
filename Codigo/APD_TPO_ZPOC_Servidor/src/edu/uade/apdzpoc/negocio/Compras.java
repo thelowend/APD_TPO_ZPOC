@@ -20,6 +20,7 @@ import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.dao.ArticuloProveedorDAO;
+import edu.uade.apdzpoc.dao.OrdenCompraDAO;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
@@ -65,6 +66,11 @@ public class Compras {
 	private Proveedor seleccionarProveedor(Articulo art) throws ArticuloProveedorException, ProveedorException {
 		// Busco el mejor proveedor
 		return ArticuloProveedorDAO.getInstancia().findBestProveedorByArticulo(art.getCodigoBarra());
+	}
+
+	public List<OrdenCompra> obtenerOCParaValidar() {
+		return OrdenCompraDAO.getInstancia().findByEstado(EstadoOC.Pendiente);
+		
 	}
 	
 
