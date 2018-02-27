@@ -20,11 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
-import edu.uade.apdzpoc.enums.EstadoItemPedido;
 import edu.uade.apdzpoc.enums.EstadoPedido;
-import edu.uade.apdzpoc.excepciones.ArticuloException;
-import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
-import edu.uade.apdzpoc.excepciones.ProveedorException;
 
 public class PedidoWeb {
 
@@ -118,41 +114,6 @@ public class PedidoWeb {
 
 	public void save() {
 		PedidoWebDAO.getInstancia().save(this);
-	}
-	
-	public void procesar() throws ArticuloException, ArticuloProveedorException, ProveedorException {
-		
-		Facturacion facturacion =  Facturacion.getInstancia();
-		Almacen almacen =  Almacen.getInstancia();
-		
-		if (!facturacion.alcanzaLimiteCTA(this)) {
-			this.setEstadoPedido(EstadoPedido.Rechazado);
-		} else {
-			
-			if (!almacen.alcanzaStockPedido(this)) {
-				
-				this.setEstadoPedido(EstadoPedido.Pendiente_Stock);
-				
-			} else {
-				this.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
-				
-				facturacion.crearFactura(this);
-				
-				almacen.generarRemitos(this); // Genera la lista de ubicaciones de los artículos a retirar, cuando se DESPACHE el pedido.
-			}
-			
-			// -*----------------- Vamos por acá ------------------*- //
-			
-			// Paso por el almacen para generar los movimientos:
-			List<Movimiento> lm = almacen.crearMovimientos(this);
-			
-			for (Movimiento m : lm) {
-				m.actualizarNovedadStock();
-				m.getArticulo().save(); // Guardo el artículo con el stock actualizado y los movimientos nuevos
-			}	
-		}
-		
-		this.save(); // Guardamos el pedido
 	}
 	
 	public float calcularTotal() {
