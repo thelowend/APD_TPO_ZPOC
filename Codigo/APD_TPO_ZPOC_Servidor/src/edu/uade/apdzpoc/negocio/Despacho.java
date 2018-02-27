@@ -44,7 +44,7 @@ public class Despacho {
 		pw.save();
 	}
 	
-	public void procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+	public PedidoWeb procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		
 		Facturacion facturacion =  Facturacion.getInstancia();
 		Almacen almacen =  Almacen.getInstancia();
@@ -71,7 +71,7 @@ public class Despacho {
 			}	
 		}
 		
-		pw.save(); // Guardamos el pedido
+		return pw.saveAndFetch();// Guardamos el pedido
 	}
 	
 	public List<PedidoWeb> obtenerPedidosADespachar() {

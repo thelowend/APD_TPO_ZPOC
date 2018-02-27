@@ -59,7 +59,7 @@ public class Controlador {
 		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, direccion, articulos);
 		
 		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
-		Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
+		pedidoWeb = Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
 		
 		// Devuelvo el ID del pedido para el DTO que se enviará a la GUI del cliente:
 		return pedidoWeb.getIdPedido();
