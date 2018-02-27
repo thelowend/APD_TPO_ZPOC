@@ -8,6 +8,7 @@ public class ProveedorEntity {
 	
 	@Id
 	@Column(name="IdProveedor")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idProveedor;
 	
 	@Column(name="Nombre")
