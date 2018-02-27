@@ -38,4 +38,10 @@ public interface InterfazRemota extends Remote, Serializable {
 	public abstract void controlarVencimientos();
 
 
+	public abstract List<PedidoWebDTO> obtenerPedidosParaProcesar() throws RemoteException;
+
+
+	public abstract void procesarPedido(PedidoWebDTO pw) throws RemoteException;
+
+
 }

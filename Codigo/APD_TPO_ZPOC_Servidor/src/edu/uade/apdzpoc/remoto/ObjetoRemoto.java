@@ -52,6 +52,27 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		Controlador.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
 
 	}
+	
+	
+	@Override
+	public List<PedidoWebDTO> obtenerPedidosParaProcesar() throws RemoteException {
+		// TODO Auto-generated method stub
+		return Controlador.getInstancia().obtenerPedidosParaDespachar();
+	}
+
+	@Override
+	public void procesarPedido(PedidoWebDTO pw) throws RemoteException {
+		Controlador.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
+
+	}
+
+
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public List<OrdenCompraDTO> obtenerOrdenesdeCompraParaValidar() throws RemoteException {
