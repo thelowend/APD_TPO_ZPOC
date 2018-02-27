@@ -193,6 +193,14 @@ public class HibernateTest {
 
 		return ClienteDAO.getInstancia().findByCodigo(idCliente);
 	}
+    public static List <PedidoWeb> mostrarPedidosADespachar (){
+    	List <PedidoWeb> lista= new ArrayList<>();
+    	lista=PedidoWebDAO.getInstancia().findByEstado(EstadoPedido.Pendiente_Despacho);
+    	
+    	return lista;
+    	
+    	
+    }
     
 }
 

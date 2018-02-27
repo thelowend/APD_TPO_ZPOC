@@ -79,7 +79,7 @@ public class PedidoWebDAO {
 		Session s = sf.openSession();
 		s.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery("from PedidoWebEntity where estado = ?")
+		List<PedidoWebEntity> aux = (List<PedidoWebEntity>) s.createQuery("from PedidoWebEntity where estadoPedido = ?")
 				.setString(0, estado.toString()).list();
 		for (PedidoWebEntity oce : aux) {
 			resultado.add(this.toNegocio(oce));
