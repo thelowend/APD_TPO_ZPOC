@@ -14,6 +14,7 @@ public abstract class MovimientoEntity {
 
 	@Id
 	@Column(name="IdMStock")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer idMovimiento;
 	
 	@Column(name="Fecha")

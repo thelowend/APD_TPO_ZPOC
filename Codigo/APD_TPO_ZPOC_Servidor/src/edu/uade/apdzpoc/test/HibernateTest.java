@@ -24,6 +24,11 @@ public class HibernateTest {
         remitosAlmacen();
         remitosTransporte();
         lotes();
+        ordenesCompra();
+
+        movimientosAjuste();
+        movimientosCompra();
+        movimientosPedido();
 
         //Get Pedido Web
         PedidoWebDAO.getInstancia().findByCodigo(1);
@@ -39,6 +44,39 @@ public class HibernateTest {
 
         //Get Pago Cliente
         PagoClienteDAO.getInstancia().findrecuperadoByNro(1);
+
+        //Get Movimientos
+        MovimientoAjusteDAO.getInstancia().findrecuperadoByNro(1);
+
+        MovimientoCompraDAO.getInstancia().findByNro(2);
+
+        MovimientoPedidoDAO.getInstancia().findByNro(3);
+    }
+
+    private static void ordenesCompra() throws Exception {
+        Proveedor p = ProveedorDAO.getInstancia().findByNro(1);
+        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
+        PedidoWeb pw = PedidoWebDAO.getInstancia().findByCodigo(1);
+        new OrdenCompra(p, a, pw).save();
+    }
+
+    private static void movimientosAjuste() throws Exception {
+        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
+        Lote l = LoteDAO.getInstancia().findrecuperadoByNro(1);
+        new MovimientoAjuste(new Date(), a, 70, CausaAjuste.Rotura, 12345, 54321, DestinoArticulos.Donacion, l).save();
+    }
+
+    private static void movimientosPedido() throws Exception {
+        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
+        PedidoWeb pw = PedidoWebDAO.getInstancia().findByCodigo(1);
+        new MovimientoPedido(new Date(), a, 99, pw).save();
+    }
+
+    private static void movimientosCompra() throws Exception {
+        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
+        OrdenCompra oc = OrdenCompraDAO.getInstancia().findByCodigo(1);
+        Lote l = LoteDAO.getInstancia().findrecuperadoByNro(1);
+        new MovimientoCompra(new Date(), a, 10, oc, l).save();
     }
 
     private static void pagosCliente() throws Exception {
