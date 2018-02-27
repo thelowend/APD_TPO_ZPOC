@@ -10,11 +10,11 @@ public class CuentaCorrienteEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCtaCorriente;
 	
-/*	
+
 	@OneToOne
 	@JoinColumn(name="IdCliente")
 	private ClienteEntity cliente;
-*/	
+	
 	@Column(name="SaldoTotal")
 	private float saldo;
 	

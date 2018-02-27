@@ -25,7 +25,7 @@ public class LoteEntity {
     @JoinColumn(name = "CodigoBarraArticulo")
     private ArticuloEntity articulo;
 
-    @OneToMany
+    @OneToMany //(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "NroLote")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<UbicacionEntity> ubicaciones;

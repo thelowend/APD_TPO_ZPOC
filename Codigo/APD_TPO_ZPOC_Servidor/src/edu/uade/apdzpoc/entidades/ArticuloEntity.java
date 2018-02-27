@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "Articulos")
 public class ArticuloEntity {
@@ -44,8 +47,9 @@ public class ArticuloEntity {
 	@Column(name="StockPendienteEntrega")
 	private int stockPendienteEntrega;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany//(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name="CodigoBarraArticulo")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<LoteEntity> lotes;
 
 	public ArticuloEntity() {
