@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class ItemFacturaEntity {
 	@Id
 	@Column(name="IdItemFactura")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idItemFactura;
 	
 	@OneToOne
