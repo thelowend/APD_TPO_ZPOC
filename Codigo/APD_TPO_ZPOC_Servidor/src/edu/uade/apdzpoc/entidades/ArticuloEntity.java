@@ -47,6 +47,7 @@ public class ArticuloEntity {
 	@Column(name="StockPendienteEntrega")
 	private int stockPendienteEntrega;
 
+	@OneToMany
 	@JoinColumn(name="CodigoBarraArticulo")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<LoteEntity> lotes;
