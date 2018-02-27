@@ -35,7 +35,7 @@ public class Despacho {
 		return instancia;
 	}
 
-	public PedidoWeb procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+	public void procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 
 		Facturacion facturacion = Facturacion.getInstancia();
 		Almacen almacen = Almacen.getInstancia();
@@ -54,7 +54,7 @@ public class Despacho {
 			almacen.crearMovimientos(pw); // Paso por el almacen para generar los movimientos:
 		}
 
-		return pw.saveAndFetch();// Guardamos el pedido y lo traemos para presentarle el ID generado al usuario.
+		pw.save(); // Persistimos el pedido actualizado
 	}
 
 	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {

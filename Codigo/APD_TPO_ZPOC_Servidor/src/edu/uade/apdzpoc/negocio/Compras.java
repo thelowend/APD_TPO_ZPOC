@@ -26,8 +26,7 @@ import edu.uade.apdzpoc.excepciones.ProveedorException;
 public class Compras {
 	private static Compras instancia;
 
-	private Compras() {
-	}
+	private Compras() {}
 
 	public static Compras getInstancia() {
 		if (instancia == null)

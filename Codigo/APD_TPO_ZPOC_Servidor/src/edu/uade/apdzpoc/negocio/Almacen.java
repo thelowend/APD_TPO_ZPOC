@@ -33,9 +33,7 @@ import edu.uade.apdzpoc.excepciones.UbicacionException;
 public class Almacen {
 	private static Almacen instancia;
 
-	private Almacen() {
-
-	}
+	private Almacen() {}
 
 	public static Almacen getInstancia() {
 		if (instancia == null)

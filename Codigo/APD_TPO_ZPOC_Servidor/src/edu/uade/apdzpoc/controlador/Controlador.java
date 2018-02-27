@@ -55,10 +55,10 @@ public class Controlador {
 	// En el business delegate, esto será:  public int crearPedidoWeb(List<ItemPedidoDTO> articulos, ClienteDTO cliente, String direccion) {
 	public int crearPedidoWeb(List<ItemPedido> articulos, Cliente cliente, String direccion) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		
-		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, direccion, articulos);
+		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, direccion, articulos).saveAndFetch();
 		
 		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
-		pedidoWeb = Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
+		Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
 		
 		// Devuelvo el ID del pedido para el DTO que se enviará a la GUI del cliente:
 		return pedidoWeb.getIdPedido();
