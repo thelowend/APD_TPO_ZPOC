@@ -6,12 +6,15 @@ import org.hibernate.annotations.Type;
 
 import edu.uade.apdzpoc.enums.MedioPago;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "PagosCliente")
 public class PagoClienteEntity {
 
 	@Id
 	@Column(name = "IdComprobante")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer IdPago;
 
 	@Enumerated(EnumType.STRING)
@@ -20,7 +23,7 @@ public class PagoClienteEntity {
 
 	@Column(name = "FechaPago")
 	@Type(type="date")
-	private java.sql.Date fecha;
+	private Date fecha;
 
 	@Column(name = "Monto")
 	private float monto;
@@ -49,11 +52,11 @@ public class PagoClienteEntity {
 		this.medioDePago = medioDePago;
 	}
 
-	public java.sql.Date getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(java.sql.Date fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

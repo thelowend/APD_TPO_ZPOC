@@ -6,14 +6,13 @@ import edu.uade.apdzpoc.enums.MedioPago;
 
 public class PagoCliente {
 
-	private int IdPago;
+	private Integer IdPago;
 	private MedioPago medioDePago;
 	private Date fecha;
 	private float monto;
 	private Factura factura;
 
-	public PagoCliente(int idPago, MedioPago medioDePago, Date fecha, float monto, Factura factura) {
-		IdPago = idPago;
+	public PagoCliente(MedioPago medioDePago, Date fecha, float monto, Factura factura) {
 		this.medioDePago = medioDePago;
 		this.fecha = fecha;
 		this.monto = monto;
@@ -22,11 +21,11 @@ public class PagoCliente {
 	
 	public PagoCliente() {}
 
-	public int getIdPago() {
+	public Integer getIdPago() {
 		return IdPago;
 	}
 
-	public void setIdPago(int idPago) {
+	public void setIdPago(Integer idPago) {
 		IdPago = idPago;
 	}
 
