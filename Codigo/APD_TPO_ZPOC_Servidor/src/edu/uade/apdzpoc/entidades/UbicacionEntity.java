@@ -25,6 +25,7 @@ public class UbicacionEntity {
 
 	@Id
 	@Column(name = "IdUbicacion")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idUbicacion;
 	
 	@Column(name = "Nombre")

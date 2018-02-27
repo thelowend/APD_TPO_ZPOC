@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class ItemRemitoAlmacenEntity {
 	@Id
 	@Column(name="IdItemRemitoAlmacen")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idItemRemitoAlmacen;
 	
 	@OneToOne

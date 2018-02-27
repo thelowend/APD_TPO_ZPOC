@@ -35,7 +35,7 @@ public class PagoClienteDAO {
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new PagoClienteException("No se encontró el pago de cliente de número " + IdPago);
+			throw new PagoClienteException("No se encontrï¿½ el pago de cliente de nï¿½mero " + IdPago);
 		}
 		return resultado;
 	}
@@ -53,20 +53,17 @@ public class PagoClienteDAO {
 	}
 	
 	
-public PagoClienteEntity toEntity(PagoCliente pagoNegocio) {
-		
+	public PagoClienteEntity toEntity(PagoCliente pagoNegocio) {
 		PagoClienteEntity pagoAPersistir = new PagoClienteEntity();
 		pagoAPersistir.setIdPago(pagoNegocio.getIdPago());
 		pagoAPersistir.setMedioDePago(pagoNegocio.getMedioDePago());
 		pagoAPersistir.setMonto(pagoNegocio.getMonto());
-		pagoAPersistir.setFecha((Date) pagoNegocio.getFecha());
+		pagoAPersistir.setFecha(pagoNegocio.getFecha());
 		
 		FacturaEntity facturaAux = FacturaDAO.getInstancia().toEntity(pagoNegocio.getFactura());
 		pagoAPersistir.setFactura(facturaAux);
 		
 		return pagoAPersistir;
-		
-		
 	}
 
 	public PagoCliente toNegocio(PagoClienteEntity pagoRecuperado) {

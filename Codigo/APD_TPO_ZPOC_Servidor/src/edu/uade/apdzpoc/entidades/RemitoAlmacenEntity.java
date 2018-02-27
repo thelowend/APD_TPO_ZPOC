@@ -13,23 +13,24 @@ public class RemitoAlmacenEntity {
 
 	@Id
 	@Column(name="IdRemitoAlmacen")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idRemito;
-	
+
 	@Column(name="Estado")
 	@Enumerated(EnumType.STRING)
 	private EstadoRemito estado;
-	
-	@OneToMany
-	@JoinColumn(name="IdItemRemitoAlmacen")
-	private List <ItemRemitoAlmacenEntity> itemsRemito;
-	
+
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JoinColumn(name="IdRemitoAlmacen")
+	private List<ItemRemitoAlmacenEntity> itemsRemito;
+
 	@Column(name="TipoRemito")
 	@Enumerated(EnumType.STRING)
 	private TipoRemitoAlmacen tipo;
-	
+
 	@Column(name="Numero")
 	private int numero;
-	
+
 	public int getNumero() {
 		return numero;
 	}
@@ -41,16 +42,16 @@ public class RemitoAlmacenEntity {
 
 
 	public RemitoAlmacenEntity() {
-		
+
 	}
 
 
-	public int getIdRemito() {
+	public Integer getIdRemito() {
 		return idRemito;
 	}
 
 
-	public void setIdRemito(int idRemito) {
+	public void setIdRemito(Integer idRemito) {
 		this.idRemito = idRemito;
 	}
 
@@ -85,8 +86,8 @@ public class RemitoAlmacenEntity {
 	}
 
 
-	
-	
-	
+
+
+
 
 }

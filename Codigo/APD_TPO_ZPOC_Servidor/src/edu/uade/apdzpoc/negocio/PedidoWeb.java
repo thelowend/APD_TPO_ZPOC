@@ -42,6 +42,7 @@ public class PedidoWeb {
 		this.estadoPedido = estadoPedido;
 		this.direccionPedido = direccionPedido;
 		this.items = items;
+		this.fechaGeneracion = new Date();
 	}
 
 	public PedidoWeb() {
@@ -138,17 +139,17 @@ public class PedidoWeb {
 				
 				facturacion.crearFactura(this);
 				
-				almacen.generarRemitos(this); // Genera la lista de ubicaciones de los artículos a retirar, cuando se DESPACHE el pedido.
+				almacen.generarRemitos(this); // Genera la lista de ubicaciones de los artï¿½culos a retirar, cuando se DESPACHE el pedido.
 			}
 			
-			// -*----------------- Vamos por acá ------------------*- //
+			// -*----------------- Vamos por acï¿½ ------------------*- //
 			
 			// Paso por el almacen para generar los movimientos:
 			List<Movimiento> lm = almacen.crearMovimientos(this);
 			
 			for (Movimiento m : lm) {
 				m.actualizarNovedadStock();
-				m.getArticulo().save(); // Guardo el artículo con el stock actualizado y los movimientos nuevos
+				m.getArticulo().save(); // Guardo el artï¿½culo con el stock actualizado y los movimientos nuevos
 			}	
 		}
 		
@@ -166,7 +167,7 @@ public class PedidoWeb {
 	}
 	
 	public boolean hayStockDeItems() {
-		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido, quedará en true.
+		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido, quedarï¿½ en true.
 		
 		for (ItemPedido item : this.getItems()) {
 			if(!item.hayStock()) {

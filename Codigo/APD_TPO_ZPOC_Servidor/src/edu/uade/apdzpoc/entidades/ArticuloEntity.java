@@ -45,7 +45,7 @@ public class ArticuloEntity {
 	private int stockPendienteEntrega;
 
 	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="CodigoBarra")
+	@JoinColumn(name="CodigoBarraArticulo")
 	private List<LoteEntity> lotes;
 
 	public ArticuloEntity() {
