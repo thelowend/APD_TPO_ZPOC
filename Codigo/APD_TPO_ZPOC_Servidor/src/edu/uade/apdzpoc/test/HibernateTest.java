@@ -37,16 +37,16 @@ public class HibernateTest {
         FacturaDAO.getInstancia().findByCodigo(1);
 
         //Get Remito Almacen
-        RemitoAlmacenDAO.getInstancia().findrecuperadoByNro(1);
+        RemitoAlmacenDAO.getInstancia().findByNro(1);
 
         //Get Remito Almacen
         RemitoTransporteDAO.getInstancia().findByCodigo(1);
 
         //Get Pago Cliente
-        PagoClienteDAO.getInstancia().findrecuperadoByNro(1);
+        PagoClienteDAO.getInstancia().findByNro(1);
 
         //Get Movimientos
-        MovimientoAjusteDAO.getInstancia().findrecuperadoByNro(1);
+        MovimientoAjusteDAO.getInstancia().findByNro(1);
 
         MovimientoCompraDAO.getInstancia().findByNro(2);
 
@@ -55,27 +55,27 @@ public class HibernateTest {
 
     private static void ordenesCompra() throws Exception {
         Proveedor p = ProveedorDAO.getInstancia().findByNro(1);
-        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
         PedidoWeb pw = PedidoWebDAO.getInstancia().findByCodigo(1);
         new OrdenCompra(p, a, pw).save();
     }
 
     private static void movimientosAjuste() throws Exception {
-        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
-        Lote l = LoteDAO.getInstancia().findrecuperadoByNro(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
+        Lote l = LoteDAO.getInstancia().findByNro(1);
         new MovimientoAjuste(new Date(), a, 70, CausaAjuste.Rotura, 12345, 54321, DestinoArticulos.Donacion, l).save();
     }
 
     private static void movimientosPedido() throws Exception {
-        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
         PedidoWeb pw = PedidoWebDAO.getInstancia().findByCodigo(1);
         new MovimientoPedido(new Date(), a, 99, pw).save();
     }
 
     private static void movimientosCompra() throws Exception {
-        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
         OrdenCompra oc = OrdenCompraDAO.getInstancia().findByCodigo(1);
-        Lote l = LoteDAO.getInstancia().findrecuperadoByNro(1);
+        Lote l = LoteDAO.getInstancia().findByNro(1);
         new MovimientoCompra(new Date(), a, 10, oc, l).save();
     }
 
@@ -125,8 +125,8 @@ public class HibernateTest {
     private static void pedidoWeb() throws Exception {
         Cliente c = ClienteDAO.getInstancia().findByCodigo(1);
 
-        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
-        Articulo b = ArticuloDAO.getInstancia().findrecuperadoByCodigo(2);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
+        Articulo b = ArticuloDAO.getInstancia().findByCodigo(2);
 
         List<ItemPedido> items = new ArrayList<>();
         items.add(new ItemPedido(a, 20, EstadoItemPedido.Con_Stock));
@@ -152,10 +152,10 @@ public class HibernateTest {
     }
 
     private static void lotes() throws Exception {
-        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
 
-        Ubicacion u1 = UbicacionDAO.getInstancia().findrecuperadoByNro(1);
-        Ubicacion u2 = UbicacionDAO.getInstancia().findrecuperadoByNro(2);
+        Ubicacion u1 = UbicacionDAO.getInstancia().findByNro(1);
+        Ubicacion u2 = UbicacionDAO.getInstancia().findByNro(2);
 
         new Lote(new Date(), a, Arrays.asList(u1, u2)).save();
     }
@@ -163,10 +163,10 @@ public class HibernateTest {
     private static void remitosAlmacen() throws Exception {
         Cliente c = ClienteDAO.getInstancia().findByCodigo(1);
 
-        Ubicacion u = UbicacionDAO.getInstancia().findrecuperadoByNro(1);
+        Ubicacion u = UbicacionDAO.getInstancia().findByNro(1);
 
-        Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(1);
-        Articulo b = ArticuloDAO.getInstancia().findrecuperadoByCodigo(2);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
+        Articulo b = ArticuloDAO.getInstancia().findByCodigo(2);
 
         List<ItemRemitoAlmacen> items = new ArrayList<>();
         items.add(new ItemRemitoAlmacen(a, 20, u));

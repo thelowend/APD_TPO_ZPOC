@@ -24,7 +24,7 @@ public class PagoClienteDAO {
 		return instancia;
 	}
 	
-	public PagoCliente findrecuperadoByNro(Integer IdPago) throws PagoClienteException {
+	public PagoCliente findByNro(Integer IdPago) throws PagoClienteException {
 		PagoCliente resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();

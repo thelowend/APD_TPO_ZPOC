@@ -24,7 +24,7 @@ public class LoteDAO {
 		return instancia;
 	}
 
-	public Lote findrecuperadoByNro(Integer nroLote) throws LoteException {
+	public Lote findByNro(Integer nroLote) throws LoteException {
 		Lote resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();

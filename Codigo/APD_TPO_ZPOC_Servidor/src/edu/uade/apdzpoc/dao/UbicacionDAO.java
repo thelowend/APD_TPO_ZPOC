@@ -23,7 +23,7 @@ public class UbicacionDAO {
 		return instancia;
 	}
 
-	public Ubicacion findrecuperadoByNro(Integer idUbicacion) throws UbicacionException {
+	public Ubicacion findByNro(Integer idUbicacion) throws UbicacionException {
 		Ubicacion resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
@@ -35,7 +35,7 @@ public class UbicacionDAO {
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new UbicacionException("No se encontró la ubicación " + idUbicacion);
+			throw new UbicacionException("No se encontrï¿½ la ubicaciï¿½n " + idUbicacion);
 		}
 		return resultado;
 	}
@@ -67,7 +67,7 @@ public class UbicacionDAO {
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new UbicacionException("¡El depósito está lleno!");
+			throw new UbicacionException("ï¿½El depï¿½sito estï¿½ lleno!");
 		}
 		return resultado;
 	}

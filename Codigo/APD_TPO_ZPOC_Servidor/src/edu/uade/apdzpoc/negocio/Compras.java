@@ -46,13 +46,13 @@ public class Compras {
 		List<OrdenCompra> result = new ArrayList<>();
 		
 		// Recupero el Articulo para saber que cantidad tenemos que pedir
-		Articulo a = ArticuloDAO.getInstancia().findrecuperadoByCodigo(ip.getArticulo().getCodigoBarra());
+		Articulo a = ArticuloDAO.getInstancia().findByCodigo(ip.getArticulo().getCodigoBarra());
 
 		// Selecciono el mejor proveedor, el que tenga el precio mas bajo. El dao me va
 		// a devolver el que tenga el menor precio.
 		Proveedor p = this.seleccionarProveedor(a);
 		
-		// Genero órdenes de compra hasta cubrir los items pedidos
+		// Genero ï¿½rdenes de compra hasta cubrir los items pedidos
 		for(int cantidadItem = ip.getCantidad(); cantidadItem > 0; cantidadItem -= a.getCantidadCompra()) {
 			OrdenCompra oc = new OrdenCompra(p, a, pw);
 			oc.setEstado(EstadoOC.Pendiente);

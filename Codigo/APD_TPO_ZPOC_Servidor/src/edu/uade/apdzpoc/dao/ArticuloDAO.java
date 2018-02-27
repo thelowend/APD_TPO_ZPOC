@@ -25,7 +25,7 @@ public class ArticuloDAO {
 		return instancia;
 	}
 
-	public Articulo findrecuperadoByCodigo(Integer codigoBarras) throws ArticuloException {
+	public Articulo findByCodigo(Integer codigoBarras) throws ArticuloException {
 		Articulo resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
