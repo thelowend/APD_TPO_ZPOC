@@ -69,5 +69,16 @@ public class ItemPedido {
 	public float calcularTotal() {
 		return this.articulo.getPrecioVenta() * this.cantidad;
 	}
+	
+	public boolean hayStock() {
+		
+		boolean hayStock = this.getArticulo().tieneStock(this.getCantidad());
+		if (!hayStock) {
+			this.setEstado(EstadoItemPedido.Sin_Stock);
+		} else {
+			this.setEstado(EstadoItemPedido.Con_Stock);
+		}
+		return hayStock;
+	}
 
 }

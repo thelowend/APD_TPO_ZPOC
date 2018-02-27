@@ -15,6 +15,9 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,17 +35,26 @@ public class Factura {
 	private float totalFactura;
 	private EstadoFactura estado;
 
-	public Factura(Cliente cliente, Date fechaEmision, Date fechaVencimiento, String tipoFactura, List<ItemFactura> itemsFactura, EstadoFactura estado) {
-		this.cliente = cliente;
-		this.fechaEmision = fechaEmision;
-		this.fechaVencimiento = fechaVencimiento;
-		this.tipoFactura = tipoFactura;
-		this.itemsFactura = itemsFactura;
+	public Factura(PedidoWeb pw) {
+		this.cliente = pw.getCliente();
+		this.fechaEmision = new Date();
+		this.fechaVencimiento = Date.from(LocalDate.now().plusMonths(3).atStartOfDay(ZoneId.systemDefault()).toInstant()); // 3 meses desde la fecha de creación
+		this.tipoFactura = this.cliente.getTipoFactura();
+		this.estado = EstadoFactura.Emitida;
+		this.itemsFactura = this.generarItemsFactura(pw.getItems());
 		this.totalFactura = this.calcularMontoTotal();
-		this.estado = estado;
 	}
 	
 	public Factura () {}
+	
+	private List<ItemFactura> generarItemsFactura(List<ItemPedido> items) {
+		List<ItemFactura> itemsFactura = new ArrayList<>();
+		for (ItemPedido item : items) {
+			// Está bien guardar el calculartotal como campo de itemFactura al momento de crearlo, ya que en el futuro podría cambiar el precio del artículo, pero no debería cambiar el precio en la factura emitida.
+			itemsFactura.add(new ItemFactura(item.getArticulo(), item.getCantidad(), item.calcularTotal()));
+		}
+		return itemsFactura;
+	}
 
 	public int getIdFactura() {
 		return idFactura;

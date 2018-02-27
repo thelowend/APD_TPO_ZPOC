@@ -12,9 +12,8 @@
  *  
  *
  */
- 
-package edu.uade.apdzpoc.negocio;
 
+package edu.uade.apdzpoc.negocio;
 
 public class Cliente {
 
@@ -26,13 +25,13 @@ public class Cliente {
 	private boolean ivaInscripto;
 	private float descuento;
 	private CuentaCorriente cuentaCorriente;
-	
-	
-	public Cliente () {};
-	
+
+	public Cliente() {
+	};
+
 	public Cliente(int idCliente, String nombre, int documento, String domicilioFacturacion,
 			boolean responsableInscripto, boolean ivaInscripto, float descuento, CuentaCorriente cuentaCorriente) {
-		
+
 		this.idCliente = idCliente;
 		this.nombre = nombre;
 		this.documento = documento;
@@ -42,56 +41,81 @@ public class Cliente {
 		this.descuento = descuento;
 		this.cuentaCorriente = cuentaCorriente;
 	}
-	
+
 	public int getIdCliente() {
 		return idCliente;
 	}
+
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public int getDocumento() {
 		return documento;
 	}
+
 	public void setDocumento(int documento) {
 		this.documento = documento;
 	}
+
 	public String getDomicilioFacturacion() {
 		return domicilioFacturacion;
 	}
+
 	public void setDomicilioFacturacion(String domicilioFacturacion) {
 		this.domicilioFacturacion = domicilioFacturacion;
 	}
+
 	public boolean isResponsableInscripto() {
 		return responsableInscripto;
 	}
+
 	public void setResponsableInscripto(boolean responsableInscripto) {
 		this.responsableInscripto = responsableInscripto;
 	}
+
 	public boolean isIvaInscripto() {
 		return ivaInscripto;
 	}
+
 	public void setIvaInscripto(boolean ivaInscripto) {
 		this.ivaInscripto = ivaInscripto;
 	}
+
 	public float getDescuento() {
 		return descuento;
 	}
+
 	public void setDescuento(float descuento) {
 		this.descuento = descuento;
 	}
-	
+
 	public CuentaCorriente getCuentaCorriente() {
 		return cuentaCorriente;
 	}
+
 	public void setCuentaCorriente(CuentaCorriente cuentaCorriente) {
 		this.cuentaCorriente = cuentaCorriente;
 	}
 	
+	public float saldoActual() {
+		return this.getCuentaCorriente().getSaldo();
+	}
 	
+	public boolean leAlcanza(float costo) {
+		return this.saldoActual() > costo;
+	}
+	
+	public String getTipoFactura() {
+		return this.isResponsableInscripto() ? "A" : "B";
+	}
+
 }
