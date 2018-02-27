@@ -47,7 +47,6 @@ public class ArticuloEntity {
 	@Column(name="StockPendienteEntrega")
 	private int stockPendienteEntrega;
 
-	@OneToMany//(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name="CodigoBarraArticulo")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<LoteEntity> lotes;
