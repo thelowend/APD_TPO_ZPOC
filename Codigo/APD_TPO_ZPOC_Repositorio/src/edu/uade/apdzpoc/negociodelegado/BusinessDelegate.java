@@ -5,9 +5,9 @@ import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoOC;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ComunicationException;
 import edu.uade.apdzpoc.interfaces.*;
-
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -107,6 +107,23 @@ public class BusinessDelegate {
 	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, LoteDTO lote, String destino) throws ComunicationException{
 		try {
 			referenciaRemota.ajustarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote, destino);
+		}catch (RemoteException e){
+			throw new ComunicationException("Se produjo un error en la comunicación.");
+		}
+	}
+	
+	public void ingresarPagoCliente(PagoClienteDTO pago) throws ComunicationException {
+		try {
+			referenciaRemota.ingresarPagoCliente(pago);
+		}catch (RemoteException e){
+			throw new ComunicationException("Se produjo un error en la comunicación.");
+		}
+	}
+	
+	// Cada 30 días el Almacén controla automáticamente los vencimientos:
+	public void controlarVencimientos() throws ComunicationException {
+		try {
+			referenciaRemota.controlarVencimientos();
 		}catch (RemoteException e){
 			throw new ComunicationException("Se produjo un error en la comunicación.");
 		}

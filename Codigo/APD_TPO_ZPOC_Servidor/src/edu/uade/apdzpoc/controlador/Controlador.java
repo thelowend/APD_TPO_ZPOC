@@ -112,7 +112,7 @@ public class Controlador {
 	}
 	
 	// En el bd vamos a recibir loteDTO, etc. 
-	public void controlarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, Lote lote, DestinoArticulos destino) throws ArticuloException {
+	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, Lote lote, DestinoArticulos destino) throws ArticuloException {
 		Almacen.getInstancia().actualizarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote, destino);
 	}
 	
