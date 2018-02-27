@@ -22,7 +22,7 @@ import edu.uade.apdzpoc.enums.EstadoOC;
 
 public class OrdenCompra {
 
-	private int idOC;
+	private Integer idOC;
 	private Proveedor proveedor;
 	private int cantidad;
 	private EstadoOC estado;
@@ -42,11 +42,11 @@ public class OrdenCompra {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getIdOC() {
+	public Integer getIdOC() {
 		return idOC;
 	}
 
-	public void setIdOC(int idOC) {
+	public void setIdOC(Integer idOC) {
 		this.idOC = idOC;
 	}
 

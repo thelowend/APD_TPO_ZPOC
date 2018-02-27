@@ -30,7 +30,7 @@ public class LoteDAO {
 		Session s = sf.openSession();
 		s.beginTransaction();
 		LoteEntity aux = (LoteEntity) s
-				.createQuery("select le from LoteEntity le inner join le.ubicaciones where nroLote = ?")
+				.createQuery("select le from LoteEntity le where le.nroLote = ?")
 				.setInteger(0, nroLote).uniqueResult();
 		s.getTransaction().commit();
 		s.close();

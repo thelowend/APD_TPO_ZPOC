@@ -37,7 +37,7 @@ public class OrdenCompraDAO {
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new OrdenCompraException("No se encontró la orden de compra " + idOC);
+			throw new OrdenCompraException("No se encontrï¿½ la orden de compra " + idOC);
 		}
 		return resultado;
 	}
@@ -89,16 +89,18 @@ public class OrdenCompraDAO {
 	public OrdenCompraEntity toEntity(OrdenCompra ordenCompraNegocio) {
 		OrdenCompraEntity ordenCompraEntityAPersistir = new OrdenCompraEntity();
 		ordenCompraEntityAPersistir.setIdOC(ordenCompraNegocio.getIdOC());
-		java.sql.Date d = new Date(ordenCompraNegocio.getFecha().getTime());
-		ordenCompraEntityAPersistir.setFecha(d);
+		ordenCompraEntityAPersistir.setFecha(ordenCompraNegocio.getFecha());
 		ordenCompraEntityAPersistir.setEstado(ordenCompraNegocio.getEstado());
 		ordenCompraEntityAPersistir.setCantidad(ordenCompraNegocio.getCantidad());
 
 		ArticuloEntity artAux = ArticuloDAO.getInstancia().toEntity(ordenCompraNegocio.getArticulo());
 		ordenCompraEntityAPersistir.setArticulo(artAux);
 
-		LoteEntity loteAux = LoteDAO.getInstancia().toEntity(ordenCompraNegocio.getLote());
-		ordenCompraEntityAPersistir.setLote(loteAux);
+		//TODO Verificar si es obligatorio o no
+		if(ordenCompraNegocio.getLote() != null) {
+            LoteEntity loteAux = LoteDAO.getInstancia().toEntity(ordenCompraNegocio.getLote());
+            ordenCompraEntityAPersistir.setLote(loteAux);
+        }
 
 		PedidoWebEntity pedidoAux = PedidoWebDAO.getInstancia().toEntity(ordenCompraNegocio.getPedidoW());
 		ordenCompraEntityAPersistir.setPedidoW(pedidoAux);
@@ -116,8 +118,11 @@ public class OrdenCompraDAO {
 		Articulo artAux = ArticuloDAO.getInstancia().toNegocio(ordenCompraRecuperada.getArticulo());
 		ordenCompraNegocio.setArticulo(artAux);
 
-		Lote loteAux = LoteDAO.getInstancia().toNegocio(ordenCompraRecuperada.getLote());
-		ordenCompraNegocio.setLote(loteAux);
+        //TODO Verificar si es obligatorio o no
+		if(ordenCompraRecuperada.getLote() != null) {
+            Lote loteAux = LoteDAO.getInstancia().toNegocio(ordenCompraRecuperada.getLote());
+            ordenCompraNegocio.setLote(loteAux);
+        }
 
 		PedidoWeb pedidoAux = PedidoWebDAO.getInstancia().toNegocio(ordenCompraRecuperada.getPedidoW());
 		ordenCompraNegocio.setPedidoW(pedidoAux);

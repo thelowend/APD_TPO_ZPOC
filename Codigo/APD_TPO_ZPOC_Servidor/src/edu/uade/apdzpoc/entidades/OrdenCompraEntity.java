@@ -1,11 +1,12 @@
 package edu.uade.apdzpoc.entidades;
 
-import java.sql.Date;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
 
 import edu.uade.apdzpoc.enums.EstadoOC;
+
+import java.util.Date;
 
 
 @Entity
@@ -14,6 +15,7 @@ public class OrdenCompraEntity {
 
 	@Id
 	@Column(name="NroOC")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idOC;
 	
 	@ManyToOne

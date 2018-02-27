@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -25,6 +27,7 @@ public class LoteEntity {
 
     @OneToMany
     @JoinColumn(name = "NroLote")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<UbicacionEntity> ubicaciones;
 
 
