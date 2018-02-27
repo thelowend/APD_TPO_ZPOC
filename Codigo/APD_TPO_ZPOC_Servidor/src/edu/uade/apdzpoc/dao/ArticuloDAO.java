@@ -96,7 +96,7 @@ public class ArticuloDAO {
 		articuloAPersistir.setStockVirtual(articuloNegocio.getStockVirtual());
 
 		List<LoteEntity> aux1 = new ArrayList<LoteEntity>();
-		List<Lote> lotes = articuloNegocio.getLote();
+		List<Lote> lotes = articuloNegocio.getLotes();
 		for (Lote l : lotes)
 			aux1.add(LoteDAO.getInstancia().toEntity(l));
 		articuloAPersistir.setLotes(aux1);
@@ -121,7 +121,7 @@ public class ArticuloDAO {
 		List<LoteEntity> lotes = articuloRecuperado.getLotes();
 		for (LoteEntity l : lotes)
 			aux1.add(LoteDAO.getInstancia().toNegocio(l));
-		articuloNegocio.setLote(aux1);
+		articuloNegocio.setLotes(aux1);
 
 		return articuloNegocio;
 	}

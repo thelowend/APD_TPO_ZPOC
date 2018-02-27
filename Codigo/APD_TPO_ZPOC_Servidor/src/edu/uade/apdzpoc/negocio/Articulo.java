@@ -25,6 +25,7 @@ import edu.uade.apdzpoc.dao.MovimientoCompraDAO;
 import edu.uade.apdzpoc.dao.MovimientoPedidoDAO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
+import edu.uade.apdzpoc.enums.EstadoUbicacion;
 
 public class Articulo {
 
@@ -40,8 +41,8 @@ public class Articulo {
 	private int stockVirtual;
 	private int stockDisponible;
 	private int stockPendienteEntrega;
-
-	private List<Lote> lote;
+	
+	private List<Lote> lotes;
 
 	public Articulo(String nombreArticulo, String descripcion, float precioVenta, int cantidadCompra,
 			String presentacion, String tamanio) {
@@ -51,7 +52,7 @@ public class Articulo {
 		this.cantidadCompra = cantidadCompra;
 		this.presentacion = presentacion;
 		this.tamanio = tamanio;
-		this.lote = new ArrayList<>();
+		this.lotes = new ArrayList<>();
 	}
 
 	public Articulo() {
@@ -145,12 +146,40 @@ public class Articulo {
 		this.stockPendienteEntrega = stockPendienteEntrega;
 	}
 
-	public List<Lote> getLote() {
-		return lote;
+	public List<Lote> getLotes() {
+		return lotes;
 	}
 
-	public void setLote(List<Lote> lote) {
-		this.lote = lote;
+	public void setLotes(List<Lote> lotes) {
+		this.lotes = lotes;
+	}
+	
+	public boolean tieneStock(int cantidadRequerida) {
+		return this.getStockDisponible() > cantidadRequerida;
+	}
+	
+	public List<Ubicacion> obtenerUbicacionesItemsALiberar(int cantidadRequerida) {
+		
+		List<Ubicacion> ubicacionesItemsALiberar = new ArrayList<>();
+		List<Lote> lotesArticulo = this.getLotes(); // Vienen ordenados por vencimiento más cercano.
+		int cantidadRestante = cantidadRequerida;
+		
+		for (Lote lote : lotesArticulo) {
+			
+			while(cantidadRestante > 0) {
+				
+				Ubicacion u = lote.getMejorUbicacion(); //Busco la que tenga menos items para liberarlas más rápido
+				u.actualizarUbicacion(cantidadRestante);
+				cantidadRestante -= u.getCapacidad(); //La capacidad actualizada
+				ubicacionesItemsALiberar.add(u); // Guardo la ubicación para el remito
+				
+				if (u.getEstado() == EstadoUbicacion.Libre) {
+					lote.removeUbicacion(u); // La libero de su asociación al lote del Artículo
+				}
+			}
+		}
+		
+		return ubicacionesItemsALiberar;
 	}
 
 	public MovimientoPedido crearMovimientoPedido(int cantidad, PedidoWeb pw) {

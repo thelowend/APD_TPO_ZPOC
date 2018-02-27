@@ -45,33 +45,10 @@ public class Despacho {
 	}
 	
 	public void procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
-		// El despacho actualizará el estado:
-		Facturacion facturacion = Facturacion.getInstancia();
-		Almacen almacen = Almacen.getInstancia();
-		
-		if (!facturacion.alcanzaLimiteCTA(pw)) {
 
-			pw.setEstadoPedido(EstadoPedido.Rechazado);
-			
-		} else {
-			if (!almacen.alcanzaStockPedido(pw)) {
-				pw.setEstadoPedido(EstadoPedido.Pendiente_Stock);
-			} else {
-				pw.setEstadoPedido(EstadoPedido.Pendiente_Despacho);
-				facturacion.crearFactura(pw);
-				almacen.buscarUbicacionesArticulos(pw);
-			}
-			
-			// Paso por el almacen para generar los movimientos:
-			List<Movimiento> lm = almacen.crearMovimientos(pw);
-			
-			for (Movimiento m : lm) {
-				m.actualizarNovedadStock();
-				m.getArticulo().save(); // Guardo el artículo con el stock actualizado y los movimientos nuevos
-			}	
-		}
+		pw.procesar();
 		
-		pw.save(); // Guardamos el pedido
+		// pw.save();
 	}
 	
 	public List<PedidoWeb> obtenerPedidosADespachar() {

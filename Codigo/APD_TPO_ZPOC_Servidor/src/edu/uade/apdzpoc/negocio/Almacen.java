@@ -49,22 +49,13 @@ public class Almacen {
 	}
 
 	public boolean alcanzaStockPedido(PedidoWeb pw) {
-
-		List<ItemPedido> itemsPedidos = pw.getItems();
-		boolean hayStockDeTodosLosItems = true; // Si al iterar sucede que no hay stock de todos los items del pedido,
-												// quedará en true.
-
-		for (ItemPedido item : itemsPedidos) {
-			boolean hayStock = item.getArticulo().getStockDisponible() > item.getCantidad();
-			if (!hayStock) {
-				item.setEstado(EstadoItemPedido.Sin_Stock);
-				hayStockDeTodosLosItems = false;
-			} else {
-				item.setEstado(EstadoItemPedido.Con_Stock);
-			}
-		}
-
-		return hayStockDeTodosLosItems;
+		
+		return pw.hayStockDeItems();
+	}
+	
+	public List<Ubicacion> buscarUbicaciones(ItemPedido itemPedido) {
+		// Devolverá las ubicaciones correspondientes a la cantidad de artículos pedidos en ese item
+		return itemPedido.getArticulo().obtenerUbicacionesItemsALiberar(itemPedido.getCantidad());
 	}
 	
 	public List<Movimiento> crearMovimientos(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
@@ -111,50 +102,10 @@ public class Almacen {
 		
 	}
 	
-	public void buscarUbicacionesArticulos(PedidoWeb pw) {
-
-		List<ItemPedido> itemsPedidos = pw.getItems();
-		List<ItemRemitoAlmacen> itemsRemitoAlmacen = new ArrayList<>();
-		
-		
-		for (ItemPedido item : itemsPedidos) {
-			int cantidadAobtener = item.getCantidad();
-			List<Lote> lotesArticulo = LoteDAO.getInstancia().getAllByArticulo(item.getArticulo()); // Obtengo los lotes del articulo ordenados por el vencimiento
-			
-			for(Lote lote : lotesArticulo) {
-				for(Ubicacion ubicacion: lote.getUbicaciones()) {
- 
-					while(cantidadAobtener > 0) {
-						
-						int cantidadArticulosEnLote = ubicacion.getCapacidadInicial() - ubicacion.getCapacidad();
-						
-						if (cantidadAobtener < cantidadArticulosEnLote) {
-							ubicacion.setCapacidad(ubicacion.getCapacidad() - cantidadAobtener);
-							itemsRemitoAlmacen.add(new ItemRemitoAlmacen(item.getArticulo(), cantidadAobtener, ubicacion));
-							cantidadAobtener = 0;
-						} else {
-							ubicacion.setCapacidad(ubicacion.getCapacidadInicial()); // La ubicación queda vacía
-							cantidadAobtener -= ubicacion.getCapacidadInicial(); // Le resto a los articulos toda la capacidad de la ubicación
-							
-							// Libero la ubicación y la disasocio del lote
-							ubicacion.setEstado(EstadoUbicacion.Libre);
-							lote.removeUbicacion(ubicacion);
-							lote.save();
-							
-							itemsRemitoAlmacen.add(new ItemRemitoAlmacen(item.getArticulo(), ubicacion.getCapacidadInicial(), ubicacion));
-						}
-						ubicacion.save();
-					}
-					
-				}
-			}
-			
-			// Creo el remito correspondiente
-			this.crearRemitoAlmacen(itemsRemitoAlmacen, pw);
-			
-		}
+	public void generarRemitos(PedidoWeb pw) {
+		new RemitoAlmacen(pw).save();
 	}
-	
+
 	public void crearRemitoAlmacen(List<ItemRemitoAlmacen> ira, OrdenCompra oc) {
 		RemitoAlmacen ra = new RemitoAlmacen();
 		ra.setEstado(EstadoRemito.Pendiente);

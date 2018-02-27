@@ -12,13 +12,14 @@
  *  
  *
  */
- 
+
 package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.LoteDAO;
+import edu.uade.apdzpoc.enums.EstadoUbicacion;
 
 public class Lote {
 
@@ -26,50 +27,86 @@ public class Lote {
 	private Date vencimiento;
 	private Articulo articulo;
 	private List<Ubicacion> ubicaciones;
+
 	public Lote(int nroLote, Date vencimiento, Articulo articulo, List<Ubicacion> ubicaciones) {
 		this.nroLote = nroLote;
 		this.vencimiento = vencimiento;
 		this.articulo = articulo;
 		this.ubicaciones = ubicaciones;
 	}
+
 	public Lote() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public int getNroLote() {
 		return nroLote;
 	}
+
 	public void setNroLote(int nroLote) {
 		this.nroLote = nroLote;
 	}
+
 	public Date getVencimiento() {
 		return vencimiento;
 	}
+
 	public void setVencimiento(Date vencimiento) {
 		this.vencimiento = vencimiento;
 	}
+
 	public Articulo getArticulo() {
 		return articulo;
 	}
+
 	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
 	}
+
 	public List<Ubicacion> getUbicaciones() {
 		return ubicaciones;
 	}
+
 	public void setUbicaciones(List<Ubicacion> ubicaciones) {
 		this.ubicaciones = ubicaciones;
 	}
+
 	public void addUbicacion(Ubicacion ubicacion) {
 		this.ubicaciones.add(ubicacion);
 	}
+
 	public void removeUbicacion(Ubicacion ubicacion) {
 		this.ubicaciones.remove(ubicacion);
 	}
 	
+	public Ubicacion getMejorUbicacion() {
+
+		List<Ubicacion> ubicaciones = this.getUbicaciones();
+		Ubicacion mejor = ubicaciones.get(0);
+		
+		//Empiezo desde la segunda porque ya tomé la primera
+		for (int i = 1; i < ubicaciones.size(); i++) {
+			if(ubicaciones.get(i).getCapacidad() < mejor.getCapacidad()) {
+				mejor = ubicaciones.get(i);
+			}
+		}
+		
+		return mejor;
+	}
+
 	public void save() {
 		LoteDAO.getInstancia().save(this);
 	}
-	
-	
-	
+
+//	public void actualizarUbicacion(Ubicacion u, int cantidadRestante) {
+//		if (cantidadRestante >= u.getCapacidad()) {
+//			u.setCapacidad(0);
+//			u.setEstado(EstadoUbicacion.Libre);
+//			this.removeUbicacion(u);
+//		} else {
+//			u.setCapacidad(u.getCapacidad() - cantidadRestante);
+//		}
+//	}
+
+
 }

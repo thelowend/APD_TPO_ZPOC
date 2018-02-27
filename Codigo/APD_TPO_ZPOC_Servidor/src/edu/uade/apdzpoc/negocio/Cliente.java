@@ -15,7 +15,6 @@
 
 package edu.uade.apdzpoc.negocio;
 
-
 import edu.uade.apdzpoc.dao.ClienteDAO;
 
 public class Cliente {
@@ -29,11 +28,11 @@ public class Cliente {
 	private float descuento;
 	private CuentaCorriente cuentaCorriente;
 
+	public Cliente() {
+	};
 
-	public Cliente () {};
-
-	public Cliente(String nombre, int documento, String domicilioFacturacion,
-			boolean responsableInscripto, boolean ivaInscripto, float descuento, CuentaCorriente cuentaCorriente) {
+	public Cliente(String nombre, int documento, String domicilioFacturacion, boolean responsableInscripto,
+			boolean ivaInscripto, float descuento, CuentaCorriente cuentaCorriente) {
 		this.nombre = nombre;
 		this.documento = documento;
 		this.domicilioFacturacion = domicilioFacturacion;
@@ -46,42 +45,55 @@ public class Cliente {
 	public Integer getIdCliente() {
 		return idCliente;
 	}
+
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public int getDocumento() {
 		return documento;
 	}
+
 	public void setDocumento(int documento) {
 		this.documento = documento;
 	}
+
 	public String getDomicilioFacturacion() {
 		return domicilioFacturacion;
 	}
+
 	public void setDomicilioFacturacion(String domicilioFacturacion) {
 		this.domicilioFacturacion = domicilioFacturacion;
 	}
+
 	public boolean isResponsableInscripto() {
 		return responsableInscripto;
 	}
+
 	public void setResponsableInscripto(boolean responsableInscripto) {
 		this.responsableInscripto = responsableInscripto;
 	}
+
 	public boolean isIvaInscripto() {
 		return ivaInscripto;
 	}
+
 	public void setIvaInscripto(boolean ivaInscripto) {
 		this.ivaInscripto = ivaInscripto;
 	}
+
 	public float getDescuento() {
 		return descuento;
 	}
+
 	public void setDescuento(float descuento) {
 		this.descuento = descuento;
 	}
@@ -89,11 +101,24 @@ public class Cliente {
 	public CuentaCorriente getCuentaCorriente() {
 		return cuentaCorriente;
 	}
+
 	public void setCuentaCorriente(CuentaCorriente cuentaCorriente) {
 		this.cuentaCorriente = cuentaCorriente;
 	}
 
-	public void save(){
+	public float saldoActual() {
+		return this.getCuentaCorriente().getSaldo();
+	}
+
+	public boolean leAlcanza(float costo) {
+		return this.saldoActual() > costo;
+	}
+
+	public String getTipoFactura() {
+		return this.isResponsableInscripto() ? "A" : "B";
+	}
+
+	public void save() {
 		ClienteDAO.getInstancia().save(this);
 	}
 

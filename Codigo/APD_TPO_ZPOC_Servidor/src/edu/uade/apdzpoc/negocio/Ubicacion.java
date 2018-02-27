@@ -122,5 +122,15 @@ public class Ubicacion {
 		this.capacidadInicial = capacidadInicial;
 	}
 	
+	public void actualizarUbicacion(int cantidadRestante) {
+		if (cantidadRestante >= this.getCapacidad()) {
+			this.setCapacidad(0);
+			this.setEstado(EstadoUbicacion.Libre);
+		} else {
+			this.setCapacidad(this.getCapacidad() - cantidadRestante);
+		}
+		this.save();
+	}
+	
 	
 }
