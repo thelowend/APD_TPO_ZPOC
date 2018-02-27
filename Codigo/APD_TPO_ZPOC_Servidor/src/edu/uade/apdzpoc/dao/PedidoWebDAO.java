@@ -117,6 +117,20 @@ public class PedidoWebDAO {
 		session.close();
 	}
 
+	
+	
+	public PedidoWeb saveAndFetch(PedidoWeb recuperado) {
+		PedidoWebEntity pedidoWebAPersistir = this.toEntity(recuperado);
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(pedidoWebAPersistir);
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
+		
+		return this.toNegocio(pedidoWebAPersistir);
+	}
 	public PedidoWebEntity toEntity(PedidoWeb pedidoWebNegocio) {
 		PedidoWebEntity pedidoWebEntityAPersistir = new PedidoWebEntity();
 		pedidoWebEntityAPersistir.setIdPedido(pedidoWebNegocio.getIdPedido());

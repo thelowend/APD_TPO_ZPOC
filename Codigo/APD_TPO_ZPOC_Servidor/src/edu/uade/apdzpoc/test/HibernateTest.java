@@ -3,6 +3,8 @@ package edu.uade.apdzpoc.test;
 
 import edu.uade.apdzpoc.dao.*;
 import edu.uade.apdzpoc.enums.*;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.ClienteException;
 import edu.uade.apdzpoc.negocio.*;
 
 import java.util.ArrayList;
@@ -181,5 +183,16 @@ public class HibernateTest {
         PedidoWeb pw = PedidoWebDAO.getInstancia().findByCodigo(1);
         new RemitoTransporte("Transportes Fantasticos SA", pw).save();
     }
+	
+    public static Articulo recuperarArticulo(int CodigoBarra) throws ArticuloException {
+
+		return ArticuloDAO.getInstancia().findByCodigo(CodigoBarra);
+	}
+    
+    public static Cliente recuperarCliente(int idCliente) throws ClienteException {
+
+		return ClienteDAO.getInstancia().findByCodigo(idCliente);
+	}
+    
 }
 

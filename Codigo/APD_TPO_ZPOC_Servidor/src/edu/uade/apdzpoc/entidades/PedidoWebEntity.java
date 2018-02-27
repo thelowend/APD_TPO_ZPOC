@@ -43,8 +43,8 @@ public class PedidoWebEntity {
 	@Column(name="DireccionEnvio")
 	private String direccionPedido;
 
-	@OneToMany(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    //@LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name="IdPedido")
 	private List<ItemPedidoEntity> items;
 

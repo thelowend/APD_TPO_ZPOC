@@ -18,7 +18,6 @@ package edu.uade.apdzpoc.negocio;
 import java.util.Date;
 import java.util.List;
 
-import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
@@ -27,19 +26,20 @@ import edu.uade.apdzpoc.excepciones.ProveedorException;
 public class Despacho {
 	private static Despacho instancia;
 
-	private Despacho() {}
+	private Despacho() {
+	}
 
 	public static Despacho getInstancia() {
 		if (instancia == null)
 			instancia = new Despacho();
 		return instancia;
 	}
-	
-	public void procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
-		
-		Facturacion facturacion =  Facturacion.getInstancia();
-		Almacen almacen =  Almacen.getInstancia();
-		
+
+	public PedidoWeb procesarPedidoWeb(PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+
+		Facturacion facturacion = Facturacion.getInstancia();
+		Almacen almacen = Almacen.getInstancia();
+
 		if (!facturacion.alcanzaLimiteCTA(pw)) {
 			pw.setEstadoPedido(EstadoPedido.Rechazado);
 		} else {
@@ -50,25 +50,22 @@ public class Despacho {
 				facturacion.crearFactura(pw);
 				almacen.generarRemitos(pw); // Genera la lista de ubicaciones de los artículos a retirar, CUANDO SE DESPACHE el pedido.
 			}
-			
-			// Paso por el almacen para generar los movimientos:
-			almacen.crearMovimientos(pw);
+
+			almacen.crearMovimientos(pw); // Paso por el almacen para generar los movimientos:
 		}
-		
-		pw.save(); // Guardamos el pedido
+
+		return pw.saveAndFetch();// Guardamos el pedido y lo traemos para presentarle el ID generado al usuario.
 	}
-	
+
 	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
 		// Facturación crea el Remito de Transporte
 		Facturacion.getInstancia().crearRemitoTransporte(pw, empresaTransporte);
-		
 		pw.setFechaDeEntrega(fechaEntrega);
 		pw.setEstadoPedido(EstadoPedido.Despachado);
 		pw.save();
 	}
-	
+
 	public List<PedidoWeb> obtenerPedidosParaDespachar() {
-		
 		return PedidoWeb.obtenerPedidosParaDespachar();
 	}
 }

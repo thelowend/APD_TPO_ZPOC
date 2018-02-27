@@ -59,7 +59,7 @@ public class Controlador {
 		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, direccion, articulos);
 		
 		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
-		Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
+		pedidoWeb = Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
 		
 		// Devuelvo el ID del pedido para el DTO que se enviará a la GUI del cliente:
 		return pedidoWeb.getIdPedido();
@@ -102,7 +102,7 @@ public class Controlador {
 		} else {
 			// Si fue rechazada, creo una nueva OC igual a la rechazada (porque la necesidad no desaparece):
 			ItemPedido itemPedido = new ItemPedido(oc.getArticulo(), oc.getCantidad(), EstadoItemPedido.Sin_Stock);
-			compras.crearOrdenesCompra(itemPedido, oc.getPedidoW());
+			compras.crearOrdenesCompraPorItem(itemPedido, oc.getPedidoW());
 		}
 		
 		oc.save(); // Persistimos la OC

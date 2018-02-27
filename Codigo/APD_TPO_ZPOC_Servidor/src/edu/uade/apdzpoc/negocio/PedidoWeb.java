@@ -116,6 +116,10 @@ public class PedidoWeb {
 	public void save() {
 		PedidoWebDAO.getInstancia().save(this);
 	}
+	public PedidoWeb saveAndFetch() {
+		
+		return PedidoWebDAO.getInstancia().saveAndFetch(this);
+	}
 	
 	public float calcularTotal() {
 		float totalCompra = 0f;
