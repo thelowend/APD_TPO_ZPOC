@@ -59,7 +59,7 @@ public class HibernateTest {
         Proveedor p = ProveedorDAO.getInstancia().findByNro(1);
         Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
         PedidoWeb pw = PedidoWebDAO.getInstancia().findByCodigo(1);
-        new OrdenCompra(p, a, pw).save();
+      //  new OrdenCompra(p, a, pw).save();
     }
 
     private static void movimientosAjuste() throws Exception {
