@@ -34,10 +34,13 @@ public class DespacharPedidoAction implements IAction {
         
         System.out.println(idPedidoWeb);
         
-//        PedidoWebDTO pwDTO = new PedidoWebDTO(Integer idPedido, ClienteDTO cliente, Date fechaGeneracion, Date fechaDespacho,
-//				Date fechaDeEntrega, EstadoPedido estadoPedido, String direccionPedido, List<ItemPedidoDTO> items)
-//        		
-//        BusinessDelegate.getInstancia().despacharPedido(pwDTO, fechaEntrega, empresaTransporte);
+        //ClienteDTO clienteDTO = new CLienteDTO(int idCliente, int documento, String nombre);
+        
+        
+        PedidoWebDTO pwDTO = new PedidoWebDTO(idPedidoWeb, clienteDTO, fechaGen, new Date(),
+        		fechaEntrega, EstadoPedido.Despachado, String direccionPedido, List<ItemPedidoDTO> items)
+        		
+        BusinessDelegate.getInstancia().despacharPedido(pwDTO, fechaEntrega, empresaTransporte);
         		
 //    	List<PedidoWebDTO> pedidosPendientes = new ArrayList<>();
 //    	try {
