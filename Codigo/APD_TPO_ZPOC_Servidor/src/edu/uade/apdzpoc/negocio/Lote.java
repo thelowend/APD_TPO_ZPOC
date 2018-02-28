@@ -19,8 +19,12 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.LoteDAO;
+import edu.uade.apdzpoc.dto.LoteDTO;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.LoteException;
 import edu.uade.apdzpoc.excepciones.UbicacionException;
+import edu.uade.apdzpoc.util.DTOMapper;
 
 public class Lote {
 	
@@ -137,6 +141,13 @@ public class Lote {
 //			u.setCapacidad(u.getCapacidad() - cantidadRestante);
 //		}
 //	}
+	public Lote dtoLotetoNegocio (LoteDTO l) throws LoteException, ArticuloException{
+		return DTOMapper.getInstancia().dtoLotetoNegocio(l);
+	}
 
+	public LoteDTO loteToDTO (Lote lote){
+		return  DTOMapper.getInstancia().loteToDTO(lote);
+	
+	}
 
 }

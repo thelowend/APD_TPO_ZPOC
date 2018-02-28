@@ -103,8 +103,13 @@ public class Controlador {
 	}
 	
 	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws OrdenCompraException, LoteException, ArticuloException {
-		OrdenCompra ordenCompra = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
-		Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+		//OrdenCompra ordenCompra = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
+		OrdenCompra ordenCompra = null;
+		ordenCompra =ordenCompra.dtoOrdenCompraToNegocio(oc);
+		
+		//Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+		Lote lot = null;
+		lot = lot.dtoLotetoNegocio(lote);
 		Compras.getInstancia().validarOrdenCompra(ordenCompra, estadoOC, lot);
 	}
 	
