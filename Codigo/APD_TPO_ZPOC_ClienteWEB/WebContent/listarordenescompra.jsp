@@ -24,7 +24,7 @@
 					String id;
 					String fechagen;
 					String clienteid;
-					String ordenJSONstr;
+					String ordenJSONstr = "";
 					
 					for (Iterator<OrdenCompraDTO> i = ocs.iterator(); i.hasNext();) {
 						aux = i.next();
