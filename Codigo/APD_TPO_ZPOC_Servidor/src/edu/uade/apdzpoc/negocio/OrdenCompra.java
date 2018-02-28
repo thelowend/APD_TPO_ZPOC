@@ -38,11 +38,12 @@ public class OrdenCompra {
 	private PedidoWeb pedidoW;
 	private Date fecha;
 
-	public OrdenCompra(Proveedor proveedor, Articulo articulo, PedidoWeb pedidoW) {
+	public OrdenCompra(Proveedor proveedor, Articulo articulo, PedidoWeb pedidoW, Date fecha) {
 		this.proveedor = proveedor;
 		this.cantidad = articulo.getCantidadCompra();
 		this.articulo = articulo;
 		this.pedidoW = pedidoW;
+		this.fecha = fecha;
 		this.estado = EstadoOC.Pendiente;
 	}
 

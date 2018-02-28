@@ -16,6 +16,7 @@
 package edu.uade.apdzpoc.negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.enums.EstadoOC;
@@ -48,7 +49,7 @@ public class Compras {
 		
 		// Genero ordenes de compra hasta cubrir los items pedidos
 		for(int cantidadItem = ip.getCantidad(); cantidadItem > 0; cantidadItem -= articulo.getCantidadCompra()) {
-			OrdenCompra oc = new OrdenCompra(proveedor, articulo, pw);
+			OrdenCompra oc = new OrdenCompra(proveedor, articulo, pw, new Date());
 			result.add(oc);
 			oc.save();
 		}
@@ -58,6 +59,12 @@ public class Compras {
 
 	public List<OrdenCompra> obtenerOCParaValidar() {
 		return OrdenCompra.obtenerOCParaValidar();
+	}
+
+	public void procesarOrdenCompraPendiente(OrdenCompra oc, EstadoOC estadoOC, Lote lote) {
+		oc.setEstado(estadoOC);
+		oc.setLote(lote);
+		oc.save();
 	}
 	
 

@@ -37,6 +37,7 @@ import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
 import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
 import edu.uade.apdzpoc.excepciones.ProveedorException;
 import edu.uade.apdzpoc.excepciones.UbicacionException;
 
@@ -57,11 +58,21 @@ public class Controlador {
 		
 		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, direccion, articulos).saveAndFetch();
 		
-		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
-		Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
-		
 		// Devuelvo el ID del pedido para el DTO que se enviará a la GUI del cliente:
 		return pedidoWeb.getIdPedido();
+	}
+	
+	public PedidoWeb obtenerPedidoWeb(int idPedido) throws PedidoWebException {
+		return Despacho.getInstancia().obtenerPedidoWeb(idPedido);
+	}
+	
+	public void procesarPedidoWeb(PedidoWeb pedidoWeb) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
+		Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
+	}
+	
+	public void procesarOrdenCompraPendiente(OrdenCompra oc, EstadoOC estadoOC, Lote lote) {
+		Compras.getInstancia().procesarOrdenCompraPendiente(oc, estadoOC, lote);
 	}
 	
 	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {

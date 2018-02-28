@@ -83,7 +83,7 @@ public class ItemPedido {
 	}
 
 	public MovimientoPedido crearMovimientoPedido(PedidoWeb pw) {
-		return this.getArticulo().crearMovimientoPedido(this.getCantidad(), pw);
+		return this.getArticulo().crearMovimientoPedido(this.getCantidad(), pw); //
 	}
 
 }

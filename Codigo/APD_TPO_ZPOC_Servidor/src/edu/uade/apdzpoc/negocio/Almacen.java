@@ -60,7 +60,7 @@ public class Almacen {
 			} else {
 				List<OrdenCompra> loc = Compras.getInstancia().crearOrdenesCompraPorItem(item, pw); // Genero las OC
 				for (OrdenCompra oc : loc)
-					movimientos.add(oc.getArticulo().crearMovimientoCompra(oc));
+					movimientos.add(oc.getArticulo().crearMovimientoCompraPendiente(oc));
 			}
 		}
 
