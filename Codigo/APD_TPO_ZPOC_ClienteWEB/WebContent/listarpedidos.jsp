@@ -21,37 +21,26 @@
 			</thead>
 			<tbody>
 				<%
-				
-					/* testing with hardcoded data */
-					/*
-					List<PedidoWebDTO> test = new ArrayList<>();
-					ClienteDTO testc = new ClienteDTO(1, 12345678, "Juan Pérez");
-					Date fecha = new Date();
-					PedidoWebDTO testp = new PedidoWebDTO(1, testc, fecha, null, null, EstadoPedido.Pendiente_Despacho, null,
-							null);
-
-					PedidoWebDTO testp2 = new PedidoWebDTO(2, testc, fecha, null, null, EstadoPedido.Pendiente_Despacho, null,
-							null);
-					test.add(testp);
-					test.add(testp2);
-					*/
-					
 					List<PedidoWebDTO> pedidos = (List<PedidoWebDTO>) request.getAttribute("pedidosPendientes");
 					PedidoWebDTO aux;
 					String id;
+					String fechagen;
 					String clienteid;
+					String pedidoJSONstr;
 					
 					for (Iterator<PedidoWebDTO> i = pedidos.iterator(); i.hasNext();) {
 						aux = i.next();
 						id = aux.getIdPedido().toString();
+						fechagen = aux.getFechaGeneracion().toString();
 						clienteid = String.valueOf(aux.getCliente().getIdCliente());
+						pedidoJSONstr = aux.toJSONString();
 				%>
 				<tr>
 					<th scope="row"><%=aux.getIdPedido()%></th>
 					<td><%=aux.getCliente().getNombre()%></td>
-					<td><%=aux.getFechaGeneracion().toString()%></td>
-					<td><button class="btn-dark btn-despachar"
-							data-pedido='{ "id": <%=id%>, "cliente": <%=clienteid%>}'>Despachar</button>
+					<td><%=fechagen%></td>
+					<td><button class="btn btn-sm btn-dark btn-despachar"
+							data-pedido='<%=pedidoJSONstr%>'><i class="fas fa-cubes"></i> Despachar</button>
 				</tr>
 				<% } %>
 			</tbody>

@@ -114,7 +114,8 @@ public class Controlador {
 	}
 	
 	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) throws PedidoWebException {
-		PedidoWeb pedido = DTOMapper.getInstancia().dtoPedidoWebToNegocio(pw);
+		PedidoWeb pedido  = null;
+		pedido = pedido.dtoPedidoWebToNegocio(pw);
 		
 		Despacho.getInstancia().despacharPedido(pedido, fechaEntrega, empresaTransporte);
 	}
@@ -129,7 +130,8 @@ public class Controlador {
 		pedidosNegocio = Despacho.getInstancia().obtenerPedidosParaDespachar();
 		for(PedidoWeb p: pedidosNegocio)
 		{
-			resultado.add(DTOMapper.getInstancia().pedidoWebToDTO(p));
+			//resultado.add(DTOMapper.getInstancia().pedidoWebToDTO(p));
+			resultado.add(p.pedidoWebToDTO(p));
 		}
 		return resultado;
 	}
@@ -142,7 +144,8 @@ public class Controlador {
 		ocsNegocio = Compras.getInstancia().obtenerOCParaValidar();
 		for(OrdenCompra oc: ocsNegocio)
 		{
-			resultado.add(DTOMapper.getInstancia().ordenCompraToDTO(oc));
+			resultado.add(oc.ordenCompraToDTO(oc));
+			//resultado.add(DTOMapper.getInstancia().ordenCompraToDTO(oc));
 		}
 				
 		return resultado;
@@ -154,7 +157,9 @@ public class Controlador {
 		}
 
 	public void procesarRemitoAlmacen(RemitoAlmacenDTO remito) throws RemitoAlmacenException{
-		RemitoAlmacen ra = DTOMapper.getInstancia().dtoRemitoAlmacenToNegocio(remito);
+		RemitoAlmacen ra = null;
+		ra=ra.dtoRemitoAlmacenToNegocio(remito);
+		//RemitoAlmacen ra = DTOMapper.getInstancia().dtoRemitoAlmacenToNegocio(remito);
 		Almacen.getInstancia().ProcesarRemito(ra);
 	}
 	
@@ -166,10 +171,12 @@ public class Controlador {
 		Lote lot = null;
 				
 				
-		OrdenCompra ordenCompraNegocio = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
+		//OrdenCompra ordenCompraNegocio = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
+		OrdenCompra ordenCompraNegocio = null;
+		ordenCompraNegocio=ordenCompraNegocio.dtoOrdenCompraToNegocio(oc);
 		if(lote == null)
 		{
-			lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+			lot =lot.dtoLotetoNegocio(lote);
 		}
 		
 		// Compras valida el estado de la orden de compra:
@@ -195,15 +202,18 @@ public class Controlador {
 	// Ingresar pago de cliente para poder actualizar su cuenta corriente
 	
 	public void ingresarPagoCliente(PagoClienteDTO pago) throws FacturaException {
-		PagoCliente p = DTOMapper.getInstancia().dtoPagoClienteToNegocio(pago);
+		//PagoCliente p = DTOMapper.getInstancia().dtoPagoClienteToNegocio(pago);
+		PagoCliente p =null;
+		p=p.dtoPagoClienteToNegocio(pago);
 		
 		Facturacion.getInstancia().ingresarPagoCliente(p);
 	}
 	
 	// En el bd vamos a recibir loteDTO, etc. 
 	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, LoteDTO lote, DestinoArticulos destino) throws ArticuloException, LoteException {
-		Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
-		
+		//Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+		Lote lot = null;
+		lot = lot .dtoLotetoNegocio(lote);
 		Almacen.getInstancia().actualizarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lot, destino);
 	}
 	

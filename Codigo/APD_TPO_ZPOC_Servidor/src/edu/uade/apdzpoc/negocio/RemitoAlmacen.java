@@ -19,8 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.RemitoAlmacenDAO;
+import edu.uade.apdzpoc.dto.ItemRemitoAlmacenDTO;
+import edu.uade.apdzpoc.dto.RemitoAlmacenDTO;
 import edu.uade.apdzpoc.enums.EstadoRemito;
 import edu.uade.apdzpoc.enums.TipoRemitoAlmacen;
+import edu.uade.apdzpoc.excepciones.RemitoAlmacenException;
+import edu.uade.apdzpoc.util.DTOMapper;
 
 public class RemitoAlmacen {
 
@@ -124,5 +128,16 @@ public class RemitoAlmacen {
 	public static List<RemitoAlmacen> obtenerRemitosParaProcesar() {
 		return RemitoAlmacenDAO.getInstancia().findByEstado(EstadoRemito.Pendiente.toString());
 	}
+	
+	public RemitoAlmacen dtoRemitoAlmacenToNegocio (RemitoAlmacenDTO ra) throws RemitoAlmacenException{
+		return DTOMapper.getInstancia().dtoRemitoAlmacenToNegocio(ra);
+	}
+
+	
+	public RemitoAlmacenDTO remitoAlmacenToDTO (RemitoAlmacen remitoAlmacen){
+		return  DTOMapper.getInstancia().remitoAlmacenToDTO(remitoAlmacen);
+	}
+	
+	
 
 }
