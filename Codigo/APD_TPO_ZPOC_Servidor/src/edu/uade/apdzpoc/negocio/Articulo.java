@@ -241,9 +241,7 @@ public class Articulo {
 	
 	public ArticuloDTO articuloToDTO (Articulo articulo){
 		
-		ArticuloDTO artDTO =  DTOMapper.getInstancia().articuloToDTO(articulo);
-		
-		return artDTO;
+		return  DTOMapper.getInstancia().articuloToDTO(articulo);
 	}
 	
 	

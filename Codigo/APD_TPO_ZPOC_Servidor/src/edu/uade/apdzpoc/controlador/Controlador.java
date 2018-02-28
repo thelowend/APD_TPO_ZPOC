@@ -97,9 +97,9 @@ public class Controlador {
 	public void procesarPedidoWeb(PedidoWebDTO pedidoWeb) throws ArticuloException, ArticuloProveedorException, ProveedorException, PedidoWebException {
 		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
 		
-		PedidoWeb p = DTOMapper.getInstancia().dtoPedidoWebToNegocio(pedidoWeb);
-		
-		Despacho.getInstancia().procesarPedidoWeb(p);
+		//PedidoWeb p = DTOMapper.getInstancia().dtoPedidoWebToNegocio(pedidoWeb);
+		PedidoWeb p = null;
+		Despacho.getInstancia().procesarPedidoWeb(p.dtoPedidoWebToNegocio(pedidoWeb));
 	}
 	
 	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws OrdenCompraException, LoteException, ArticuloException {
