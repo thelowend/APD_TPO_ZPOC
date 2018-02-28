@@ -1,6 +1,6 @@
 (() => {
 	$(() =>{
-		const $main = $('#main');
+		const $main = $('#main').removeClass('modal-body');
 		const $btnPedido = $('.btn-despachar');
 		const $modalDespachar = $('#dispatchPedidoModal');
 		const $submitPedido = $('#submitPedido');
@@ -16,7 +16,7 @@
 		}
 		
 		const validar = () => {
-			const fechaGen = new Date(currentPedido.fechagen);
+			const fechaGen = new Date(currentPedido.fechaGeneracion);
 			$modalDespachar.find('.needs-validation').each((index, item) => {
 				switch (item.type) {
 					case 'date':
@@ -40,20 +40,24 @@
 					fechaEntrega: $modalDespachar.find('#fechaentrega').val(),
 					empresatransporte: $modalDespachar.find('#empresaTransporteSelect').val()
 				});
-				
+
 				$.post('ActionServlet?action=DespacharPedido', currentPedido, page => {
 					setTimeout((data) => { //Timeout para simular carga
-						alert(`¡${currentPedido.nombre} despachado!`);
+						
+						//alert(`¡${currentPedido.idPedido} despachado!`);
+						$modalDespachar.one('hidden.bs.modal', function (e) {
+							$main.html(page);
+						});
 						$modalDespachar.modal('hide');
-						$main.html(page);
-					}, 200);
+						
+					}, 100);
 				});				
 			}
 		}
 		
 		const populateModal = pedido => {
 			currentPedido = pedido; //Despues voy a hacer que pedido sea un JSON
-			$modalDespachar.find('#dispatchPedidoModalLabel').text(`¿Despachar pedido ${currentPedido.id}?`);
+			$modalDespachar.find('#dispatchPedidoModalLabel').text(`¿Despachar pedido ${currentPedido.idPedido}?`);
 			$modalDespachar.find('.needs-validation').removeClass('is-invalid');
 			console.log(pedido);
 		}

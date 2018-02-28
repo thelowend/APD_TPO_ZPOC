@@ -62,7 +62,6 @@ Insert into ItemsFactura values (5, 1500,10000,4)
 Insert into ItemsFactura values (1, 175	,10400,4)
 Insert into ItemsFactura values (5, 1750,10200,4)
 
-
 Insert into PedidosWeb values ('20180201','20180202','20180203', 'Entregado','Rivadavia 7376',1)
 Insert into PedidosWeb values ('20180202','20180203','20180204', 'Entregado','Boedo 150',2)
 Insert into PedidosWeb values ('20180203','20180204','20180205', 'Entregado','Puan 566',3)

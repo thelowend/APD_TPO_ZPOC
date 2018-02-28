@@ -1,3 +1,11 @@
+<%@ page import="java.util.Iterator"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="edu.uade.apdzpoc.dto.ArticuloDTO"%>
+<%@ page import="java.util.Date"%>
+
+
+
 <article class="container grid col-12 col-md-10 mt-2">
 	<h1>Ingresar Pedido:</h1>
 
@@ -8,6 +16,8 @@
 					<th scope="col">#</th>
 					<th scope="col">Art&iacute;culo</th>
 					<th scope="col">Descripci&oacuten</th>
+					<th scope="col">Precio Venta</th>
+					<th scope="col">Tama&ntilde;o</th>
 					<th scope="col">Acciones</th>
 				</tr>
 			</thead>
@@ -21,7 +31,6 @@
 					String nombreArticulo;
 					String descripcion;
 					String precioVenta;
-					String presentacion;
 					String tamanio;
 					
 					
@@ -31,8 +40,7 @@
 						codigoBarra = String.valueOf(aux.getCodigoBarra());
 						nombreArticulo = aux.getNombreArticulo();
 						descripcion = aux.getDescripcion();
-						precioVenta = String.valueOf(aux.getPrevioVenta());
-						presentacion = aux.getPresentacion();
+						precioVenta = String.valueOf(aux.getPrecioVenta());
 						tamanio = aux.getTamanio();
 												
 						
@@ -41,12 +49,11 @@
 					<th scope="row"><%=aux.getCodigoBarra()%></th>
 					<td><%=aux.getNombreArticulo()%></td>
 					<td><%=aux.getDescripcion()%></td>
-					<td><%=aux.getPrevioVenta()%></td>
-					<td><%=aux.aux.getPresentacion()%></td>
+					<td><%=aux.getPrecioVenta()%></td>
 					<td><%=aux.getTamanio()%></td>
 					
 					<td><button class="btn btn-sm btn-dark btn-anadir"
-							data-articulo='{ "id": "<%=codigoBarra%>", "nombre": "<%= aux.getNombreArticulo() %>" }'><i class="fas fa-cubes"></i> Despachar</button>
+							data-articulo='{ "id": "<%=codigoBarra%>", "nombre": "<%= aux.getNombreArticulo() %>" }'><i class="fas fa-cubes"></i> Agregar</button>
 				</tr>
 				<% } %>
 			
