@@ -2,10 +2,18 @@ package edu.uade.apdzpoc.remoto;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import edu.uade.apdzpoc.controlador.Controlador;
+import edu.uade.apdzpoc.dao.ArticuloDAO;
+import edu.uade.apdzpoc.dao.OrdenCompraDAO;
+import edu.uade.apdzpoc.dao.PedidoWebDAO;
+import edu.uade.apdzpoc.dto.ArticuloDTO;
+import edu.uade.apdzpoc.dto.ArticuloStockDTO;
+
 import edu.uade.apdzpoc.dto.ClienteDTO;
 import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.dto.LoteDTO;
@@ -25,6 +33,12 @@ import edu.uade.apdzpoc.excepciones.PedidoWebException;
 import edu.uade.apdzpoc.excepciones.ProveedorException;
 import edu.uade.apdzpoc.excepciones.UbicacionException;
 import edu.uade.apdzpoc.interfaces.InterfazRemota;
+import edu.uade.apdzpoc.negocio.Articulo;
+import edu.uade.apdzpoc.negocio.Cliente;
+import edu.uade.apdzpoc.negocio.Despacho;
+import edu.uade.apdzpoc.negocio.Facturacion;
+import edu.uade.apdzpoc.negocio.OrdenCompra;
+import edu.uade.apdzpoc.negocio.PedidoWeb;
 
 /**
  * 
@@ -106,5 +120,40 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		Controlador.getInstancia().ingresarPagoCliente(pago);
 		
 	}
+	
+	
+	//Lista de Articulos para que se pueda hacer el pedido
+		public List<ArticuloDTO> obtenerArticulosParaPublicar() throws RemoteException {
+			return Controlador.getInstancia().obtenerArticulosParaPublicar();
+					}
+
+		
+
+		//Lista de Clientes para Asociar los Pagos / Factura
+		
+		
+			public List<ClienteDTO> obtenerClientesParaPublicar() throws RemoteException {
+				return Controlador.getInstancia().obtenerClientesParaPublicar();
+						}
+		//TODO: detalles de Pedido WEB
+			
+			public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException {
+				return Controlador.getInstancia().obtenerPedidoWebParaPublicar(idPedido);
+			}
+		
+		//TODO: detalles de Orden de Compra
+
+			public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException {
+				return Controlador.getInstancia().obtenerOrdenCompraParaPublicar(idOC);
+			}	
+				
+												
+		//TODO: detalles de Articulo por su Stock
+		
+			public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException {
+				return Controlador.getInstancia().obtenerDetalleStockdeArticulo(codigoBarra);
+			}	
+			
+	
 
 }

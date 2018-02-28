@@ -1,3 +1,9 @@
+<%@ page import="java.util.Iterator"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="edu.uade.apdzpoc.dto.OrdenCompraDTO"%>
+<%@ page import="java.util.Date"%>
+
 <article class="container grid col-12 col-md-10 mt-2">
 	<h1>&Oacute;rdenes de Compra:</h1>
 
@@ -30,8 +36,8 @@
 				%>
 				<tr class="orden-row">
 					<th scope="row"><%=aux%></th>
-					<td><%=aux.getCliente().getNombre()%></td>
-					<td><%=fechagen%></td>
+					<td><%=aux.getIdOC()%></td>
+					<td><%=aux.getFecha().toString()%></td>
 					<td><button class="btn btn-sm btn-warning btn-validar"
 							data-pedido='<%=ordenJSONstr%>'><i class="fas fa-cubes"></i> Validar</button>
 				</tr>

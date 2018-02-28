@@ -21,6 +21,7 @@ import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.dto.ArticuloDTO;
+import edu.uade.apdzpoc.dto.ArticuloStockDTO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
@@ -239,9 +240,23 @@ public class Articulo {
 		}
 	
 	
-	public ArticuloDTO articuloToDTO (Articulo articulo){
+	public static ArticuloDTO articuloToDTO (Articulo articulo){
 		
 		return  DTOMapper.getInstancia().articuloToDTO(articulo);
+	}
+
+	public static ArticuloStockDTO articuloStockToDTO (Articulo articulo){
+		
+		ArticuloStockDTO artDTO =  DTOMapper.getInstancia().articuloStockToDTO(articulo);
+		
+		return artDTO;
+	}
+
+	
+	
+	public static List<Articulo> getArticulos() {
+		List <Articulo> articulos = ArticuloDAO.getInstancia().getAll();
+		return articulos;
 	}
 	
 	

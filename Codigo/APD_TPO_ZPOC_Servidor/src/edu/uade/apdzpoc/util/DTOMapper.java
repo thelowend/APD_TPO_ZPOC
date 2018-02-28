@@ -12,6 +12,7 @@ import edu.uade.apdzpoc.dao.OrdenCompraDAO;
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.dao.RemitoAlmacenDAO;
 import edu.uade.apdzpoc.dto.ArticuloDTO;
+import edu.uade.apdzpoc.dto.ArticuloStockDTO;
 import edu.uade.apdzpoc.dto.ClienteDTO;
 import edu.uade.apdzpoc.dto.CuentaCorrienteDTO;
 import edu.uade.apdzpoc.dto.ItemPedidoDTO;
@@ -74,6 +75,15 @@ public class DTOMapper {
 		ArticuloDTO artDTO = new ArticuloDTO(articulo.getCodigoBarra(),articulo.getNombreArticulo(),articulo.getDescripcion(), articulo.getPrecioVenta(), articulo.getPresentacion(), articulo.getTamanio()); 
 		
 		return artDTO;
+	}
+	
+	
+	
+	public ArticuloStockDTO articuloStockToDTO (Articulo articulo){
+		
+		ArticuloStockDTO artStockDTO = new ArticuloStockDTO(articulo.getCodigoBarra(),articulo.getNombreArticulo(),articulo.getDescripcion(), articulo.getPrecioVenta(), articulo.getPresentacion(), articulo.getTamanio(), articulo.getStockFisico(), articulo.getStockVirtual(), articulo.getStockDisponible(), articulo.getStockPendienteEntrega()); 
+		
+		return artStockDTO;
 	}
 	
 	
