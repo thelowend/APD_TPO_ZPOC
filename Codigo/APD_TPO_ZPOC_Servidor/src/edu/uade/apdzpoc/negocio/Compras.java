@@ -35,10 +35,12 @@ public class Compras {
 		return instancia;
 	}
 	
-	public void validarOrdenCompra(OrdenCompra oc, EstadoOC estado) {
+	public void validarOrdenCompra(OrdenCompra oc, EstadoOC estado, Lote lote) {
 		oc.setEstado(estado);
+		oc.setLote(lote);
+		oc.save();
 	}
-
+	
 	public List<OrdenCompra> crearOrdenesCompraPorItem(ItemPedido ip, PedidoWeb pw) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		
 		List<OrdenCompra> result = new ArrayList<>();
@@ -61,12 +63,12 @@ public class Compras {
 		return OrdenCompra.obtenerOCParaValidar();
 	}
 
-	public void procesarOrdenCompraPendiente(OrdenCompra oc, EstadoOC estadoOC, Lote lote) {
+	/*public void procesarOrdenCompraPendiente(OrdenCompra oc, EstadoOC estadoOC, Lote lote) {
 		oc.setEstado(estadoOC);
 		oc.setLote(lote);
 		oc.save();
 	}
-	
+	*/
 
 
 }

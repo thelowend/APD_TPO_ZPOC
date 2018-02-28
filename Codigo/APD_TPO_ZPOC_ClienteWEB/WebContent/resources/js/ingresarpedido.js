@@ -13,16 +13,24 @@
 			confirm("confirmar pedido?");
 		}
 		
+		const carrito = ($this) => {
+			return () => {
+				
+			}
+		}
+		
 		
 		
 
 		const doBindings = () => {
 			
 			$btnPedido.click(ingresarPedido);
-			
-			plus-art
-			min-art
-			remove-art
+			$plusArt = $('.plus-art');
+			$minArt = $('.min-art');
+			$removeArt = $('.remove-art');
+			$('.plus-art').click(carrito.apply($plusArt));
+			$('.min-art').click(carrito.apply($minArt));
+			$('.remove-art').click(carrito.apply($removeArt));
 		}
 		
 		doBindings();

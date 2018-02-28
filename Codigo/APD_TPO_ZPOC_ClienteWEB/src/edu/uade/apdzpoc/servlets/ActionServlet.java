@@ -4,6 +4,10 @@ import edu.uade.apdzpoc.actions.IAction;
 import edu.uade.apdzpoc.actions.ListarRemitosAction;
 import edu.uade.apdzpoc.actions.NotFoundAction;
 import edu.uade.apdzpoc.actions.SeleccionarRemitoAction;
+import edu.uade.apdzpoc.dto.PedidoWebDTO;
+import edu.uade.apdzpoc.excepciones.ComunicationException;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
+import edu.uade.apdzpoc.negociodelegado.BusinessDelegate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,6 +52,13 @@ public class ActionServlet extends HttpServlet {
         if ("IngresarPedido".equals(action)) {
             jspPage = "/ingresarpedido.jsp";
         } else if ("ListarPedidos".equals(action)) {
+        	List<PedidoWebDTO> pedidosPendientes = new ArrayList<>();
+        	try {
+				 pedidosPendientes = BusinessDelegate.getInstancia().obtenerPedidosParaDespachar();
+			} catch (ComunicationException e) {
+				e.printStackTrace();
+			}
+        	request.setAttribute("pedidosPendientes", pedidosPendientes);
             jspPage = "/listarpedidos.jsp";
         } else if ("IngresarOrdenCompra".equals(action)) {
             jspPage = "/ingresarcompra.jsp";
@@ -58,7 +69,6 @@ public class ActionServlet extends HttpServlet {
         } else if ("IngresarPagoCliente".equals(action)) {
             jspPage = "/ingresarpago.jsp";
         } else if ("DespacharPedido".equals(action)) {
-    		String test = request.getParameter("id");
             jspPage = "/listarpedidos.jsp";
         } else if ("ListarRemitos".equals(action)) {
             IAction found = NotFoundAction.NOT_FOUND_ACTION;

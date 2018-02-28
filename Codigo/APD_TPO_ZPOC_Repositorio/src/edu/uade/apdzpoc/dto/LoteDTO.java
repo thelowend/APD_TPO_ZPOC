@@ -16,14 +16,14 @@ public class LoteDTO implements Serializable {
 	private Integer nroLote;
 	private Date vencimiento;
 	private ArticuloDTO articulo;
-	private List<UbicacionDTO> ubicaciones;
+//	private List<UbicacionDTO> ubicaciones;
 	
-	public LoteDTO(Integer nroLote, Date vencimiento, ArticuloDTO articulo, List<UbicacionDTO> ubicaciones) {
+	public LoteDTO(Integer nroLote, Date vencimiento, ArticuloDTO articulo) {
 		super();
 		this.nroLote = nroLote;
 		this.vencimiento = vencimiento;
 		this.articulo = articulo;
-		this.ubicaciones = ubicaciones;
+		
 	}
 	public Integer getNroLote() {
 		return nroLote;
@@ -43,12 +43,12 @@ public class LoteDTO implements Serializable {
 	public void setArticulo(ArticuloDTO articulo) {
 		this.articulo = articulo;
 	}
-	public List<UbicacionDTO> getUbicaciones() {
+	/*public List<UbicacionDTO> getUbicaciones() {
 		return ubicaciones;
 	}
 	public void setUbicaciones(List<UbicacionDTO> ubicaciones) {
 		this.ubicaciones = ubicaciones;
-	}
+	}*/
 	@Override
 	public String toString() {
 		return "LoteDTO [nroLote=" + nroLote + ", vencimiento=" + vencimiento + ", articulo=" + articulo + "]";
