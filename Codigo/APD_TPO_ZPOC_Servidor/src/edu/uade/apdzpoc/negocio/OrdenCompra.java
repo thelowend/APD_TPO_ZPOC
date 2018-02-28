@@ -206,7 +206,7 @@ public class OrdenCompra {
 		return DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
 	}
 	
-	public OrdenCompraDTO ordenCompraToDTO (OrdenCompra oc){
+	public static OrdenCompraDTO ordenCompraToDTO (OrdenCompra oc){
 		return  DTOMapper.getInstancia().ordenCompraToDTO(oc);
 	}
 	

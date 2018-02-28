@@ -10,12 +10,12 @@ public class Servidor {
 
 	public static void main(String[] args) {
 		
-	//	System.setProperty("java.security.policy", "java.policy"); 
+	System.setProperty("java.security.policy", "java.policy"); 
 		InterfazRemota objetoRemoto;
 		
 			try {
 				objetoRemoto = new ObjetoRemoto();
-				LocateRegistry.createRegistry(8083);
+				LocateRegistry.createRegistry(1100);
 				Naming.rebind("//localhost/Remoto", objetoRemoto);
 				System.out.println("Fijado en //localhost/Remoto");
 			} catch (Exception e) {
