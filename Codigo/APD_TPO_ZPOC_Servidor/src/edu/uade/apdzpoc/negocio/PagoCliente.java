@@ -2,8 +2,12 @@ package edu.uade.apdzpoc.negocio;
 
 import java.util.Date;
 
+import edu.uade.apdzpoc.dao.FacturaDAO;
 import edu.uade.apdzpoc.dao.PagoClienteDAO;
+import edu.uade.apdzpoc.dto.PagoClienteDTO;
 import edu.uade.apdzpoc.enums.MedioPago;
+import edu.uade.apdzpoc.excepciones.FacturaException;
+import edu.uade.apdzpoc.util.DTOMapper;
 
 public class PagoCliente {
 
@@ -75,4 +79,11 @@ public class PagoCliente {
 	public void save() {
 		PagoClienteDAO.getInstancia().save(this);
 	}
+	
+	public PagoCliente dtoPagoClienteToNegocio (PagoClienteDTO pago) throws FacturaException
+	{
+		return DTOMapper.getInstancia().dtoPagoClienteToNegocio(pago);	
+	}
+	
+	
 }

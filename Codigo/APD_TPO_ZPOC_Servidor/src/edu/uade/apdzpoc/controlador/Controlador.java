@@ -208,15 +208,18 @@ public class Controlador {
 	// Ingresar pago de cliente para poder actualizar su cuenta corriente
 	
 	public void ingresarPagoCliente(PagoClienteDTO pago) throws FacturaException {
-		PagoCliente p = DTOMapper.getInstancia().dtoPagoClienteToNegocio(pago);
+		//PagoCliente p = DTOMapper.getInstancia().dtoPagoClienteToNegocio(pago);
+		PagoCliente p =null;
+		p=p.dtoPagoClienteToNegocio(pago);
 		
 		Facturacion.getInstancia().ingresarPagoCliente(p);
 	}
 	
 	// En el bd vamos a recibir loteDTO, etc. 
 	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, LoteDTO lote, DestinoArticulos destino) throws ArticuloException, LoteException {
-		Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
-		
+		//Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+		Lote lot = null;
+		lot = lot .dtoLotetoNegocio(lote);
 		Almacen.getInstancia().actualizarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lot, destino);
 	}
 	
