@@ -59,11 +59,14 @@ public class ActionServlet extends HttpServlet {
         } else if ("IngresarPagoCliente".equals(action)) {
             jspPage = "/ingresarpago.jsp";
         } else if ("ListarRemitos".equals(action)) {
-            jspPage = this.actions.stream()
-                    .filter(a -> a.isValid(action))
-                    .findFirst()
-                    .orElse(NotFoundAction.NOT_FOUND_ACTION)
-                    .doAction(request, response);
+            IAction found = NotFoundAction.NOT_FOUND_ACTION;
+            for (IAction a : this.actions) {
+                if (a.isValid(action)) {
+                    found = a;
+                    break;
+                }
+            }
+            jspPage = found.doAction(request, response);
         }
 
         dispatch(jspPage, request, response);
