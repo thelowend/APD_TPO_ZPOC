@@ -8,6 +8,7 @@ import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
 import edu.uade.apdzpoc.excepciones.ClienteException;
 import edu.uade.apdzpoc.excepciones.ComunicationException;
+import edu.uade.apdzpoc.excepciones.FacturaException;
 import edu.uade.apdzpoc.excepciones.LoteException;
 import edu.uade.apdzpoc.excepciones.OrdenCompraException;
 import edu.uade.apdzpoc.excepciones.PedidoWebException;
@@ -139,7 +140,7 @@ public List<PedidoWebDTO>  obtenerPedidosParaProcesar() throws ComunicationExcep
 		}
 	}
 	
-	public void ingresarPagoCliente(PagoClienteDTO pago) throws ComunicationException {
+	public void ingresarPagoCliente(PagoClienteDTO pago) throws ComunicationException, FacturaException {
 		try {
 			referenciaRemota.ingresarPagoCliente(pago);
 		}catch (RemoteException e){
