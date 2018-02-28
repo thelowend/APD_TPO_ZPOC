@@ -180,7 +180,7 @@ public List<PedidoWebDTO>  obtenerPedidosParaProcesar() throws ComunicationExcep
 					
 	//TODO: detalles de Pedido WEB
 		
-		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException, ComunicationException{
+		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException, ComunicationException, PedidoWebException{
 			try {
 			return referenciaRemota.obtenerPedidoWebParaPublicar(idPedido);
 		}catch (RemoteException e){
@@ -189,7 +189,7 @@ public List<PedidoWebDTO>  obtenerPedidosParaProcesar() throws ComunicationExcep
 		}
 	//TODO: detalles de Orden de Compra
 
-		public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException, ComunicationException{
+		public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException, ComunicationException, OrdenCompraException{
 			try{
 			return referenciaRemota.obtenerOrdenCompraParaPublicar(idOC);
 			}catch (RemoteException e){
@@ -199,7 +199,7 @@ public List<PedidoWebDTO>  obtenerPedidosParaProcesar() throws ComunicationExcep
 											
 	//TODO: detalles de Articulo por su Stock
 	
-		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ComunicationException{
+		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ComunicationException, ArticuloException{
 		try{
 			return referenciaRemota.obtenerDetalleStockdeArticulo(codigoBarra);
 		

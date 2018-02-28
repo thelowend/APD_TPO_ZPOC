@@ -277,27 +277,27 @@ public class Controlador {
 	//TODO: detalles de Pedido WEB
 		
 		
-		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) {
+		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws PedidoWebException {
 			
 			
 			PedidoWeb p = PedidoWebDAO.getInstancia().findByCodigo(idPedido);
-					
-			return p.pedidoToDTO();
+			PedidoWebDTO aux = PedidoWeb.pedidoWebToDTO(p);
+			return aux; 
 		}
 	
 	//TODO: detalles de Orden de Compra
-			public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) {
+			public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws OrdenCompraException {
 				OrdenCompra oc = OrdenCompraDAO.getInstancia().findByCodigo(idOC);						
-				return oc.ordenCompraToDTO();
+				return OrdenCompra.ordenCompraToDTO(oc);
 			}
 			
 	//TODO: detalles de Articulo por su Stock
 	
-			public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra)
+			public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws ArticuloException
 			{
 				
 				Articulo a = ArticuloDAO.getInstancia().findByCodigo(codigoBarra);						
-				return Articulo.articuloToDTO(a);
+				return Articulo.articuloStockToDTO(a);
 			}
 			
 

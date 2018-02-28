@@ -162,7 +162,7 @@ public class PedidoWeb {
 	public PedidoWeb dtoPedidoWebToNegocio(PedidoWebDTO pwDTO) throws PedidoWebException{
 		return DTOMapper.getInstancia().dtoPedidoWebToNegocio(pwDTO);
 	}
-	public PedidoWebDTO pedidoWebToDTO(PedidoWeb pw) {
+	public static PedidoWebDTO pedidoWebToDTO(PedidoWeb pw) {
 		return  DTOMapper.getInstancia().pedidoWebToDTO(pw);
 
 	}

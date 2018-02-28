@@ -71,18 +71,18 @@ public interface InterfazRemota extends Remote, Serializable {
 					
 	//TODO: detalles de Pedido WEB
 		
-		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException;
+		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException, PedidoWebException;
 		
 	
 	//TODO: detalles de Orden de Compra
 
-		public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException;
+		public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException, OrdenCompraException;
 		
 			
 											
 	//TODO: detalles de Articulo por su Stock
 	
-		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException;
+		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ArticuloException;
 		
 	
 	
