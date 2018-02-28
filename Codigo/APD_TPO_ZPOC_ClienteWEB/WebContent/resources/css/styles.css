@@ -55,6 +55,13 @@ body {
     overflow: auto;
 }
 
+#dispatchPedidoModal .input-group-prepend {
+	width: 7rem;
+}
+
+#dispatchPedidoModal .input-group-prepend .input-group-text {
+	width: 100%;
+}
 
 .footer {
 	position: absolute;
