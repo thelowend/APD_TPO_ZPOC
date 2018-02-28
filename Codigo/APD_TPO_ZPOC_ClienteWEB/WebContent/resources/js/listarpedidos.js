@@ -15,10 +15,15 @@
 		}
 		
 		const validar = () => {
+			const fechaGen = new Date(currentPedido.fechagen);
 			$modalDespachar.find('.needs-validation').each((index, item) => {
 				switch (item.type) {
 					case 'date':
-							$(item).toggleClass(invalidClass, !item.valueAsDate);
+							let invalid = true;
+							if (!!item.valueAsDate) {
+								invalid = fechaGen.getTime() > item.valueAsDate.getTime();
+							}
+								$(item).toggleClass(invalidClass, invalid);
 						break;
 					case 'select-one':
 							$(item).toggleClass(invalidClass, item.selectedIndex < 1);
@@ -30,6 +35,11 @@
 		
 		const submitPedido = () => {
 			if(validar()) {
+				$.extend(currentPedido, {
+					fechaEntrega: $modalDespachar.find('#fechaentrega').val(),
+					empresatransporte: $modalDespachar.find('#empresaTransporteSelect').val()
+				});
+				
 				$.post('ActionServlet?action=DespacharPedido', currentPedido, page => {
 					setTimeout((data) => { //Timeout para simular carga
 						alert(`¡${currentPedido.nombre} despachado!`);

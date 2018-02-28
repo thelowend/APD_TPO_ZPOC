@@ -1,15 +1,19 @@
 package edu.uade.apdzpoc.servlets;
 
+import edu.uade.apdzpoc.actions.DespacharPedidoAction;
 import edu.uade.apdzpoc.actions.IAction;
+import edu.uade.apdzpoc.actions.IngresarOrdenCompraAction;
+import edu.uade.apdzpoc.actions.IngresarPagoClienteAction;
+import edu.uade.apdzpoc.actions.IngresarPedidoAction;
+import edu.uade.apdzpoc.actions.ListarOrdenesCompraAction;
+import edu.uade.apdzpoc.actions.ListarPedidosAction;
 import edu.uade.apdzpoc.actions.ListarRemitosAction;
 import edu.uade.apdzpoc.actions.NotFoundAction;
 import edu.uade.apdzpoc.actions.SeleccionarRemitoAction;
-import edu.uade.apdzpoc.dto.PedidoWebDTO;
-import edu.uade.apdzpoc.excepciones.ComunicationException;
-import edu.uade.apdzpoc.excepciones.PedidoWebException;
-import edu.uade.apdzpoc.negociodelegado.BusinessDelegate;
+import edu.uade.apdzpoc.actions.ValidarOrdenCompraAction;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -19,77 +23,65 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import controlador.Controller;
-//import negocio.Cliente;
 
 @WebServlet("/ActionServlet")
 public class ActionServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 5459613143358646096L;
+	private static final long serialVersionUID = 5459613143358646096L;
 
-    private Collection<IAction> actions = new HashSet<>();
+	private Collection<IAction> actions = new HashSet<>();
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        actions.add(new ListarRemitosAction());
-        actions.add(new SeleccionarRemitoAction());
-        System.out.println();
-    }
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		actions.add(new DespacharPedidoAction());
+		actions.add(new ListarRemitosAction());
+		actions.add(new SeleccionarRemitoAction());
+		actions.add(new IngresarOrdenCompraAction());
+		actions.add(new IngresarPagoClienteAction());
+		actions.add(new IngresarPedidoAction());
+		actions.add(new ListarOrdenesCompraAction());
+		actions.add(new ListarPedidosAction());
+		actions.add(new SeleccionarRemitoAction());
+		actions.add(new ValidarOrdenCompraAction());
+	}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doPost(request, response);
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        final String action = request.getParameter("action");
-        String jspPage = "/empty.jsp";
-        //TODO Cambiar por un switch o una iteracion de IAction (ejemplo abajo)
-        if ("IngresarPedido".equals(action)) {
-            jspPage = "/ingresarpedido.jsp";
-        } else if ("ListarPedidos".equals(action)) {
-        	List<PedidoWebDTO> pedidosPendientes = new ArrayList<>();
-        	try {
-				 pedidosPendientes = BusinessDelegate.getInstancia().obtenerPedidosParaDespachar();
-			} catch (ComunicationException e) {
-				e.printStackTrace();
+		final String action = request.getParameter("action");
+		String jspPage = "/empty.jsp";
+
+		IAction found = NotFoundAction.NOT_FOUND_ACTION;
+		for (IAction a : this.actions) {
+			if (a.isValid(action)) {
+				found = a;
+				break;
 			}
-        	request.setAttribute("pedidosPendientes", pedidosPendientes);
-            jspPage = "/listarpedidos.jsp";
-        } else if ("IngresarOrdenCompra".equals(action)) {
-            jspPage = "/ingresarcompra.jsp";
-        } else if ("ListarOrdenesCompra".equals(action)) {
-            jspPage = "/listarordenescompra.jsp";
-        } else if ("ValidarOrdenCompra".equals(action)) {
-            jspPage = "/validarordencompra.jsp";
-        } else if ("IngresarPagoCliente".equals(action)) {
-            jspPage = "/ingresarpago.jsp";
-        } else if ("DespacharPedido".equals(action)) {
-            jspPage = "/listarpedidos.jsp";
-        } else if ("ListarRemitos".equals(action)) {
-            IAction found = NotFoundAction.NOT_FOUND_ACTION;
-            for (IAction a : this.actions) {
-                if (a.isValid(action)) {
-                    found = a;
-                    break;
-                }
-            }
-            jspPage = found.doAction(request, response);
-        }
+		}
 
-        dispatch(jspPage, request, response);
-    }
+		try {
+			jspPage = found.doAction(request, response);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-    protected void dispatch(String jsp, HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        if (jsp != null) {
-            RequestDispatcher rd = request.getRequestDispatcher(jsp);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            rd.forward(request, response);
-        }
-    }
+		dispatch(jspPage, request, response);
+	}
+
+	protected void dispatch(String jsp, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (jsp != null) {
+			RequestDispatcher rd = request.getRequestDispatcher(jsp);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			rd.forward(request, response);
+		}
+	}
 }

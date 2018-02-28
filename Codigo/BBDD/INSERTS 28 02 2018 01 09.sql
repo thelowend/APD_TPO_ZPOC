@@ -43,10 +43,10 @@ Insert into CuentasCorriente values (5150,15000,4)
 
 
 
-Insert into Facturas values (20180201, 20180501, 'A', 2925,1)
-Insert into Facturas values (20180202, 20180502, 'B', 1450,2)
-Insert into Facturas values (20180203, 20180503, 'A', 2550,3)
-Insert into Facturas values (20180204, 20180504, 'B', 5150,4)
+Insert into Facturas values ('20180201', '20180501', 'A', 2925,1)
+Insert into Facturas values ('20180202', '20180502', 'B', 1450,2)
+Insert into Facturas values ('20180203', '20180503', 'A', 2550,3)
+Insert into Facturas values ('20180204', '20180504', 'B', 5150,4)
 
 
 Insert into ItemsFactura values (5, 1500,10000,1)
