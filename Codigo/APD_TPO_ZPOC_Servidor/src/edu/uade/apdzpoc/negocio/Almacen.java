@@ -143,4 +143,14 @@ public class Almacen {
 	// TODO: Pasar la siguiente funcionalidad a POO. Funcion que se ejecuta cada 30 días.
 	public void controlarVencimientos() { }
 
+	public List<RemitoAlmacen> obtenerRemitosParaProcesar() {
+		
+		return RemitoAlmacen.obtenerRemitosParaProcesar();
+	}
+
+	public void ProcesarRemito(RemitoAlmacen ra) {
+		ra.setEstado(EstadoRemito.Procesado);
+		//TODO: la logica con las ubicaciones.
+	}
+
 }
