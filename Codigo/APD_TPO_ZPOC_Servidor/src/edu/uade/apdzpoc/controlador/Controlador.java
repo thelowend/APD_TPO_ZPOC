@@ -15,6 +15,7 @@
 
 package edu.uade.apdzpoc.controlador;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,13 @@ import edu.uade.apdzpoc.negocio.MovimientoCompra;
 import edu.uade.apdzpoc.negocio.OrdenCompra;
 import edu.uade.apdzpoc.negocio.PagoCliente;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
+import edu.uade.apdzpoc.negocio.RemitoAlmacen;
+import edu.uade.apdzpoc.util.DTOMapper;
+import edu.uade.apdzpoc.dto.ClienteDTO;
+import edu.uade.apdzpoc.dto.ItemPedidoDTO;
+import edu.uade.apdzpoc.dto.LoteDTO;
+import edu.uade.apdzpoc.dto.OrdenCompraDTO;
+import edu.uade.apdzpoc.dto.RemitoAlmacenDTO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
@@ -36,8 +44,12 @@ import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.ClienteException;
 import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.OrdenCompraException;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
 import edu.uade.apdzpoc.excepciones.ProveedorException;
+import edu.uade.apdzpoc.excepciones.RemitoAlmacenException;
 import edu.uade.apdzpoc.excepciones.UbicacionException;
 
 public class Controlador {
@@ -53,19 +65,46 @@ public class Controlador {
 	}
 	
 	// En el business delegate, esto será:  public int crearPedidoWeb(List<ItemPedidoDTO> articulos, ClienteDTO cliente, String direccion) {
-	public int crearPedidoWeb(List<ItemPedido> articulos, Cliente cliente, String direccion) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+	public int crearPedidoWeb(List<ItemPedidoDTO> articulos, ClienteDTO cliente, String direccion) throws ArticuloException, ArticuloProveedorException, ProveedorException, ClienteException {
 		
-		PedidoWeb pedidoWeb = new PedidoWeb(cliente, EstadoPedido.Pendiente_Validacion, direccion, articulos).saveAndFetch();
 		
-		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
-		Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
+		List <ItemPedido> items = new ArrayList<ItemPedido>();
+		for(ItemPedidoDTO i : articulos)
+		{
+			items.add(DTOMapper.getInstancia().dtoItemPedidoToNegocio(i));
+		}
+		
+		Cliente cl = DTOMapper.getInstancia().dtoClienteToNegocio(cliente);
+		
+		
+		PedidoWeb pedidoWeb = new PedidoWeb(cl, EstadoPedido.Pendiente_Validacion, direccion, items).saveAndFetch();
 		
 		// Devuelvo el ID del pedido para el DTO que se enviará a la GUI del cliente:
 		return pedidoWeb.getIdPedido();
 	}
 	
-	public void despacharPedido(PedidoWeb pw, Date fechaEntrega, String empresaTransporte) {
-		Despacho.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
+	public PedidoWeb obtenerPedidoWeb(int idPedido) throws PedidoWebException {
+		return Despacho.getInstancia().obtenerPedidoWeb(idPedido);
+	}
+	
+	public void procesarPedidoWeb(PedidoWeb pedidoWeb) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
+		
+		Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
+	}
+	
+	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws OrdenCompraException, LoteException {
+		OrdenCompra ordenCompra = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
+		Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+		
+		
+		Compras.getInstancia().procesarOrdenCompraPendiente(ordenCompra, estadoOC, lot);
+	}
+	
+	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) {
+		PedidoWeb pedido = DTOMapper.getInstancia().dtoItemPedidoToNegocio(pw);
+		
+		Despacho.getInstancia().despacharPedido(pedido, fechaEntrega, empresaTransporte);
 	}
 	
 	// Acá desde la GUI el empleado de Despacho despacha el pedido, con la fecha de entrega y la empresa de transporte a cargo:
@@ -79,6 +118,17 @@ public class Controlador {
 	public List<OrdenCompra> obtenerOrdenesdeCompraParaValidar() {
 		return Compras.getInstancia().obtenerOCParaValidar();
 	}
+
+	// TODO: Add exception
+	public List<RemitoAlmacen> obtenerRemitosAlmacenParaProcesar() {
+			return Almacen.getInstancia().obtenerRemitosParaProcesar();
+		}
+
+	public void procesarRemitoAlmacen(RemitoAlmacenDTO remito) throws RemitoAlmacenException{
+		RemitoAlmacen ra = DTOMapper.getInstancia().dtoRemitoAlmacenToNegocio(remito);
+		Almacen.getInstancia().ProcesarRemito(ra);
+	}
+	
 	
 	// En el business delegate recibirá OrdenCompraDTO ocDTO, EstadoOC estadoOC
 	public void ingresarCompra(OrdenCompra oc, EstadoOC estadoOC) throws LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException {
@@ -120,6 +170,10 @@ public class Controlador {
 	public void controlarVencimientos() {
 		Almacen.getInstancia().controlarVencimientos();
 	}
+	
+	
+	
+	
 	
 	private void procesarPedidosWeb(OrdenCompra oc) throws ArticuloException, ArticuloProveedorException, ProveedorException {
 		

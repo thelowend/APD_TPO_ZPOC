@@ -60,7 +60,7 @@ public class Almacen {
 			} else {
 				List<OrdenCompra> loc = Compras.getInstancia().crearOrdenesCompraPorItem(item, pw); // Genero las OC
 				for (OrdenCompra oc : loc)
-					movimientos.add(oc.getArticulo().crearMovimientoCompra(oc));
+					movimientos.add(oc.getArticulo().crearMovimientoCompraPendiente(oc));
 			}
 		}
 
@@ -142,5 +142,15 @@ public class Almacen {
 
 	// TODO: Pasar la siguiente funcionalidad a POO. Funcion que se ejecuta cada 30 días.
 	public void controlarVencimientos() { }
+
+	public List<RemitoAlmacen> obtenerRemitosParaProcesar() {
+		
+		return RemitoAlmacen.obtenerRemitosParaProcesar();
+	}
+
+	public void ProcesarRemito(RemitoAlmacen ra) {
+		ra.setEstado(EstadoRemito.Procesado);
+		//TODO: la logica con las ubicaciones.
+	}
 
 }

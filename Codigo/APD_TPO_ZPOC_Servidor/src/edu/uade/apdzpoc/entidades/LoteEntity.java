@@ -11,10 +11,13 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "Lotes")
 public class LoteEntity {
-
-    @Id
+	
+	@Id
+	@Column(name = "IdInterno")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idInterno;
+	
     @Column(name = "NroLote")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer nroLote;
 
     @Column(name = "Vencimiento")
@@ -34,7 +37,15 @@ public class LoteEntity {
     public LoteEntity() {
 
     }
-
+    
+    public Integer getIdInterno() {
+    	return idInterno;
+    }
+    
+    public void setIdInterno(Integer idInterno) {
+    	this.idInterno = idInterno;
+    }
+    
     public Integer getNroLote() {
         return nroLote;
     }

@@ -21,6 +21,7 @@ import java.util.List;
 
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.enums.EstadoPedido;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
 
 public class PedidoWeb {
 
@@ -147,5 +148,9 @@ public class PedidoWeb {
 	
 	public static List<PedidoWeb> obtenerPedidosPendientesStock(Articulo articulo) {
 		return PedidoWebDAO.getInstancia().getAllbyArticulo(articulo.getCodigoBarra(), EstadoPedido.Pendiente_Stock);
+	}
+	
+	public static PedidoWeb obtenerPedidoPorId(int id) throws PedidoWebException {
+		return PedidoWebDAO.getInstancia().findByCodigo(id);
 	}
 }

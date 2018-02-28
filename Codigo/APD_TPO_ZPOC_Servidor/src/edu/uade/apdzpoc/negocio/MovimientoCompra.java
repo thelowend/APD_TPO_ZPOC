@@ -29,10 +29,15 @@ public class MovimientoCompra extends Movimiento {
 		this.oc = oc;
 		this.lote = lote;
 	}
+	
+	public MovimientoCompra(Date fecha, Articulo articulo, int cantidad, OrdenCompra oc) {
+		super(fecha, articulo, cantidad);
+		this.oc = oc;
+		this.lote = null;
+	}
 
 	public MovimientoCompra(Date fecha, Articulo articulo, int cantidad) {
 		super(fecha, articulo, cantidad);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MovimientoCompra() {

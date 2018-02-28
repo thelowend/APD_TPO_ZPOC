@@ -1,5 +1,7 @@
 package edu.uade.apdzpoc.test;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -10,6 +12,7 @@ import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.dao.OrdenCompraDAO;
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
 import edu.uade.apdzpoc.dao.ProveedorDAO;
+import edu.uade.apdzpoc.entidades.LoteEntity;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.FacturaException;
 import edu.uade.apdzpoc.excepciones.LoteException;
@@ -26,11 +29,12 @@ import edu.uade.apdzpoc.negocio.Proveedor;
 public class Prueba_hbt {
 
 	public static void main(String[] args) throws LoteException, ProveedorException, FacturaException {
-	}
 
-	public static Articulo recuperarArticulo(int CodigoBarra) throws ArticuloException {
 
-		return ArticuloDAO.getInstancia().findByCodigo(CodigoBarra);
+	//public static Articulo recuperarArticulo(int CodigoBarra) throws ArticuloException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
+
 	}
 
 	/*

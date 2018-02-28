@@ -23,6 +23,7 @@ import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
 import edu.uade.apdzpoc.excepciones.ProveedorException;
 
@@ -198,7 +199,11 @@ public class Articulo {
 		MovimientoPedido mp = new MovimientoPedido(pw.getFechaGeneracion(), this, cantidad, pw);
 		return mp.saveAndFetch();
 	}
-
+	
+	public MovimientoCompra crearMovimientoCompraPendiente(OrdenCompra oc) {
+		MovimientoCompra mc = new MovimientoCompra(new Date(), oc.getArticulo(), oc.getCantidad(), oc);
+		return mc.saveAndFetch();
+	}
 	public MovimientoCompra crearMovimientoCompra(OrdenCompra oc) {
 		MovimientoCompra mc = new MovimientoCompra(new Date(), oc.getArticulo(), oc.getCantidad(), oc, oc.getLote());
 		return mc.saveAndFetch();
@@ -220,4 +225,11 @@ public class Articulo {
 		return ArticuloProveedor.getMejorProveedorPorArticulo(this);
 	}
 
+	public static Articulo getArticulo(int codigoBarra) throws ArticuloException{
+		Articulo a = ArticuloDAO.getInstancia().findByCodigo(codigoBarra);
+		return a;
+		
+	}
+	
+	
 }

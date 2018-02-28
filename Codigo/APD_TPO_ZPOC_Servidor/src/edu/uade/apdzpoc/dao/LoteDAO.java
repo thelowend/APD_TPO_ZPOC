@@ -24,20 +24,20 @@ public class LoteDAO {
 		return instancia;
 	}
 
-	public Lote findByNro(Integer nroLote) throws LoteException {
+	public Lote findByNro(Integer idInterno) throws LoteException {
 		Lote resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		LoteEntity aux = (LoteEntity) s
-				.createQuery("select le from LoteEntity le where le.nroLote = ?")
-				.setInteger(0, nroLote).uniqueResult();
+				.createQuery("select le from LoteEntity le where le.idInterno = ?")
+				.setInteger(0, idInterno).uniqueResult();
 		s.getTransaction().commit();
 		s.close();
 		if (aux != null) {
 			resultado = this.toNegocio(aux);
 		} else {
-			throw new LoteException("No se encontró el lote de número " + nroLote);
+			throw new LoteException("No se encontró el lote de número " + idInterno);
 		}
 		return resultado;
 	}
@@ -105,6 +105,7 @@ public class LoteDAO {
 	public LoteEntity toEntity(Lote loteNegocio) {
 
 		LoteEntity loteAPersistir = new LoteEntity();
+		loteAPersistir.setIdInterno(loteNegocio.getIdInterno());
 		loteAPersistir.setNroLote(loteNegocio.getNroLote());
 		java.sql.Date d = new Date(loteNegocio.getVencimiento().getTime());
 		loteAPersistir.setVencimiento(d);
@@ -122,6 +123,7 @@ public class LoteDAO {
 	public Lote toNegocio(LoteEntity loteRecuperado) {
 
 		Lote LoteNegocio = new Lote();
+		LoteNegocio.setIdInterno(loteRecuperado.getIdInterno());
 		LoteNegocio.setNroLote(loteRecuperado.getNroLote());
 		LoteNegocio.setVencimiento(loteRecuperado.getVencimiento());
 		// LoteNegocio.setArticulo(ArticuloDAO.getInstancia().toNegocio(loteRecuperado.getArticulo()));

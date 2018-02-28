@@ -23,7 +23,8 @@ import edu.uade.apdzpoc.enums.EstadoUbicacion;
 import edu.uade.apdzpoc.excepciones.UbicacionException;
 
 public class Lote {
-
+	
+	private Integer idInterno;
 	private Integer nroLote;
 	private Date vencimiento;
 	private Articulo articulo;
@@ -117,6 +118,14 @@ public class Lote {
 
 	public void save() {
 		LoteDAO.getInstancia().save(this);
+	}
+
+	public Integer getIdInterno() {
+		return idInterno;
+	}
+
+	public void setIdInterno(Integer idInterno) {
+		this.idInterno = idInterno;
 	}
 
 //	public void actualizarUbicacion(Ubicacion u, int cantidadRestante) {

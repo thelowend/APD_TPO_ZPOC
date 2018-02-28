@@ -21,6 +21,7 @@ import java.util.List;
 import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
 import edu.uade.apdzpoc.excepciones.ProveedorException;
 
 public class Despacho {
@@ -67,5 +68,9 @@ public class Despacho {
 
 	public List<PedidoWeb> obtenerPedidosParaDespachar() {
 		return PedidoWeb.obtenerPedidosParaDespachar();
+	}
+	
+	public PedidoWeb obtenerPedidoWeb(int id) throws PedidoWebException {
+		return PedidoWeb.obtenerPedidoPorId(id);
 	}
 }

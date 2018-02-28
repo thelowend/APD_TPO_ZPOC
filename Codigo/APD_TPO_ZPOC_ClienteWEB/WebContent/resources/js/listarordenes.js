@@ -1,0 +1,11 @@
+(() => {
+	$(() =>{
+		const doBindings = () => {
+
+		}
+		
+		doBindings();
+	});
+	
+
+})();
