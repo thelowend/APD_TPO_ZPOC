@@ -10,9 +10,20 @@ import edu.uade.apdzpoc.dto.ClienteDTO;
 import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.dto.LoteDTO;
 import edu.uade.apdzpoc.dto.OrdenCompraDTO;
+import edu.uade.apdzpoc.dto.PagoClienteDTO;
 import edu.uade.apdzpoc.dto.PedidoWebDTO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
+import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoOC;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.ClienteException;
+import edu.uade.apdzpoc.excepciones.FacturaException;
+import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.OrdenCompraException;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
+import edu.uade.apdzpoc.excepciones.UbicacionException;
 import edu.uade.apdzpoc.interfaces.InterfazRemota;
 
 /**
@@ -36,9 +47,10 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	private static final long serialVersionUID = -6961672630964242179L;
 
 	@Override
-	public int crearPedidoWeb(List<ItemPedidoDTO> articulosComprados, ClienteDTO cliente) throws RemoteException {
-		// TODO Auto-generated method stub
-		return Controlador.getInstancia().crearPedidoWeb(articulosComprados, cliente);
+	public int crearPedidoWeb(List<ItemPedidoDTO> articulosComprados, ClienteDTO cliente, String direccion) throws RemoteException, ArticuloException, ArticuloProveedorException, ProveedorException, ClienteException {
+		
+			return Controlador.getInstancia().crearPedidoWeb(articulosComprados, cliente, direccion);
+		
 	}
 
 	@Override
@@ -48,7 +60,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) throws RemoteException {
+	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) throws RemoteException, PedidoWebException {
 		Controlador.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
 
 	}
@@ -61,18 +73,13 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void procesarPedido(PedidoWebDTO pw) throws RemoteException {
-		Controlador.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
+	public void procesarPedido(PedidoWebDTO pw) throws RemoteException, ArticuloException, ArticuloProveedorException, ProveedorException, PedidoWebException {
+		Controlador.getInstancia().procesarPedidoWeb(pw);
 
 	}
 
 
-	
-	
-	
-	
-	
-	
+		
 
 	@Override
 	public List<OrdenCompraDTO> obtenerOrdenesdeCompraParaValidar() throws RemoteException {
@@ -81,17 +88,23 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws RemoteException {
-		Controlador.getInstancia().ingresarCompra(oc, estadoOC, lote);
+	public void validarIngresoOrdenCompra(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws RemoteException, LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException, OrdenCompraException {
+		Controlador.getInstancia().validarIngresoOrdenCompra(oc, estadoOC, lote);
 
 	}
 
 	@Override
 	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante,
-			LoteDTO lote, String destino) throws RemoteException {
-		Controlador.getInstancia().controlarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote,
+			LoteDTO lote, DestinoArticulos destino) throws RemoteException, ArticuloException, LoteException {
+		Controlador.getInstancia().ajustarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote,
 				destino);
 
+	}
+
+	@Override
+	public void ingresarPagoCliente(PagoClienteDTO pago) throws RemoteException, FacturaException {
+		Controlador.getInstancia().ingresarPagoCliente(pago);
+		
 	}
 
 }

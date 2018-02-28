@@ -13,7 +13,12 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"></link>
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/fa-svg-with-js.css"></link>
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/styles.css"></link>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/fontawesome-all.min.js"></script>
 </head>
 
 <body>

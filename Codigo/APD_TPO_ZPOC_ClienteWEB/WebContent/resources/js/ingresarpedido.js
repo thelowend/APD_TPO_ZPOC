@@ -2,6 +2,8 @@
 	$(() =>{
 		const $btnPedido = $('#submitPedido');
 		
+		let pedidoActual = {};
+		
 		const ingresarPedido = (ev) => {
 			ev.preventDefault();
 			debugger;
@@ -11,6 +13,26 @@
 			confirm("confirmar pedido?");
 		}
 		
-		$btnPedido.click(ingresarPedido);
+		const carrito = ($this) => {
+			return () => {
+				
+			}
+		}
+		
+		
+		
+
+		const doBindings = () => {
+			
+			$btnPedido.click(ingresarPedido);
+			$plusArt = $('.plus-art');
+			$minArt = $('.min-art');
+			$removeArt = $('.remove-art');
+			$('.plus-art').click(carrito.apply($plusArt));
+			$('.min-art').click(carrito.apply($minArt));
+			$('.remove-art').click(carrito.apply($removeArt));
+		}
+		
+		doBindings();
 	});
 })();

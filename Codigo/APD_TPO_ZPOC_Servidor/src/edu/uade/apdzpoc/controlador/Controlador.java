@@ -36,6 +36,8 @@ import edu.uade.apdzpoc.dto.ClienteDTO;
 import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.dto.LoteDTO;
 import edu.uade.apdzpoc.dto.OrdenCompraDTO;
+import edu.uade.apdzpoc.dto.PagoClienteDTO;
+import edu.uade.apdzpoc.dto.PedidoWebDTO;
 import edu.uade.apdzpoc.dto.RemitoAlmacenDTO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
@@ -45,6 +47,7 @@ import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
 import edu.uade.apdzpoc.excepciones.ClienteException;
+import edu.uade.apdzpoc.excepciones.FacturaException;
 import edu.uade.apdzpoc.excepciones.LoteException;
 import edu.uade.apdzpoc.excepciones.OrdenCompraException;
 import edu.uade.apdzpoc.excepciones.PedidoWebException;
@@ -65,11 +68,11 @@ public class Controlador {
 	}
 	
 	// En el business delegate, esto será:  public int crearPedidoWeb(List<ItemPedidoDTO> articulos, ClienteDTO cliente, String direccion) {
-	public int crearPedidoWeb(List<ItemPedidoDTO> articulos, ClienteDTO cliente, String direccion) throws ArticuloException, ArticuloProveedorException, ProveedorException, ClienteException {
+	public int crearPedidoWeb(List<ItemPedidoDTO> articulosComprados, ClienteDTO cliente, String direccion) throws ArticuloException, ArticuloProveedorException, ProveedorException, ClienteException {
 		
 		
 		List <ItemPedido> items = new ArrayList<ItemPedido>();
-		for(ItemPedidoDTO i : articulos)
+		for(ItemPedidoDTO i : articulosComprados)
 		{
 			items.add(DTOMapper.getInstancia().dtoItemPedidoToNegocio(i));
 		}
@@ -87,22 +90,22 @@ public class Controlador {
 		return Despacho.getInstancia().obtenerPedidoWeb(idPedido);
 	}
 	
-	public void procesarPedidoWeb(PedidoWeb pedidoWeb) throws ArticuloException, ArticuloProveedorException, ProveedorException {
+	public void procesarPedidoWeb(PedidoWebDTO pedidoWeb) throws ArticuloException, ArticuloProveedorException, ProveedorException, PedidoWebException {
 		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
 		
-		Despacho.getInstancia().procesarPedidoWeb(pedidoWeb);
+		PedidoWeb p = DTOMapper.getInstancia().dtoPedidoWebToNegocio(pedidoWeb);
+		
+		Despacho.getInstancia().procesarPedidoWeb(p);
 	}
 	
-	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws OrdenCompraException, LoteException {
+	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws OrdenCompraException, LoteException, ArticuloException {
 		OrdenCompra ordenCompra = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
 		Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
-		
-		
-		Compras.getInstancia().procesarOrdenCompraPendiente(ordenCompra, estadoOC, lot);
+		Compras.getInstancia().validarOrdenCompra(ordenCompra, estadoOC, lot);
 	}
 	
-	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) {
-		PedidoWeb pedido = DTOMapper.getInstancia().dtoItemPedidoToNegocio(pw);
+	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) throws PedidoWebException {
+		PedidoWeb pedido = DTOMapper.getInstancia().dtoPedidoWebToNegocio(pw);
 		
 		Despacho.getInstancia().despacharPedido(pedido, fechaEntrega, empresaTransporte);
 	}
@@ -110,13 +113,30 @@ public class Controlador {
 	// Acá desde la GUI el empleado de Despacho despacha el pedido, con la fecha de entrega y la empresa de transporte a cargo:
 	
 	// TODO: Add exception
-	public List<PedidoWeb> obtenerPedidosParaDespachar() {
-		return Despacho.getInstancia().obtenerPedidosParaDespachar();
+	public List<PedidoWebDTO> obtenerPedidosParaDespachar() {
+		
+		List<PedidoWebDTO> resultado = new ArrayList<PedidoWebDTO>();
+		List <PedidoWeb> pedidosNegocio = new ArrayList<PedidoWeb>();
+		pedidosNegocio = Despacho.getInstancia().obtenerPedidosParaDespachar();
+		for(PedidoWeb p: pedidosNegocio)
+		{
+			resultado.add(DTOMapper.getInstancia().pedidoWebToDTO(p));
+		}
+		return resultado;
 	}
 	
 	// TODO: Add exception
-	public List<OrdenCompra> obtenerOrdenesdeCompraParaValidar() {
-		return Compras.getInstancia().obtenerOCParaValidar();
+	public List<OrdenCompraDTO> obtenerOrdenesdeCompraParaValidar() {
+		
+		List<OrdenCompraDTO> resultado = new ArrayList<OrdenCompraDTO>();
+		List <OrdenCompra> ocsNegocio = new ArrayList<OrdenCompra>();
+		ocsNegocio = Compras.getInstancia().obtenerOCParaValidar();
+		for(OrdenCompra oc: ocsNegocio)
+		{
+			resultado.add(DTOMapper.getInstancia().ordenCompraToDTO(oc));
+		}
+				
+		return resultado;
 	}
 
 	// TODO: Add exception
@@ -131,39 +151,51 @@ public class Controlador {
 	
 	
 	// En el business delegate recibirá OrdenCompraDTO ocDTO, EstadoOC estadoOC
-	public void ingresarCompra(OrdenCompra oc, EstadoOC estadoOC) throws LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException {
+	public void validarIngresoOrdenCompra(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException, OrdenCompraException {
 		Almacen almacen = Almacen.getInstancia();
 		Compras compras = Compras.getInstancia();
-		
-		// Compras valida el estado de la orden de compra:
-		compras.validarOrdenCompra(oc, estadoOC);
-		
-		if (oc.getEstado() == EstadoOC.Aceptada) {
-			// Si es aceptada genero los movimientos correspondientes por cada artículo:
-			MovimientoCompra mc = almacen.crearMovimiento(oc);
-			mc.actualizarNovedadStock();
-			
-			almacen.asignarUbicacionesArticulos(oc); // Esto genera los remito almacen en pendiente y les asigna ubicaciones en el almacen.
-			
-			procesarPedidosWeb(oc); // Proceso los pedidos pendientes en base a la oc aceptada, para verificar si ya se pueden completar:
-		} else {
-			// Si fue rechazada, creo una nueva OC igual a la rechazada (porque la necesidad no desaparece):
-			ItemPedido itemPedido = new ItemPedido(oc.getArticulo(), oc.getCantidad(), EstadoItemPedido.Sin_Stock);
-			compras.crearOrdenesCompraPorItem(itemPedido, oc.getPedidoW());
+		Lote lot = null;
+				
+				
+		OrdenCompra ordenCompraNegocio = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
+		if(lote == null)
+		{
+			lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
 		}
 		
-		oc.save(); // Persistimos la OC
+		// Compras valida el estado de la orden de compra:
+		compras.validarOrdenCompra(ordenCompraNegocio, estadoOC, lot);
+		
+		if (ordenCompraNegocio.getEstado() == EstadoOC.Aceptada) {
+			// Si es aceptada genero los movimientos correspondientes por cada artículo:
+			MovimientoCompra mc = almacen.crearMovimiento(ordenCompraNegocio);
+			mc.actualizarNovedadStock();
+			
+			almacen.asignarUbicacionesArticulos(ordenCompraNegocio); // Esto genera los remito almacen en pendiente y les asigna ubicaciones en el almacen.
+			
+			procesarPedidosWeb(ordenCompraNegocio); // Proceso los pedidos pendientes en base a la oc aceptada, para verificar si ya se pueden completar:
+		} else {
+			// Si fue rechazada, creo una nueva OC igual a la rechazada (porque la necesidad no desaparece):
+			ItemPedido itemPedido = new ItemPedido(ordenCompraNegocio.getArticulo(), ordenCompraNegocio.getCantidad(), EstadoItemPedido.Sin_Stock);
+			compras.crearOrdenesCompraPorItem(itemPedido, ordenCompraNegocio.getPedidoW());
+		}
+		
+		//ordenCompraNegocio.save(); // Persistimos la OC
 		
 	}
 	// Ingresar pago de cliente para poder actualizar su cuenta corriente
 	
-	public void ingresarPagoCliente(PagoCliente pago) {
-		Facturacion.getInstancia().ingresarPagoCliente(pago);
+	public void ingresarPagoCliente(PagoClienteDTO pago) throws FacturaException {
+		PagoCliente p = DTOMapper.getInstancia().dtoPagoClienteToNegocio(pago);
+		
+		Facturacion.getInstancia().ingresarPagoCliente(p);
 	}
 	
 	// En el bd vamos a recibir loteDTO, etc. 
-	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, Lote lote, DestinoArticulos destino) throws ArticuloException {
-		Almacen.getInstancia().actualizarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote, destino);
+	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, LoteDTO lote, DestinoArticulos destino) throws ArticuloException, LoteException {
+		Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+		
+		Almacen.getInstancia().actualizarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lot, destino);
 	}
 	
 	// Cada 30 días el Almacén controla automáticamente los vencimientos:

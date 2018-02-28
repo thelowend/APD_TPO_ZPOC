@@ -21,7 +21,9 @@
 			</thead>
 			<tbody>
 				<%
+				
 					/* testing with hardcoded data */
+					/*
 					List<PedidoWebDTO> test = new ArrayList<>();
 					ClienteDTO testc = new ClienteDTO(1, 12345678, "Juan Pérez");
 					Date fecha = new Date();
@@ -32,13 +34,14 @@
 							null);
 					test.add(testp);
 					test.add(testp2);
-
-					/*List<PedidoWebDTO> pedidos = (List<PedidoWebDTO>)request.getAttribute("pedidospendientes");*/
+					*/
+					
+					List<PedidoWebDTO> pedidos = (List<PedidoWebDTO>) request.getAttribute("pedidosPendientes");
 					PedidoWebDTO aux;
 					String id;
 					String clienteid;
-
-					for (Iterator<PedidoWebDTO> i = test.iterator(); i.hasNext();) {
+					
+					for (Iterator<PedidoWebDTO> i = pedidos.iterator(); i.hasNext();) {
 						aux = i.next();
 						id = aux.getIdPedido().toString();
 						clienteid = String.valueOf(aux.getCliente().getIdCliente());
@@ -50,9 +53,7 @@
 					<td><button class="btn-dark btn-despachar"
 							data-pedido='{ "id": <%=id%>, "cliente": <%=clienteid%>}'>Despachar</button>
 				</tr>
-				<%
-					}
-				%>
+				<% } %>
 			</tbody>
 		</table>
 	</section>
