@@ -12,27 +12,30 @@
 				</tr>
 			</thead>
 			<tbody>
+				<%
+					List<OrdenCompraDTO> ocs = (List<OrdenCompraDTO>) request.getAttribute("ordenesCompra");
+					OrdenCompraDTO aux;
+					String id;
+					String fechagen;
+					String clienteid;
+					String ordenJSONstr;
+					
+					for (Iterator<OrdenCompraDTO> i = ocs.iterator(); i.hasNext();) {
+						aux = i.next();
+						
+						//id = aux.getIdPedido().toString();
+						//fechagen = aux.getFechaGeneracion().toString();
+						//clienteid = String.valueOf(aux.getCliente().getIdCliente());
+						//pedidoJSONstr = aux.toJSONString();
+				%>
 				<tr class="orden-row">
-					<th scope="row">1</th>
-					<td>Orden 1</td>
-					<td>Bla bla</td>
-					<td><button class="btn-dark btn-validar"
-							data-orden="orden1">Validar</button></td>
+					<th scope="row"><%=aux%></th>
+					<td><%=aux.getCliente().getNombre()%></td>
+					<td><%=fechagen%></td>
+					<td><button class="btn btn-sm btn-warning btn-validar"
+							data-pedido='<%=ordenJSONstr%>'><i class="fas fa-cubes"></i> Validar</button>
 				</tr>
-				<tr class="orden-row">
-					<th scope="row">2</th>
-					<td>Orden 2</td>
-					<td>Bla bla bla bla</td>
-					<td><button class="btn-dark btn-validar"
-							data-orden="orden2">Validar</button></td>
-				</tr>
-				<tr class="orden-row">
-					<th scope="row">3</th>
-					<td>Orden 3</td>
-					<td>Bla bla bla bla bla bla</td>
-					<td><button class="btn-dark btn-validar"
-							data-orden="orden3">Validar</button></td>
-				</tr>
+				<% } %>
 			</tbody>
 		</table>
 	</section>
