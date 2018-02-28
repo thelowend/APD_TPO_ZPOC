@@ -74,10 +74,14 @@ public class Controlador {
 		List <ItemPedido> items = new ArrayList<ItemPedido>();
 		for(ItemPedidoDTO i : articulosComprados)
 		{
-			items.add(DTOMapper.getInstancia().dtoItemPedidoToNegocio(i));
-		}
+			ItemPedido ip = null;
+			ip.dtoItemPedidoToNegocio(i);
+			items.add(ip);
+		}		
+		Cliente cl = null;
+		cl=cl.dtoClienteToNegocio(cliente);
 		
-		Cliente cl = DTOMapper.getInstancia().dtoClienteToNegocio(cliente);
+		//Cliente cl = DTOMapper.getInstancia().dtoClienteToNegocio(cliente);
 		
 		
 		PedidoWeb pedidoWeb = new PedidoWeb(cl, EstadoPedido.Pendiente_Validacion, direccion, items).saveAndFetch();
@@ -93,14 +97,19 @@ public class Controlador {
 	public void procesarPedidoWeb(PedidoWebDTO pedidoWeb) throws ArticuloException, ArticuloProveedorException, ProveedorException, PedidoWebException {
 		// El despacho procesará el pedido Web y el mismo quedará en el estado correspondiente:
 		
-		PedidoWeb p = DTOMapper.getInstancia().dtoPedidoWebToNegocio(pedidoWeb);
-		
-		Despacho.getInstancia().procesarPedidoWeb(p);
+		//PedidoWeb p = DTOMapper.getInstancia().dtoPedidoWebToNegocio(pedidoWeb);
+		PedidoWeb p = null;
+		Despacho.getInstancia().procesarPedidoWeb(p.dtoPedidoWebToNegocio(pedidoWeb));
 	}
 	
 	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws OrdenCompraException, LoteException, ArticuloException {
-		OrdenCompra ordenCompra = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
-		Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+		//OrdenCompra ordenCompra = DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
+		OrdenCompra ordenCompra = null;
+		ordenCompra =ordenCompra.dtoOrdenCompraToNegocio(oc);
+		
+		//Lote lot = DTOMapper.getInstancia().dtoLotetoNegocio(lote);
+		Lote lot = null;
+		lot = lot.dtoLotetoNegocio(lote);
 		Compras.getInstancia().validarOrdenCompra(ordenCompra, estadoOC, lot);
 	}
 	

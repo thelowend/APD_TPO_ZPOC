@@ -20,8 +20,12 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.PedidoWebDAO;
+import edu.uade.apdzpoc.dto.ClienteDTO;
+import edu.uade.apdzpoc.dto.ItemPedidoDTO;
+import edu.uade.apdzpoc.dto.PedidoWebDTO;
 import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.excepciones.PedidoWebException;
+import edu.uade.apdzpoc.util.DTOMapper;
 
 public class PedidoWeb {
 
@@ -153,4 +157,16 @@ public class PedidoWeb {
 	public static PedidoWeb obtenerPedidoPorId(int id) throws PedidoWebException {
 		return PedidoWebDAO.getInstancia().findByCodigo(id);
 	}
+
+	
+	public PedidoWeb dtoPedidoWebToNegocio(PedidoWebDTO pwDTO) throws PedidoWebException{
+		return DTOMapper.getInstancia().dtoPedidoWebToNegocio(pwDTO);
+	}
+	public PedidoWebDTO pedidoWebToDTO(PedidoWeb pw) {
+		return  DTOMapper.getInstancia().pedidoWebToDTO(pw);
+
+	}
+	
+	
+	
 }

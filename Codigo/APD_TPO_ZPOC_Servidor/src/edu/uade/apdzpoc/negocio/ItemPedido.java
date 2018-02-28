@@ -15,7 +15,11 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import edu.uade.apdzpoc.dto.ArticuloDTO;
+import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.enums.EstadoItemPedido;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.util.DTOMapper;
 
 public class ItemPedido {
 
@@ -85,5 +89,17 @@ public class ItemPedido {
 	public MovimientoPedido crearMovimientoPedido(PedidoWeb pw) {
 		return this.getArticulo().crearMovimientoPedido(this.getCantidad(), pw); //
 	}
+	
+	public ItemPedido dtoItemPedidoToNegocio(ItemPedidoDTO ipDTO) throws ArticuloException {
+		return DTOMapper.getInstancia().dtoItemPedidoToNegocio(ipDTO);
+	}
+	
+	public ItemPedidoDTO itemPedidoToDTO (ItemPedido item){
+		ItemPedidoDTO ipDTO =  DTOMapper.getInstancia().itemPedidoToDTO(item);
+		
+		return ipDTO;
+		
+	}
+	
 
 }
