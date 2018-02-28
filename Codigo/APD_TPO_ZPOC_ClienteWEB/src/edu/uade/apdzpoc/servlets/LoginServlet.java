@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 		String jspPage = "/layout.jsp";
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
-		
+
 		// Acá llamaría un servicio de Login de verdad.
 		if ((usuario.equals("Godio")) && (password.equals("powermetal"))) {
 			dispatch(jspPage, request, response);
