@@ -20,12 +20,14 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.dao.ArticuloDAO;
+import edu.uade.apdzpoc.dto.ArticuloDTO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
 import edu.uade.apdzpoc.excepciones.ProveedorException;
+import edu.uade.apdzpoc.util.DTOMapper;
 
 public class Articulo {
 
@@ -229,6 +231,17 @@ public class Articulo {
 		Articulo a = ArticuloDAO.getInstancia().findByCodigo(codigoBarra);
 		return a;
 		
+	}
+	
+	public Articulo dtoArticuloToNegocio(ArticuloDTO artDTO) throws ArticuloException {
+		
+		return DTOMapper.getInstancia().dtoArticuloToNegocio(artDTO);
+		}
+	
+	
+	public ArticuloDTO articuloToDTO (Articulo articulo){
+		
+		return  DTOMapper.getInstancia().articuloToDTO(articulo);
 	}
 	
 	

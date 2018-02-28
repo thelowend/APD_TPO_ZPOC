@@ -16,6 +16,10 @@
 package edu.uade.apdzpoc.negocio;
 
 import edu.uade.apdzpoc.dao.ClienteDAO;
+import edu.uade.apdzpoc.dto.ArticuloDTO;
+import edu.uade.apdzpoc.dto.ClienteDTO;
+import edu.uade.apdzpoc.excepciones.ClienteException;
+import edu.uade.apdzpoc.util.DTOMapper;
 
 public class Cliente {
 
@@ -121,5 +125,16 @@ public class Cliente {
 	public void save() {
 		ClienteDAO.getInstancia().save(this);
 	}
+	
+	public Cliente dtoClienteToNegocio(ClienteDTO clienteDTO) throws ClienteException {
+		return DTOMapper.getInstancia().dtoClienteToNegocio(clienteDTO);
+		
+		}
+	
+	public ClienteDTO clienteToDTO (Cliente cliente){
+		return  DTOMapper.getInstancia().clienteToDTO(cliente);
+
+	}
+	
 
 }
