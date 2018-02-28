@@ -1,5 +1,8 @@
 package edu.uade.apdzpoc.servlets;
 
+import edu.uade.apdzpoc.actions.ListarRemitosAction;
+import edu.uade.apdzpoc.actions.SeleccionarRemitoAction;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ public class ActionServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String jspPage = "/empty.jsp";
 
+		//TODO Cambiar por un switch o una iteracion de IAction (simil Patron Strategy)
 		if ((action == null) || (action.length() < 1)) {
 			action = "default";
 		} else if ("IngresarPedido".equals(action)) {
@@ -46,8 +50,12 @@ public class ActionServlet extends HttpServlet {
 			jspPage = "/validarordencompra.jsp";
 		} else if ("IngresarPagoCliente".equals(action)) {
 			jspPage = "/ingresarpago.jsp";
-		} 
-		
+		}  else if ("ListarRemitos".equals(action)) {
+			jspPage = new ListarRemitosAction().doAction(request,response);
+		} else if ("SeleccionarRemito".equals(action)) {
+            jspPage = new SeleccionarRemitoAction().doAction(request,response);
+        }
+
 		dispatch(jspPage, request, response);
 	}
 

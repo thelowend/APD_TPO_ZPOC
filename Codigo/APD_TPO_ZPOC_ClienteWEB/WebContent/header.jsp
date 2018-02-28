@@ -54,6 +54,16 @@
 						href="ActionServlet?action=IngresarPagoCliente">Ingresar Pago
 						Cliente</a>
 				</div></li>
+
+			<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> Almacen </a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item ajax-link"
+					   href="ActionServlet?action=ListarRemitos">Listar Remitos</a>
+				</div></li>
+
 		</ul>
 		<button id="logout" type="button" class="btn btn-warning">Log Out</button>
 	</div>
