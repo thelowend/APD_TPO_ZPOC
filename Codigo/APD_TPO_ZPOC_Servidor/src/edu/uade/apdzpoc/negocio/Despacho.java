@@ -73,4 +73,9 @@ public class Despacho {
 	public PedidoWeb obtenerPedidoWeb(int id) throws PedidoWebException {
 		return PedidoWeb.obtenerPedidoPorId(id);
 	}
+
+	public List<Articulo> obtenerArticulosParaPublicar() {
+		// TODO Auto-generated method stub
+		return Articulo.getArticulos();
+	}
 }
