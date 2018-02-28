@@ -33,49 +33,50 @@ public class HibernateTest {
         movimientosPedido();
 
         //Get Pedido Web
-        PedidoWebDAO.getInstancia().findByCodigo(1);
+        PedidoWebDAO.getInstancia().findByCodigo(1).toString();
 
         //Get Factura
-        FacturaDAO.getInstancia().findByCodigo(1);
+        FacturaDAO.getInstancia().findByCodigo(1).toString();
 
         //Get Remito Almacen
-        RemitoAlmacenDAO.getInstancia().findByNro(1);
+        RemitoAlmacenDAO.getInstancia().findByNro(1).toString();
 
         //Get Remito Almacen
         RemitoTransporteDAO.getInstancia().findByCodigo(1);
 
         //Get Pago Cliente
-        PagoClienteDAO.getInstancia().findByNro(1);
+        PagoClienteDAO.getInstancia().findByNro(1).toString();
 
         //Get Movimientos
         MovimientoAjusteDAO.getInstancia().findByNro(1);
 
-        MovimientoCompraDAO.getInstancia().findByNro(2);
+        MovimientoCompraDAO.getInstancia().findByNro(2).toString();
 
         MovimientoPedidoDAO.getInstancia().findByNro(3);
     }
 
     private static void ordenesCompra() throws Exception {
         Proveedor p = ProveedorDAO.getInstancia().findByNro(1);
-        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(10000);
         PedidoWeb pw = PedidoWebDAO.getInstancia().findByCodigo(1);
+        pw.toString();
       //  new OrdenCompra(p, a, pw).save();
     }
 
     private static void movimientosAjuste() throws Exception {
-        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(10100);
         Lote l = LoteDAO.getInstancia().findByNro(1);
         new MovimientoAjuste(new Date(), a, 70, CausaAjuste.Rotura, 12345, 54321, DestinoArticulos.Donacion, l).save();
     }
 
     private static void movimientosPedido() throws Exception {
-        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(10000);
         PedidoWeb pw = PedidoWebDAO.getInstancia().findByCodigo(1);
         new MovimientoPedido(new Date(), a, 99, pw).save();
     }
 
     private static void movimientosCompra() throws Exception {
-        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(10000);
         OrdenCompra oc = OrdenCompraDAO.getInstancia().findByCodigo(1);
         Lote l = LoteDAO.getInstancia().findByNro(1);
         new MovimientoCompra(new Date(), a, 10, oc, l).save();
@@ -127,8 +128,8 @@ public class HibernateTest {
     private static void pedidoWeb() throws Exception {
         Cliente c = ClienteDAO.getInstancia().findByCodigo(1);
 
-        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
-        Articulo b = ArticuloDAO.getInstancia().findByCodigo(2);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(10000);
+        Articulo b = ArticuloDAO.getInstancia().findByCodigo(10100);
 
         List<ItemPedido> items = new ArrayList<>();
         items.add(new ItemPedido(a, 20, EstadoItemPedido.Con_Stock));
@@ -154,7 +155,7 @@ public class HibernateTest {
     }
 
     private static void lotes() throws Exception {
-        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(10000);
 
         Ubicacion u1 = UbicacionDAO.getInstancia().findByNro(1);
         Ubicacion u2 = UbicacionDAO.getInstancia().findByNro(2);
@@ -167,8 +168,8 @@ public class HibernateTest {
 
         Ubicacion u = UbicacionDAO.getInstancia().findByNro(1);
 
-        Articulo a = ArticuloDAO.getInstancia().findByCodigo(1);
-        Articulo b = ArticuloDAO.getInstancia().findByCodigo(2);
+        Articulo a = ArticuloDAO.getInstancia().findByCodigo(10000);
+        Articulo b = ArticuloDAO.getInstancia().findByCodigo(10100);
 
         List<ItemRemitoAlmacen> items = new ArrayList<>();
         items.add(new ItemRemitoAlmacen(a, 20, u));

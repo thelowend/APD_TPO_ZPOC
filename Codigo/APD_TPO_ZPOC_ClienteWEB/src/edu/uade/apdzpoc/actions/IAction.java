@@ -1,5 +1,6 @@
 package edu.uade.apdzpoc.actions;
 
+import java.rmi.RemoteException;
 import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,6 @@ public interface IAction {
 
     boolean isValid(String action);
 
-    String doAction(HttpServletRequest request, HttpServletResponse response) throws ParseException;
+    String doAction(HttpServletRequest request, HttpServletResponse response) throws ParseException, RemoteException;
 
 }

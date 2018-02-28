@@ -12,7 +12,49 @@
 				</tr>
 			</thead>
 			<tbody>
+				<%
+					List<ArticuloDTO> articulos = (List<ArticuloDTO>) request.getAttribute("articulos");
+					
+					ArticuloDTO aux;
+					
+					String codigoBarra;
+					String nombreArticulo;
+					String descripcion;
+					String precioVenta;
+					String presentacion;
+					String tamanio;
+					
+					
+					for (Iterator<ArticuloDTO> i = articulos.iterator(); i.hasNext();) {
+						aux = i.next();
+						
+						codigoBarra = String.valueOf(aux.getCodigoBarra());
+						nombreArticulo = aux.getNombreArticulo();
+						descripcion = aux.getDescripcion();
+						precioVenta = String.valueOf(aux.getPrevioVenta());
+						presentacion = aux.getPresentacion();
+						tamanio = aux.getTamanio();
+												
+						
+			%>
 				<tr>
+					<th scope="row"><%=aux.getCodigoBarra()%></th>
+					<td><%=aux.getNombreArticulo()%></td>
+					<td><%=aux.getDescripcion()%></td>
+					<td><%=aux.getPrevioVenta()%></td>
+					<td><%=aux.aux.getPresentacion()%></td>
+					<td><%=aux.getTamanio()%></td>
+					
+					<td><button class="btn btn-sm btn-dark btn-anadir"
+							data-articulo='{ "id": "<%=codigoBarra%>", "nombre": "<%= aux.getNombreArticulo() %>" }'><i class="fas fa-cubes"></i> Despachar</button>
+				</tr>
+				<% } %>
+			
+			
+			
+			
+			
+<!-- 				<tr>
 					<th scope="row">1</th>
 					<td>Pizza</td>
 					<td>Pizza Vegana yummy</td>
@@ -28,7 +70,7 @@
 					<th scope="row">3</th>
 					<td>Faso</td>
 					<td>Guarda con éste</td>
-					<td><button class="btn btn-sm btn-dark">Añadir</button></td>
+					<td><button class="btn btn-sm btn-dark">Añadir</button></td> -->
 				</tr>
 			</tbody>
 		</table>
