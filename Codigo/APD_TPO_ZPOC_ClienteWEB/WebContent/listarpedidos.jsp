@@ -8,7 +8,7 @@
 
 <article class="container grid col-12 col-md-10 mt-2">
 	<h1>Despachar Pedidos:</h1>
-
+	<p class="warning"><%= request.getAttribute("errores") %></p>
 	<section class="row col-12 seleccionar-articulos mt-4 mb-4">
 		<table class="table table-striped">
 			<thead class="thead-dark">

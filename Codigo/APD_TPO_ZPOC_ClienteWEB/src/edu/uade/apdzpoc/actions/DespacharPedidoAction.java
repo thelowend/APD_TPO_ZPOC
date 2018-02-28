@@ -1,5 +1,6 @@
 package edu.uade.apdzpoc.actions;
 
+import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.dto.PedidoWebDTO;
 import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.excepciones.ComunicationException;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
 import edu.uade.apdzpoc.negociodelegado.BusinessDelegate;
 
 public class DespacharPedidoAction implements IAction {
@@ -26,31 +28,26 @@ public class DespacharPedidoAction implements IAction {
     @Override
     public String doAction(HttpServletRequest request, HttpServletResponse response) throws ParseException {
     	
-    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    	List<PedidoWebDTO> pedidosPendientesActualizados = new ArrayList<>();
     	
-        Integer idPedidoWeb = Integer.valueOf(request.getParameter("id"));
-        Date fechaEntrega = formatter.parse(request.getParameter("fechaentrega"));
+    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Integer idPedidoWeb = Integer.valueOf(request.getParameter("idPedido"));
+        Date fechaEntrega = formatter.parse(request.getParameter("fechaEntrega"));
         String empresaTransporte = request.getParameter("empresatransporte");
         
-        System.out.println(idPedidoWeb);
-        
-        //ClienteDTO clienteDTO = new CLienteDTO(int idCliente, int documento, String nombre);
-        
-        
-//        PedidoWebDTO pwDTO = new PedidoWebDTO(idPedidoWeb, clienteDTO, fechaGen, new Date(),
-//        		fechaEntrega, EstadoPedido.Despachado, String direccionPedido, List<ItemPedidoDTO> items)
-        		
-//        BusinessDelegate.getInstancia().despacharPedido(pwDTO, fechaEntrega, empresaTransporte);
-        		
-//    	List<PedidoWebDTO> pedidosPendientes = new ArrayList<>();
-//    	try {
-//    		
-//			 pedidosPendientes = BusinessDelegate.getInstancia().obtenerPedidosParaDespachar();
-//		} catch (ComunicationException e) {
-//			e.printStackTrace();
-//		}
-//    	request.setAttribute("pedidosPendientes", pedidosPendientes);
-        
+		try {
+			BusinessDelegate delegado = BusinessDelegate.getInstancia();
+			PedidoWebDTO pedidoWebDTO = delegado.obtenerPedidoWebParaPublicar(idPedidoWeb);
+			delegado.despacharPedido(pedidoWebDTO, fechaEntrega, empresaTransporte);
+			
+	    	pedidosPendientesActualizados = BusinessDelegate.getInstancia().obtenerPedidosParaDespachar();
+			
+		} catch (RemoteException | ComunicationException | PedidoWebException e) {
+			request.setAttribute("errores", e.getMessage());
+		}
+		
+		request.setAttribute("pedidosPendientes", pedidosPendientesActualizados);
+		
         return "/listarpedidos.jsp";
     }
 }

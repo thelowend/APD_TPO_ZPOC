@@ -62,6 +62,7 @@ public class Despacho {
 		// Facturación crea el Remito de Transporte
 		Facturacion.getInstancia().crearRemitoTransporte(pw, empresaTransporte);
 		pw.setFechaDeEntrega(fechaEntrega);
+		pw.setFechaDespacho(new Date());
 		pw.setEstadoPedido(EstadoPedido.Despachado);
 		pw.save();
 	}
