@@ -10,6 +10,11 @@ import java.util.Collections;
 public class ListarRemitosAction implements IAction {
 
     @Override
+    public boolean isValid(String action) {
+        return "ListarRemitos".equals(action);
+    }
+
+    @Override
     public String doAction(HttpServletRequest request, HttpServletResponse response) {
         //TODO Obtener Remitos
         Collection remitos = Collections.emptyList();

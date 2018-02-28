@@ -1,13 +1,13 @@
 package edu.uade.apdzpoc.servlets;
 
+import edu.uade.apdzpoc.actions.IAction;
 import edu.uade.apdzpoc.actions.ListarRemitosAction;
+import edu.uade.apdzpoc.actions.NotFoundAction;
 import edu.uade.apdzpoc.actions.SeleccionarRemitoAction;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,50 +22,60 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ActionServlet")
 public class ActionServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 5459613143358646096L;
+    private static final long serialVersionUID = 5459613143358646096L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
-	}
+    private Collection<IAction> actions = new HashSet<>();
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        actions.add(new ListarRemitosAction());
+        actions.add(new SeleccionarRemitoAction());
+        System.out.println();
+    }
 
-		String action = request.getParameter("action");
-		String jspPage = "/empty.jsp";
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
 
-		//TODO Cambiar por un switch o una iteracion de IAction (simil Patron Strategy)
-		if ((action == null) || (action.length() < 1)) {
-			action = "default";
-		} else if ("IngresarPedido".equals(action)) {
-			jspPage = "/ingresarpedido.jsp";
-		}  else if ("ListarPedidos".equals(action)) {
-			jspPage = "/listarpedidos.jsp";
-		} else if ("IngresarOrdenCompra".equals(action)) {
-			jspPage = "/ingresarcompra.jsp";
-		} else if ("ListarOrdenesCompra".equals(action)) {
-			jspPage = "/listarordenescompra.jsp";
-		} else if ("ValidarOrdenCompra".equals(action)) {
-			jspPage = "/validarordencompra.jsp";
-		} else if ("IngresarPagoCliente".equals(action)) {
-			jspPage = "/ingresarpago.jsp";
-		}  else if ("ListarRemitos".equals(action)) {
-			jspPage = new ListarRemitosAction().doAction(request,response);
-		} else if ("SeleccionarRemito".equals(action)) {
-            jspPage = new SeleccionarRemitoAction().doAction(request,response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        final String action = request.getParameter("action");
+        String jspPage = "/empty.jsp";
+
+        //TODO Cambiar por un switch o una iteracion de IAction (ejemplo abajo)
+        if ("IngresarPedido".equals(action)) {
+            jspPage = "/ingresarpedido.jsp";
+        } else if ("ListarPedidos".equals(action)) {
+            jspPage = "/listarpedidos.jsp";
+        } else if ("IngresarOrdenCompra".equals(action)) {
+            jspPage = "/ingresarcompra.jsp";
+        } else if ("ListarOrdenesCompra".equals(action)) {
+            jspPage = "/listarordenescompra.jsp";
+        } else if ("ValidarOrdenCompra".equals(action)) {
+            jspPage = "/validarordencompra.jsp";
+        } else if ("IngresarPagoCliente".equals(action)) {
+            jspPage = "/ingresarpago.jsp";
+        } else if ("ListarRemitos".equals(action)) {
+            jspPage = this.actions.stream()
+                    .filter(a -> a.isValid(action))
+                    .findFirst()
+                    .orElse(NotFoundAction.NOT_FOUND_ACTION)
+                    .doAction(request, response);
         }
 
-		dispatch(jspPage, request, response);
-	}
+        dispatch(jspPage, request, response);
+    }
 
-	protected void dispatch(String jsp, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (jsp != null) {
-			RequestDispatcher rd = request.getRequestDispatcher(jsp);
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			rd.forward(request, response);
-		}
-	}
+    protected void dispatch(String jsp, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (jsp != null) {
+            RequestDispatcher rd = request.getRequestDispatcher(jsp);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            rd.forward(request, response);
+        }
+    }
 }

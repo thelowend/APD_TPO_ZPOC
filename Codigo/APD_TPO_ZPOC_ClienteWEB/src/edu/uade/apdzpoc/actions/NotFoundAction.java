@@ -3,17 +3,17 @@ package edu.uade.apdzpoc.actions;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SeleccionarRemitoAction implements IAction {
+public class NotFoundAction implements IAction {
+
+    public static final NotFoundAction NOT_FOUND_ACTION = new NotFoundAction();
 
     @Override
     public boolean isValid(String action) {
-        return "SeleccionarRemito".equals(action);
+        return false;
     }
 
     @Override
     public String doAction(HttpServletRequest request, HttpServletResponse response) {
-        Integer idRemito = Integer.valueOf(request.getParameter("idRemito"));
-        System.out.println(idRemito);
-        return "/listarRemitos.jsp";
+        return "/404.jsp";
     }
 }
