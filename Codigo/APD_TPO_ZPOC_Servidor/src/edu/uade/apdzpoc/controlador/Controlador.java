@@ -77,9 +77,11 @@ public class Controlador {
 			ItemPedido ip = null;
 			ip.dtoItemPedidoToNegocio(i);
 			items.add(ip);
-		}
+		}		
+		Cliente cl = null;
+		cl=cl.dtoClienteToNegocio(cliente);
 		
-		Cliente cl = DTOMapper.getInstancia().dtoClienteToNegocio(cliente);
+		//Cliente cl = DTOMapper.getInstancia().dtoClienteToNegocio(cliente);
 		
 		
 		PedidoWeb pedidoWeb = new PedidoWeb(cl, EstadoPedido.Pendiente_Validacion, direccion, items).saveAndFetch();
