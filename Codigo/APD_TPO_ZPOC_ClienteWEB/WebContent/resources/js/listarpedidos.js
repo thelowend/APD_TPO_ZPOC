@@ -1,5 +1,6 @@
 (() => {
 	$(() =>{
+		const $main = $('#main');
 		const $btnPedido = $('.btn-despachar');
 		const $modalDespachar = $('#dispatchPedidoModal');
 		const $submitPedido = $('#submitPedido');
@@ -44,6 +45,7 @@
 					setTimeout((data) => { //Timeout para simular carga
 						alert(`¡${currentPedido.nombre} despachado!`);
 						$modalDespachar.modal('hide');
+						$main.html(page);
 					}, 200);
 				});				
 			}
