@@ -22,10 +22,13 @@ import java.util.List;
 import edu.uade.apdzpoc.dao.LoteDAO;
 import edu.uade.apdzpoc.dao.OrdenCompraDAO;
 import edu.uade.apdzpoc.dao.UbicacionDAO;
+import edu.uade.apdzpoc.dto.OrdenCompraDTO;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.enums.EstadoUbicacion;
 import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.OrdenCompraException;
 import edu.uade.apdzpoc.excepciones.UbicacionException;
+import edu.uade.apdzpoc.util.DTOMapper;
 
 public class OrdenCompra {
 
@@ -199,6 +202,13 @@ public class OrdenCompra {
 		return UbicacionDAO.getInstancia().getUbicacionLibre();
 	}
 	
+	public OrdenCompra dtoOrdenCompraToNegocio (OrdenCompraDTO oc) throws OrdenCompraException{
+		return DTOMapper.getInstancia().dtoOrdenCompraToNegocio(oc);
+	}
+	
+	public OrdenCompraDTO ordenCompraToDTO (OrdenCompra oc){
+		return  DTOMapper.getInstancia().ordenCompraToDTO(oc);
+	}
 	
 
 }

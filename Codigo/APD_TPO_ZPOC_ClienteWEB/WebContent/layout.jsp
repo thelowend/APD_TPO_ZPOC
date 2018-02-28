@@ -29,7 +29,7 @@
 		<h1>Bienvenido/a</h1>
 	</section>
 
-	<footer class="footer">
+	<footer class="footer hidden-sm-down">
 		<div class="container-fluid">
 			<p>2018<sup>&copy;</sup> - ZPOC</p>
 		</div>

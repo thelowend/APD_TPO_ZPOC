@@ -242,9 +242,7 @@ public class Articulo {
 	
 	public static ArticuloDTO articuloToDTO (Articulo articulo){
 		
-		ArticuloDTO artDTO =  DTOMapper.getInstancia().articuloToDTO(articulo);
-		
-		return artDTO;
+		return  DTOMapper.getInstancia().articuloToDTO(articulo);
 	}
 
 	public static ArticuloStockDTO articuloStockToDTO (Articulo articulo){
