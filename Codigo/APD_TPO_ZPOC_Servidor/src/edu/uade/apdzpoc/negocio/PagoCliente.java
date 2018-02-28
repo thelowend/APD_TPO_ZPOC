@@ -22,6 +22,16 @@ public class PagoCliente {
 	
 	public PagoCliente() {}
 
+	
+	public PagoCliente(Integer idPago, MedioPago medioDePago, Date fecha, float monto, Factura factura) {
+		super();
+		IdPago = idPago;
+		this.medioDePago = medioDePago;
+		this.fecha = fecha;
+		this.monto = monto;
+		this.factura = factura;
+	}
+
 	public Integer getIdPago() {
 		return IdPago;
 	}

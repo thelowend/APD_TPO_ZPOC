@@ -40,9 +40,23 @@ public class UbicacionDTO implements Serializable {
 	
 	
 	
-	
-	
-	
+
+
+
+
+	public UbicacionDTO() {
+		
+	}
+
+
+
+
+
+
+
+
+
+
 	public Integer getIdUbicacion() {
 		return idUbicacion;
 	}

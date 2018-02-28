@@ -1,12 +1,18 @@
 package edu.uade.apdzpoc.negociodelegado;
 
 import edu.uade.apdzpoc.dto.*;
-import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.enums.CausaAjuste;
 import edu.uade.apdzpoc.enums.DestinoArticulos;
 import edu.uade.apdzpoc.enums.EstadoOC;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.ArticuloProveedorException;
+import edu.uade.apdzpoc.excepciones.ClienteException;
 import edu.uade.apdzpoc.excepciones.ComunicationException;
+import edu.uade.apdzpoc.excepciones.LoteException;
+import edu.uade.apdzpoc.excepciones.OrdenCompraException;
+import edu.uade.apdzpoc.excepciones.PedidoWebException;
+import edu.uade.apdzpoc.excepciones.ProveedorException;
+import edu.uade.apdzpoc.excepciones.UbicacionException;
 import edu.uade.apdzpoc.interfaces.*;
 
 import java.net.MalformedURLException;
@@ -57,15 +63,15 @@ public class BusinessDelegate {
 	}
 	
 	
-	public int crearPedidoWeb(List<ItemPedidoDTO> articulosComprados, ClienteDTO cliente) throws ComunicationException {
+	public int crearPedidoWeb(List<ItemPedidoDTO> articulosComprados, ClienteDTO cliente, String direccion) throws ComunicationException, ArticuloException, ArticuloProveedorException, ProveedorException, ClienteException {
 		try {
-			return referenciaRemota.crearPedidoWeb(articulosComprados, cliente);
+			return referenciaRemota.crearPedidoWeb(articulosComprados, cliente, direccion);
 		} catch (RemoteException e) {
 			throw new ComunicationException("Se produjo un error en la comunicación.");
 		}
 	}
 	
-	public List<PedidoWebDTO>  obtenerPedidosParaProcesar() throws ComunicationException{
+public List<PedidoWebDTO>  obtenerPedidosParaProcesar() throws ComunicationException{
 		try{
 			return referenciaRemota.obtenerPedidosParaProcesar();
 		} catch (RemoteException e){
@@ -75,7 +81,7 @@ public class BusinessDelegate {
 	
 	
 	
-	public void procesarPedido(PedidoWebDTO pw) throws ComunicationException {
+	public void procesarPedido(PedidoWebDTO pw) throws ComunicationException, ArticuloException, ArticuloProveedorException, ProveedorException, PedidoWebException {
 		try{
 			referenciaRemota.procesarPedido(pw);
 		} catch (RemoteException e){
@@ -97,7 +103,7 @@ public class BusinessDelegate {
 	
 	
 	
-	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) throws ComunicationException {
+	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) throws ComunicationException, PedidoWebException {
 		try{
 			referenciaRemota.despacharPedido(pw, fechaEntrega, empresaTransporte);
 		} catch (RemoteException e){
@@ -116,17 +122,16 @@ public class BusinessDelegate {
 	}
 	
 	
-	
-	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws ComunicationException{
+	public void validarIngresoOrdenCompra(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws ComunicationException, LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException, OrdenCompraException{
 		try{
-			referenciaRemota.procesarOrdenCompraPendiente(oc, estadoOC, lote);
+			referenciaRemota.validarIngresoOrdenCompra(oc, estadoOC, lote);
 		}catch (RemoteException e){
 			throw new ComunicationException("Se produjo un error en la comunicación.");
 		}
 	}
 	
 	
-	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, LoteDTO lote, String destino) throws ComunicationException{
+	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, LoteDTO lote, DestinoArticulos destino) throws ComunicationException, ArticuloException, LoteException{
 		try {
 			referenciaRemota.ajustarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote, destino);
 		}catch (RemoteException e){
@@ -143,14 +148,10 @@ public class BusinessDelegate {
 	}
 	
 	// Cada 30 días el Almacén controla automáticamente los vencimientos:
-	public void controlarVencimientos() throws ComunicationException {
-		try {
-			referenciaRemota.controlarVencimientos();
-		}catch (RemoteException e){
-			throw new ComunicationException("Se produjo un error en la comunicación.");
-		}
+/*	public void controlarVencimientos() throws ComunicationException {
+		referenciaRemota.controlarVencimientos();
 	}
-	
+	*/
 	
 	
 	
