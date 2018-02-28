@@ -41,9 +41,9 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item ajax-link"
 						href="ActionServlet?action=IngresarOrdenCompra">Ingresar
-						&Oacute;rden</a> <a class="dropdown-item ajax-link"
+						Orden</a> <a class="dropdown-item ajax-link"
 						href="ActionServlet?action=ValidarOrdenCompra">Validar
-						&Oacute;rden</a>
+						Orden</a>
 				</div></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
