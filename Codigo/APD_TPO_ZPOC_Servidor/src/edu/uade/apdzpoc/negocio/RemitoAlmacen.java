@@ -121,4 +121,8 @@ public class RemitoAlmacen {
 		RemitoAlmacenDAO.getInstancia().save(this);
 	}
 
+	public static List<RemitoAlmacen> obtenerRemitosParaProcesar() {
+		return RemitoAlmacenDAO.getInstancia().findByEstado(EstadoRemito.Pendiente.toString());
+	}
+
 }
