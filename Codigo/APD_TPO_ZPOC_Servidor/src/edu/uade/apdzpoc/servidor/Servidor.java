@@ -15,9 +15,9 @@ public class Servidor {
 		
 			try {
 				objetoRemoto = new ObjetoRemoto();
-				LocateRegistry.createRegistry(1100);
-				Naming.rebind("//localhost/Remoto", objetoRemoto);
-				System.out.println("Fijado en //localhost/Remoto");
+				LocateRegistry.createRegistry(1099);
+				Naming.rebind("//127.0.0.1/Remoto", objetoRemoto);
+				System.out.println("Fijado en //127.0.0.1/Remoto");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

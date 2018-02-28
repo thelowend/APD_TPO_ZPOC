@@ -137,20 +137,20 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 						}
 		//TODO: detalles de Pedido WEB
 			
-			public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException {
+			public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException, PedidoWebException {
 				return Controlador.getInstancia().obtenerPedidoWebParaPublicar(idPedido);
 			}
 		
 		//TODO: detalles de Orden de Compra
 
-			public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException {
+			public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException, OrdenCompraException {
 				return Controlador.getInstancia().obtenerOrdenCompraParaPublicar(idOC);
 			}	
 				
 												
 		//TODO: detalles de Articulo por su Stock
 		
-			public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException {
+			public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ArticuloException {
 				return Controlador.getInstancia().obtenerDetalleStockdeArticulo(codigoBarra);
 			}	
 			
