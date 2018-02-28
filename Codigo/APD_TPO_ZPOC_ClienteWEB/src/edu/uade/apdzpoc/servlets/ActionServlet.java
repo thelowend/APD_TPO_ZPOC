@@ -35,7 +35,7 @@ public class ActionServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String jspPage = "/empty.jsp";
 
-		//TODO Cambiar por un switch
+		//TODO Cambiar por un switch o una iteracion de IAction (simil Patron Strategy)
 		if ((action == null) || (action.length() < 1)) {
 			action = "default";
 		} else if ("IngresarPedido".equals(action)) {
