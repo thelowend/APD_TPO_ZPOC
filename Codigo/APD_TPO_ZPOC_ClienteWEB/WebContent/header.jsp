@@ -65,9 +65,6 @@
 				</div></li>
 
 		</ul>
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#exampleModal">Lanzar Modal</button>
-		<a class="nav-link" href="./">Log Out <span class="sr-only">(current)</span>
-		</a>
+		<button id="logout" type="button" class="btn btn-warning">Log Out</button>
 	</div>
 </nav>
