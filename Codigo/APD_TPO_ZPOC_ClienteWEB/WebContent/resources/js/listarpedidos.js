@@ -4,26 +4,44 @@
 		const $modalDespachar = $('#dispatchPedidoModal');
 		const $submitPedido = $('#submitPedido');
 		
+		const invalidClass = 'is-invalid';
+		
 		let currentPedido = '';
 		
 		const despacharPedido = (ev) => {
 			ev.preventDefault();
-			// Me guardaría el pedido en la data del botón, y acá la obtengo:
-			const pedido = $(ev.currentTarget).data('pedido');
-			
-			populateModal(pedido);
+			populateModal($(ev.currentTarget).data('pedido'));
 			$modalDespachar.modal('show');
-			
 		}
 		
-		const submitPedido = (ev) => {
-			// Valido los campos
-			alert(`¡${currentPedido.nombre} despachado!`);
+		const validar = () => {
+			$modalDespachar.find('.needs-validation').each((index, item) => {
+				switch (item.type) {
+					case 'date':
+							$(item).toggleClass(invalidClass, !item.valueAsDate);
+						break;
+					case 'select-one':
+							$(item).toggleClass(invalidClass, item.selectedIndex < 1);
+						break;
+				}
+			});
+			return $modalDespachar.find(`.needs-validation.${invalidClass}`).length < 1;
+		}
+		
+		const submitPedido = () => {
+			if(validar()) {
+				$.post('ActionServlet?action=DespacharPedido', currentPedido, page => {
+					setTimeout((data) => { //Timeout para simular carga
+						alert(`¡${currentPedido.nombre} despachado!`);
+						$modalDespachar.modal('hide');
+					}, 200);
+				});				
+			}
 		}
 		
 		const populateModal = pedido => {
-			currentPedido = { nombre: pedido }; //Despues voy a hacer que pedido sea un JSON
-			$modalDespachar.find('#dispatchPedidoModalLabel').text(`¿Despachar ${currentPedido.nombre}?`);
+			currentPedido = pedido; //Despues voy a hacer que pedido sea un JSON
+			$modalDespachar.find('#dispatchPedidoModalLabel').text(`¿Despachar pedido ${currentPedido.id}?`);
 			console.log(pedido);
 		}
 		

@@ -44,7 +44,6 @@ public class ActionServlet extends HttpServlet {
 
         final String action = request.getParameter("action");
         String jspPage = "/empty.jsp";
-
         //TODO Cambiar por un switch o una iteracion de IAction (ejemplo abajo)
         if ("IngresarPedido".equals(action)) {
             jspPage = "/ingresarpedido.jsp";
@@ -58,6 +57,9 @@ public class ActionServlet extends HttpServlet {
             jspPage = "/validarordencompra.jsp";
         } else if ("IngresarPagoCliente".equals(action)) {
             jspPage = "/ingresarpago.jsp";
+        } else if ("DespacharPedido".equals(action)) {
+    		String test = request.getParameter("id");
+            jspPage = "/listarpedidos.jsp";
         } else if ("ListarRemitos".equals(action)) {
             IAction found = NotFoundAction.NOT_FOUND_ACTION;
             for (IAction a : this.actions) {
