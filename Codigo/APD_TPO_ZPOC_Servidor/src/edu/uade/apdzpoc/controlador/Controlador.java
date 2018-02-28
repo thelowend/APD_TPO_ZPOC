@@ -74,7 +74,9 @@ public class Controlador {
 		List <ItemPedido> items = new ArrayList<ItemPedido>();
 		for(ItemPedidoDTO i : articulosComprados)
 		{
-			items.add(DTOMapper.getInstancia().dtoItemPedidoToNegocio(i));
+			ItemPedido ip = null;
+			ip.dtoItemPedidoToNegocio(i);
+			items.add(ip);
 		}
 		
 		Cliente cl = DTOMapper.getInstancia().dtoClienteToNegocio(cliente);
