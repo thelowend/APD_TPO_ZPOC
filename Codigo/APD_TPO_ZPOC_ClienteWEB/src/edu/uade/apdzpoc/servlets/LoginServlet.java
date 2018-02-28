@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		// Acá llamaría un servicio de Login de verdad.
-		if ((usuario.equals("Godio")) && (password.equals("powermetal"))) {
+		if ((usuario.equals("Godio")) && (password.equals("1234"))) {
 			dispatch(jspPage, request, response);
 		} else {
 			jspPage = "/login.jsp?error=LoginInvalido";
