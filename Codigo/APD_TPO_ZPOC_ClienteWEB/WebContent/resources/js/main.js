@@ -15,5 +15,11 @@
 		});
 	}
 	
-	$('.ajax-link').click(loadPage);
+	const doBindings = () => {
+		$('.ajax-link').click(loadPage);
+		$('#logout').click(logout);
+	}
+	
+	doBindings();
+
 })();
