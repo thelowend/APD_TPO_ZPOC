@@ -2,7 +2,7 @@
 	<a class="navbar-brand d-flex align-items-center" href="#"> <img
 		src="${pageContext.request.contextPath}/resources/img/menu.svg"
 		class="mr-2" width="36" height="36" class="d-inline-block align-top"
-		alt=""> Die Verrückte Dose
+		alt=""> Die Verrückte Dose 
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
@@ -65,6 +65,6 @@
 				</div></li>
 
 		</ul>
-		<button id="logout" type="button" class="btn btn-warning">Log Out</button>
+		<button id="logout" type="button" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i> Log Out</button>
 	</div>
 </nav>

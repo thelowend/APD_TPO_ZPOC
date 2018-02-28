@@ -16,19 +16,19 @@
 					<th scope="row">1</th>
 					<td>Pizza</td>
 					<td>Pizza Vegana yummy</td>
-					<td><button class="btn-dark">Añadir</button></td>
+					<td><button class="btn btn-sm btn-dark">Añadir</button></td>
 				</tr>
 				<tr>
 					<th scope="row">2</th>
 					<td>Birra</td>
 					<td>Bien fría por favor</td>
-					<td><button class="btn-dark">Añadir</button></td>
+					<td><button class="btn btn-sm btn-dark">Añadir</button></td>
 				</tr>
 				<tr>
 					<th scope="row">3</th>
 					<td>Faso</td>
 					<td>Guarda con éste</td>
-					<td><button class="btn-dark">Añadir</button></td>
+					<td><button class="btn btn-sm btn-dark">Añadir</button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -47,11 +47,14 @@
 			</div>
 		</div>
 		<div class="carro-right col-12 col-sm-6 bg-light text-dark p-2">
-			<div class="carrito-articulos grid col-12">
-				<ul>
-					<li><span class="carrito-articulo-nombre">Item 1</span><span class="carrito-articulo-cant">(1)</span></li>
-					<li><span class="carrito-articulo-nombre">Item 2</span><span class="carrito-articulo-cant">(1)</span></li>
-				</ul>
+			<div class="carrito-articulos container-fluid" data-articulos='{}'>
+				<div class="row no-gutters" data-articulo='{}'>
+				  <div class="carrito-articulo-nombre col-8">Item 1</div>
+				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light plus-art"><i class="fas fa-minus-square"></i></button></div>
+				  <div class="carrito-articulo-cant col-1 text-center">1</div>
+				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light min-art"><i class="fas fa-plus-square"></i></button></div>
+				  <div class="carrito-articulo-trash col-1 text-center"><button class="btn btn-sm btn-dark remove-art"><i class="fas fa-trash"></i></button></div>
+				</div>
 			</div>
 		</div>
 		<div class="carro-pedir col-12">

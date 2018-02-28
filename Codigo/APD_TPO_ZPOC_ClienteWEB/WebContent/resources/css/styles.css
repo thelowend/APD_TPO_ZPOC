@@ -55,6 +55,22 @@ body {
     overflow: auto;
 }
 
+.carrito-articulos ul {
+	list-style-type: none;
+	margin: 0;
+    padding: 0;
+}
+
+.carrito-articulos ul li {
+	
+}
+.carrito-articulo-nombre {
+	font-weight: bold;
+}
+.carrito-articulo-cant {
+
+}
+
 #dispatchPedidoModal .input-group-prepend {
 	width: 7rem;
 }

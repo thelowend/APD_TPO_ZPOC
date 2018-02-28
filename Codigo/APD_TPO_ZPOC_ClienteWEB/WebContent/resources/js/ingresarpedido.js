@@ -2,6 +2,8 @@
 	$(() =>{
 		const $btnPedido = $('#submitPedido');
 		
+		let pedidoActual = {};
+		
 		const ingresarPedido = (ev) => {
 			ev.preventDefault();
 			debugger;
@@ -11,6 +13,18 @@
 			confirm("confirmar pedido?");
 		}
 		
-		$btnPedido.click(ingresarPedido);
+		
+		
+
+		const doBindings = () => {
+			
+			$btnPedido.click(ingresarPedido);
+			
+			plus-art
+			min-art
+			remove-art
+		}
+		
+		doBindings();
 	});
 })();
