@@ -69,6 +69,9 @@ Insert into PedidosWeb values ('20180203','20180204','20180205', 'Entregado','Pu
 Insert into PedidosWeb values ('20180204','20180205','20180206', 'Entregado','Directorio 787',4)
 Insert into PedidosWeb values ('20180228', null,	null, 'Pendiente_Stock','Rivadavia 736',1)
 Insert into PedidosWeb values ('20180228', null,	null, 'Pendiente_Despacho','Boedo 150',2)
+Insert into PedidosWeb values ('20180201', null,	null, 'Pendiente_Despacho','Calle Falsa 123',2)
+Insert into PedidosWeb values ('20180220', null,	null, 'Pendiente_Despacho','Direccion x',4)
+Insert into PedidosWeb values ('20180217', null,	null, 'Pendiente_Despacho','El Reino de La Oscuridad 227',1)
 
 Insert into ItemsPedido values (5,'Con_Stock',10000,1)
 Insert into ItemsPedido values (5,'Con_Stock',10400,1)
