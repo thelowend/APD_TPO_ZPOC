@@ -28,7 +28,7 @@ public interface InterfazRemota extends Remote, Serializable {
 	public abstract List<OrdenCompraDTO> obtenerOrdenesdeCompraParaValidar() throws RemoteException;
 
 
-	public abstract void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC) throws RemoteException;
+	public abstract void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws RemoteException;
 
 
 	public abstract void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante, LoteDTO lote,

@@ -81,8 +81,8 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC) throws RemoteException {
-		Controlador.getInstancia().ingresarCompra(oc, estadoOC);
+	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws RemoteException {
+		Controlador.getInstancia().ingresarCompra(oc, estadoOC, lote);
 
 	}
 

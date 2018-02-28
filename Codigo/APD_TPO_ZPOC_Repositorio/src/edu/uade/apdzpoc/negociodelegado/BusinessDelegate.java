@@ -87,9 +87,6 @@ public class BusinessDelegate {
 	
 	
 	
-	
-	
-	
 	public List<PedidoWebDTO>  obtenerPedidosParaDespachar() throws ComunicationException{
 		try{
 			return referenciaRemota.obtenerPedidosParaDespachar();
@@ -120,9 +117,9 @@ public class BusinessDelegate {
 	
 	
 	
-	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC) throws ComunicationException{
+	public void procesarOrdenCompraPendiente(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws ComunicationException{
 		try{
-			referenciaRemota.procesarOrdenCompraPendiente(oc, estadoOC);
+			referenciaRemota.procesarOrdenCompraPendiente(oc, estadoOC, lote);
 		}catch (RemoteException e){
 			throw new ComunicationException("Se produjo un error en la comunicación.");
 		}
