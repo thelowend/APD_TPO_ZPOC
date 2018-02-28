@@ -15,6 +15,8 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.util.List;
+
 import edu.uade.apdzpoc.dao.ClienteDAO;
 
 public class Cliente {
@@ -122,4 +124,10 @@ public class Cliente {
 		ClienteDAO.getInstancia().save(this);
 	}
 
+	public static List <Cliente> obtenerClientesParaPublicar() {
+		return ClienteDAO.getInstancia().getAll();
+	}
+	
+	
+	
 }

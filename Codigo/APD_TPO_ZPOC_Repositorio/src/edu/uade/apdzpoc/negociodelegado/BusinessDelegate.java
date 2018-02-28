@@ -155,6 +155,62 @@ public List<PedidoWebDTO>  obtenerPedidosParaProcesar() throws ComunicationExcep
 	*/
 	
 	
+
+	//Lista de Articulos para que se pueda hacer el pedido
+	public List<ArticuloDTO> obtenerArticulosParaPublicar() throws RemoteException, ComunicationException{
+		try {
+			return referenciaRemota.obtenerArticulosParaPublicar();
+		}catch (RemoteException e){
+			throw new ComunicationException("Se produjo un error en la comunicación.");
+		}
+	}
+	
+	
+
+	//Lista de Clientes para Asociar los Pagos / Factura
+	
+	
+		public List<ClienteDTO> obtenerClientesParaPublicar() throws RemoteException, ComunicationException{
+			try {
+			return referenciaRemota.obtenerClientesParaPublicar();
+		}catch (RemoteException e){
+			throw new ComunicationException("Se produjo un error en la comunicación.");
+		}
+		}		
+					
+	//TODO: detalles de Pedido WEB
+		
+		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException, ComunicationException{
+			try {
+			return referenciaRemota.obtenerPedidoWebParaPublicar(idPedido);
+		}catch (RemoteException e){
+			throw new ComunicationException("Se produjo un error en la comunicación.");
+		}
+		}
+	//TODO: detalles de Orden de Compra
+
+		public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException, ComunicationException{
+			try{
+			return referenciaRemota.obtenerOrdenCompraParaPublicar(idOC);
+			}catch (RemoteException e){
+				throw new ComunicationException("Se produjo un error en la comunicación.");
+			}
+		}
+											
+	//TODO: detalles de Articulo por su Stock
+	
+		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ComunicationException{
+		try{
+			return referenciaRemota.obtenerDetalleStockdeArticulo(codigoBarra);
+		
+		}catch (RemoteException e){
+			throw new ComunicationException("Se produjo un error en la comunicación.");
+		}		
+		}
+	
+	
+	
+	
 	
 	
 	

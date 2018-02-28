@@ -15,6 +15,8 @@
 
 package edu.uade.apdzpoc.negocio;
 
+import java.util.List;
+
 import edu.uade.apdzpoc.enums.EstadoFactura;
 
 public class Facturacion {
@@ -49,6 +51,11 @@ public class Facturacion {
 		
 		factura.setEstado(EstadoFactura.Paga);
 		factura.save();
+	}
+
+	public List<Cliente> obtenerClientesParaPublicar() {
+		// TODO Auto-generated method stub
+		return Cliente.obtenerClientesParaPublicar();
 	}
 
 }

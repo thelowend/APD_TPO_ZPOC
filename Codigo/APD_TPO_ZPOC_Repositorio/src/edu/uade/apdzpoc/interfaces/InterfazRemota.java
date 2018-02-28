@@ -6,6 +6,9 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
+
+import edu.uade.apdzpoc.dto.ArticuloDTO;
+import edu.uade.apdzpoc.dto.ArticuloStockDTO;
 import edu.uade.apdzpoc.dto.ClienteDTO;
 import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.dto.LoteDTO;
@@ -56,4 +59,31 @@ public interface InterfazRemota extends Remote, Serializable {
 	public abstract void ingresarPagoCliente(PagoClienteDTO pago)throws RemoteException, FacturaException;
 
 
+	//Lista de Articulos para que se pueda hacer el pedido
+	public List<ArticuloDTO> obtenerArticulosParaPublicar() throws RemoteException;
+
+	
+
+	//Lista de Clientes para Asociar los Pagos / Factura
+	
+	
+		public List<ClienteDTO> obtenerClientesParaPublicar() throws RemoteException;
+					
+	//TODO: detalles de Pedido WEB
+		
+		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException;
+		
+	
+	//TODO: detalles de Orden de Compra
+
+		public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException;
+		
+			
+											
+	//TODO: detalles de Articulo por su Stock
+	
+		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException;
+		
+	
+	
 }

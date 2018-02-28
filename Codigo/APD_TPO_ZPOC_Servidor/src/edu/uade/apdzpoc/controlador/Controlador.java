@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uade.apdzpoc.negocio.Almacen;
+import edu.uade.apdzpoc.negocio.Articulo;
 import edu.uade.apdzpoc.negocio.Cliente;
 import edu.uade.apdzpoc.negocio.Compras;
 import edu.uade.apdzpoc.negocio.Despacho;
@@ -32,6 +33,11 @@ import edu.uade.apdzpoc.negocio.PagoCliente;
 import edu.uade.apdzpoc.negocio.PedidoWeb;
 import edu.uade.apdzpoc.negocio.RemitoAlmacen;
 import edu.uade.apdzpoc.util.DTOMapper;
+import edu.uade.apdzpoc.dao.ArticuloDAO;
+import edu.uade.apdzpoc.dao.OrdenCompraDAO;
+import edu.uade.apdzpoc.dao.PedidoWebDAO;
+import edu.uade.apdzpoc.dto.ArticuloDTO;
+import edu.uade.apdzpoc.dto.ArticuloStockDTO;
 import edu.uade.apdzpoc.dto.ClienteDTO;
 import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.dto.LoteDTO;
@@ -223,5 +229,65 @@ public class Controlador {
 			}
 		}
 	}
+	
+	
+	
+	//Lista de Articulos para que se pueda hacer el pedido
+	public List<ArticuloDTO> obtenerArticulosParaPublicar() {
+		
+		List<ArticuloDTO> resultado = new ArrayList<ArticuloDTO>();
+		List <Articulo> artsNegocio = new ArrayList<Articulo>();
+		artsNegocio = Despacho.getInstancia().obtenerArticulosParaPublicar();
+		for(Articulo a: artsNegocio)
+		{
+			resultado.add(a.articuloToDTO(a));
+		}
+				
+		return resultado;
+	}
+
+	
+
+	//Lista de Clientes para Asociar los Pagos / Factura
+	
+	public List<ClienteDTO> obtenerClientesParaPublicar() {
+		
+		List<ClienteDTO> resultado = new ArrayList<ClienteDTO>();
+		List <Cliente> clientesNegocio = new ArrayList<Cliente>();
+		clientesNegocio = Facturacion.getInstancia().obtenerClientesParaPublicar();
+		for(Cliente c: clientesNegocio)
+		{
+			resultado.add( c.clienteToDTO(c));
+		}
+				
+		return resultado;
+	}
+	//TODO: detalles de Pedido WEB
+		
+		
+		public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) {
+			
+			
+			PedidoWeb p = PedidoWebDAO.getInstancia().findByCodigo(idPedido);
+					
+			return p.pedidoToDTO();
+		}
+	
+	//TODO: detalles de Orden de Compra
+			public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) {
+				OrdenCompra oc = OrdenCompraDAO.getInstancia().findByCodigo(idOC);						
+				return oc.ordenCompraToDTO();
+			}
+			
+	//TODO: detalles de Articulo por su Stock
+	
+			public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra)
+			{
+				
+				Articulo a = ArticuloDAO.getInstancia().findByCodigo(codigoBarra);						
+				return Articulo.articuloToDTO(a);
+			}
+			
+
 	
 }
