@@ -42,6 +42,7 @@
 		const populateModal = pedido => {
 			currentPedido = pedido; //Despues voy a hacer que pedido sea un JSON
 			$modalDespachar.find('#dispatchPedidoModalLabel').text(`¿Despachar pedido ${currentPedido.id}?`);
+			$modalDespachar.find('.needs-validation').removeClass('is-invalid');
 			console.log(pedido);
 		}
 		
