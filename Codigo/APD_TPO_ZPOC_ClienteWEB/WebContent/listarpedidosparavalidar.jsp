@@ -39,7 +39,7 @@ Datos del PedidoWebDTO
 
 
 <article class="container grid col-12 col-md-10 mt-2">
-	<h1>PedidosWeb a Validar</h1>
+	<h1>Validar Pedidos</h1>
 
 	<section class="row col-12 seleccionar-articulos mt-4 mb-4">
 		<table class="table table-striped table-light text-dark">
@@ -64,15 +64,9 @@ Datos del PedidoWebDTO
 					
 					for (Iterator<PedidoWebDTO> i = pds.iterator(); i.hasNext();) {
 						aux = i.next();
-						
-						//id = aux.getIdPedido().toString();
-						//fechagen = aux.getFechaGeneracion().toString();
-						//clienteid = String.valueOf(aux.getCliente().getIdCliente());
-						//pedidoJSONstr = aux.toJSONString();
 				%>
 				<tr class="pedido-row">
-					<th scope="row"><%=aux%></th>
-					<td><%=aux.getIdPedido()%></td>
+					<th scope="row"><%=aux.getIdPedido()%></th>
 					<td><%=aux.getFechaGeneracion().toString()%></td>
 					<td><%=aux.getCliente().getNombre()%></td>
 					<td><%=aux.getEstadoPedido().toString()%></td>
@@ -90,7 +84,7 @@ Datos del PedidoWebDTO
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="listarPedidosModalLabel">¿Validar PedidoWeb Ingresado?</h5>
+				<h5 class="modal-title" id="listarPedidosModalLabel">¿Validar Pedido Ingresado?</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -107,5 +101,7 @@ Datos del PedidoWebDTO
 		</div>
 	</div>
 </div>
+<!-- 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/ListarPedidosParaValidar.js"></script>
+	 -->

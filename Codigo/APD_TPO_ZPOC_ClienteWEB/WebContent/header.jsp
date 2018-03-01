@@ -27,7 +27,9 @@
 				aria-expanded="false"> Despacho </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item ajax-link"
-						href="ActionServlet?action=ListarPedidos">Listar Pendientes</a>
+						href="ActionServlet?action=ListarPedidosParaValidar">Listar Pendientes de validaci&oacute;n</a>
+					<a class="dropdown-item ajax-link"
+						href="ActionServlet?action=ListarPedidos">Listar Pendientes de despacho</a>
 				</div></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

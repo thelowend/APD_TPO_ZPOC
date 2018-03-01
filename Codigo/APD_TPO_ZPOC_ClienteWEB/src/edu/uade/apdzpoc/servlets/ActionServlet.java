@@ -8,6 +8,7 @@ import edu.uade.apdzpoc.actions.IngresarPagoClienteAction;
 import edu.uade.apdzpoc.actions.IngresarPedidoAction;
 import edu.uade.apdzpoc.actions.ListarOrdenesCompraAction;
 import edu.uade.apdzpoc.actions.ListarPedidosAction;
+import edu.uade.apdzpoc.actions.ListarPedidosParaValidarAction;
 import edu.uade.apdzpoc.actions.ListarRemitosAction;
 import edu.uade.apdzpoc.actions.NotFoundAction;
 import edu.uade.apdzpoc.actions.SeleccionarRemitoAction;
@@ -50,6 +51,7 @@ public class ActionServlet extends HttpServlet {
 		actions.add(new ListarPedidosAction());
 		actions.add(new SeleccionarRemitoAction());
 		actions.add(new ValidarOrdenCompraAction());
+		actions.add(new ListarPedidosParaValidarAction());
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

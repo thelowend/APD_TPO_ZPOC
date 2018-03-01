@@ -71,6 +71,10 @@ public class Despacho {
 		return PedidoWeb.obtenerPedidosParaDespachar();
 	}
 	
+	public List<PedidoWeb> obtenerPedidosParaProcesar() {
+		return PedidoWeb.obtenerPedidosParaProcesar();
+	}	
+	
 	public PedidoWeb obtenerPedidoWeb(int id) throws PedidoWebException {
 		return PedidoWeb.obtenerPedidoPorId(id);
 	}

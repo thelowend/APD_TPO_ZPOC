@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import edu.uade.apdzpoc.dto.OrdenCompraDTO;
 import edu.uade.apdzpoc.dto.PedidoWebDTO;
 import edu.uade.apdzpoc.excepciones.ArticuloException;
 import edu.uade.apdzpoc.excepciones.ComunicationException;

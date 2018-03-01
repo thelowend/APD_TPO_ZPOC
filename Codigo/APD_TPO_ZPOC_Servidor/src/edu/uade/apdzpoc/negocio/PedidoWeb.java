@@ -150,6 +150,10 @@ public class PedidoWeb {
 		return PedidoWebDAO.getInstancia().findByEstado(EstadoPedido.Pendiente_Despacho);
 	}
 	
+	public static List<PedidoWeb> obtenerPedidosParaProcesar() {
+		return PedidoWebDAO.getInstancia().findByEstado(EstadoPedido.Pendiente_Validacion);
+	}
+	
 	public static List<PedidoWeb> obtenerPedidosPendientesStock(Articulo articulo) {
 		return PedidoWebDAO.getInstancia().getAllbyArticulo(articulo.getCodigoBarra(), EstadoPedido.Pendiente_Stock);
 	}
