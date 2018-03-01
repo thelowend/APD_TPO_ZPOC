@@ -1,14 +1,42 @@
 (() => {
 	$(() =>{
+		const $btnModalPedido = $('#hacerPedido');
 		const $btnPedido = $('#submitPedido');
 		const $btnAnadir = $('.btn-anadir');
 		const $carritoArticulos = $('.carrito-articulos');
+		const $validationFields = $('.needs-validation');
+		const $modalPedido = $('#submitPedidoModal');
+		const invalidClass = 'is-invalid';
 		
-		let pedidoActual = {};
+		
+		const modalPedido = ev => {
+			ev.preventDefault();
+			if (validar()) {
+				$(`<p>TEST</p>`).appendTo($modalPedido.find('.modal-body'));
+				$modalPedido.modal('show');
+			}
+		}
+		
+		const popularModal = () => {
+			$carritoArticulos.data('articulos')
+		}
 		
 		const validar = () => {
-			return true;
+
+			$validationFields.each((index, item) => {
+				switch (item.type) {
+					case 'text':
+							$(item).toggleClass(invalidClass, !item.value);
+						break;
+					case 'select-one':
+							$(item).toggleClass(invalidClass, item.selectedIndex < 1);
+						break;
+				}
+			});
+			
+			return  $carritoArticulos.data('articulos').length > 0 && $(`.needs-validation.${invalidClass}`).length < 1;
 		}
+		
 		
 		const ingresarPedido = (ev) => {
 			ev.preventDefault();
@@ -22,15 +50,13 @@
 				});
 
 				$.post('ActionServlet?action=EnviarPedido', nuevopedido, page => {
-					setTimeout((data) => { 
-						
+
 						//alert(`¡${currentPedido.idPedido} despachado!`);
 //						$modalDespachar.one('hidden.bs.modal', function (e) {
 //							$main.html(page);
 //						});
 //						$modalDespachar.modal('hide');
 						
-					}, 100);
 				});				
 			}
 		}
@@ -74,11 +100,9 @@
 				
 			}
 		}
-		
-		
-		
 
 		const doBindings = () => {
+			$btnModalPedido.click(modalPedido);
 			$btnAnadir.click(agregarAlCarrito);
 			$btnPedido.click(ingresarPedido);
 			$plusArt = $('.plus-art');

@@ -35,7 +35,7 @@ public class IngresarPedidoAction implements IAction {
 		}
     	
     	request.setAttribute("articulos", articulos);
-    	request.setAttribute("clientes", articulos);
+    	request.setAttribute("clientes", clientes);
 		
 		return "/ingresarpedido.jsp";
 	}

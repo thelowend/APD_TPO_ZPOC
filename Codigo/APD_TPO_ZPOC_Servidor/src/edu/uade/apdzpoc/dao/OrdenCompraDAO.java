@@ -116,9 +116,9 @@ public class OrdenCompraDAO {
 	public OrdenCompra toNegocio(OrdenCompraEntity ordenCompraRecuperada) {
 		OrdenCompra ordenCompraNegocio = new OrdenCompra();
 		ordenCompraNegocio.setIdOC(ordenCompraRecuperada.getIdOC());
-		ordenCompraNegocio.setFecha(ordenCompraNegocio.getFecha());
-		ordenCompraNegocio.setEstado(ordenCompraNegocio.getEstado());
-		ordenCompraNegocio.setCantidad(ordenCompraNegocio.getCantidad());
+		ordenCompraNegocio.setFecha(ordenCompraRecuperada.getFecha());
+		ordenCompraNegocio.setEstado(ordenCompraRecuperada.getEstado());
+		ordenCompraNegocio.setCantidad(ordenCompraRecuperada.getCantidad());
 
 		Articulo artAux = ArticuloDAO.getInstancia().toNegocio(ordenCompraRecuperada.getArticulo());
 		ordenCompraNegocio.setArticulo(artAux);

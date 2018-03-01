@@ -8,10 +8,10 @@
 
 
 <article class="container grid col-12 col-md-10 mt-2">
-	<h1>Ingresar Pedido:</h1>
+	<h1>Ingresar Pedido</h1>
 
 	<section class="row col-12 seleccionar-articulos mt-4 mb-4">
-		<table class="table table-striped">
+		<table class="table table-striped table-light text-dark">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">#</th>
@@ -53,7 +53,7 @@
 		<div class="carro-left col-12 col-sm-6">
 			<div class="form-group">
 				<label for="cliente">Cliente</label> 
-					<select class="form-control custom-select" id="cliente">
+					<select class="form-control custom-select needs-validation" id="cliente">
 						<option selected>Seleccionar Cliente</option>
 					<% ClienteDTO auxC;
 						for (Iterator<ClienteDTO> i = clientes.iterator(); i.hasNext();) {
@@ -63,11 +63,13 @@
 						<option value='{ "id": <%= auxC.getIdCliente() %>, "documento": <%= auxC.getDocumento() %>, "nombre": "<%= auxC.getNombre() %>"}'><%= auxC.getNombre() %></option>
 					<% } %>
 					</select>
+					<div class="invalid-feedback">Debe seleccionar un cliente</div>
 			</div>
 			<div class="form-group">
 				<label for="direccion">Direcci&oacute;n de Entrega:</label> <input
-					type="text" class="form-control" id="direccion"
+					type="text" class="form-control needs-validation" id="direccion"
 					placeholder="(Ej: Av. Pueyrredón 1472, 2do &quot;A&quot;)" name="direccion">
+				<div class="invalid-feedback">Ingrese una dirección válida</div>
 			</div>
 		</div>
 		<div class="carro-right col-12 col-sm-6 bg-light text-dark p-2">
@@ -75,13 +77,13 @@
 			</div>
 		</div>
 		<div class="carro-pedir col-12">
-			<button type="button" class="btn btn-light" data-toggle="modal" data-target="#submitPedidoModal">Hacer Pedido</button>
+			<button id="hacerPedido" type="button" class="btn btn-light">Hacer Pedido</button>
 		</div>
 	</section>
 </article>
 <div class="modal fade" id="submitPedidoModal" tabindex="-1" role="dialog" aria-labelledby="submitPedidoModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content text-dark">
       <div class="modal-header">
         <h5 class="modal-title" id="submitPedidoModalLabel">¿Confirmar Pedido?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

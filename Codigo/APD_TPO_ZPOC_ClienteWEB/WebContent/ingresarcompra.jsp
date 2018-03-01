@@ -1,1 +1,1 @@
-<h1>Ingresar Orden de Compra:</h1>
+<h1>Ingresar Orden de Compra</h1>

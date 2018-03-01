@@ -7,12 +7,12 @@
 <%@ page import="java.util.Date"%>
 
 <article class="container grid col-12 col-md-10 mt-2">
-	<h1>Despachar Pedidos:</h1>
+	<h1>Despachar Pedidos</h1>
 	<% if(request.getAttribute("errores") != null) { %>
 		<p class="warning"><%= request.getAttribute("errores").toString() %></p>
 	<% } %>
 	<section class="row col-12 seleccionar-articulos mt-4 mb-4">
-		<table class="table table-striped">
+		<table class="table table-striped table-light text-dark">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">#</th>
@@ -53,7 +53,7 @@
 	role="dialog" aria-labelledby="dispatchPedidoModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content">
+		<div class="modal-content text-dark">
 			<div class="modal-header">
 				<h5 class="modal-title" id="dispatchPedidoModalLabel">¿Despachar
 					Pedido?</h5>
