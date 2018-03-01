@@ -46,15 +46,16 @@ public class MovimientoPedido extends Movimiento {
         if (this.articulo.getStockDisponible()-cantidadPedido>0) {
        // yo agregue el if y la siguiente linea          
         this.articulo.setStockDisponible(this.articulo.getStockDisponible()-cantidadPedido);
+        
         }else {
 //esto es lo que estaba antes
         int stockActual = this.articulo.getStockDisponible() + cantidadPedido + this.articulo.getStockVirtual();
         this.articulo.setStockDisponible(stockActual < 0 ? 0 : stockActual);
         this.articulo.setStockVirtual(stockActual > 0 ? 0 : stockActual);
         this.articulo.setStockPendienteEntrega(this.articulo.getStockPendienteEntrega() - cantidadPedido);
-      
-        this.articulo.save();
         }
+        this.articulo.save();
+        
     }
     public void save() {
         MovimientoPedidoDAO.getInstancia().save(this);
