@@ -21,6 +21,10 @@ body {
 h1 {
 	text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
+
+#main {
+	margin-bottom: 3em !important;
+}
 .navbar {
 	min-height: 4em;
 }

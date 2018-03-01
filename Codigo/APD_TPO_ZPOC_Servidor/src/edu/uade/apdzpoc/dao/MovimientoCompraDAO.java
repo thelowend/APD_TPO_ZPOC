@@ -109,8 +109,14 @@ public class MovimientoCompraDAO {
 
 		ArticuloEntity artAux = ArticuloDAO.getInstancia().toEntity(movimientoCompraNegocio.getArticulo());
 		movimientoCompraEntityAPersistir.setArticulo(artAux);
+		
+		Lote lote = movimientoCompraNegocio.getLote();
+		LoteEntity loteAux = null;
+		if(lote != null) {
+			loteAux = LoteDAO.getInstancia().toEntity(lote);
+		}
 
-		LoteEntity loteAux = LoteDAO.getInstancia().toEntity(movimientoCompraNegocio.getLote());
+		//si no hay lote que no lo persista
 		movimientoCompraEntityAPersistir.setLote(loteAux);
 
 		OrdenCompraEntity ocAux = OrdenCompraDAO.getInstancia().toEntity(movimientoCompraNegocio.getOc());
