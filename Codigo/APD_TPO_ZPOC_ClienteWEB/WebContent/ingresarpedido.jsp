@@ -91,7 +91,6 @@
         </button>
       </div>
       <div class="modal-body">
-        (Contenido del pedido)
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>

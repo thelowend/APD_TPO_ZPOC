@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uade.apdzpoc.dto.ArticuloDTO;
 import edu.uade.apdzpoc.dto.ClienteDTO;
-import edu.uade.apdzpoc.dto.OrdenCompraDTO;
 import edu.uade.apdzpoc.excepciones.ComunicationException;
 import edu.uade.apdzpoc.negociodelegado.BusinessDelegate;
 
@@ -18,7 +17,6 @@ public class IngresarPedidoAction implements IAction {
 
 	@Override
 	public boolean isValid(String action) {
-		// TODO Auto-generated method stub
 		return "IngresarPedido".equals(action);
 	}
 

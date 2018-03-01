@@ -1,5 +1,6 @@
 (() => {
 	$(() =>{
+		const $main = $('#main');
 		const $btnModalPedido = $('#hacerPedido');
 		const $btnPedido = $('#submitPedido');
 		const $btnAnadir = $('.btn-anadir');
@@ -12,13 +13,15 @@
 		const modalPedido = ev => {
 			ev.preventDefault();
 			if (validar()) {
-				$(`<p>TEST</p>`).appendTo($modalPedido.find('.modal-body'));
+				popularModal();
 				$modalPedido.modal('show');
 			}
 		}
 		
 		const popularModal = () => {
-			$carritoArticulos.data('articulos')
+			const articulos = $carritoArticulos.data('articulos');
+			const $body = $modalPedido.find('.modal-body').empty();
+			$.each(articulos, (i, art) => { $modalPedido.find('.modal-body').append(`<div class="row no-gutters"><div class="col-10">${art.nombre} - ${art.desc}</div><div class="col-2 text-center">${art.cant}</div></div>`); });
 		}
 		
 		const validar = () => {
@@ -50,26 +53,25 @@
 				});
 
 				$.post('ActionServlet?action=EnviarPedido', nuevopedido, page => {
-
-						//alert(`¡${currentPedido.idPedido} despachado!`);
-//						$modalDespachar.one('hidden.bs.modal', function (e) {
-//							$main.html(page);
-//						});
-//						$modalDespachar.modal('hide');
+						$modalPedido.one('hidden.bs.modal', function (e) {
+							$main.html(page);
+						});
+						$modalPedido.modal('hide');
 						
 				});				
 			}
 		}
 		
 		const agregarAlCarrito = (ev) => {
-			const articulo = $(ev.currentTarget).data('articulo');
+			let articulo = $(ev.currentTarget).data('articulo');
+			debugger;
 			const model = `
-			<div class="row no-gutters" id="artcarr${articulo.codigoBarra}">
-			<div class="carrito-articulo-nombre col-8">${articulo.nombre} - ${articulo.desc}</div>
-				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light plus-art"><i class="fas fa-minus-square"></i></button></div>
+			<div class="row no-gutters" id="artcarr${articulo.codigoBarra}" data-artid="${articulo.codigoBarra}">
+				  <div class="carrito-articulo-nombre col-8">${articulo.nombre} - ${articulo.desc}</div>
+				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light" data-action="min"><i class="fas fa-minus-square"></i></button></div>
 				  <div class="carrito-articulo-cant col-1 text-center">${articulo.cant}</div>
-				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light min-art"><i class="fas fa-plus-square"></i></button></div>
-				  <div class="carrito-articulo-trash col-1 text-center"><button class="btn btn-sm btn-dark remove-art" data-artborrar="${articulo.codigoBarra}"><i class="fas fa-trash"></i></button></div>
+				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light" data-action="plus"><i class="fas fa-plus-square"></i></button></div>
+				  <div class="carrito-articulo-trash col-1 text-center"><button class="btn btn-sm btn-dark" data-action="remove"><i class="fas fa-trash"></i></button></div>
 			</div>
 			`;
 			let articulosEnCarrito = $carritoArticulos.data('articulos');
@@ -91,13 +93,35 @@
 				$carritoArticulos.append(model);
 				articulosEnCarrito.push(articulo);
 			}
-			
 			$carritoArticulos.data('articulos', articulosEnCarrito);
 		};
 		
-		const carrito = ($this) => {
-			return () => {
-				
+		
+		const carritoAction = function () { // ¡Al fin un lugar en donde es relevante la diferencia entre las arrow function y las expresiones function!
+			const $this = $(this);
+			let articulosEnCarrito = $carritoArticulos.data('articulos');
+			const $artRow = $this.parents('[data-artID]');
+			
+			let found = false, foundIndex = 0;
+			for (foundIndex = 0; !found && foundIndex < articulosEnCarrito.length; foundIndex++) {
+				if($artRow.data('artid') == articulosEnCarrito[foundIndex].codigoBarra) {
+					found = true;
+					foundIndex--;
+				}
+			}
+			
+			switch ($this.data('action')) {
+				case 'plus':
+					$artRow.find('.carrito-articulo-cant').html(++articulosEnCarrito[foundIndex].cant);
+					break;
+				case 'min':
+					if(articulosEnCarrito[foundIndex].cant > 1) 
+						$artRow.find('.carrito-articulo-cant').html(--articulosEnCarrito[foundIndex].cant);
+					break;
+				case 'remove':
+					articulosEnCarrito.splice(foundIndex, 1);
+					$artRow.remove();
+					break;
 			}
 		}
 
@@ -105,12 +129,7 @@
 			$btnModalPedido.click(modalPedido);
 			$btnAnadir.click(agregarAlCarrito);
 			$btnPedido.click(ingresarPedido);
-			$plusArt = $('.plus-art');
-			$minArt = $('.min-art');
-			$removeArt = $('.remove-art');
-			$('.plus-art').click(carrito.apply($plusArt));
-			$('.min-art').click(carrito.apply($minArt));
-			$('.remove-art').click(carrito.apply($removeArt));
+			$carritoArticulos.on('click', '[data-action]', carritoAction);
 		}
 		
 		doBindings();
