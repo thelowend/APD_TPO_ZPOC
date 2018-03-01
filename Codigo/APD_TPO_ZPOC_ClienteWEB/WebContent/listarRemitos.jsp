@@ -6,7 +6,7 @@
 <%@ page import="edu.uade.apdzpoc.dto.RemitoAlmacenDTO"%>
 
 <article class="container grid col-12 col-md-10 mt-2">
-	<h1>Remitos del Almac$eacute;</h1>
+	<h1>Remitos del Almac&eacute;n</h1>
 	
 <section class="row col-12 seleccionar-articulos mt-4 mb-4">
 
@@ -24,7 +24,7 @@
         <tbody>
         
         <%
-					List<RemitoAlmacenDTO> rmts = (List<RemitoAlmacenDTO>)request.getAttribute("remitosAlmacen");
+					List<RemitoAlmacenDTO> rmts = (List<RemitoAlmacenDTO>)request.getAttribute("remitos");
         			RemitoAlmacenDTO aux;
 
 					

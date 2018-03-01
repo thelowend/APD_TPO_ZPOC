@@ -1,6 +1,7 @@
 package edu.uade.apdzpoc.actions;
 
 import edu.uade.apdzpoc.negociodelegado.BusinessDelegate;
+import edu.uade.apdzpoc.dto.RemitoAlmacenDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,8 @@ public class ListarRemitosAction implements IAction {
     @Override
     public String doAction(HttpServletRequest request, HttpServletResponse response) {
         //TODO Obtener Remitos
-        Collection remitos = Collections.emptyList();
+        //List<RemitoAlmacenDTO> remitos = BusinessDelegate.getInstancia().obtenerRemitosAlmacen();
+    	Collection remitos = Collections.emptyList();
         request.setAttribute("remitos", remitos);
         return "/listarRemitos.jsp";
     }
