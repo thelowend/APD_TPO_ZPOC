@@ -42,7 +42,6 @@
 				});
 
 				$.post('ActionServlet?action=DespacharPedido', currentPedido, page => {
-					// alert(`¡${currentPedido.idPedido} despachado!`);
 					$modalDespachar.one('hidden.bs.modal', function (e) {
 						$main.html(page);
 					});
@@ -52,11 +51,9 @@
 		}
 		
 		const populateModal = pedido => {
-			currentPedido = pedido; // Despues voy a hacer que pedido sea un
-									// JSON
+			currentPedido = pedido;
 			$modalDespachar.find('#dispatchPedidoModalLabel').text(`¿Despachar pedido ${currentPedido.idPedido}?`);
 			$modalDespachar.find('.needs-validation').removeClass('is-invalid');
-			console.log(pedido);
 		}
 		
 		const doBindings = () => {

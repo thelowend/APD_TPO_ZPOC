@@ -45,9 +45,9 @@ Datos del PedidoWebDTO
 		<table class="table table-striped table-light text-dark">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">#</th>					
+					<th scope="col">#</th>
+					<th scope="col">Cliente</th>			
 					<th scope="col">Fecha Generacion</th>
-					<th scope="col">Cliente</th>
 					<th scope="col">Estado Pedido</th>
 					<th scope="col">Acciones</th>
 				</tr>
@@ -56,19 +56,16 @@ Datos del PedidoWebDTO
 				<%
 					List<PedidoWebDTO> pds = (List<PedidoWebDTO>) request.getAttribute("pedidos");
 					PedidoWebDTO aux;
-					String id;
-					String fechagen;
-					String clienteid;
-					String estadoP;
 					String pedidoJSONstr = "";
 					
 					for (Iterator<PedidoWebDTO> i = pds.iterator(); i.hasNext();) {
 						aux = i.next();
+						pedidoJSONstr = aux.toJSONString();
 				%>
 				<tr class="pedido-row">
 					<th scope="row"><%=aux.getIdPedido()%></th>
-					<td><%=aux.getFechaGeneracion().toString()%></td>
 					<td><%=aux.getCliente().getNombre()%></td>
+					<td><%=aux.getFechaGeneracion().toString()%></td>
 					<td><%=aux.getEstadoPedido().toString()%></td>
 					<td><button class="btn btn-sm btn-warning btn-validar"
 							data-pedido='<%=pedidoJSONstr%>'><i class="fas fa-check-square"></i> Validar</button>
@@ -78,30 +75,4 @@ Datos del PedidoWebDTO
 		</table>
 	</section>
 </article>
-<div class="modal fade" id="listarPedidosModal" tabindex="-1"
-	role="dialog" aria-labelledby="listarPedidosModalLabel"
-	aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="listarPedidosModalLabel">¿Validar Pedido Ingresado?</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				(DATOS PEDIDO)
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-dark" id="submitOrden">Validar
-					Pedido</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/ListarPedidosParaValidar.js"></script>
-	 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/listarpedidosvalidacion.js"></script>

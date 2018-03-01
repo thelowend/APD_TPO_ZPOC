@@ -55,7 +55,7 @@ public class RemitoAlmacen {
 		for (ItemPedido item : items) {
 			List<Ubicacion> ubicacionesItem = Almacen.getInstancia().buscarUbicaciones(item);
 			for (Ubicacion ubicacionItem : ubicacionesItem) {
-				itemsRemito.add(new ItemRemitoAlmacen(item.getArticulo(), item.getCantidad(), ubicacionItem));
+				itemsRemitoAlmacen.add(new ItemRemitoAlmacen(item.getArticulo(), item.getCantidad(), ubicacionItem));
 			}
 		}
 		return itemsRemitoAlmacen;
