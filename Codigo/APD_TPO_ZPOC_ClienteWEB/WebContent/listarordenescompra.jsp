@@ -12,8 +12,9 @@
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Orden</th>
-					<th scope="col">Descripci&oacuten</th>
+					<th scope="col">Fecha</th>
+					<th scope="col">Art&iacute;culo</th>
+					<th scope="col">Cantidad</th>
 					<th scope="col">Acciones</th>
 				</tr>
 			</thead>
@@ -28,16 +29,12 @@
 					
 					for (Iterator<OrdenCompraDTO> i = ocs.iterator(); i.hasNext();) {
 						aux = i.next();
-						
-						//id = aux.getIdPedido().toString();
-						//fechagen = aux.getFechaGeneracion().toString();
-						//clienteid = String.valueOf(aux.getCliente().getIdCliente());
-						//pedidoJSONstr = aux.toJSONString();
 				%>
 				<tr class="orden-row">
-					<th scope="row"><%=aux%></th>
-					<td><%=aux.getIdOC()%></td>
+					<th scope="row"><%=aux.getIdOC()%></th>
 					<td><%=aux.getFecha().toString()%></td>
+					<td><%=aux.getArticulo().getNombreArticulo()%></td>
+					<td><%=aux.getCantidad()%></td>
 					<td><button class="btn btn-sm btn-warning btn-validar"
 							data-pedido='<%=ordenJSONstr%>'><i class="fas fa-check-square"></i> Validar</button>
 				</tr>
