@@ -133,6 +133,7 @@ public class Ubicacion {
 			return cantidadRestante - cantEnUbicacion; // cant articulos que falta ubicar
 		} else {
 			this.setCapacidad(cantEnUbicacion - cantidadRestante);
+			this.setEstado(EstadoUbicacion.Con_disponibilidad);
 			this.save();
 			return 0; //No hay mas articulos a ubicar.
 		}
