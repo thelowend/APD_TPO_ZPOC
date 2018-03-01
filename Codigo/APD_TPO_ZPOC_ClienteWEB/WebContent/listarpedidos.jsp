@@ -35,7 +35,7 @@
 						id = aux.getIdPedido().toString();
 						fechagen = aux.getFechaGeneracion().toString();
 						clienteid = String.valueOf(aux.getCliente().getIdCliente());
-						pedidoJSONstr = aux.toJSONString();
+						pedidoJSONstr = "";
 				%>
 				<tr>
 					<th scope="row"><%=aux.getIdPedido()%></th>
