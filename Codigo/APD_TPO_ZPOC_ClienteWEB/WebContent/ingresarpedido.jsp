@@ -2,6 +2,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="edu.uade.apdzpoc.dto.ArticuloDTO"%>
+<%@ page import="edu.uade.apdzpoc.dto.ClienteDTO"%>
 <%@ page import="java.util.Date"%>
 
 
@@ -24,36 +25,23 @@
 			<tbody>
 				<%
 					List<ArticuloDTO> articulos = (List<ArticuloDTO>) request.getAttribute("articulos");
-					
+					List<ClienteDTO> clientes = (List<ClienteDTO>) request.getAttribute("clientes");	
 					ArticuloDTO aux;
-					
 					String codigoBarra;
-					String nombreArticulo;
-					String descripcion;
-					String precioVenta;
-					String tamanio;
-					
-					
+
 					for (Iterator<ArticuloDTO> i = articulos.iterator(); i.hasNext();) {
 						aux = i.next();
-						
 						codigoBarra = String.valueOf(aux.getCodigoBarra());
-						nombreArticulo = aux.getNombreArticulo();
-						descripcion = aux.getDescripcion();
-						precioVenta = String.valueOf(aux.getPrecioVenta());
-						tamanio = aux.getTamanio();
-												
-						
-			%>
+				%>
 				<tr>
-					<th scope="row"><%=aux.getCodigoBarra()%></th>
+					<th scope="row"><%=codigoBarra%></th>
 					<td><%=aux.getNombreArticulo()%></td>
 					<td><%=aux.getDescripcion()%></td>
-					<td><%=aux.getPrecioVenta()%></td>
+					<td>$<%=aux.getPrecioVenta()%></td>
 					<td><%=aux.getTamanio()%></td>
 					
 					<td><button class="btn btn-sm btn-warning btn-anadir"
-							data-articulo='{ "id": "<%=codigoBarra%>", "nombre": "<%= aux.getNombreArticulo() %>", "cant": 1 }'><i class="fas fa-cart-plus"></i> Agregar</button>
+							data-articulo='{ "codigoBarra": "<%=codigoBarra%>", "nombre": "<%= aux.getNombreArticulo() %>", "desc": "<%=aux.getDescripcion()%>", "cant": 1 }'><i class="fas fa-cart-plus"></i> Agregar</button>
 				</tr>
 				<% } %>
 
@@ -64,9 +52,17 @@
 	<section class="row col-12 carrito-pedido p-4 bg-dark text-light">
 		<div class="carro-left col-12 col-sm-6">
 			<div class="form-group">
-				<label for="cliente">Cliente</label> <input type="text"
-					class="form-control" id="cliente"
-					placeholder="Código de cliente" name="cliente">
+				<label for="cliente">Cliente</label> 
+					<select class="form-control custom-select" id="cliente">
+						<option selected>Seleccionar Cliente</option>
+					<% ClienteDTO auxC;
+						for (Iterator<ClienteDTO> i = clientes.iterator(); i.hasNext();) {
+						auxC = i.next();
+					
+					%>
+						<option value='{ "id": <%= auxC.getIdCliente() %>, "documento": <%= auxC.getDocumento() %>, "nombre": "<%= auxC.getNombre() %>"}'><%= auxC.getNombre() %></option>
+					<% } %>
+					</select>
 			</div>
 			<div class="form-group">
 				<label for="direccion">Direcci&oacute;n de Entrega:</label> <input

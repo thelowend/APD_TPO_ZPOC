@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import edu.uade.apdzpoc.controlador.Controlador;
 import edu.uade.apdzpoc.dao.ArticuloDAO;
 import edu.uade.apdzpoc.dao.OrdenCompraDAO;
@@ -61,10 +60,12 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	private static final long serialVersionUID = -6961672630964242179L;
 
 	@Override
-	public int crearPedidoWeb(List<ItemPedidoDTO> articulosComprados, ClienteDTO cliente, String direccion) throws RemoteException, ArticuloException, ArticuloProveedorException, ProveedorException, ClienteException {
-		
-			return Controlador.getInstancia().crearPedidoWeb(articulosComprados, cliente, direccion);
-		
+	public int crearPedidoWeb(List<ItemPedidoDTO> articulosComprados, ClienteDTO cliente, String direccion)
+			throws RemoteException, ArticuloException, ArticuloProveedorException, ProveedorException,
+			ClienteException {
+
+		return Controlador.getInstancia().crearPedidoWeb(articulosComprados, cliente, direccion);
+
 	}
 
 	@Override
@@ -74,12 +75,12 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte) throws RemoteException, PedidoWebException {
+	public void despacharPedido(PedidoWebDTO pw, Date fechaEntrega, String empresaTransporte)
+			throws RemoteException, PedidoWebException {
 		Controlador.getInstancia().despacharPedido(pw, fechaEntrega, empresaTransporte);
 
 	}
-	
-	
+
 	@Override
 	public List<PedidoWebDTO> obtenerPedidosParaProcesar() throws RemoteException {
 		// TODO Auto-generated method stub
@@ -87,13 +88,11 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void procesarPedido(PedidoWebDTO pw) throws RemoteException, ArticuloException, ArticuloProveedorException, ProveedorException, PedidoWebException {
+	public void procesarPedido(PedidoWebDTO pw) throws RemoteException, ArticuloException, ArticuloProveedorException,
+			ProveedorException, PedidoWebException {
 		Controlador.getInstancia().procesarPedidoWeb(pw);
 
 	}
-
-
-		
 
 	@Override
 	public List<OrdenCompraDTO> obtenerOrdenesdeCompraParaValidar() throws RemoteException {
@@ -102,7 +101,9 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void validarIngresoOrdenCompra(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote) throws RemoteException, LoteException, UbicacionException, ArticuloException, ArticuloProveedorException, ProveedorException, OrdenCompraException {
+	public void validarIngresoOrdenCompra(OrdenCompraDTO oc, EstadoOC estadoOC, LoteDTO lote)
+			throws RemoteException, LoteException, UbicacionException, ArticuloException, ArticuloProveedorException,
+			ProveedorException, OrdenCompraException {
 		Controlador.getInstancia().validarIngresoOrdenCompra(oc, estadoOC, lote);
 
 	}
@@ -110,50 +111,48 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	@Override
 	public void ajustarInventario(int cantidad, CausaAjuste causa, int legajoOperador, int legajoAutorizante,
 			LoteDTO lote, DestinoArticulos destino) throws RemoteException, ArticuloException, LoteException {
-		Controlador.getInstancia().ajustarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote,
-				destino);
+		Controlador.getInstancia().ajustarInventario(cantidad, causa, legajoOperador, legajoAutorizante, lote, destino);
 
 	}
 
 	@Override
 	public void ingresarPagoCliente(PagoClienteDTO pago) throws RemoteException, FacturaException {
 		Controlador.getInstancia().ingresarPagoCliente(pago);
-		
+
 	}
-	
-	
-	//Lista de Articulos para que se pueda hacer el pedido
-		public List<ArticuloDTO> obtenerArticulosParaPublicar() throws RemoteException {
-			return Controlador.getInstancia().obtenerArticulosParaPublicar();
-					}
 
-		
+	// Lista de Articulos para que se pueda hacer el pedido
+	public List<ArticuloDTO> obtenerArticulosParaPublicar() throws RemoteException {
+		return Controlador.getInstancia().obtenerArticulosParaPublicar();
+	}
 
-		//Lista de Clientes para Asociar los Pagos / Factura
-		
-		
-			public List<ClienteDTO> obtenerClientesParaPublicar() throws RemoteException {
-				return Controlador.getInstancia().obtenerClientesParaPublicar();
-						}
-		//TODO: detalles de Pedido WEB
-			
-			public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException, PedidoWebException {
-				return Controlador.getInstancia().obtenerPedidoWebParaPublicar(idPedido);
-			}
-		
-		//TODO: detalles de Orden de Compra
+	// Lista de Clientes para Asociar los Pagos / Factura
 
-			public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException, OrdenCompraException {
-				return Controlador.getInstancia().obtenerOrdenCompraParaPublicar(idOC);
-			}	
-				
-												
-		//TODO: detalles de Articulo por su Stock
-		
-			public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ArticuloException {
-				return Controlador.getInstancia().obtenerDetalleStockdeArticulo(codigoBarra);
-			}	
-			
-	
+	public List<ClienteDTO> obtenerClientesParaPublicar() throws RemoteException {
+		return Controlador.getInstancia().obtenerClientesParaPublicar();
+	}
+	// TODO: detalles de Pedido WEB
+
+	public PedidoWebDTO obtenerPedidoWebParaPublicar(int idPedido) throws RemoteException, PedidoWebException {
+		return Controlador.getInstancia().obtenerPedidoWebParaPublicar(idPedido);
+	}
+
+	// TODO: detalles de Orden de Compra
+
+	public OrdenCompraDTO obtenerOrdenCompraParaPublicar(int idOC) throws RemoteException, OrdenCompraException {
+		return Controlador.getInstancia().obtenerOrdenCompraParaPublicar(idOC);
+	}
+
+	// TODO: detalles de Articulo por su Stock
+
+	public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ArticuloException {
+		return Controlador.getInstancia().obtenerDetalleStockdeArticulo(codigoBarra);
+	}
+
+	@Override
+	public ArticuloDTO obtenerArticuloPorCodigo(int codigoBarra) throws RemoteException, ArticuloException {
+		// TODO Auto-generated method stub
+		return Controlador.getInstancia().obtenerArticuloPorCodigo(codigoBarra);
+	}
 
 }

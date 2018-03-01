@@ -33,32 +33,34 @@
 					}, 100);
 				});				
 			}
-			
-			confirm("confirmar pedido?");
 		}
 		
 		const agregarAlCarrito = (ev) => {
 			const articulo = $(ev.currentTarget).data('articulo');
 			const model = `
-			<div class="row no-gutters" id="artcarr${articulo.id}">
-			<div class="carrito-articulo-nombre col-8">${articulo.nombre}</div>
+			<div class="row no-gutters" id="artcarr${articulo.codigoBarra}">
+			<div class="carrito-articulo-nombre col-8">${articulo.nombre} - ${articulo.desc}</div>
 				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light plus-art"><i class="fas fa-minus-square"></i></button></div>
 				  <div class="carrito-articulo-cant col-1 text-center">${articulo.cant}</div>
 				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light min-art"><i class="fas fa-plus-square"></i></button></div>
-				  <div class="carrito-articulo-trash col-1 text-center"><button class="btn btn-sm btn-dark remove-art" data-artborrar="${articulo.id}"><i class="fas fa-trash"></i></button></div>
+				  <div class="carrito-articulo-trash col-1 text-center"><button class="btn btn-sm btn-dark remove-art" data-artborrar="${articulo.codigoBarra}"><i class="fas fa-trash"></i></button></div>
 			</div>
 			`;
 			let articulosEnCarrito = $carritoArticulos.data('articulos');
 			if (articulosEnCarrito.length) {
-				let modif = $.each(articulosEnCarrito, (idx, art) => {
-					if(articulo.id === art.id) {
-						art.cant++;
-						$carritoArticulos.find(`#artcarr${articulo.id} .carrito-articulo-cant`).html(art.cant);
-					} else {
-						articulosEnCarrito.push(articulo);
-						$carritoArticulos.append(model);
+				let found = false;
+				for (let i = 0; !found && i < articulosEnCarrito.length; i++) {
+					if(articulo.codigoBarra === articulosEnCarrito[i].codigoBarra) {
+						$carritoArticulos.find(`#artcarr${articulosEnCarrito[i].codigoBarra} .carrito-articulo-cant`).html(++articulosEnCarrito[i].cant);
+						found = true;
 					}
-				});	
+				}
+				if(!found) {
+					$carritoArticulos.append(model);
+					articulosEnCarrito.push(articulo);
+				} else {
+					
+				}
 			} else {
 				$carritoArticulos.append(model);
 				articulosEnCarrito.push(articulo);

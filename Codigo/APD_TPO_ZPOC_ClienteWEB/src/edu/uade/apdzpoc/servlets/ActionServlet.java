@@ -12,6 +12,8 @@ import edu.uade.apdzpoc.actions.ListarRemitosAction;
 import edu.uade.apdzpoc.actions.NotFoundAction;
 import edu.uade.apdzpoc.actions.SeleccionarRemitoAction;
 import edu.uade.apdzpoc.actions.ValidarOrdenCompraAction;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.ComunicationException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -71,7 +73,7 @@ public class ActionServlet extends HttpServlet {
 
 		try {
 			jspPage = found.doAction(request, response);
-		} catch (ParseException | JSONException e) {
+		} catch (ParseException | JSONException | ComunicationException | NumberFormatException | ArticuloException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
