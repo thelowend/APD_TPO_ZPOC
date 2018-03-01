@@ -181,8 +181,7 @@ public class Articulo {
 			while (cantidadRestante > 0) {
 
 				Ubicacion u = lote.getMejorUbicacion(); // Busco la que tenga menos items para liberarlas más rápido
-				u.actualizarUbicacion(cantidadRestante);
-				cantidadRestante -= u.getCapacidad(); // La capacidad actualizada
+				cantidadRestante = u.actualizarUbicacion(cantidadRestante);
 				ubicacionesItemsALiberar.add(u); // Guardo la ubicación para el remito
 
 				if (u.getEstado() == EstadoUbicacion.Libre) {
