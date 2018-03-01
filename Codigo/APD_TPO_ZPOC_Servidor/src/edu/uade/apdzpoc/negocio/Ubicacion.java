@@ -124,11 +124,12 @@ public class Ubicacion {
 	}
 	
 	public void actualizarUbicacion(int cantidadRestante) {
-		if (cantidadRestante >= this.getCapacidad()) {
+		int restantes = this.getCapacidadInicial() - this.getCapacidad();
+		if (cantidadRestante >= restantes) {
 			this.setCapacidad(0);
 			this.setEstado(EstadoUbicacion.Libre);
 		} else {
-			this.setCapacidad(this.getCapacidad() - cantidadRestante);
+			this.setCapacidad(restantes - cantidadRestante);
 		}
 		this.save();
 	}
