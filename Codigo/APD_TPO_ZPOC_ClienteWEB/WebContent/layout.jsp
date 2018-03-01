@@ -21,12 +21,12 @@
 	src="${pageContext.request.contextPath}/resources/js/fontawesome-all.min.js"></script>
 </head>
 
-<body>
+<body class="bg-secondary text-light">
 	<header class="header">
 		<%@include file="header.jsp"%>
 	</header>
-	<section id="main" class="container-fluid mt-2">
-		<h1>Bienvenido/a</h1>
+	<section id="main" class="container-fluid mt-4">
+		<h1 class="text-center">Bienvenido/a</h1>
 	</section>
 
 	<footer class="footer hidden-sm-down">

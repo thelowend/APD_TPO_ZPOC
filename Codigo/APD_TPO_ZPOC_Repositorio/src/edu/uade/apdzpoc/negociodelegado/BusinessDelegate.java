@@ -199,13 +199,22 @@ public List<PedidoWebDTO>  obtenerPedidosParaProcesar() throws ComunicationExcep
 											
 	//TODO: detalles de Articulo por su Stock
 	
-		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ComunicationException, ArticuloException{
+		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ComunicationException, ArticuloException {
 		try{
 			return referenciaRemota.obtenerDetalleStockdeArticulo(codigoBarra);
 		
 		}catch (RemoteException e){
 			throw new ComunicationException("Se produjo un error en la comunicación.");
 		}		
+		}
+
+		public ArticuloDTO obtenerArticuloPorCodigo(int codigoBarra) throws ArticuloException, ComunicationException {
+			try{
+				return referenciaRemota.obtenerArticuloPorCodigo(codigoBarra);
+			
+			}catch (RemoteException e){
+				throw new ComunicationException("Se produjo un error en la comunicación.");
+			}	
 		}
 	
 	

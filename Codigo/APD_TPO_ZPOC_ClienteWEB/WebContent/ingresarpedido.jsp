@@ -2,15 +2,16 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="edu.uade.apdzpoc.dto.ArticuloDTO"%>
+<%@ page import="edu.uade.apdzpoc.dto.ClienteDTO"%>
 <%@ page import="java.util.Date"%>
 
 
 
 <article class="container grid col-12 col-md-10 mt-2">
-	<h1>Ingresar Pedido:</h1>
+	<h1>Ingresar Pedido</h1>
 
 	<section class="row col-12 seleccionar-articulos mt-4 mb-4">
-		<table class="table table-striped">
+		<table class="table table-striped table-light text-dark">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">#</th>
@@ -24,60 +25,26 @@
 			<tbody>
 				<%
 					List<ArticuloDTO> articulos = (List<ArticuloDTO>) request.getAttribute("articulos");
-					
+					List<ClienteDTO> clientes = (List<ClienteDTO>) request.getAttribute("clientes");	
 					ArticuloDTO aux;
-					
 					String codigoBarra;
-					String nombreArticulo;
-					String descripcion;
-					String precioVenta;
-					String tamanio;
-					
-					
+
 					for (Iterator<ArticuloDTO> i = articulos.iterator(); i.hasNext();) {
 						aux = i.next();
-						
 						codigoBarra = String.valueOf(aux.getCodigoBarra());
-						nombreArticulo = aux.getNombreArticulo();
-						descripcion = aux.getDescripcion();
-						precioVenta = String.valueOf(aux.getPrecioVenta());
-						tamanio = aux.getTamanio();
-												
-						
-			%>
+				%>
 				<tr>
-					<th scope="row"><%=aux.getCodigoBarra()%></th>
+					<th scope="row"><%=codigoBarra%></th>
 					<td><%=aux.getNombreArticulo()%></td>
 					<td><%=aux.getDescripcion()%></td>
-					<td><%=aux.getPrecioVenta()%></td>
+					<td>$<%=aux.getPrecioVenta()%></td>
 					<td><%=aux.getTamanio()%></td>
 					
-					<td><button class="btn btn-sm btn-dark btn-anadir"
-							data-articulo='{ "id": "<%=codigoBarra%>", "nombre": "<%= aux.getNombreArticulo() %>" }'><i class="fas fa-cubes"></i> Agregar</button>
+					<td><button class="btn btn-sm btn-warning btn-anadir"
+							data-articulo='{ "codigoBarra": "<%=codigoBarra%>", "nombre": "<%= aux.getNombreArticulo() %>", "desc": "<%=aux.getDescripcion()%>", "cant": 1 }'><i class="fas fa-cart-plus"></i> Agregar</button>
 				</tr>
 				<% } %>
-			
-			
-			
-			
-			
-<!-- 				<tr>
-					<th scope="row">1</th>
-					<td>Pizza</td>
-					<td>Pizza Vegana yummy</td>
-					<td><button class="btn btn-sm btn-dark">Añadir</button></td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Birra</td>
-					<td>Bien fría por favor</td>
-					<td><button class="btn btn-sm btn-dark">Añadir</button></td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Faso</td>
-					<td>Guarda con éste</td>
-					<td><button class="btn btn-sm btn-dark">Añadir</button></td> -->
+
 				</tr>
 			</tbody>
 		</table>
@@ -85,35 +52,38 @@
 	<section class="row col-12 carrito-pedido p-4 bg-dark text-light">
 		<div class="carro-left col-12 col-sm-6">
 			<div class="form-group">
-				<label for="cliente">Cliente</label> <input type="text"
-					class="form-control" id="cliente"
-					placeholder="Código de cliente" name="cliente">
+				<label for="cliente">Cliente</label> 
+					<select class="form-control custom-select needs-validation" id="cliente">
+						<option selected>Seleccionar Cliente</option>
+					<% ClienteDTO auxC;
+						for (Iterator<ClienteDTO> i = clientes.iterator(); i.hasNext();) {
+						auxC = i.next();
+					
+					%>
+						<option value='{ "id": <%= auxC.getIdCliente() %>, "documento": <%= auxC.getDocumento() %>, "nombre": "<%= auxC.getNombre() %>"}'><%= auxC.getNombre() %></option>
+					<% } %>
+					</select>
+					<div class="invalid-feedback">Debe seleccionar un cliente</div>
 			</div>
 			<div class="form-group">
 				<label for="direccion">Direcci&oacute;n de Entrega:</label> <input
-					type="text" class="form-control" id="direccion"
+					type="text" class="form-control needs-validation" id="direccion"
 					placeholder="(Ej: Av. Pueyrredón 1472, 2do &quot;A&quot;)" name="direccion">
+				<div class="invalid-feedback">Ingrese una dirección válida</div>
 			</div>
 		</div>
 		<div class="carro-right col-12 col-sm-6 bg-light text-dark p-2">
-			<div class="carrito-articulos container-fluid" data-articulos='{}'>
-				<div class="row no-gutters" data-articulo='{}'>
-				  <div class="carrito-articulo-nombre col-8">Item 1</div>
-				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light plus-art"><i class="fas fa-minus-square"></i></button></div>
-				  <div class="carrito-articulo-cant col-1 text-center">1</div>
-				  <div class="carrito-articulo-trash col-1 text-center text-dark"><button class="btn btn-sm btn-light min-art"><i class="fas fa-plus-square"></i></button></div>
-				  <div class="carrito-articulo-trash col-1 text-center"><button class="btn btn-sm btn-dark remove-art"><i class="fas fa-trash"></i></button></div>
-				</div>
+			<div class="carrito-articulos container-fluid" data-articulos='[]'>
 			</div>
 		</div>
 		<div class="carro-pedir col-12">
-			<button type="button" class="btn btn-light" data-toggle="modal" data-target="#submitPedidoModal">Hacer Pedido</button>
+			<button id="hacerPedido" type="button" class="btn btn-light">Hacer Pedido</button>
 		</div>
 	</section>
 </article>
 <div class="modal fade" id="submitPedidoModal" tabindex="-1" role="dialog" aria-labelledby="submitPedidoModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content text-dark">
       <div class="modal-header">
         <h5 class="modal-title" id="submitPedidoModalLabel">¿Confirmar Pedido?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

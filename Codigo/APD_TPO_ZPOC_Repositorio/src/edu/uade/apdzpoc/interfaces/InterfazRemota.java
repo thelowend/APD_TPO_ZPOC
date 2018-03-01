@@ -83,6 +83,9 @@ public interface InterfazRemota extends Remote, Serializable {
 	//TODO: detalles de Articulo por su Stock
 	
 		public ArticuloStockDTO obtenerDetalleStockdeArticulo(int codigoBarra) throws RemoteException, ArticuloException;
+
+		
+		public ArticuloDTO obtenerArticuloPorCodigo(int codigoBarra) throws RemoteException, ArticuloException;
 		
 	
 	

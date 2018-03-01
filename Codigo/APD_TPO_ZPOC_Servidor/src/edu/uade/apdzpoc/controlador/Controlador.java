@@ -300,6 +300,12 @@ public class Controlador {
 				return Articulo.articuloStockToDTO(a);
 			}
 			
+			public ArticuloDTO obtenerArticuloPorCodigo(int codigoBarra) throws ArticuloException
+			{
+				
+				Articulo a = ArticuloDAO.getInstancia().findByCodigo(codigoBarra);						
+				return Articulo.articuloToDTO(a);
+			}
 
 	
 }

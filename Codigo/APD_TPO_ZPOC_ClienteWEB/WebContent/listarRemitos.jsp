@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h1>Listar Remitos:</h1>
 
+<h1>Listar Remitos</h1>
 <div class="container">
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-stripe table-light">
+        <thead class="thead-dark">
         <tr>
             <th>ID</th>
             <th>Numero</th>

@@ -42,21 +42,18 @@
 				});
 
 				$.post('ActionServlet?action=DespacharPedido', currentPedido, page => {
-					setTimeout((data) => { //Timeout para simular carga
-						
-						//alert(`¡${currentPedido.idPedido} despachado!`);
-						$modalDespachar.one('hidden.bs.modal', function (e) {
-							$main.html(page);
-						});
-						$modalDespachar.modal('hide');
-						
-					}, 100);
+					// alert(`¡${currentPedido.idPedido} despachado!`);
+					$modalDespachar.one('hidden.bs.modal', function (e) {
+						$main.html(page);
+					});
+					$modalDespachar.modal('hide');
 				});				
 			}
 		}
 		
 		const populateModal = pedido => {
-			currentPedido = pedido; //Despues voy a hacer que pedido sea un JSON
+			currentPedido = pedido; // Despues voy a hacer que pedido sea un
+									// JSON
 			$modalDespachar.find('#dispatchPedidoModalLabel').text(`¿Despachar pedido ${currentPedido.idPedido}?`);
 			$modalDespachar.find('.needs-validation').removeClass('is-invalid');
 			console.log(pedido);

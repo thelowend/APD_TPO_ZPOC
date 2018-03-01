@@ -5,6 +5,9 @@
         <dependent-module archiveName="APD_TPO_ZPOC_Repositorio.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/APD_TPO_ZPOC_Repositorio/APD_TPO_ZPOC_Repositorio">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="org.json.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/Diego/eclipse-workspace/APD_TPO_ZPOC/Codigo/APD_TPO_ZPOC_ClienteWEB/src/lib/org.json.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="APD_TPO_ZPOC_ClienteWEB"/>
         <property name="java-output-path" value="/APD_TPO_ZPOC_ClienteWEB/build/classes"/>
     </wb-module>

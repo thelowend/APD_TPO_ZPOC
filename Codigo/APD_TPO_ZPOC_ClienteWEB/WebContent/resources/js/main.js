@@ -8,10 +8,8 @@
 			ev.preventDefault();
 			$overlay.fadeIn(150);
 			$.post(ev.currentTarget.href, {"test" : 'lalala'}, page => {
-				setTimeout(() => { //Timeout para simular carga
-					$main.html(page);
-					$overlay.fadeOut(150);
-				}, 200);
+				$main.html(page);
+				$overlay.fadeOut(150);
 			});
 		}
 		

@@ -1,6 +1,7 @@
 package edu.uade.apdzpoc.servlets;
 
 import edu.uade.apdzpoc.actions.DespacharPedidoAction;
+import edu.uade.apdzpoc.actions.EnviarPedidoAction;
 import edu.uade.apdzpoc.actions.IAction;
 import edu.uade.apdzpoc.actions.IngresarOrdenCompraAction;
 import edu.uade.apdzpoc.actions.IngresarPagoClienteAction;
@@ -11,6 +12,8 @@ import edu.uade.apdzpoc.actions.ListarRemitosAction;
 import edu.uade.apdzpoc.actions.NotFoundAction;
 import edu.uade.apdzpoc.actions.SeleccionarRemitoAction;
 import edu.uade.apdzpoc.actions.ValidarOrdenCompraAction;
+import edu.uade.apdzpoc.excepciones.ArticuloException;
+import edu.uade.apdzpoc.excepciones.ComunicationException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -22,6 +25,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
 
 
 @WebServlet("/ActionServlet")
@@ -35,6 +40,7 @@ public class ActionServlet extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		actions.add(new DespacharPedidoAction());
+		actions.add(new EnviarPedidoAction());
 		actions.add(new ListarRemitosAction());
 		actions.add(new SeleccionarRemitoAction());
 		actions.add(new IngresarOrdenCompraAction());
@@ -67,7 +73,7 @@ public class ActionServlet extends HttpServlet {
 
 		try {
 			jspPage = found.doAction(request, response);
-		} catch (ParseException e) {
+		} catch (ParseException | JSONException | ComunicationException | NumberFormatException | ArticuloException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
