@@ -4,7 +4,7 @@
 		const $btnValidarPedido = $('.btn-validar');
 		
 		const validarPedido = function () {
-			$.post('ActionServlet?action=ValidarPedido', $(this).data('pedido'), page => {
+			$.post('ActionServlet?action=ValidarPedido', {"pedido": JSON.stringify($(this).data('pedido')) }, page => {
 				$main.html(page);
 			});				
 		}

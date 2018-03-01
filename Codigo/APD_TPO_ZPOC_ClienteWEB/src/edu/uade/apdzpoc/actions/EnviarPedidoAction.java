@@ -3,7 +3,6 @@ package edu.uade.apdzpoc.actions;
 import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;

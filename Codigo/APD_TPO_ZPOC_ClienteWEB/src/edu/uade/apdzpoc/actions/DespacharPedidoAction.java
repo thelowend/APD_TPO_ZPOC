@@ -10,10 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uade.apdzpoc.dto.ClienteDTO;
-import edu.uade.apdzpoc.dto.ItemPedidoDTO;
 import edu.uade.apdzpoc.dto.PedidoWebDTO;
-import edu.uade.apdzpoc.enums.EstadoPedido;
 import edu.uade.apdzpoc.excepciones.ComunicationException;
 import edu.uade.apdzpoc.excepciones.PedidoWebException;
 import edu.uade.apdzpoc.negociodelegado.BusinessDelegate;
